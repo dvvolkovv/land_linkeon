@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
           <div className="flex items-center gap-3">
             <img
-              src="/logo.svg"
+              src="/logo1.png"
               alt="Linkeon Logo"
               className="w-12 h-12 object-contain"
             />

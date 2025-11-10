@@ -20,7 +20,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <div className="flex justify-center mb-8 animate-fade-in-up">
           <img
-            src="/logo.svg"
+            src="/logo1.png"
             alt="Linkeon Logo"
             className="w-20 h-20 object-contain"
           />
