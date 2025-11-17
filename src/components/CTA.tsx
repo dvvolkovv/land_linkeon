@@ -22,7 +22,7 @@ export default function CTA() {
         </h2>
 
         <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto">
-          Бесплатно. Без анкет. Через живой диалог.
+          Без анкет. Через живой диалог.
         </p>
 
         <a
