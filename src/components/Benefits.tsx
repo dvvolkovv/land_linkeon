@@ -25,7 +25,7 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-amber-50 via-emerald-50 to-stone-50 relative">
+    <section className="py-20 px-6 bg-gradient-to-br from-warm-50 via-forest-50 to-earth-50 relative">
       <div className="absolute inset-0 opacity-5">
         <img
           src="https://images.pexels.com/photos/1157557/pexels-photo-1157557.jpeg?auto=compress&cs=tinysrgb&w=1920"
@@ -48,10 +48,10 @@ export default function Benefits() {
             return (
               <div
                 key={index}
-                className="flex gap-6 p-8 bg-white/90 backdrop-blur-sm rounded-3xl border border-stone-100 hover:shadow-xl transition-all duration-300"
+                className="flex gap-6 p-8 bg-white/90 backdrop-blur-sm rounded-3xl border border-forest-100 hover:shadow-xl transition-all duration-300"
               >
                 <div className="flex-shrink-0">
-                  <div className="w-14 h-14 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl flex items-center justify-center">
+                  <div className="w-14 h-14 bg-gradient-to-br from-forest-600 to-forest-700 rounded-2xl flex items-center justify-center">
                     <Icon className="w-7 h-7 text-white" />
                   </div>
                 </div>

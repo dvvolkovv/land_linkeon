@@ -2,7 +2,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function CTA() {
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 relative overflow-hidden">
+    <section className="py-20 px-6 bg-gradient-to-br from-forest-600 via-forest-700 to-primary-600 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <img
           src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1920"
@@ -27,7 +27,7 @@ export default function CTA() {
 
         <a
           href="https://my.linkeon.io"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-700 text-lg font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-white text-forest-700 text-lg font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
         >
           Перейти в Linkeon
           <ArrowRight className="w-5 h-5" />

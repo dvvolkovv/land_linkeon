@@ -23,7 +23,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-emerald-50 via-stone-50 to-amber-50">
+    <section className="py-20 px-6 bg-gradient-to-br from-forest-50 via-earth-50 to-warm-50">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-16 text-center">
           Как работает
@@ -40,10 +40,10 @@ export default function HowItWorks() {
               >
                 <div className="flex flex-col items-center text-center space-y-4">
                   <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                    <div className="w-20 h-20 bg-gradient-to-br from-forest-600 to-forest-700 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                       <Icon className="w-10 h-10 text-white" />
                     </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg">
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-warm-500 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg">
                       {step.number}
                     </div>
                   </div>
@@ -58,7 +58,7 @@ export default function HowItWorks() {
                 </div>
 
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-emerald-300 to-transparent -z-10"></div>
+                  <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-forest-300 to-transparent -z-10"></div>
                 )}
               </div>
             );

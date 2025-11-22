@@ -6,8 +6,8 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-emerald-100 to-amber-100 rounded-full mb-8">
-              <Heart className="w-8 h-8 text-emerald-700" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-forest-100 to-warm-100 rounded-full mb-8">
+              <Heart className="w-8 h-8 text-forest-700" />
             </div>
 
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">

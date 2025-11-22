@@ -41,14 +41,14 @@ export default function Assistants() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
+            <div className="inline-block w-12 h-12 border-4 border-forest-200 border-t-forest-600 rounded-full animate-spin"></div>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {assistants.map((assistant) => (
               <div
                 key={assistant.id}
-                className="group relative bg-white p-8 rounded-3xl border-2 border-stone-100 hover:border-emerald-200 hover:shadow-xl transition-all duration-300"
+                className="group relative bg-white p-8 rounded-3xl border-2 border-forest-100 hover:border-forest-200 hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-32 h-32 mb-6 group-hover:scale-110 transition-all duration-300">
                   <img
@@ -60,7 +60,7 @@ export default function Assistants() {
                       e.currentTarget.nextElementSibling?.classList.remove('hidden');
                     }}
                   />
-                  <div className="hidden w-32 h-32 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center">
+                  <div className="hidden w-32 h-32 bg-gradient-to-br from-forest-500 to-forest-600 rounded-2xl flex items-center justify-center">
                     <UserCircle className="w-16 h-16 text-white" />
                   </div>
                 </div>
@@ -69,7 +69,7 @@ export default function Assistants() {
                   {assistant.name}
                 </h3>
 
-                <p className="text-emerald-700 font-semibold mb-3">
+                <p className="text-forest-700 font-semibold mb-3">
                   {assistant.role}
                 </p>
 
