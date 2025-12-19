@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Send } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -28,6 +28,15 @@ export default function Footer() {
             >
               my.linkeon.io
               <ExternalLink className="w-4 h-4" />
+            </a>
+            <a
+              href="https://t.me/ainomira"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-earth-200 hover:text-forest-300 transition-colors"
+            >
+              Telegram канал
+              <Send className="w-4 h-4" />
             </a>
           </div>
         </div>
