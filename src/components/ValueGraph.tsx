@@ -7,7 +7,7 @@ interface Node {
   vx: number;
   vy: number;
   label: string;
-  type: 'profile' | 'value';
+  type: 'profile' | 'value' | 'belief' | 'intention' | 'interest' | 'desire';
   profile?: number;
 }
 
@@ -79,6 +79,34 @@ export default function ValueGraph() {
       }
     ];
 
+    // Дополнительные элементы профиля
+    const profileElements = {
+      beliefs: { label: 'Убеждения', type: 'belief' as const, color: '#f59e0b', distance: 160 },
+      intentions: { label: 'Намерения', type: 'intention' as const, color: '#8b5cf6', distance: 160 },
+      interests: { label: 'Интересы', type: 'interest' as const, color: '#ec4899', distance: 160 },
+      desires: { label: 'Желания', type: 'desire' as const, color: '#f43f5e', distance: 160 }
+    };
+
+    const createProfileElements = (profileId: number, centerX: number, centerY: number): Node[] => {
+      const elements = Object.entries(profileElements);
+      return elements.map(([key, config], i) => {
+        const angle = (i / elements.length) * Math.PI * 2 - Math.PI / 2;
+        return {
+          id: `p${profileId}-${key}`,
+          x: centerX + Math.cos(angle) * config.distance,
+          y: centerY + Math.sin(angle) * config.distance,
+          vx: 0,
+          vy: 0,
+          label: config.label,
+          type: config.type,
+          profile: profileId
+        };
+      });
+    };
+
+    const profile1Elements = createProfileElements(1, leftX, centerY);
+    const profile2Elements = createProfileElements(2, rightX, centerY);
+
     const profile1Nodes: Node[] = profile1OnlyValues.map((label, i) => ({
       id: `p1-${label}`,
       x: leftX + Math.cos((i / profile1OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
@@ -112,9 +140,17 @@ export default function ValueGraph() {
       profile: 0
     }));
 
-    nodesRef.current = [...profileNodes, ...profile1Nodes, ...profile2Nodes, ...sharedNodes];
+    nodesRef.current = [...profileNodes, ...profile1Elements, ...profile2Elements, ...profile1Nodes, ...profile2Nodes, ...sharedNodes];
 
     edgesRef.current = [
+      ...Object.keys(profileElements).map(key => ({
+        source: 'profile1',
+        target: `p1-${key}`
+      })),
+      ...Object.keys(profileElements).map(key => ({
+        source: 'profile2',
+        target: `p2-${key}`
+      })),
       ...profile1OnlyValues.map(v => ({
         source: 'profile1',
         target: `p1-${v}`
@@ -137,7 +173,12 @@ export default function ValueGraph() {
       ctx.clearRect(0, 0, width, height);
 
       nodesRef.current.forEach(node => {
-        if (node.type === 'value' && draggedNodeRef.current !== node) {
+        if (draggedNodeRef.current === node) {
+          node.x = mousePositionRef.current.x;
+          node.y = mousePositionRef.current.y;
+          node.vx = 0;
+          node.vy = 0;
+        } else if (node.type === 'value') {
           let targetX: number;
           let targetY: number;
           let targetDistance: number;
@@ -187,11 +228,6 @@ export default function ValueGraph() {
 
           node.x += node.vx;
           node.y += node.vy;
-        } else if (draggedNodeRef.current === node) {
-          node.x = mousePositionRef.current.x;
-          node.y = mousePositionRef.current.y;
-          node.vx = 0;
-          node.vy = 0;
         }
       });
 
@@ -209,6 +245,15 @@ export default function ValueGraph() {
           if (isSharedEdge) {
             ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
             ctx.lineWidth = 2.5;
+          } else if (target.type === 'belief' || target.type === 'intention' || target.type === 'interest' || target.type === 'desire') {
+            const colors: Record<string, string> = {
+              belief: 'rgba(245, 158, 11, 0.5)',
+              intention: 'rgba(139, 92, 246, 0.5)',
+              interest: 'rgba(236, 72, 153, 0.5)',
+              desire: 'rgba(244, 63, 94, 0.5)'
+            };
+            ctx.strokeStyle = colors[target.type] || 'rgba(100, 100, 100, 0.3)';
+            ctx.lineWidth = 2;
           } else {
             ctx.strokeStyle = source.profile === 1 ? 'rgba(14, 165, 233, 0.4)' : 'rgba(20, 184, 166, 0.4)';
             ctx.lineWidth = 2;
@@ -233,6 +278,27 @@ export default function ValueGraph() {
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText(node.label, node.x, node.y - 35);
+        } else if (node.type === 'belief' || node.type === 'intention' || node.type === 'interest' || node.type === 'desire') {
+          const colors: Record<string, string> = {
+            belief: '#f59e0b',
+            intention: '#8b5cf6',
+            interest: '#ec4899',
+            desire: '#f43f5e'
+          };
+
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, 10, 0, Math.PI * 2);
+          ctx.fillStyle = colors[node.type];
+          ctx.fill();
+          ctx.strokeStyle = colors[node.type];
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.font = 'bold 12px Inter, sans-serif';
+          ctx.fillStyle = '#0f172a';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(node.label, node.x, node.y - 22);
         } else {
           const isShared = node.profile === 0;
 
@@ -275,11 +341,16 @@ export default function ValueGraph() {
       const mousePos = getMousePos(e);
 
       for (const node of nodesRef.current) {
-        if (node.type === 'value') {
+        if (node.type === 'value' || node.type === 'belief' || node.type === 'intention' || node.type === 'interest' || node.type === 'desire') {
           const dx = mousePos.x - node.x;
           const dy = mousePos.y - node.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          const radius = node.profile === 0 ? 12 : 8;
+          let radius = 8;
+          if (node.type === 'value') {
+            radius = node.profile === 0 ? 12 : 8;
+          } else {
+            radius = 10;
+          }
 
           if (distance <= radius + 5) {
             draggedNodeRef.current = node;
@@ -299,11 +370,16 @@ export default function ValueGraph() {
       } else {
         let hovering = false;
         for (const node of nodesRef.current) {
-          if (node.type === 'value') {
+          if (node.type === 'value' || node.type === 'belief' || node.type === 'intention' || node.type === 'interest' || node.type === 'desire') {
             const dx = mousePos.x - node.x;
             const dy = mousePos.y - node.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            const radius = node.profile === 0 ? 12 : 8;
+            let radius = 8;
+            if (node.type === 'value') {
+              radius = node.profile === 0 ? 12 : 8;
+            } else {
+              radius = 10;
+            }
 
             if (distance <= radius + 5) {
               hovering = true;
