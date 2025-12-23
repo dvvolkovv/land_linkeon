@@ -22,6 +22,8 @@ export default function ValueGraph() {
   const nodesRef = useRef<Node[]>([]);
   const edgesRef = useRef<Edge[]>([]);
   const animationRef = useRef<number>();
+  const draggedNodeRef = useRef<Node | null>(null);
+  const mousePositionRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -135,7 +137,7 @@ export default function ValueGraph() {
       ctx.clearRect(0, 0, width, height);
 
       nodesRef.current.forEach(node => {
-        if (node.type === 'value') {
+        if (node.type === 'value' && draggedNodeRef.current !== node) {
           let targetX: number;
           let targetY: number;
           let targetDistance: number;
@@ -185,6 +187,11 @@ export default function ValueGraph() {
 
           node.x += node.vx;
           node.y += node.vy;
+        } else if (draggedNodeRef.current === node) {
+          node.x = mousePositionRef.current.x;
+          node.y = mousePositionRef.current.y;
+          node.vx = 0;
+          node.vy = 0;
         }
       });
 
@@ -256,10 +263,76 @@ export default function ValueGraph() {
       animationRef.current = requestAnimationFrame(animate);
     };
 
+    const getMousePos = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      const mousePos = getMousePos(e);
+
+      for (const node of nodesRef.current) {
+        if (node.type === 'value') {
+          const dx = mousePos.x - node.x;
+          const dy = mousePos.y - node.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const radius = node.profile === 0 ? 12 : 8;
+
+          if (distance <= radius + 5) {
+            draggedNodeRef.current = node;
+            mousePositionRef.current = mousePos;
+            canvas.style.cursor = 'grabbing';
+            break;
+          }
+        }
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const mousePos = getMousePos(e);
+
+      if (draggedNodeRef.current) {
+        mousePositionRef.current = mousePos;
+      } else {
+        let hovering = false;
+        for (const node of nodesRef.current) {
+          if (node.type === 'value') {
+            const dx = mousePos.x - node.x;
+            const dy = mousePos.y - node.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const radius = node.profile === 0 ? 12 : 8;
+
+            if (distance <= radius + 5) {
+              hovering = true;
+              break;
+            }
+          }
+        }
+        canvas.style.cursor = hovering ? 'grab' : 'default';
+      }
+    };
+
+    const handleMouseUp = () => {
+      draggedNodeRef.current = null;
+      canvas.style.cursor = 'default';
+    };
+
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseup', handleMouseUp);
+    canvas.addEventListener('mouseleave', handleMouseUp);
+
     animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      canvas.removeEventListener('mousedown', handleMouseDown);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseup', handleMouseUp);
+      canvas.removeEventListener('mouseleave', handleMouseUp);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
