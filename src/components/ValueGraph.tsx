@@ -95,8 +95,8 @@ export default function ValueGraph() {
           id: `p${profileId}-${key}`,
           x: centerX + Math.cos(angle) * config.distance,
           y: centerY + Math.sin(angle) * config.distance,
-          vx: 0,
-          vy: 0,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: (Math.random() - 0.5) * 1.2,
           label: config.label,
           type: config.type,
           profile: profileId
@@ -225,6 +225,50 @@ export default function ValueGraph() {
 
           node.vx *= 0.95;
           node.vy *= 0.95;
+
+          node.x += node.vx;
+          node.y += node.vy;
+        } else if (node.type === 'belief' || node.type === 'intention' || node.type === 'interest' || node.type === 'desire') {
+          let targetX: number;
+          let targetY: number;
+          const targetDistance = 160;
+
+          if (node.profile === 1) {
+            targetX = leftX;
+            targetY = centerY;
+          } else {
+            targetX = rightX;
+            targetY = centerY;
+          }
+
+          const dx = targetX - node.x;
+          const dy = targetY - node.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (Math.abs(distance - targetDistance) > 5) {
+            const factor = (distance - targetDistance) / distance;
+            node.vx += dx * factor * 0.012;
+            node.vy += dy * factor * 0.012;
+          }
+
+          nodesRef.current.forEach(other => {
+            if (node.id !== other.id && (other.type === 'belief' || other.type === 'intention' || other.type === 'interest' || other.type === 'desire')) {
+              const dx = other.x - node.x;
+              const dy = other.y - node.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < 80 && distance > 0) {
+                node.vx -= (dx / distance) * 0.3;
+                node.vy -= (dy / distance) * 0.3;
+              }
+            }
+          });
+
+          node.vx += (Math.random() - 0.5) * 0.1;
+          node.vy += (Math.random() - 0.5) * 0.1;
+
+          node.vx *= 0.96;
+          node.vy *= 0.96;
 
           node.x += node.vx;
           node.y += node.vy;
