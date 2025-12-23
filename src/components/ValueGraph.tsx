@@ -7,11 +7,14 @@ interface Node {
   vx: number;
   vy: number;
   label: string;
+  type: 'profile' | 'value';
+  profile?: number;
 }
 
 interface Edge {
   source: string;
   target: string;
+  isConnection?: boolean;
 }
 
 export default function ValueGraph() {
@@ -37,74 +40,116 @@ export default function ValueGraph() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const values = [
-      'Осознанность',
-      'Семья',
-      'Природа',
-      'Творчество',
-      'Свобода',
-      'Рост',
-      'Доверие',
-      'Баланс',
-    ];
-
     const width = canvas.width / window.devicePixelRatio;
     const height = canvas.height / window.devicePixelRatio;
 
-    nodesRef.current = values.map((label, i) => ({
-      id: label,
-      x: width / 2 + Math.cos((i / values.length) * Math.PI * 2) * 150,
-      y: height / 2 + Math.sin((i / values.length) * Math.PI * 2) * 150,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      label,
-    }));
+    const profile1Values = ['Семья', 'Рост', 'Творчество', 'Баланс'];
+    const profile2Values = ['Творчество', 'Свобода', 'Рост', 'Природа'];
+    const sharedValues = profile1Values.filter(v => profile2Values.includes(v));
+
+    const leftX = width * 0.2;
+    const rightX = width * 0.8;
+    const centerY = height / 2;
+
+    nodesRef.current = [
+      {
+        id: 'profile1',
+        x: leftX,
+        y: centerY,
+        vx: 0,
+        vy: 0,
+        label: 'Профиль 1',
+        type: 'profile',
+        profile: 1
+      },
+      {
+        id: 'profile2',
+        x: rightX,
+        y: centerY,
+        vx: 0,
+        vy: 0,
+        label: 'Профиль 2',
+        type: 'profile',
+        profile: 2
+      },
+      ...profile1Values.map((label, i) => ({
+        id: `p1-${label}`,
+        x: leftX + Math.cos((i / profile1Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
+        y: centerY + Math.sin((i / profile1Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        label,
+        type: 'value' as const,
+        profile: 1
+      })),
+      ...profile2Values.map((label, i) => ({
+        id: `p2-${label}`,
+        x: rightX + Math.cos((i / profile2Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
+        y: centerY + Math.sin((i / profile2Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        label,
+        type: 'value' as const,
+        profile: 2
+      }))
+    ];
 
     edgesRef.current = [
-      { source: 'Осознанность', target: 'Семья' },
-      { source: 'Семья', target: 'Природа' },
-      { source: 'Природа', target: 'Баланс' },
-      { source: 'Творчество', target: 'Свобода' },
-      { source: 'Свобода', target: 'Рост' },
-      { source: 'Рост', target: 'Доверие' },
-      { source: 'Доверие', target: 'Осознанность' },
-      { source: 'Творчество', target: 'Осознанность' },
+      ...profile1Values.map(v => ({
+        source: 'profile1',
+        target: `p1-${v}`
+      })),
+      ...profile2Values.map(v => ({
+        source: 'profile2',
+        target: `p2-${v}`
+      })),
+      ...sharedValues.flatMap(v => [
+        {
+          source: `p1-${v}`,
+          target: `p2-${v}`,
+          isConnection: true
+        }
+      ])
     ];
 
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
 
-      const centerX = width / 2;
-      const centerY = height / 2;
-
       nodesRef.current.forEach(node => {
-        const dx = centerX - node.x;
-        const dy = centerY - node.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (node.type === 'value') {
+          const targetX = node.profile === 1 ? leftX : rightX;
+          const targetY = centerY;
 
-        if (distance > 0) {
-          node.vx += (dx / distance) * 0.01;
-          node.vy += (dy / distance) * 0.01;
-        }
+          const dx = targetX - node.x;
+          const dy = targetY - node.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const targetDistance = 120;
 
-        nodesRef.current.forEach(other => {
-          if (node.id !== other.id) {
-            const dx = other.x - node.x;
-            const dy = other.y - node.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 100 && distance > 0) {
-              node.vx -= (dx / distance) * 0.5;
-              node.vy -= (dy / distance) * 0.5;
-            }
+          if (Math.abs(distance - targetDistance) > 5) {
+            const factor = (distance - targetDistance) / distance;
+            node.vx += dx * factor * 0.02;
+            node.vy += dy * factor * 0.02;
           }
-        });
 
-        node.vx *= 0.95;
-        node.vy *= 0.95;
+          nodesRef.current.forEach(other => {
+            if (node.id !== other.id && other.type === 'value' && other.profile === node.profile) {
+              const dx = other.x - node.x;
+              const dy = other.y - node.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
 
-        node.x += node.vx;
-        node.y += node.vy;
+              if (distance < 80 && distance > 0) {
+                node.vx -= (dx / distance) * 0.4;
+                node.vy -= (dy / distance) * 0.4;
+              }
+            }
+          });
+
+          node.vx *= 0.92;
+          node.vy *= 0.92;
+
+          node.x += node.vx;
+          node.y += node.vy;
+        }
       });
 
       edgesRef.current.forEach(edge => {
@@ -115,26 +160,54 @@ export default function ValueGraph() {
           ctx.beginPath();
           ctx.moveTo(source.x, source.y);
           ctx.lineTo(target.x, target.y);
-          ctx.strokeStyle = 'rgba(14, 165, 233, 0.2)';
-          ctx.lineWidth = 1;
+
+          if (edge.isConnection) {
+            ctx.strokeStyle = 'rgba(20, 184, 166, 0.6)';
+            ctx.lineWidth = 3;
+            ctx.setLineDash([5, 5]);
+          } else {
+            ctx.strokeStyle = 'rgba(14, 165, 233, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([]);
+          }
+
           ctx.stroke();
+          ctx.setLineDash([]);
         }
       });
 
       nodesRef.current.forEach(node => {
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, 8, 0, Math.PI * 2);
-        ctx.fillStyle = '#0ea5e9';
-        ctx.fill();
-        ctx.strokeStyle = '#0284c7';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        if (node.type === 'profile') {
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
+          ctx.fillStyle = node.profile === 1 ? '#0ea5e9' : '#14b8a6';
+          ctx.fill();
+          ctx.strokeStyle = node.profile === 1 ? '#0284c7' : '#0d9488';
+          ctx.lineWidth = 3;
+          ctx.stroke();
 
-        ctx.font = '12px Inter, sans-serif';
-        ctx.fillStyle = '#0f172a';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(node.label, node.x, node.y - 20);
+          ctx.font = 'bold 14px Inter, sans-serif';
+          ctx.fillStyle = '#0f172a';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(node.label, node.x, node.y - 35);
+        } else {
+          const isShared = sharedValues.includes(node.label);
+
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, isShared ? 10 : 8, 0, Math.PI * 2);
+          ctx.fillStyle = isShared ? '#14b8a6' : (node.profile === 1 ? '#0ea5e9' : '#14b8a6');
+          ctx.fill();
+          ctx.strokeStyle = isShared ? '#0d9488' : (node.profile === 1 ? '#0284c7' : '#0d9488');
+          ctx.lineWidth = isShared ? 3 : 2;
+          ctx.stroke();
+
+          ctx.font = isShared ? 'bold 13px Inter, sans-serif' : '12px Inter, sans-serif';
+          ctx.fillStyle = '#0f172a';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(node.label, node.x, node.y - 20);
+        }
       });
 
       animationRef.current = requestAnimationFrame(animate);
