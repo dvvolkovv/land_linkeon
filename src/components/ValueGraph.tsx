@@ -81,8 +81,8 @@ export default function ValueGraph() {
       id: `p1-${label}`,
       x: leftX + Math.cos((i / profile1OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
       y: centerY + Math.sin((i / profile1OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
       label,
       type: 'value' as const,
       profile: 1
@@ -92,8 +92,8 @@ export default function ValueGraph() {
       id: `p2-${label}`,
       x: rightX + Math.cos((i / profile2OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
       y: centerY + Math.sin((i / profile2OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
       label,
       type: 'value' as const,
       profile: 2
@@ -103,8 +103,8 @@ export default function ValueGraph() {
       id: `shared-${label}`,
       x: centerX + (Math.random() - 0.5) * 100,
       y: centerY + (i - sharedValues.length / 2) * 80,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
       label,
       type: 'value' as const,
       profile: 0
@@ -160,8 +160,8 @@ export default function ValueGraph() {
 
           if (Math.abs(distance - targetDistance) > 5) {
             const factor = (distance - targetDistance) / distance;
-            node.vx += dx * factor * 0.02;
-            node.vy += dy * factor * 0.02;
+            node.vx += dx * factor * 0.015;
+            node.vy += dy * factor * 0.015;
           }
 
           nodesRef.current.forEach(other => {
@@ -171,14 +171,17 @@ export default function ValueGraph() {
               const distance = Math.sqrt(dx * dx + dy * dy);
 
               if (distance < 70 && distance > 0) {
-                node.vx -= (dx / distance) * 0.3;
-                node.vy -= (dy / distance) * 0.3;
+                node.vx -= (dx / distance) * 0.4;
+                node.vy -= (dy / distance) * 0.4;
               }
             }
           });
 
-          node.vx *= 0.93;
-          node.vy *= 0.93;
+          node.vx += (Math.random() - 0.5) * 0.15;
+          node.vy += (Math.random() - 0.5) * 0.15;
+
+          node.vx *= 0.95;
+          node.vy *= 0.95;
 
           node.x += node.vx;
           node.y += node.vy;
