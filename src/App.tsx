@@ -1,5 +1,6 @@
 import Hero from './components/Hero';
 import ForYou from './components/ForYou';
+import ValueConnection from './components/ValueConnection';
 import HowItWorks from './components/HowItWorks';
 import ThreeServices from './components/ThreeServices';
 import Advantages from './components/Advantages';
@@ -12,6 +13,7 @@ function App() {
     <div className="min-h-screen">
       <Hero />
       <ForYou />
+      <ValueConnection />
       <HowItWorks />
       <ThreeServices />
       <Advantages />

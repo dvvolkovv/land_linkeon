@@ -1,13 +1,8 @@
 import { ArrowRight } from 'lucide-react';
-import ValueGraph from './ValueGraph';
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 py-20 bg-gradient-to-br from-ocean-50 via-white to-teal-50 overflow-hidden">
-      <div className="absolute inset-0 opacity-30">
-        <ValueGraph />
-      </div>
-
       <div className="relative max-w-5xl mx-auto text-center z-10">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 text-sky-900 leading-tight">
           Поговори с ассистентом — <br />
