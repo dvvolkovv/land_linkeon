@@ -45,9 +45,9 @@ export default function ValueGraph() {
     const width = canvas.width / window.devicePixelRatio;
     const height = canvas.height / window.devicePixelRatio;
 
-    const profile1Values = ['Семья', 'Рост', 'Творчество', 'Баланс'];
+    const profile1Values = ['Семья', 'Рост', 'Творчество', 'Баланс', 'Свобода'];
     const profile2Values = ['Творчество', 'Свобода', 'Рост', 'Природа'];
-    const sharedValues = ['Рост', 'Творчество'];
+    const sharedValues = ['Рост', 'Творчество', 'Свобода'];
     const profile1OnlyValues = profile1Values.filter(v => !sharedValues.includes(v));
     const profile2OnlyValues = profile2Values.filter(v => !sharedValues.includes(v));
 
