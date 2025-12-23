@@ -45,13 +45,16 @@ export default function ValueGraph() {
 
     const profile1Values = ['Семья', 'Рост', 'Творчество', 'Баланс'];
     const profile2Values = ['Творчество', 'Свобода', 'Рост', 'Природа'];
-    const sharedValues = profile1Values.filter(v => profile2Values.includes(v));
+    const sharedValues = ['Рост', 'Творчество'];
+    const profile1OnlyValues = profile1Values.filter(v => !sharedValues.includes(v));
+    const profile2OnlyValues = profile2Values.filter(v => !sharedValues.includes(v));
 
-    const leftX = width * 0.2;
-    const rightX = width * 0.8;
+    const leftX = width * 0.25;
+    const rightX = width * 0.75;
+    const centerX = width / 2;
     const centerY = height / 2;
 
-    nodesRef.current = [
+    const profileNodes: Node[] = [
       {
         id: 'profile1',
         x: leftX,
@@ -71,45 +74,61 @@ export default function ValueGraph() {
         label: 'Профиль 2',
         type: 'profile',
         profile: 2
-      },
-      ...profile1Values.map((label, i) => ({
-        id: `p1-${label}`,
-        x: leftX + Math.cos((i / profile1Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
-        y: centerY + Math.sin((i / profile1Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        label,
-        type: 'value' as const,
-        profile: 1
-      })),
-      ...profile2Values.map((label, i) => ({
-        id: `p2-${label}`,
-        x: rightX + Math.cos((i / profile2Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
-        y: centerY + Math.sin((i / profile2Values.length) * Math.PI * 2 - Math.PI / 2) * 120,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        label,
-        type: 'value' as const,
-        profile: 2
-      }))
+      }
     ];
 
+    const profile1Nodes: Node[] = profile1OnlyValues.map((label, i) => ({
+      id: `p1-${label}`,
+      x: leftX + Math.cos((i / profile1OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
+      y: centerY + Math.sin((i / profile1OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      label,
+      type: 'value' as const,
+      profile: 1
+    }));
+
+    const profile2Nodes: Node[] = profile2OnlyValues.map((label, i) => ({
+      id: `p2-${label}`,
+      x: rightX + Math.cos((i / profile2OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
+      y: centerY + Math.sin((i / profile2OnlyValues.length) * Math.PI * 2 - Math.PI / 2) * 100,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      label,
+      type: 'value' as const,
+      profile: 2
+    }));
+
+    const sharedNodes: Node[] = sharedValues.map((label, i) => ({
+      id: `shared-${label}`,
+      x: centerX + (Math.random() - 0.5) * 100,
+      y: centerY + (i - sharedValues.length / 2) * 80,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      label,
+      type: 'value' as const,
+      profile: 0
+    }));
+
+    nodesRef.current = [...profileNodes, ...profile1Nodes, ...profile2Nodes, ...sharedNodes];
+
     edgesRef.current = [
-      ...profile1Values.map(v => ({
+      ...profile1OnlyValues.map(v => ({
         source: 'profile1',
         target: `p1-${v}`
       })),
-      ...profile2Values.map(v => ({
+      ...profile2OnlyValues.map(v => ({
         source: 'profile2',
         target: `p2-${v}`
       })),
-      ...sharedValues.flatMap(v => [
-        {
-          source: `p1-${v}`,
-          target: `p2-${v}`,
-          isConnection: true
-        }
-      ])
+      ...sharedValues.map(v => ({
+        source: 'profile1',
+        target: `shared-${v}`
+      })),
+      ...sharedValues.map(v => ({
+        source: 'profile2',
+        target: `shared-${v}`
+      }))
     ];
 
     const animate = () => {
@@ -117,13 +136,27 @@ export default function ValueGraph() {
 
       nodesRef.current.forEach(node => {
         if (node.type === 'value') {
-          const targetX = node.profile === 1 ? leftX : rightX;
-          const targetY = centerY;
+          let targetX: number;
+          let targetY: number;
+          let targetDistance: number;
+
+          if (node.profile === 0) {
+            targetX = centerX;
+            targetY = centerY;
+            targetDistance = 90;
+          } else if (node.profile === 1) {
+            targetX = leftX;
+            targetY = centerY;
+            targetDistance = 100;
+          } else {
+            targetX = rightX;
+            targetY = centerY;
+            targetDistance = 100;
+          }
 
           const dx = targetX - node.x;
           const dy = targetY - node.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          const targetDistance = 120;
 
           if (Math.abs(distance - targetDistance) > 5) {
             const factor = (distance - targetDistance) / distance;
@@ -132,20 +165,20 @@ export default function ValueGraph() {
           }
 
           nodesRef.current.forEach(other => {
-            if (node.id !== other.id && other.type === 'value' && other.profile === node.profile) {
+            if (node.id !== other.id && other.type === 'value') {
               const dx = other.x - node.x;
               const dy = other.y - node.y;
               const distance = Math.sqrt(dx * dx + dy * dy);
 
-              if (distance < 80 && distance > 0) {
-                node.vx -= (dx / distance) * 0.4;
-                node.vy -= (dy / distance) * 0.4;
+              if (distance < 70 && distance > 0) {
+                node.vx -= (dx / distance) * 0.3;
+                node.vy -= (dy / distance) * 0.3;
               }
             }
           });
 
-          node.vx *= 0.92;
-          node.vy *= 0.92;
+          node.vx *= 0.93;
+          node.vy *= 0.93;
 
           node.x += node.vx;
           node.y += node.vy;
@@ -157,22 +190,21 @@ export default function ValueGraph() {
         const target = nodesRef.current.find(n => n.id === edge.target);
 
         if (source && target) {
+          const isSharedEdge = target.id.startsWith('shared-');
+
           ctx.beginPath();
           ctx.moveTo(source.x, source.y);
           ctx.lineTo(target.x, target.y);
 
-          if (edge.isConnection) {
-            ctx.strokeStyle = 'rgba(20, 184, 166, 0.6)';
-            ctx.lineWidth = 3;
-            ctx.setLineDash([5, 5]);
+          if (isSharedEdge) {
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+            ctx.lineWidth = 2.5;
           } else {
-            ctx.strokeStyle = 'rgba(14, 165, 233, 0.3)';
+            ctx.strokeStyle = source.profile === 1 ? 'rgba(14, 165, 233, 0.4)' : 'rgba(20, 184, 166, 0.4)';
             ctx.lineWidth = 2;
-            ctx.setLineDash([]);
           }
 
           ctx.stroke();
-          ctx.setLineDash([]);
         }
       });
 
@@ -192,21 +224,29 @@ export default function ValueGraph() {
           ctx.textBaseline = 'middle';
           ctx.fillText(node.label, node.x, node.y - 35);
         } else {
-          const isShared = sharedValues.includes(node.label);
+          const isShared = node.profile === 0;
 
           ctx.beginPath();
-          ctx.arc(node.x, node.y, isShared ? 10 : 8, 0, Math.PI * 2);
-          ctx.fillStyle = isShared ? '#14b8a6' : (node.profile === 1 ? '#0ea5e9' : '#14b8a6');
+          ctx.arc(node.x, node.y, isShared ? 12 : 8, 0, Math.PI * 2);
+          ctx.fillStyle = isShared ? '#10b981' : (node.profile === 1 ? '#0ea5e9' : '#14b8a6');
           ctx.fill();
-          ctx.strokeStyle = isShared ? '#0d9488' : (node.profile === 1 ? '#0284c7' : '#0d9488');
+          ctx.strokeStyle = isShared ? '#059669' : (node.profile === 1 ? '#0284c7' : '#0d9488');
           ctx.lineWidth = isShared ? 3 : 2;
           ctx.stroke();
 
-          ctx.font = isShared ? 'bold 13px Inter, sans-serif' : '12px Inter, sans-serif';
+          if (isShared) {
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, 18, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+
+          ctx.font = isShared ? 'bold 14px Inter, sans-serif' : '12px Inter, sans-serif';
           ctx.fillStyle = '#0f172a';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(node.label, node.x, node.y - 20);
+          ctx.fillText(node.label, node.x, node.y - (isShared ? 28 : 20));
         }
       });
 

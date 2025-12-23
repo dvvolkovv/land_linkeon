@@ -17,16 +17,17 @@ export default function ValueConnection() {
 
         <div className="mt-8 text-center space-y-2">
           <p className="text-sky-600">
-            <span className="inline-block w-3 h-3 bg-sky-500 rounded-full mr-2"></span>
-            Большие кружки — профили пользователей
+            <span className="inline-block w-5 h-5 bg-sky-500 rounded-full mr-2"></span>
+            Профили пользователей
           </p>
           <p className="text-sky-600">
-            <span className="inline-block w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-            Маленькие кружки — ценности каждого профиля
+            <span className="inline-block w-3 h-3 bg-emerald-500 rounded-full mr-2 ring-2 ring-emerald-300"></span>
+            Общие ценности — точки пересечения
           </p>
           <p className="text-sky-600">
-            <span className="inline-block w-8 h-0.5 bg-teal-500 mr-2" style={{ borderTop: '3px dashed' }}></span>
-            Пунктирные линии — общие ценности, создающие связь
+            <span className="inline-block w-2 h-2 bg-sky-500 rounded-full mr-2"></span>
+            <span className="inline-block w-2 h-2 bg-teal-500 rounded-full mr-2"></span>
+            Уникальные ценности каждого профиля
           </p>
         </div>
       </div>
