@@ -2,20 +2,41 @@ import { useTranslation } from 'react-i18next';
 import { Send, Youtube, MessageCircle } from 'lucide-react';
 import LangSwitcher from '../ui/LangSwitcher';
 
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+function FooterLink({ href, label }: LinkItem) {
+  const external = href.startsWith('http');
+  const disabled = href === '#';
+  return (
+    <a
+      href={href}
+      className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+      aria-disabled={disabled || undefined}
+    >
+      {label}
+    </a>
+  );
+}
+
+const SOCIALS = [
+  { label: 'Telegram', href: '#', Icon: Send },
+  { label: 'VK', href: '#', Icon: MessageCircle },
+  { label: 'YouTube', href: '#', Icon: Youtube },
+] as const;
+
 export default function Footer() {
   const { t } = useTranslation();
 
-  const col = (items: { label: string; href: string }[]) => (
+  const col = (items: LinkItem[]) => (
     <ul className="space-y-3">
       {items.map((it) => (
-        <li key={it.label}>
-          <a
-            href={it.href}
-            className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
-            {...(it.href === '#' ? { 'aria-disabled': 'true' } : {})}
-          >
-            {it.label}
-          </a>
+        <li key={it.href + it.label}>
+          <FooterLink {...it} />
         </li>
       ))}
     </ul>
@@ -31,15 +52,24 @@ export default function Footer() {
           </div>
           <p className="text-sm text-slate-400 mb-6">{t('footer.tagline')}</p>
           <div className="flex items-center gap-3">
-            <a href="#" aria-label="Telegram" className="text-slate-500 hover:text-slate-200"><Send className="w-5 h-5" /></a>
-            <a href="#" aria-label="VK" className="text-slate-500 hover:text-slate-200"><MessageCircle className="w-5 h-5" /></a>
-            <a href="#" aria-label="YouTube" className="text-slate-500 hover:text-slate-200"><Youtube className="w-5 h-5" /></a>
+            {SOCIALS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                aria-disabled={href === '#' || undefined}
+                className="text-slate-500 hover:text-slate-200"
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            ))}
           </div>
         </div>
 
         <div>
           <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wider mb-4">{t('footer.sections.product')}</h3>
           {col([
+            // TODO: revisit anchors after Tasks 8-15 land actual section ids
             { label: t('footer.product.assistants'), href: '#features' },
             { label: t('footer.product.dozvon'), href: '#features' },
             { label: t('footer.product.profile'), href: '#features' },
@@ -69,7 +99,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-6xl mx-auto border-t border-slate-800 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="text-sm text-slate-500">© 2026 LINKEON.IO · {t('footer.rights')}</span>
+        <span className="text-sm text-slate-500">© {new Date().getFullYear()} LINKEON.IO · {t('footer.rights')}</span>
         <LangSwitcher />
       </div>
     </footer>
