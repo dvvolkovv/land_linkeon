@@ -1,4 +1,15 @@
 {
-  "header": { "nav": { "features": "Features", "how": "How it works", "pricing": "Pricing", "faq": "FAQ" }, "cta": { "login": "Log in", "start": "Start free" } },
+  "header": {
+    "nav": {
+      "features": "Features",
+      "how": "How it works",
+      "pricing": "Pricing",
+      "faq": "FAQ"
+    },
+    "cta": {
+      "login": "Log in",
+      "start": "Start free"
+    }
+  },
   "placeholder": "Filled in Task 21"
 }
