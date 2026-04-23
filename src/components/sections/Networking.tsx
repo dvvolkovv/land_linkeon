@@ -12,7 +12,7 @@ export default function Networking() {
   const cols = t('networking.cols', { returnObjects: true }) as { title: string; text: string }[];
 
   return (
-    <Section ariaLabelledby="networking-heading" className="bg-white border-y border-slate-200">
+    <Section id="networking" ariaLabelledby="networking-heading" className="bg-white border-y border-slate-200">
       <FadeIn className="text-center mb-12 max-w-2xl mx-auto">
         <Eyebrow className="mb-4">{t('networking.eyebrow')}</Eyebrow>
         <h2 id="networking-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">

@@ -10,7 +10,7 @@ export default function Profile() {
   const bullets = t('profile.bullets', { returnObjects: true }) as string[];
 
   return (
-    <Section ariaLabelledby="profile-heading">
+    <Section id="profile" ariaLabelledby="profile-heading">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <FadeIn>
           <Eyebrow className="mb-4">{t('profile.eyebrow')}</Eyebrow>

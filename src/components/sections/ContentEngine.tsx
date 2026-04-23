@@ -10,7 +10,7 @@ export default function ContentEngine() {
   const { t } = useTranslation();
 
   return (
-    <Section ariaLabelledby="content-heading">
+    <Section id="content" ariaLabelledby="content-heading">
       <FadeIn className="text-center mb-12 max-w-2xl mx-auto">
         <Eyebrow className="mb-4">{t('content.eyebrow')}</Eyebrow>
         <h2 id="content-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">

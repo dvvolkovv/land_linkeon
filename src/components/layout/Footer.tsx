@@ -52,28 +52,31 @@ export default function Footer() {
           </div>
           <p className="text-sm text-slate-400 mb-6">{t('footer.tagline')}</p>
           <div className="flex items-center gap-3">
-            {SOCIALS.map(({ label, href, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                aria-disabled={href === '#' || undefined}
-                className="text-slate-400 hover:text-slate-200"
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
+            {SOCIALS.map(({ label, href, Icon }) => {
+              const disabled = href === '#';
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  aria-disabled={disabled || undefined}
+                  tabIndex={disabled ? -1 : undefined}
+                  className={`text-slate-400 hover:text-slate-200 ${disabled ? 'pointer-events-none opacity-40' : ''}`}
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              );
+            })}
           </div>
         </div>
 
         <div>
           <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wider mb-4">{t('footer.sections.product')}</h3>
           {col([
-            // TODO: revisit anchors after Tasks 8-15 land actual section ids
             { label: t('footer.product.assistants'), href: '#features' },
-            { label: t('footer.product.dozvon'), href: '#features' },
-            { label: t('footer.product.profile'), href: '#features' },
-            { label: t('footer.product.networking'), href: '#features' },
+            { label: t('footer.product.dozvon'), href: '#dozvon' },
+            { label: t('footer.product.profile'), href: '#profile' },
+            { label: t('footer.product.networking'), href: '#networking' },
             { label: t('footer.product.pricing'), href: '#pricing' },
           ])}
         </div>

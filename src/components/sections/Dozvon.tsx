@@ -10,7 +10,7 @@ export default function Dozvon() {
   const bullets = t('dozvon.bullets', { returnObjects: true }) as string[];
 
   return (
-    <Section ariaLabelledby="dozvon-heading" className="bg-white border-y border-slate-200">
+    <Section id="dozvon" ariaLabelledby="dozvon-heading" className="bg-white border-y border-slate-200">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <FadeIn className="order-2 lg:order-1">
           <ScreenshotFrame url="my.linkeon.io/dozvon">
