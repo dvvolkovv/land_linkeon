@@ -16,6 +16,17 @@
       "logo": "LINKEON.IO \u2014 home"
     }
   },
+  "hero": {
+    "eyebrow": "AI for business growth",
+    "h1Part1": "Your AI team,",
+    "h1Rotating": ["outbound sales calls", "content creation", "legal consultations", "marketing strategy"],
+    "h1Part2": "and a unified profile",
+    "sub": "Six AI assistants (marketer, lawyer, accountant, HR, coach and Roman) that call clients, write content and grow with your business. One profile for everything.",
+    "ctaStart": "Start free",
+    "ctaLogin": "Log in",
+    "trust": "25,000 tokens on the house · no card required · 2 minutes to sign up",
+    "badge": { "title": "Outbound active", "status": "3 / 10 calls" }
+  },
   "footer": {
     "tagline": "Neural network for business growth",
     "sections": { "product": "Product", "company": "Company", "legal": "Legal" },

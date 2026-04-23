@@ -1,11 +1,14 @@
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import Hero from './components/sections/Hero';
 
 function App() {
   return (
     <div className="min-h-screen">
       <Header />
-      <div className="h-[200vh]" />
+      <main>
+        <Hero />
+      </main>
       <Footer />
     </div>
   );
