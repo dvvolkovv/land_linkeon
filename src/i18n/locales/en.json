@@ -88,6 +88,10 @@
     "h2": "Partners and experts who match your values",
     "sub": "A profile is not a resume. It's values, intent, style. Linkeon finds people who resonate with you — for partnerships, clients, hires, projects.",
     "legend": { "self": "Your profile", "values": "Values and intent", "matches": "Matches with others" },
+    "graph": {
+      "values": ["Honesty", "Growth", "Freedom", "Family", "Impact", "Creativity", "Learning", "Trust"],
+      "others": ["A", "M", "K", "D", "S", "N"]
+    },
     "cols": [
       { "title": "Partners", "text": "Co-founders and experts with a similar worldview." },
       { "title": "Clients", "text": "Those aligned with your meaning, not just price." },

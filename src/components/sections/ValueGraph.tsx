@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useInView } from '../../lib/useInView';
 
 interface Node {
@@ -14,20 +15,31 @@ interface Node {
 const COLORS = {
   self: '#4f46e5',
   value: '#10b981',
+  valueLabel: '#047857',
   other: '#94a3b8',
+  otherLabel: '#64748b',
   link: '#cbd5e1',
   activeLink: '#818cf8',
 };
 
-const VALUES = ['Честность', 'Рост', 'Свобода', 'Семья', 'Вклад', 'Творчество', 'Развитие', 'Доверие'];
-const OTHERS = ['А', 'М', 'К', 'Д', 'С', 'Н'];
-
 export default function ValueGraph() {
+  const { t, i18n } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [containerRef, inView] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const rafRef = useRef<number>();
   const nodesRef = useRef<Node[]>([]);
   const mouseRef = useRef({ x: -1000, y: -1000 });
+
+  const VALUES = useMemo(
+    () => t('networking.graph.values', { returnObjects: true }) as string[],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t, i18n.language]
+  );
+  const OTHERS = useMemo(
+    () => t('networking.graph.others', { returnObjects: true }) as string[],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t, i18n.language]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -35,7 +47,7 @@ export default function ValueGraph() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const initNodes = (w: number, h: number) => {
       const cx = w / 2, cy = h / 2;
@@ -64,13 +76,12 @@ export default function ValueGraph() {
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
-      if (nodesRef.current.length === 0) {
-        initNodes(rect.width, rect.height);
-      }
+      initNodes(rect.width, rect.height);
     };
 
     const onMouse = (e: MouseEvent) => {
@@ -78,14 +89,17 @@ export default function ValueGraph() {
       mouseRef.current.x = e.clientX - rect.left;
       mouseRef.current.y = e.clientY - rect.top;
     };
-    const onLeave = () => { mouseRef.current = { x: -1000, y: -1000 }; };
+    const onLeave = () => {
+      mouseRef.current.x = -1000;
+      mouseRef.current.y = -1000;
+    };
 
     canvas.addEventListener('mousemove', onMouse);
     canvas.addEventListener('mouseleave', onLeave);
     window.addEventListener('resize', resize);
     resize();
 
-    const tick = () => {
+    const draw = (animate: boolean) => {
       const rect = canvas.getBoundingClientRect();
       const w = rect.width, h = rect.height;
       const cx = w / 2, cy = h / 2;
@@ -94,35 +108,39 @@ export default function ValueGraph() {
       const nodes = nodesRef.current;
       const self = nodes[0];
 
-      nodes.forEach((n) => {
-        if (n.type === 'value' && n.orbitAngle !== undefined && n.orbitRadius !== undefined) {
-          n.orbitAngle += 0.003;
-          n.x = cx + Math.cos(n.orbitAngle) * n.orbitRadius;
-          n.y = cy + Math.sin(n.orbitAngle) * n.orbitRadius;
-        } else if (n.type === 'other') {
-          n.x += n.vx;
-          n.y += n.vy;
-          if (n.x < 40 || n.x > w - 40) n.vx *= -1;
-          if (n.y < 40 || n.y > h - 40) n.vy *= -1;
-          const dx = n.x - mouseRef.current.x, dy = n.y - mouseRef.current.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 80 && dist > 0) {
-            n.x += (dx / dist) * 0.8;
-            n.y += (dy / dist) * 0.8;
+      if (animate) {
+        nodes.forEach((n) => {
+          if (n.type === 'value' && n.orbitAngle !== undefined && n.orbitRadius !== undefined) {
+            n.orbitAngle += 0.003;
+            n.x = cx + Math.cos(n.orbitAngle) * n.orbitRadius;
+            n.y = cy + Math.sin(n.orbitAngle) * n.orbitRadius;
+          } else if (n.type === 'other') {
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 40 || n.x > w - 40) n.vx *= -1;
+            if (n.y < 40 || n.y > h - 40) n.vy *= -1;
+            const dx = n.x - mouseRef.current.x, dy = n.y - mouseRef.current.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 80 && dist > 0) {
+              n.x += (dx / dist) * 0.8;
+              n.y += (dy / dist) * 0.8;
+            }
+            n.x = Math.max(40, Math.min(w - 40, n.x));
+            n.y = Math.max(40, Math.min(h - 40, n.y));
           }
-        }
-      });
+        });
+      }
 
       ctx.strokeStyle = COLORS.link;
       ctx.lineWidth = 1;
+      ctx.beginPath();
       nodes.forEach((n) => {
         if (n.type === 'value') {
-          ctx.beginPath();
           ctx.moveTo(self.x, self.y);
           ctx.lineTo(n.x, n.y);
-          ctx.stroke();
         }
       });
+      ctx.stroke();
 
       nodes.forEach((n) => {
         if (n.type === 'other') {
@@ -144,40 +162,65 @@ export default function ValueGraph() {
       });
 
       nodes.forEach((n) => {
-        ctx.fillStyle = COLORS[n.type];
         if (n.type === 'self') {
+          ctx.fillStyle = '#fff';
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.r + 4, 0, Math.PI * 2);
-          ctx.fillStyle = '#fff';
           ctx.fill();
           ctx.fillStyle = COLORS.self;
+        } else {
+          ctx.fillStyle = COLORS[n.type];
         }
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fill();
-        if (n.type === 'other' && n.label) {
-          ctx.fillStyle = '#64748b';
-          ctx.font = '10px Inter, sans-serif';
+
+        if ((n.type === 'value' || n.type === 'other') && n.label) {
+          ctx.fillStyle = n.type === 'value' ? COLORS.valueLabel : COLORS.otherLabel;
+          ctx.font = `${n.type === 'value' ? 11 : 10}px Inter, sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText(n.label, n.x, n.y + n.r + 12);
         }
       });
+    };
 
+    let running = false;
+    const tick = () => {
+      draw(true);
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    if (inView) {
-      rafRef.current = requestAnimationFrame(tick);
-    }
+    const start = () => {
+      if (running) return;
+      if (mediaQuery.matches) {
+        draw(false);
+      } else {
+        running = true;
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+    const stop = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      running = false;
+    };
+
+    const onMotionChange = () => {
+      stop();
+      if (inView) start();
+    };
+    mediaQuery.addEventListener('change', onMotionChange);
+
+    if (inView) start();
 
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      stop();
+      mediaQuery.removeEventListener('change', onMotionChange);
       canvas.removeEventListener('mousemove', onMouse);
       canvas.removeEventListener('mouseleave', onLeave);
       window.removeEventListener('resize', resize);
     };
-  }, [inView]);
+  }, [inView, VALUES, OTHERS]);
 
   return (
     <div ref={containerRef} className="w-full h-[420px] md:h-[560px]">
