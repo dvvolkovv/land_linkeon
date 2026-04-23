@@ -13,6 +13,12 @@ export function useTypewriter({ phrases, typingMs = 55, deletingMs = 35, holdMs 
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
+    setIndex(0);
+    setText('');
+    setDeleting(false);
+  }, [phrases]);
+
+  useEffect(() => {
     if (phrases.length === 0) return;
     const current = phrases[index % phrases.length];
 
