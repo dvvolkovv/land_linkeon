@@ -72,5 +72,16 @@
     "prompt": "find 10 BMW body shops in Moscow and ask how much a hood repaint on an X5 2020 would cost",
     "badges": { "time": "12 minutes", "calls": "10 calls", "recordings": "10 MP3 + summaries" }
   },
+  "profile": {
+    "eyebrow": "Unified profile",
+    "h2": "One context — every assistant remembers",
+    "sub": "Through your conversations Linkeon builds your profile: values, business, pain points, communication style. Every assistant starts not from zero, but with full understanding.",
+    "bullets": [
+      "Grows from every conversation",
+      "Works across all assistants and Outbound",
+      "You control what gets remembered",
+      "Used to find partners by values"
+    ]
+  },
   "placeholder": "Filled in Task 21"
 }
