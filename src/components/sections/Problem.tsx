@@ -11,10 +11,10 @@ export default function Problem() {
   const items = t('problem.items', { returnObjects: true }) as { title: string; text: string }[];
 
   return (
-    <Section id="problem" className="bg-white border-y border-slate-200">
+    <Section id="problem" ariaLabelledby="problem-heading" className="bg-white border-y border-slate-200">
       <FadeIn className="text-center mb-16">
         <Eyebrow className="mb-4">{t('problem.eyebrow')}</Eyebrow>
-        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 text-balance max-w-3xl mx-auto">
+        <h2 id="problem-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 text-balance max-w-3xl mx-auto">
           {t('problem.h2')}
         </h2>
       </FadeIn>
@@ -25,7 +25,7 @@ export default function Problem() {
           return (
             <FadeIn key={it.title} delay={i * 100}>
               <div className="inline-flex p-3 rounded-xl bg-slate-100 mb-4">
-                <Icon className="w-6 h-6 text-slate-700" />
+                <Icon aria-hidden="true" className="w-6 h-6 text-slate-700" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 mb-2">{it.title}</h3>
               <p className="text-slate-600 leading-relaxed">{it.text}</p>
