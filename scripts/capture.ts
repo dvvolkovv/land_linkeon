@@ -1,6 +1,6 @@
 import { chromium, type Page, type BrowserContext } from '@playwright/test';
 import { execFile } from 'node:child_process';
-import { mkdir, unlink, stat } from 'node:fs/promises';
+import { mkdir, unlink, stat, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { promisify } from 'node:util';
 
@@ -86,9 +86,15 @@ async function pngToWebp(pngPath: string, webpPath: string, quality = 85) {
   await execFileP('cwebp', ['-q', String(quality), '-quiet', pngPath, '-o', webpPath]);
 }
 
-async function webmToMp4(webmPath: string, mp4Path: string, durationSec: number) {
-  await execFileP('ffmpeg', [
-    '-y',
+async function webmToMp4(
+  webmPath: string,
+  mp4Path: string,
+  durationSec: number,
+  startOffsetSec = 0,
+) {
+  const args = ['-y'];
+  if (startOffsetSec > 0) args.push('-ss', String(startOffsetSec));
+  args.push(
     '-i',
     webmPath,
     '-t',
@@ -107,15 +113,113 @@ async function webmToMp4(webmPath: string, mp4Path: string, durationSec: number)
     '-pix_fmt',
     'yuv420p',
     mp4Path,
-  ]);
+  );
+  await execFileP('ffmpeg', args);
 }
 
-async function captureStatic(page: Page, path: string, webpFile: string, settleMs = 2000) {
+/** Mask PII (name/phone) in the currently loaded page before screenshotting. */
+async function maskPii(page: Page) {
+  // The body is executed inside the page context; avoid closures/helpers
+  // so esbuild/tsx helpers (e.g. __name) aren't referenced.
+  await page.evaluate(() => {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes: Text[] = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode as Text);
+    const phoneRe =
+      /(?:\+?7|8)[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-()]*\d{2}[\s\-()]*\d{2}/g;
+    const bareDigitsRe = /\b\d{10,11}\b/g;
+    for (const n of nodes) {
+      let txt = n.textContent ?? '';
+      const orig = txt;
+      txt = txt.replace(/(Dmitry|Дмитрий)\s+(Volkov|Волков)/gi, 'Иван Петров');
+      txt = txt.replace(/(Volkov|Волков)\s+(Dmitry|Дмитрий)/gi, 'Петров Иван');
+      // NB: \b in JS regex is ASCII-word-boundary only — it doesn't trigger
+      // between Cyrillic characters, so we must match without it.
+      txt = txt.replace(/(Dmitry|Дмитрий)/gi, 'Иван');
+      txt = txt.replace(/(Volkov|Волков)/gi, 'Петров');
+      txt = txt.replace(phoneRe, '+7 ••• ••• •• ••');
+      txt = txt.replace(bareDigitsRe, '••• ••• ••• ••');
+      if (txt !== orig) n.textContent = txt;
+    }
+    for (const i of Array.from(document.querySelectorAll<HTMLInputElement>('input'))) {
+      let v = i.value;
+      v = v.replace(/(Dmitry|Дмитрий)\s+(Volkov|Волков)/gi, 'Иван Петров');
+      v = v.replace(/(Volkov|Волков)\s+(Dmitry|Дмитрий)/gi, 'Петров Иван');
+      v = v.replace(/(Dmitry|Дмитрий)/gi, 'Иван');
+      v = v.replace(/(Volkov|Волков)/gi, 'Петров');
+      if (v !== i.value) i.value = v;
+      if (phoneRe.test(i.value) || bareDigitsRe.test(i.value.replace(/\D/g, '')))
+        i.value = '+7 ••• ••• •• ••';
+    }
+  });
+}
+
+/** Install a persistent masking routine inside the page that re-masks PII
+ *  every few hundred ms. Works around the fact that tsx transforms nested
+ *  arrow functions into something that references `__name` (an esbuild
+ *  helper not available in the page context), by serialising the body as a
+ *  string and running it via `new Function(...)`. */
+async function installPiiMaskObserver(page: Page) {
+  const body = `
+    (function () {
+      if (window.__piiMaskInstalled) return;
+      window.__piiMaskInstalled = true;
+      var phoneRe = /(?:\\+?7|8)[\\s\\-()]*\\d{3}[\\s\\-()]*\\d{3}[\\s\\-()]*\\d{2}[\\s\\-()]*\\d{2}/g;
+      var bareDigitsRe = /\\b\\d{10,11}\\b/g;
+      function run() {
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        var nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          var txt = n.textContent || '';
+          var orig = txt;
+          txt = txt.replace(/(Dmitry|Дмитрий)\\s+(Volkov|Волков)/gi, 'Иван Петров');
+          txt = txt.replace(/(Volkov|Волков)\\s+(Dmitry|Дмитрий)/gi, 'Петров Иван');
+          // \\b in JS regex is ASCII-only; Cyrillic names need a non-bounded
+          // match to be replaced reliably.
+          txt = txt.replace(/(Dmitry|Дмитрий)/gi, 'Иван');
+          txt = txt.replace(/(Volkov|Волков)/gi, 'Петров');
+          txt = txt.replace(phoneRe, '+7 ••• ••• •• ••');
+          txt = txt.replace(bareDigitsRe, '••• ••• ••• ••');
+          if (txt !== orig) n.textContent = txt;
+        }
+        var inputs = document.querySelectorAll('input');
+        for (var j = 0; j < inputs.length; j++) {
+          var el = inputs[j];
+          var v = el.value;
+          v = v.replace(/(Dmitry|Дмитрий)\\s+(Volkov|Волков)/gi, 'Иван Петров');
+          v = v.replace(/(Volkov|Волков)\\s+(Dmitry|Дмитрий)/gi, 'Петров Иван');
+          v = v.replace(/(Dmitry|Дмитрий)/gi, 'Иван');
+          v = v.replace(/(Volkov|Волков)/gi, 'Петров');
+          if (v !== el.value) el.value = v;
+          if (phoneRe.test(el.value) || bareDigitsRe.test(el.value.replace(/\\D/g, '')))
+            el.value = '+7 ••• ••• •• ••';
+        }
+      }
+      run();
+      window.__piiMaskInterval = window.setInterval(run, 300);
+    })();
+  `;
+  await page.evaluate((code: string) => {
+    // eslint-disable-next-line no-new-func
+    new Function(code)();
+  }, body);
+}
+
+async function captureStatic(
+  page: Page,
+  path: string,
+  webpFile: string,
+  settleMs = 2000,
+  beforeShot?: (p: Page) => Promise<void>,
+) {
   const pngPath = resolve(SCREENSHOTS_DIR, webpFile.replace(/\.webp$/, '.png'));
   try {
     await page.goto(`${BASE}${path}`, { waitUntil: 'domcontentloaded', timeout: 20000 });
     await page.waitForLoadState('networkidle', { timeout: 12000 }).catch(() => {});
     await page.waitForTimeout(settleMs);
+    if (beforeShot) await beforeShot(page);
     await page.screenshot({ path: pngPath, type: 'png', fullPage: false });
     await pngToWebp(pngPath, resolve(SCREENSHOTS_DIR, webpFile));
     await unlink(pngPath).catch(() => {});
@@ -128,18 +232,51 @@ async function captureStatic(page: Page, path: string, webpFile: string, settleM
   }
 }
 
+/** Download an asset URL through Playwright's request context to a local file. */
+async function downloadAsset(
+  page: Page,
+  url: string,
+  outPath: string,
+  timeoutMs = 30000,
+): Promise<boolean> {
+  try {
+    const res = await page.request.get(url, { timeout: timeoutMs });
+    if (!res.ok()) {
+      console.log(`    · download ${res.status()} ${url.slice(0, 80)}`);
+      return false;
+    }
+    const buf = await res.body();
+    await writeFile(outPath, buf);
+    return true;
+  } catch (err) {
+    console.log(`    · download err: ${(err as Error).message.split('\n')[0]}`);
+    return false;
+  }
+}
+
+/** Convert any image file (png/jpg) → webp via cwebp. */
+async function imgToWebp(inPath: string, outWebp: string, quality = 82) {
+  await execFileP('cwebp', ['-q', String(quality), '-quiet', inPath, '-o', outWebp]);
+}
+
 async function captureVideo(
   context: BrowserContext,
   path: string,
   videoFile: string,
   durationMs: number,
+  onPage?: (p: Page, durationMs: number) => Promise<void>,
+  startOffsetSec = 0,
 ): Promise<boolean> {
   const page = await context.newPage();
   try {
-    await page.goto(`${BASE}${path}`, { waitUntil: 'domcontentloaded', timeout: 20000 });
-    await page.waitForLoadState('networkidle', { timeout: 12000 }).catch(() => {});
-    await page.waitForTimeout(1500);
-    await page.waitForTimeout(durationMs);
+    if (onPage) {
+      await onPage(page, durationMs);
+    } else {
+      await page.goto(`${BASE}${path}`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+      await page.waitForLoadState('networkidle', { timeout: 12000 }).catch(() => {});
+      await page.waitForTimeout(1500);
+      await page.waitForTimeout(durationMs);
+    }
 
     const videoHandle = page.video();
     await page.close();
@@ -149,7 +286,7 @@ async function captureVideo(
     }
     const webmPath = await videoHandle.path();
     const mp4Path = resolve(SCREENSHOTS_DIR, videoFile);
-    await webmToMp4(webmPath, mp4Path, durationMs / 1000);
+    await webmToMp4(webmPath, mp4Path, durationMs / 1000, startOffsetSec);
     await unlink(webmPath).catch(() => {});
     console.log(`  ✓ video: ${videoFile}`);
     return true;
@@ -260,14 +397,259 @@ async function shrinkVideoIfOversized(file: string, maxKb = 500) {
   }
 }
 
+/** Hero: open /chat, seed a short prompt, press Enter, let streaming render. */
+async function primeHeroChat(page: Page, durationMs: number) {
+  await page.goto(`${BASE}/chat`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+  await page.waitForLoadState('networkidle', { timeout: 12000 }).catch(() => {});
+  await page.waitForTimeout(3000);
+
+  // On wide viewports, the chat panel should render next to the assistants
+  // list once an assistant is selected. If the textarea is missing,
+  // programmatically click the first assistant entry to force the chat
+  // view to open.
+  const textarea = page.locator('textarea[data-testid="chat-input"]').first();
+  let hasTextarea = (await textarea.count()) > 0;
+  if (!hasTextarea) {
+    await page.evaluate(() => {
+      const btn = Array.from(document.querySelectorAll<HTMLElement>('button')).find(
+        (b) => /Роман/i.test(b.textContent || ''),
+      );
+      if (btn) btn.click();
+    });
+    await page.waitForTimeout(2500);
+  }
+
+  try {
+    await textarea.waitFor({ state: 'visible', timeout: 15000 });
+    hasTextarea = true;
+  } catch {
+    hasTextarea = false;
+    const diag = await page.evaluate(() => ({
+      url: location.href,
+      textareaCount: document.querySelectorAll('textarea').length,
+      bodyHead: document.body.innerText.slice(0, 300),
+    }));
+    console.log(`    · primeHeroChat diag: ${JSON.stringify(diag).slice(0, 400)}`);
+  }
+
+  // Scroll messages to bottom so the latest history is visible.
+  await page.evaluate(() => {
+    const scrollers = Array.from(document.querySelectorAll<HTMLElement>('*')).filter(
+      (el) => el.scrollHeight > el.clientHeight + 80 && el.clientHeight > 200,
+    );
+    for (const s of scrollers) s.scrollTop = s.scrollHeight;
+  });
+  await page.waitForTimeout(400);
+
+  if (!hasTextarea) {
+    console.log('  · chat textarea not found — recording /chat view with history only');
+    await page.waitForTimeout(durationMs);
+    return;
+  }
+  await textarea.click();
+  await textarea.fill('Составь короткий план запуска нового продукта за 30 дней');
+  await page.waitForTimeout(300);
+  await textarea.press('Enter');
+
+  // Let the stream render while recording.
+  await page.waitForTimeout(durationMs);
+}
+
+/** imagegen: click "История генераций", pick 4 different images from my.linkeon.io static. */
+async function fetchImagegenAssets(page: Page, files: string[]): Promise<boolean[]> {
+  const results = files.map(() => false);
+  try {
+    await page.goto(`${BASE}/image-gen`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await page.waitForLoadState('networkidle', { timeout: 12000 }).catch(() => {});
+    await page.waitForTimeout(1500);
+
+    await page.evaluate(() => {
+      const btn = Array.from(document.querySelectorAll('button')).find((b) =>
+        /История генераций/i.test(b.textContent || ''),
+      );
+      if (btn) (btn as HTMLButtonElement).click();
+    });
+    await page.waitForTimeout(2500);
+
+    const srcs: string[] = await page.evaluate(() => {
+      const imgs = Array.from(document.querySelectorAll('img'))
+        .map((i) => i.src)
+        .filter(
+          (s) =>
+            s &&
+            s.startsWith('http') &&
+            !/logo|avatar/i.test(s) &&
+            /\/static\/generated\//.test(s),
+        );
+      return Array.from(new Set(imgs));
+    });
+
+    console.log(`  · found ${srcs.length} generated images`);
+
+    // Walk candidates; on failure, move to the next one. 1 file ← 1 distinct image.
+    const used = new Set<string>();
+    let nextIdx = 0;
+    for (let f = 0; f < files.length; f++) {
+      while (nextIdx < srcs.length) {
+        const src = srcs[nextIdx++];
+        if (!src || used.has(src)) continue;
+        const outWebp = resolve(SCREENSHOTS_DIR, files[f]);
+        const ext = /\.(\w+)(?:\?|$)/.exec(src)?.[1]?.toLowerCase() ?? 'png';
+        const tmp = resolve(SCREENSHOTS_DIR, `.tmp-imagegen-${f}.${ext}`);
+        const ok = await downloadAsset(page, src, tmp, 45000);
+        if (!ok) {
+          await unlink(tmp).catch(() => {});
+          continue;
+        }
+        try {
+          await imgToWebp(tmp, outWebp, 82);
+          used.add(src);
+          results[f] = true;
+          console.log(`  ✓ imagegen: ${files[f]}`);
+        } catch (err) {
+          console.log(`  ✗ cwebp ${files[f]}: ${(err as Error).message.split('\n')[0]}`);
+        } finally {
+          await unlink(tmp).catch(() => {});
+        }
+        if (results[f]) break;
+      }
+      if (!results[f]) {
+        console.log(`  ! ran out of image candidates for ${files[f]}`);
+      }
+    }
+  } catch (err) {
+    console.log(`  ✗ imagegen: ${(err as Error).message.split('\n')[0]}`);
+  }
+  return results;
+}
+
+/** video: click "Мои видео", download first <video src>, shrink to < 500KB. */
+async function fetchVideoSample(page: Page, file: string): Promise<boolean> {
+  try {
+    await page.goto(`${BASE}/video`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await page.waitForLoadState('networkidle', { timeout: 12000 }).catch(() => {});
+    await page.waitForTimeout(3000);
+
+    const clicked = await page.evaluate(() => {
+      const all = Array.from(document.querySelectorAll<HTMLElement>('button, a, [role="tab"]'));
+      const btn = all.find(
+        (b) => (b.textContent || '').replace(/\s+/g, ' ').trim() === 'Мои видео',
+      );
+      if (btn) {
+        btn.click();
+        return { ok: true, total: all.length };
+      }
+      const candidates = all
+        .map((el) => (el.textContent || '').replace(/\s+/g, ' ').trim())
+        .filter((t) => /видео/i.test(t))
+        .slice(0, 10);
+      return { ok: false, total: all.length, candidates };
+    });
+    if (!clicked.ok) {
+      console.log(
+        `  · "Мои видео" tab not found (scanned ${clicked.total}, hits: ${JSON.stringify(clicked.candidates)})`,
+      );
+    }
+    await page.waitForTimeout(5000);
+
+    // Poll up to ~15s for a <video> source to appear.
+    let src: string | null = null;
+    for (let attempt = 0; attempt < 8; attempt++) {
+      src = await page.evaluate(() => {
+        const fromEl = Array.from(document.querySelectorAll('video, source'))
+          .map((el) => {
+            const vid = el as HTMLVideoElement;
+            return vid.src || vid.currentSrc || '';
+          })
+          .find((s) => !!s && /\.mp4/i.test(s));
+        if (fromEl) return fromEl;
+        const html = document.body.innerHTML;
+        const match = html.match(
+          /https?:\/\/[^"'\s<>]+\.mp4(?:\?[^"'\s<>]*)?/,
+        );
+        return match ? match[0].replace(/&amp;/g, '&') : null;
+      });
+      if (src) break;
+      await page.waitForTimeout(1500);
+    }
+    if (!src) {
+      console.log('  ! no video source found on /video');
+      return false;
+    }
+    const tmp = resolve(SCREENSHOTS_DIR, '.tmp-video-sample.mp4');
+    const out = resolve(SCREENSHOTS_DIR, file);
+    const ok = await downloadAsset(page, src, tmp);
+    if (!ok) return false;
+
+    // Re-encode / shrink to short clip under 500KB regardless of source size.
+    // Take 6s from the start to ensure visible motion, scale to 960w.
+    await execFileP('ffmpeg', [
+      '-y',
+      '-i',
+      tmp,
+      '-t',
+      '6',
+      '-vf',
+      'scale=960:-2',
+      '-c:v',
+      'libx264',
+      '-crf',
+      '32',
+      '-preset',
+      'slow',
+      '-movflags',
+      '+faststart',
+      '-an',
+      '-pix_fmt',
+      'yuv420p',
+      out,
+    ]);
+    await unlink(tmp).catch(() => {});
+    console.log(`  ✓ video-sample: ${file}`);
+    return true;
+  } catch (err) {
+    console.log(`  ✗ video-sample: ${(err as Error).message.split('\n')[0]}`);
+    return false;
+  }
+}
+
 async function main() {
   await mkdir(SCREENSHOTS_DIR, { recursive: true });
   await mkdir(VIDEO_TMP_DIR, { recursive: true });
 
   const browser = await chromium.launch({ headless: true });
 
+  // Force Russian locale so i18next picks `ru` and UI strings (e.g. "Мои видео")
+  // render in Russian. Applied to every context we create below.
+  const LOCALE_OPTS = {
+    locale: 'ru-RU',
+    timezoneId: 'Europe/Moscow',
+    extraHTTPHeaders: { 'Accept-Language': 'ru-RU,ru;q=0.9,en;q=0.5' },
+  };
+
   const staticCtx = await browser.newContext({
     viewport: { width: 1280, height: 800 },
+    ...LOCALE_OPTS,
+  });
+  // Pin i18next language to RU and seed an assistant selection so /chat
+  // renders the full chat view (not the empty "select assistant" stub).
+  await staticCtx.addInitScript(() => {
+    try {
+      localStorage.setItem('i18nextLng', 'ru');
+      if (!localStorage.getItem('selected_assistant')) {
+        localStorage.setItem(
+          'selected_assistant',
+          JSON.stringify({
+            id: 12,
+            name: 'Роман',
+            description: 'Помогаю делать все, что не могут другие',
+            category: 'assistant',
+          }),
+        );
+      }
+    } catch {
+      /* ignore */
+    }
   });
   const page = await staticCtx.newPage();
   console.log('→ logging in via SMS…');
@@ -277,28 +659,67 @@ async function main() {
 
   const storage = loggedIn ? await staticCtx.storageState() : undefined;
 
-  const STATIC_TARGETS: { path: string; file: string }[] = [
+  // imagegen handled specially below (4 distinct images from history)
+  const IMAGEGEN_FILES = [
+    'imagegen-1.webp',
+    'imagegen-2.webp',
+    'imagegen-3.webp',
+    'imagegen-4.webp',
+  ];
+
+  const STATIC_TARGETS: {
+    path: string;
+    file: string;
+    before?: (p: Page) => Promise<void>;
+  }[] = [
     { path: '/chat', file: 'hero-chat.webp' },
     { path: '/chat', file: 'assistants-list.webp' },
     { path: '/dozvon', file: 'dozvon-chat.webp' },
-    { path: '/profile', file: 'profile.webp' },
-    { path: '/image-gen', file: 'imagegen-1.webp' },
-    { path: '/image-gen', file: 'imagegen-2.webp' },
-    { path: '/image-gen', file: 'imagegen-3.webp' },
-    { path: '/image-gen', file: 'imagegen-4.webp' },
+    {
+      path: '/profile',
+      file: 'profile.webp',
+      // Install a persistent MutationObserver BEFORE React has a chance to
+      // render the (async-fetched) personal-info spans, then let it run for
+      // a few seconds to catch every re-render.
+      before: async (p: Page) => {
+        await installPiiMaskObserver(p);
+        await p.waitForTimeout(3500);
+        await maskPii(p);
+      },
+    },
   ];
 
   const staticResults: Record<string, boolean> = {};
   if (loggedIn) {
     console.log('\n→ capturing static screenshots…');
     for (const t of STATIC_TARGETS) {
-      staticResults[t.file] = await captureStatic(page, t.path, t.file);
+      staticResults[t.file] = await captureStatic(
+        page,
+        t.path,
+        t.file,
+        2000,
+        t.before,
+      );
     }
+
+    console.log('\n→ fetching imagegen assets (4 distinct images)…');
+    const imagegenOk = await fetchImagegenAssets(page, IMAGEGEN_FILES);
+    IMAGEGEN_FILES.forEach((f, i) => (staticResults[f] = imagegenOk[i]));
   }
 
   await staticCtx.close();
 
-  const placeholderCtx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  const placeholderCtx = await browser.newContext({
+    viewport: { width: 1280, height: 800 },
+    ...LOCALE_OPTS,
+  });
+  await placeholderCtx.addInitScript(() => {
+    try {
+      localStorage.setItem('i18nextLng', 'ru');
+    } catch {
+      /* ignore */
+    }
+  });
   const placeholderMap: Record<string, { title: string; subtitle: string }> = {
     'hero-chat.webp': { title: 'Chat Preview', subtitle: 'AI-ассистенты my.linkeon.io' },
     'assistants-list.webp': { title: 'Assistants', subtitle: 'Выбери AI-собеседника' },
@@ -319,11 +740,33 @@ async function main() {
   }
   await placeholderCtx.close();
 
-  const VIDEO_TARGETS: { path: string; file: string; duration: number; title: string }[] = [
-    { path: '/chat', file: 'hero-loop.mp4', duration: 4000, title: 'Chat Hero' },
+  type VideoTarget = {
+    path: string;
+    file: string;
+    duration: number;
+    title: string;
+    onPage?: (p: Page, durationMs: number) => Promise<void>;
+    // Seconds of initial page-load to skip before starting the mp4. Useful
+    // for `hero-loop.mp4`: we want to show the streaming answer, not the
+    // initial navigation / hydration flash.
+    startOffsetSec?: number;
+  };
+  const VIDEO_TARGETS: VideoTarget[] = [
+    {
+      path: '/chat',
+      file: 'hero-loop.mp4',
+      // Extra long so we cover hydration + typing + streamed answer.
+      duration: 6000,
+      title: 'Chat Hero',
+      // Skip the first ~5s of the recording (navigation / hydration) and
+      // start the mp4 right around when the user starts typing.
+      startOffsetSec: 5,
+      onPage: async (p, d) => {
+        await primeHeroChat(p, d);
+      },
+    },
     { path: '/chat', file: 'assistants-switch.mp4', duration: 5000, title: 'Assistants' },
     { path: '/dozvon', file: 'dozvon-results.mp4', duration: 6000, title: 'Dozvon Results' },
-    { path: '/video', file: 'video-sample.mp4', duration: 5000, title: 'Video Sample' },
   ];
 
   const videoResults: Record<string, boolean> = {};
@@ -333,9 +776,37 @@ async function main() {
       viewport: { width: 1280, height: 800 },
       storageState: storage,
       recordVideo: { dir: VIDEO_TMP_DIR, size: { width: 1280, height: 800 } },
+      ...LOCALE_OPTS,
+    });
+    await videoCtx.addInitScript(() => {
+      try {
+        localStorage.setItem('i18nextLng', 'ru');
+        // Seed an assistant selection so ChatInterface renders the textarea
+        // immediately (otherwise it shows an empty "select assistant" state).
+        if (!localStorage.getItem('selected_assistant')) {
+          localStorage.setItem(
+            'selected_assistant',
+            JSON.stringify({
+              id: 12,
+              name: 'Роман',
+              description: 'Помогаю делать все, что не могут другие',
+              category: 'assistant',
+            }),
+          );
+        }
+      } catch {
+        /* ignore */
+      }
     });
     for (const t of VIDEO_TARGETS) {
-      videoResults[t.file] = await captureVideo(videoCtx, t.path, t.file, t.duration);
+      videoResults[t.file] = await captureVideo(
+        videoCtx,
+        t.path,
+        t.file,
+        t.duration,
+        t.onPage,
+        t.startOffsetSec,
+      );
     }
     await videoCtx.close();
   }
@@ -351,8 +822,41 @@ async function main() {
     }
   }
 
+  // video-sample.mp4 is handled separately: download a real generated video
+  // from /video's "Мои видео" tab and re-encode to ≤500KB.
+  const VIDEO_SAMPLE_FILE = 'video-sample.mp4';
+  let videoSampleOk = false;
+  if (loggedIn) {
+    console.log('\n→ fetching video-sample.mp4 from /video history…');
+    const tabCtx = await browser.newContext({
+      viewport: { width: 1280, height: 800 },
+      storageState: storage,
+      ...LOCALE_OPTS,
+    });
+    await tabCtx.addInitScript(() => {
+      try {
+        localStorage.setItem('i18nextLng', 'ru');
+      } catch {
+        /* ignore */
+      }
+    });
+    const tabPage = await tabCtx.newPage();
+    videoSampleOk = await fetchVideoSample(tabPage, VIDEO_SAMPLE_FILE);
+    await tabCtx.close();
+  }
+  if (!videoSampleOk) {
+    try {
+      await createPlaceholderVideo(VIDEO_SAMPLE_FILE, 'Video Sample', 5);
+    } catch (err) {
+      console.log(
+        `  ✗ placeholder video ${VIDEO_SAMPLE_FILE}: ${(err as Error).message.split('\n')[0]}`,
+      );
+    }
+  }
+
   console.log('\n→ enforcing 500KB video cap…');
   for (const t of VIDEO_TARGETS) await shrinkVideoIfOversized(t.file, 500);
+  await shrinkVideoIfOversized(VIDEO_SAMPLE_FILE, 500);
 
   await browser.close();
 
@@ -360,6 +864,7 @@ async function main() {
   const allFiles = [
     ...Object.keys(placeholderMap),
     ...VIDEO_TARGETS.map((v) => v.file),
+    VIDEO_SAMPLE_FILE,
   ];
   for (const f of allFiles) {
     try {
