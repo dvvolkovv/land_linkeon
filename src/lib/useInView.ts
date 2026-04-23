@@ -17,6 +17,8 @@ export function useInView<T extends Element = Element>(
     }, options);
     observer.observe(el);
     return () => observer.disconnect();
+    // One-shot by design: options are read once at mount. Pass a stable reference if you need them to vary.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return [ref, inView] as const;
