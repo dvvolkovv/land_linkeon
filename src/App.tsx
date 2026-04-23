@@ -8,6 +8,7 @@ import Profile from './components/sections/Profile';
 import Networking from './components/sections/Networking';
 import ContentEngine from './components/sections/ContentEngine';
 import HowItWorks from './components/sections/HowItWorks';
+import UseCases from './components/sections/UseCases';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Networking />
         <ContentEngine />
         <HowItWorks />
+        <UseCases />
       </main>
       <Footer />
     </div>

@@ -118,5 +118,26 @@
     ],
     "cta": "Start free"
   },
+  "useCases": {
+    "eyebrow": "Who it's for",
+    "h2": "Business models where Linkeon replaces a team",
+    "items": [
+      {
+        "title": "Small business, no staff",
+        "text": "One person = the whole company. Linkeon = marketing department, accounting, legal, sales.",
+        "benefits": ["Assistants as a department", "Outbound = outsourced sales", "Unified company profile"]
+      },
+      {
+        "title": "Freelancers and solo experts",
+        "text": "You do projects, with 100 small tasks around them (contracts, social, leads). AI takes them off.",
+        "benefits": ["Contracts in a minute", "Ads for yourself", "More time for core work"]
+      },
+      {
+        "title": "Marketing agencies",
+        "text": "Many clients, few people. AI calls leads, writes ad copy, generates creatives.",
+        "benefits": ["10× campaign speed", "AI outbound for clients", "Video and visuals in one place"]
+      }
+    ]
+  },
   "placeholder": "Filled in Task 21"
 }
