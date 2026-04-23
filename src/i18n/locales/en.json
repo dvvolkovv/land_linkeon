@@ -45,5 +45,19 @@
     ],
     "footer": "Linkeon puts this in one product: AI assistants do the work, and your profile — the context — lives in one place."
   },
+  "assistants": {
+    "eyebrow": "AI Team",
+    "h2": "Six assistants in one window",
+    "sub": "Each an expert in their role. They remember your business, know about each other, respond by voice or text.",
+    "list": [
+      { "name": "Roman", "role": "Universal agent, does everything" },
+      { "name": "Marketer", "role": "Launch plans, content, market analytics" },
+      { "name": "Lawyer", "role": "Contracts, checklists, consultations" },
+      { "name": "Accountant", "role": "Taxes, calculations, 1C statements" },
+      { "name": "HR", "role": "Job posts, interview prompts, screening" },
+      { "name": "Coach", "role": "Strategy, priorities, founder psychology" }
+    ],
+    "cta": "See all assistants"
+  },
   "placeholder": "Filled in Task 21"
 }
