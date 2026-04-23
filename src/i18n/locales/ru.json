@@ -9,6 +9,11 @@
     "cta": {
       "login": "Войти",
       "start": "Начать бесплатно"
+    },
+    "a11y": {
+      "openMenu": "Открыть меню",
+      "closeMenu": "Закрыть меню",
+      "logo": "LINKEON.IO \u2014 на главную"
     }
   },
   "placeholder": "Будет заполнено в Task 21"

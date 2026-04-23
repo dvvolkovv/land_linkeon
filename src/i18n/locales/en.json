@@ -9,6 +9,11 @@
     "cta": {
       "login": "Log in",
       "start": "Start free"
+    },
+    "a11y": {
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "logo": "LINKEON.IO \u2014 home"
     }
   },
   "placeholder": "Filled in Task 21"
