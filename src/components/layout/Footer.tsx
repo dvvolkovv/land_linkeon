@@ -1,15 +1,43 @@
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Send, Youtube, MessageCircle } from 'lucide-react';
 import LangSwitcher from '../ui/LangSwitcher';
+import LegalModal, { type LegalType } from './LegalModal';
 
 interface LinkItem {
   label: string;
   href: string;
 }
 
-function FooterLink({ href, label }: LinkItem) {
+function isLegalHash(hash: string): LegalType | null {
+  const v = hash.replace(/^#/, '');
+  return v === 'privacy' || v === 'offer' || v === 'pdn' ? v : null;
+}
+
+function FooterLink({ href, label, onLegalClick }: LinkItem & { onLegalClick?: (t: LegalType) => void }) {
   const external = href.startsWith('http');
   const disabled = href === '#';
+  const legal = href.startsWith('#') ? isLegalHash(href) : null;
+
+  if (legal && onLegalClick) {
+    return (
+      <a
+        href={href}
+        className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+        onClick={(e) => {
+          e.preventDefault();
+          onLegalClick(legal);
+          // Mirror the hash so the URL is shareable / back-button works.
+          if (typeof window !== 'undefined') {
+            window.history.replaceState(null, '', href);
+          }
+        }}
+      >
+        {label}
+      </a>
+    );
+  }
+
   return (
     <a
       href={href}
@@ -31,12 +59,34 @@ const SOCIALS = [
 
 export default function Footer() {
   const { t } = useTranslation();
+  const [legal, setLegal] = useState<LegalType | null>(null);
+
+  const openLegal = useCallback((type: LegalType) => setLegal(type), []);
+  const closeLegal = useCallback(() => {
+    setLegal(null);
+    if (typeof window !== 'undefined' && /^#(privacy|offer|pdn)$/.test(window.location.hash)) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  // Open modal if page loads with #privacy / #offer / #pdn.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const initial = isLegalHash(window.location.hash);
+    if (initial) setLegal(initial);
+    const onHashChange = () => {
+      const next = isLegalHash(window.location.hash);
+      if (next) setLegal(next);
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   const col = (items: LinkItem[]) => (
     <ul className="space-y-3">
       {items.map((it) => (
         <li key={it.href + it.label}>
-          <FooterLink {...it} />
+          <FooterLink {...it} onLegalClick={openLegal} />
         </li>
       ))}
     </ul>
@@ -94,9 +144,9 @@ export default function Footer() {
         <div>
           <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wider mb-4">{t('footer.sections.legal')}</h3>
           {col([
-            { label: t('footer.legal.privacy'), href: '#' },
-            { label: t('footer.legal.offer'), href: '#' },
-            { label: t('footer.legal.pdn'), href: '#' },
+            { label: t('footer.legal.privacy'), href: '#privacy' },
+            { label: t('footer.legal.offer'), href: '#offer' },
+            { label: t('footer.legal.pdn'), href: '#pdn' },
           ])}
         </div>
       </div>
@@ -105,6 +155,8 @@ export default function Footer() {
         <span className="text-sm text-slate-400">© {new Date().getFullYear()} LINKEON.IO · {t('footer.rights')}</span>
         <LangSwitcher />
       </div>
+
+      <LegalModal type={legal} onClose={closeLegal} />
     </footer>
   );
 }
