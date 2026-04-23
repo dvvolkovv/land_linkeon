@@ -1,18 +1,28 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
 
 type Variant = 'primary' | 'outline' | 'ghost';
 type Size = 'md' | 'lg';
 
-interface Props {
+type CommonProps = {
   children: ReactNode;
   variant?: Variant;
   size?: Size;
-  href?: string;
-  onClick?: () => void;
   className?: string;
   dataCta?: string;
-  type?: 'button' | 'submit';
-}
+  disabled?: boolean;
+};
+
+type ButtonAsButton = CommonProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof CommonProps | 'href'> & {
+    href?: undefined;
+  };
+
+type ButtonAsAnchor = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof CommonProps> & {
+    href: string;
+  };
+
+type Props = ButtonAsButton | ButtonAsAnchor;
 
 const variantClasses: Record<Variant, string> = {
   primary: 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30',
@@ -25,27 +35,48 @@ const sizeClasses: Record<Size, string> = {
   lg: 'px-6 py-3.5 text-base',
 };
 
-export default function Button({
-  children,
-  variant = 'primary',
-  size = 'md',
-  href,
-  onClick,
-  className = '',
-  dataCta,
-  type = 'button',
-}: Props) {
-  const cls = `inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+export default function Button(props: Props) {
+  const {
+    children,
+    variant = 'primary',
+    size = 'md',
+    className = '',
+    dataCta,
+    disabled,
+    ...rest
+  } = props;
 
-  if (href) {
+  const disabledCls = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
+  const cls = `inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${variantClasses[variant]} ${sizeClasses[size]} ${disabledCls} ${className}`;
+
+  if ('href' in props && props.href !== undefined) {
+    const { href, ...anchorRest } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+    const external = href.startsWith('http');
     return (
-      <a href={href} data-cta={dataCta} className={cls} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+      <a
+        {...anchorRest}
+        href={href}
+        data-cta={dataCta}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noopener noreferrer' : undefined}
+        className={cls}
+      >
         {children}
       </a>
     );
   }
+
+  const buttonRest = rest as ButtonHTMLAttributes<HTMLButtonElement>;
   return (
-    <button type={type} onClick={onClick} data-cta={dataCta} className={cls}>
+    <button
+      {...buttonRest}
+      type={buttonRest.type ?? 'button'}
+      disabled={disabled}
+      data-cta={dataCta}
+      className={cls}
+    >
       {children}
     </button>
   );
