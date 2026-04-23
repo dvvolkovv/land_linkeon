@@ -35,7 +35,7 @@ export default function UseCases() {
                   {it.benefits.map((b) => (
                     <li key={b} className="flex items-start gap-2 text-sm text-slate-700">
                       <CheckCircle2 aria-hidden="true" className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                      <span>{b}</span>
+                      <span className="min-w-0 break-words">{b}</span>
                     </li>
                   ))}
                 </ul>

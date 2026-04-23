@@ -41,7 +41,7 @@ export default function Networking() {
       </div>
 
       <div className="mt-10 text-center">
-        <a href={SEARCH_URL} data-cta="networking-link" className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-semibold text-sm" target="_blank" rel="noopener noreferrer">
+        <a href={SEARCH_URL} data-cta="networking-link" className="inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 font-semibold text-sm" target="_blank" rel="noopener noreferrer">
           {t('networking.cta')} <ArrowRight aria-hidden="true" className="w-4 h-4" />
         </a>
       </div>

@@ -11,7 +11,7 @@ export default function Profile() {
 
   return (
     <Section id="profile" ariaLabelledby="profile-heading">
-      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <FadeIn>
           <Eyebrow className="mb-4">{t('profile.eyebrow')}</Eyebrow>
           <h2 id="profile-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">
@@ -22,7 +22,7 @@ export default function Profile() {
             {bullets.map((b) => (
               <li key={b} className="flex items-start gap-3">
                 <CheckCircle2 aria-hidden="true" className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-700">{b}</span>
+                <span className="min-w-0 break-words text-slate-700">{b}</span>
               </li>
             ))}
           </ul>

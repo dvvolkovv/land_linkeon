@@ -8,7 +8,7 @@ export default function LangSwitcher() {
     if (lng !== current) void i18n.changeLanguage(lng);
   };
 
-  const base = 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors';
+  const base = 'inline-flex items-center justify-center px-3 text-xs font-semibold rounded-md transition-colors min-w-[44px] min-h-[40px]';
   const active = 'bg-indigo-600 text-white';
   const inactive = 'text-slate-600 hover:text-slate-900';
 

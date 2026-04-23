@@ -11,7 +11,7 @@ export default function Dozvon() {
 
   return (
     <Section id="dozvon" ariaLabelledby="dozvon-heading" className="bg-white border-y border-slate-200">
-      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <FadeIn className="order-2 lg:order-1">
           <ScreenshotFrame url="my.linkeon.io/dozvon">
             <video
@@ -37,7 +37,7 @@ export default function Dozvon() {
             {bullets.map((b) => (
               <li key={b} className="flex items-start gap-3">
                 <CheckCircle2 aria-hidden="true" className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-700">{b}</span>
+                <span className="min-w-0 break-words text-slate-700">{b}</span>
               </li>
             ))}
           </ul>
@@ -45,7 +45,7 @@ export default function Dozvon() {
           <div className="rounded-xl bg-slate-50 border border-slate-200 p-5">
             <div className="flex items-start gap-2 mb-4">
               <span aria-hidden="true" className="font-mono text-slate-400 text-sm select-none mt-0.5">→</span>
-              <code className="font-mono text-sm text-slate-700 leading-relaxed">{t('dozvon.prompt')}</code>
+              <code className="min-w-0 break-words font-mono text-sm text-slate-700 leading-relaxed">{t('dozvon.prompt')}</code>
             </div>
             <div className="flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1 rounded-full bg-white border border-slate-200 px-3 py-1 text-xs text-slate-600">

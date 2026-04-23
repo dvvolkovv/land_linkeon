@@ -76,10 +76,10 @@ export default function Header() {
           aria-label={t('header.a11y.openMenu')}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
-          className="lg:hidden p-2 text-slate-700"
+          className="lg:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
           onClick={() => setMobileOpen(true)}
         >
-          <Menu className="w-6 h-6" />
+          <Menu aria-hidden="true" className="w-6 h-6" />
         </button>
       </div>
 
@@ -93,8 +93,13 @@ export default function Header() {
         >
           <div className="h-16 flex items-center justify-between px-6 border-b border-slate-200">
             <span className="font-semibold">LINKEON</span>
-            <button type="button" aria-label={t('header.a11y.closeMenu')} onClick={() => setMobileOpen(false)} className="p-2">
-              <X className="w-6 h-6" />
+            <button
+              type="button"
+              aria-label={t('header.a11y.closeMenu')}
+              onClick={() => setMobileOpen(false)}
+              className="inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              <X aria-hidden="true" className="w-6 h-6" />
             </button>
           </div>
           <div className="flex-1 flex flex-col gap-6 p-6 overflow-y-auto">

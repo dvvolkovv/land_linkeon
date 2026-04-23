@@ -20,12 +20,12 @@ export default function FAQ() {
       <FadeIn delay={120}>
         <div className="max-w-3xl mx-auto">
           {items.map((item) => (
-            <details key={item.q} className="group border-b border-slate-200 py-5 [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex items-center justify-between cursor-pointer list-none">
+            <details key={item.q} className="group border-b border-slate-200 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex items-center justify-between cursor-pointer list-none py-5 min-h-[60px]">
                 <span className="text-slate-900 font-semibold pr-4">{item.q}</span>
                 <ChevronDown aria-hidden="true" className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" />
               </summary>
-              <p className="mt-3 text-slate-600 leading-relaxed">{item.a}</p>
+              <p className="mt-0 pb-5 text-slate-600 leading-relaxed">{item.a}</p>
             </details>
           ))}
         </div>

@@ -19,7 +19,7 @@ export default function ContentEngine() {
         <p className="text-lg text-slate-600">{t('content.sub')}</p>
       </FadeIn>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 min-w-0 [&>*]:min-w-0">
         <FadeIn>
           <Card className="p-6 h-full flex flex-col">
             <h3 className="text-xl font-semibold text-slate-900 mb-1">{t('content.images.h3')}</h3>
@@ -37,7 +37,7 @@ export default function ContentEngine() {
                 </div>
               ))}
             </div>
-            <a href="https://my.linkeon.io/image-gen" data-cta="content-imagegen" className="mt-5 inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 text-sm font-semibold" target="_blank" rel="noopener noreferrer">
+            <a href="https://my.linkeon.io/image-gen" data-cta="content-imagegen" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold" target="_blank" rel="noopener noreferrer">
               my.linkeon.io/image-gen <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </a>
           </Card>
@@ -57,7 +57,7 @@ export default function ContentEngine() {
                 />
               </ScreenshotFrame>
             </div>
-            <a href="https://my.linkeon.io/video" data-cta="content-video" className="mt-5 inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 text-sm font-semibold" target="_blank" rel="noopener noreferrer">
+            <a href="https://my.linkeon.io/video" data-cta="content-video" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold" target="_blank" rel="noopener noreferrer">
               my.linkeon.io/video <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </a>
           </Card>

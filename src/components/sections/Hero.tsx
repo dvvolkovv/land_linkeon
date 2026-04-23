@@ -28,7 +28,7 @@ export default function Hero() {
       aria-labelledby="hero-title"
       className="relative min-h-screen pt-24 md:pt-28 pb-16 overflow-x-clip"
     >
-      <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 md:gap-12 items-center">
+      <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <div className="relative z-10 min-w-0">
           <FadeIn>
             <Eyebrow className="mb-6">{t('hero.eyebrow')}</Eyebrow>

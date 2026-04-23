@@ -14,7 +14,7 @@ export default function Assistants() {
 
   return (
     <Section id="features" ariaLabelledby="assistants-heading">
-      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <FadeIn>
           <Eyebrow className="mb-4">{t('assistants.eyebrow')}</Eyebrow>
           <h2 id="assistants-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">
@@ -22,15 +22,15 @@ export default function Assistants() {
           </h2>
           <p className="text-lg text-slate-600 mb-8 max-w-xl">{t('assistants.sub')}</p>
 
-          <div className="grid grid-cols-2 gap-3 mb-8">
+          <div className="grid grid-cols-1 xs:grid-cols-[repeat(2,minmax(0,1fr))] gap-3 mb-8">
             {list.map((a, i) => {
               const Icon = ICONS[i];
               return (
-                <div key={a.name} className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-white">
+                <div key={a.name} className="min-w-0 flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-white">
                   <div className="w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0">
                     <Icon aria-hidden="true" className="w-5 h-5 text-indigo-600" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm font-semibold text-slate-900">{a.name}</p>
                     <p className="text-xs text-slate-500 leading-snug mt-0.5">{a.role}</p>
                   </div>
@@ -39,7 +39,7 @@ export default function Assistants() {
             })}
           </div>
 
-          <a href={START_URL} data-cta="assistants-link" className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-semibold text-sm" target="_blank" rel="noopener noreferrer">
+          <a href={START_URL} data-cta="assistants-link" className="inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 font-semibold text-sm" target="_blank" rel="noopener noreferrer">
             {t('assistants.cta')} <ArrowRight aria-hidden="true" className="w-4 h-4" />
           </a>
         </FadeIn>

@@ -51,7 +51,7 @@ export default function Footer() {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>
           <p className="text-sm text-slate-400 mb-6">{t('footer.tagline')}</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 -ml-2.5">
             {SOCIALS.map(({ label, href, Icon }) => {
               const disabled = href === '#';
               return (
@@ -61,9 +61,9 @@ export default function Footer() {
                   aria-label={label}
                   aria-disabled={disabled || undefined}
                   tabIndex={disabled ? -1 : undefined}
-                  className={`text-slate-400 hover:text-slate-200 ${disabled ? 'pointer-events-none opacity-40' : ''}`}
+                  className={`inline-flex items-center justify-center w-11 h-11 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors ${disabled ? 'pointer-events-none opacity-40' : ''}`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon aria-hidden="true" className="w-5 h-5" />
                 </a>
               );
             })}
