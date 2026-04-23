@@ -107,5 +107,16 @@
     "video": { "h3": "Video", "caption": "Kling 2.1. Short clips from text or image — ad creatives, previews, stories." },
     "footer": "Runs on the same tokens as assistants. No separate subscriptions."
   },
+  "how": {
+    "eyebrow": "How it works",
+    "h2": "From SMS to first result — 3 minutes",
+    "steps": [
+      { "title": "SMS sign-in", "text": "Just your phone number. No card. +25,000 tokens on the house." },
+      { "title": "Talk to an assistant", "text": "Describe the task by voice or text. Your profile grows on its own." },
+      { "title": "Launch features", "text": "Outbound, content, contract — the assistant does it and delivers to chat." },
+      { "title": "Growth", "text": "Assistants remember context. Every next conversation is better." }
+    ],
+    "cta": "Start free"
+  },
   "placeholder": "Filled in Task 21"
 }
