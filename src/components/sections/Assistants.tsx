@@ -49,7 +49,7 @@ export default function Assistants() {
             <video
               src="/screenshots/assistants-switch.mp4"
               poster="/screenshots/assistants-list.webp"
-              autoPlay muted loop playsInline preload="metadata"
+              autoPlay muted loop playsInline preload="none"
               className="w-full h-full object-cover bg-slate-100"
               aria-hidden="true"
             >

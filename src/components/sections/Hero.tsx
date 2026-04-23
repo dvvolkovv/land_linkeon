@@ -18,6 +18,10 @@ export default function Hero() {
     [i18n.language]
   );
   const rotating = useTypewriter({ phrases });
+  const longest = useMemo(
+    () => phrases.reduce((acc, p) => (p.length > acc.length ? p : acc), ''),
+    [phrases]
+  );
 
   return (
     <section
@@ -35,9 +39,15 @@ export default function Hero() {
               className="text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
             >
               {t('hero.h1Part1')}{' '}
-              <span className="relative inline-block text-indigo-600">
-                {rotating}
-                <span className="inline-block w-0.5 h-[0.9em] bg-indigo-600 align-middle ml-0.5 animate-pulse" />
+              <span className="relative inline-grid align-baseline text-indigo-600">
+                {/* Invisible longest phrase reserves layout space → no CLS */}
+                <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-pre">
+                  {longest}
+                </span>
+                <span className="col-start-1 row-start-1 whitespace-pre">
+                  {rotating}
+                  <span className="inline-block w-0.5 h-[0.9em] bg-indigo-600 align-middle ml-0.5 animate-pulse" />
+                </span>
               </span>{' '}
               {t('hero.h1Part2')}
             </h1>

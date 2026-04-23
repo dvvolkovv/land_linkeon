@@ -17,7 +17,7 @@ export default function Dozvon() {
             <video
               src="/screenshots/dozvon-results.mp4"
               poster="/screenshots/dozvon-chat.webp"
-              autoPlay muted loop playsInline preload="metadata"
+              autoPlay muted loop playsInline preload="none"
               className="w-full h-full object-cover bg-slate-100"
               aria-hidden="true"
             >

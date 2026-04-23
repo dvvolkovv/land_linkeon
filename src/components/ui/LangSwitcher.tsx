@@ -10,7 +10,7 @@ export default function LangSwitcher() {
 
   const base = 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors';
   const active = 'bg-indigo-600 text-white';
-  const inactive = 'text-slate-500 hover:text-slate-900';
+  const inactive = 'text-slate-600 hover:text-slate-900';
 
   return (
     <div

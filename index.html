@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <link rel="icon" type="image/png" href="/logo1.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f8fafc" />
 
@@ -26,20 +25,37 @@
     <meta name="twitter:description" content="AI-ассистенты + автоматический обзвон клиентов + единый профиль." />
     <meta name="twitter:image" content="https://linkeon.io/og-cover.jpg" />
 
-    <!-- Yandex.Metrika -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Load Google Fonts without blocking render -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- Yandex.Metrika (loaded on first user interaction to avoid blocking LCP / inflating 3rd-party cookies during lighthouse) -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
             m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+            var loaded=false;
+            function load(){
+                if (loaded) return; loaded=true;
+                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);
+            }
+            var events=['scroll','touchstart','mousemove','keydown','click'];
+            events.forEach(function(ev){ window.addEventListener(ev, load, { once:true, passive:true }); });
+            // Fallback: also load after 6s of idle so crawlers still get counted
+            window.addEventListener('load', function(){ setTimeout(load, 6000); }, { once: true });
         })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105902201', 'ym');
         ym(105902201, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
     </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   </head>
   <body>
     <noscript><div><img src="https://mc.yandex.ru/watch/105902201" style="position:absolute; left:-9999px;" alt="" /></div></noscript>

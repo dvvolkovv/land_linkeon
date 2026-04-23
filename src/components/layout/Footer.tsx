@@ -58,7 +58,7 @@ export default function Footer() {
                 href={href}
                 aria-label={label}
                 aria-disabled={href === '#' || undefined}
-                className="text-slate-500 hover:text-slate-200"
+                className="text-slate-400 hover:text-slate-200"
               >
                 <Icon className="w-5 h-5" />
               </a>
@@ -99,7 +99,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-6xl mx-auto border-t border-slate-800 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="text-sm text-slate-500">© {new Date().getFullYear()} LINKEON.IO · {t('footer.rights')}</span>
+        <span className="text-sm text-slate-400">© {new Date().getFullYear()} LINKEON.IO · {t('footer.rights')}</span>
         <LangSwitcher />
       </div>
     </footer>

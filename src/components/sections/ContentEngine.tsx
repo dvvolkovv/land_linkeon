@@ -51,7 +51,7 @@ export default function ContentEngine() {
               <ScreenshotFrame url="my.linkeon.io/video" aspect="aspect-video">
                 <video
                   src="/screenshots/video-sample.mp4"
-                  autoPlay muted loop playsInline preload="metadata"
+                  autoPlay muted loop playsInline preload="none"
                   className="w-full h-full object-cover bg-slate-100"
                   aria-hidden="true"
                 />
