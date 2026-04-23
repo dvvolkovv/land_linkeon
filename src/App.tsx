@@ -5,6 +5,7 @@ import Problem from './components/sections/Problem';
 import Assistants from './components/sections/Assistants';
 import Dozvon from './components/sections/Dozvon';
 import Profile from './components/sections/Profile';
+import Networking from './components/sections/Networking';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Assistants />
         <Dozvon />
         <Profile />
+        <Networking />
       </main>
       <Footer />
     </div>
