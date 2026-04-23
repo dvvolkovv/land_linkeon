@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://linkeon.io/sitemap.xml
