@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "test": "playwright test",
     "capture": "tsx scripts/capture.ts",
     "og": "tsx scripts/og.ts"
   },
