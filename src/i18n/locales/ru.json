@@ -16,5 +16,13 @@
       "logo": "LINKEON.IO \u2014 на главную"
     }
   },
+  "footer": {
+    "tagline": "Нейросеть для роста и развития бизнеса",
+    "sections": { "product": "Продукт", "company": "Компания", "legal": "Правовое" },
+    "product": { "assistants": "AI-ассистенты", "dozvon": "Дозвон", "profile": "Единый профиль", "networking": "Networking", "pricing": "Цены" },
+    "company": { "about": "О проекте", "blog": "Блог", "referral": "Реферальная программа", "support": "Поддержка" },
+    "legal": { "privacy": "Политика конфиденциальности", "offer": "Оферта", "pdn": "Обработка ПДн" },
+    "rights": "Все права защищены."
+  },
   "placeholder": "Будет заполнено в Task 21"
 }

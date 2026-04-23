@@ -16,5 +16,13 @@
       "logo": "LINKEON.IO \u2014 home"
     }
   },
+  "footer": {
+    "tagline": "Neural network for business growth",
+    "sections": { "product": "Product", "company": "Company", "legal": "Legal" },
+    "product": { "assistants": "AI assistants", "dozvon": "Outbound", "profile": "Unified profile", "networking": "Networking", "pricing": "Pricing" },
+    "company": { "about": "About", "blog": "Blog", "referral": "Referral program", "support": "Support" },
+    "legal": { "privacy": "Privacy policy", "offer": "Terms of service", "pdn": "Data processing" },
+    "rights": "All rights reserved."
+  },
   "placeholder": "Filled in Task 21"
 }
