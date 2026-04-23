@@ -207,6 +207,57 @@ async function installPiiMaskObserver(page: Page) {
   }, body);
 }
 
+/**
+ * Replace the real user avatar on /profile with a neutral generated one
+ * (indigo→emerald gradient circle + white "ИП" initials, inline SVG data-URL).
+ */
+async function replaceAvatar(page: Page) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <defs>
+      <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#6366f1"/>
+        <stop offset="100%" stop-color="#10b981"/>
+      </linearGradient>
+    </defs>
+    <circle cx="100" cy="100" r="100" fill="url(#g)"/>
+    <text x="100" y="130" text-anchor="middle" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="88" font-weight="600" fill="white">ИП</text>
+  </svg>`;
+  const dataUrl = `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+
+  const swapped = await page.evaluate((src) => {
+    let hits = 0;
+    const imgs = Array.from(document.querySelectorAll('img')) as HTMLImageElement[];
+    for (const img of imgs) {
+      const r = img.getBoundingClientRect();
+      const isSquareish = Math.abs(r.width - r.height) < 12 && r.width > 0;
+      const sizeOk = r.width >= 32 && r.width <= 320;
+      const haystack = (img.src || '') + ' ' + (img.alt || '') + ' ' + (img.className || '');
+      const looksLikeAvatar = /avatar|profile|user|photo/i.test(haystack);
+      const looksLikeLogo = /logo/i.test(haystack);
+      if (looksLikeLogo) continue;
+      if ((isSquareish && sizeOk) || looksLikeAvatar) {
+        img.src = src;
+        img.srcset = '';
+        hits++;
+      }
+    }
+    const bgEls = Array.from(document.querySelectorAll('[style*="background-image"]')) as HTMLElement[];
+    for (const el of bgEls) {
+      const r = el.getBoundingClientRect();
+      const isSquareish = Math.abs(r.width - r.height) < 12 && r.width > 0;
+      const sizeOk = r.width >= 32 && r.width <= 320;
+      if (isSquareish && sizeOk) {
+        el.style.backgroundImage = `url("${src}")`;
+        hits++;
+      }
+    }
+    return hits;
+  }, dataUrl);
+
+  console.log(`  · replaced ${swapped} avatar element(s) with generated SVG`);
+  await page.waitForTimeout(700);
+}
+
 async function captureStatic(
   page: Page,
   path: string,
@@ -685,6 +736,7 @@ async function main() {
         await installPiiMaskObserver(p);
         await p.waitForTimeout(3500);
         await maskPii(p);
+        await replaceAvatar(p);
       },
     },
   ];
