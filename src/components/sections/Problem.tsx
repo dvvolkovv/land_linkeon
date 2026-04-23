@@ -19,7 +19,7 @@ export default function Problem() {
         </h2>
       </FadeIn>
 
-      <div className="grid md:grid-cols-3 gap-12">
+      <div className="grid md:grid-cols-3 gap-8 md:gap-12">
         {items.map((it, i) => {
           const Icon = ICONS[i];
           return (

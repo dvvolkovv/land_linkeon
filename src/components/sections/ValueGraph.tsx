@@ -223,7 +223,7 @@ export default function ValueGraph() {
   }, [inView, VALUES, OTHERS]);
 
   return (
-    <div ref={containerRef} className="w-full h-[420px] md:h-[560px]">
+    <div ref={containerRef} className="w-full h-[360px] md:h-[560px]">
       <canvas ref={canvasRef} aria-hidden="true" className="w-full h-full" />
     </div>
   );

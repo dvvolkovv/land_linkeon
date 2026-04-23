@@ -18,10 +18,10 @@ export default function FinalCTA() {
           <p className="text-lg text-indigo-100 max-w-xl mx-auto mt-4">{t('finalCta.sub')}</p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button variant="primary" size="lg" href={LOGIN_URL} dataCta="final-start" className="bg-white text-indigo-700 shadow-none hover:bg-slate-100 hover:shadow-xl">
+            <Button variant="primary" size="lg" href={LOGIN_URL} dataCta="final-start" className="!bg-white !text-indigo-700 !shadow-none hover:!bg-slate-100 hover:!shadow-xl">
               {t('finalCta.ctaStart')}
             </Button>
-            <Button variant="outline" size="lg" href={LOGIN_URL} dataCta="final-login" className="bg-transparent border-white text-white hover:bg-white/10 hover:border-white">
+            <Button variant="outline" size="lg" href={LOGIN_URL} dataCta="final-login" className="!bg-transparent !border-white !text-white hover:!bg-white/10 hover:!border-white">
               {t('finalCta.ctaLogin')}
             </Button>
           </div>

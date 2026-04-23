@@ -5,8 +5,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
   body {
     @apply antialiased bg-slate-50 text-slate-900 font-sans;
+    overflow-x: clip;
   }
 }

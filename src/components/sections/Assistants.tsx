@@ -14,7 +14,7 @@ export default function Assistants() {
 
   return (
     <Section id="features" ariaLabelledby="assistants-heading">
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center">
         <FadeIn>
           <Eyebrow className="mb-4">{t('assistants.eyebrow')}</Eyebrow>
           <h2 id="assistants-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">

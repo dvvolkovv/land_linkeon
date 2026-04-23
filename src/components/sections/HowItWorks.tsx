@@ -19,10 +19,10 @@ export default function HowItWorks() {
 
       <div className="relative">
         <div aria-hidden="true" className="hidden md:block absolute top-8 left-0 right-0 border-t border-slate-200" />
-        <div className="grid md:grid-cols-4 gap-8 md:gap-6 relative">
+        <div className="grid md:grid-cols-4 gap-6 md:gap-6 relative">
           {steps.map((s, i) => (
             <FadeIn key={s.title} delay={i * 100}>
-              <div className="text-6xl font-semibold text-indigo-600 tabular-nums leading-none mb-4">{String(i + 1).padStart(2, '0')}</div>
+              <div className="text-4xl md:text-6xl font-semibold text-indigo-600 tabular-nums leading-none mb-3 md:mb-4">{String(i + 1).padStart(2, '0')}</div>
               <h3 className="text-lg font-semibold text-slate-900 mb-2">{s.title}</h3>
               <p className="text-sm text-slate-600">{s.text}</p>
             </FadeIn>

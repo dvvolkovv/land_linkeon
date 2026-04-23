@@ -26,25 +26,25 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="relative min-h-screen pt-28 pb-16 overflow-hidden"
+      className="relative min-h-screen pt-24 md:pt-28 pb-16 overflow-x-clip"
     >
-      <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-        <div className="relative z-10">
+      <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 md:gap-12 items-center">
+        <div className="relative z-10 min-w-0">
           <FadeIn>
             <Eyebrow className="mb-6">{t('hero.eyebrow')}</Eyebrow>
           </FadeIn>
           <FadeIn delay={80}>
             <h1
               id="hero-title"
-              className="text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
+              className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
             >
               {t('hero.h1Part1')}{' '}
-              <span className="relative inline-grid align-baseline text-indigo-600">
-                {/* Invisible longest phrase reserves layout space → no CLS */}
-                <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-pre">
+              <span className="relative inline-grid align-baseline text-indigo-600 max-w-full">
+                {/* Invisible longest phrase reserves layout space → no CLS. On mobile allow wrap (normal), desktop keeps single-line pre */}
+                <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
                   {longest}
                 </span>
-                <span className="col-start-1 row-start-1 whitespace-pre">
+                <span className="col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
                   {rotating}
                   <span className="inline-block w-0.5 h-[0.9em] bg-indigo-600 align-middle ml-0.5 animate-pulse" />
                 </span>
@@ -80,7 +80,7 @@ export default function Hero() {
                 <img src="/screenshots/hero-chat.webp" alt="" className="w-full h-full object-cover" />
               </video>
             </ScreenshotFrame>
-            <div className="absolute -bottom-6 -left-4 bg-white border border-slate-200 rounded-xl shadow-lg p-3 flex items-center gap-3">
+            <div className="absolute -bottom-6 left-2 sm:-left-4 bg-white border border-slate-200 rounded-xl shadow-lg p-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center">
                 <Phone className="w-5 h-5 text-indigo-600" />
               </div>
