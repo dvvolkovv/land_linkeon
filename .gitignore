@@ -22,3 +22,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+.playwright-video-tmp
+test-results
+playwright-report
