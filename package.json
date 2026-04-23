@@ -1,6 +1,7 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "linkeon-landing",
   "private": true,
+  "packageManager": "pnpm@10.33.0",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
