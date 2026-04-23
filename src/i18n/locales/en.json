@@ -35,5 +35,15 @@
     "legal": { "privacy": "Privacy policy", "offer": "Terms of service", "pdn": "Data processing" },
     "rights": "All rights reserved."
   },
+  "problem": {
+    "eyebrow": "The problem",
+    "h2": "There aren't enough hours in a day to grow your business",
+    "items": [
+      { "title": "Busywork eats your focus", "text": "Replying to clients, writing posts, drafting contracts, calling 20 companies — and suddenly you're not growing, you're firefighting." },
+      { "title": "Hiring is slow and expensive", "text": "Marketer, lawyer, HR — that's an extra ₽300–500K/mo in payroll at an early stage." },
+      { "title": "Ten tools, one context", "text": "ChatGPT, Notion, CRM, email — each knows a fragment about you, not the whole." }
+    ],
+    "footer": "Linkeon puts this in one product: AI assistants do the work, and your profile — the context — lives in one place."
+  },
   "placeholder": "Filled in Task 21"
 }
