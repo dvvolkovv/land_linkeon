@@ -59,5 +59,18 @@
     ],
     "cta": "See all assistants"
   },
+  "dozvon": {
+    "eyebrow": "Outbound · unique",
+    "h2": "AI calls your clients. On its own.",
+    "sub": "Describe the task in text — AI finds contacts, calls, holds a natural conversation, records it and sends a summary. You get only the result.",
+    "bullets": [
+      "Finds companies and phone numbers for the task",
+      "Calls by voice (cloned or standard)",
+      "Handles objections and negotiates",
+      "Records MP3 and delivers a summary to chat"
+    ],
+    "prompt": "find 10 BMW body shops in Moscow and ask how much a hood repaint on an X5 2020 would cost",
+    "badges": { "time": "12 minutes", "calls": "10 calls", "recordings": "10 MP3 + summaries" }
+  },
   "placeholder": "Filled in Task 21"
 }
