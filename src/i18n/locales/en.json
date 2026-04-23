@@ -166,5 +166,12 @@
       { "q": "How is it different from ChatGPT?", "a": "ChatGPT is one helper. Linkeon is a team of assistants with a shared profile + Outbound + image and video generation in one bill." }
     ]
   },
+  "finalCta": {
+    "h2": "Assemble your AI department in 2 minutes",
+    "sub": "SMS sign-in, 25,000 tokens on the house, no card",
+    "ctaStart": "Start free",
+    "ctaLogin": "Log in",
+    "trust": "No subscriptions · no card required · tokens don't expire"
+  },
   "placeholder": "Filled in Task 21"
 }

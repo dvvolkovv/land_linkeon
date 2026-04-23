@@ -11,6 +11,7 @@ import HowItWorks from './components/sections/HowItWorks';
 import UseCases from './components/sections/UseCases';
 import Pricing from './components/sections/Pricing';
 import FAQ from './components/sections/FAQ';
+import FinalCTA from './components/sections/FinalCTA';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <UseCases />
         <Pricing />
         <FAQ />
+        <FinalCTA />
       </main>
       <Footer />
     </div>
