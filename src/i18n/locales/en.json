@@ -139,5 +139,18 @@
       }
     ]
   },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "h2": "You only pay for tokens. No subscriptions.",
+    "sub": "Tokens don't expire. Buy a pack once, use when needed.",
+    "plans": { "starter": "Starter", "extended": "Extended", "professional": "Professional" },
+    "tokens": "tokens",
+    "messages": "messages",
+    "per1000": "per 1000 tokens",
+    "popular": "Popular",
+    "savings": "Save {{value}}",
+    "cta": "Buy",
+    "trust": { "yookassa": "Pay via YooKassa", "email": "Receipt by email", "gift": "25,000 tokens on the house for new users" }
+  },
   "placeholder": "Filled in Task 21"
 }

@@ -9,6 +9,7 @@ import Networking from './components/sections/Networking';
 import ContentEngine from './components/sections/ContentEngine';
 import HowItWorks from './components/sections/HowItWorks';
 import UseCases from './components/sections/UseCases';
+import Pricing from './components/sections/Pricing';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <ContentEngine />
         <HowItWorks />
         <UseCases />
+        <Pricing />
       </main>
       <Footer />
     </div>
