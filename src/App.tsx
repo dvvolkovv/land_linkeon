@@ -6,6 +6,7 @@ import Assistants from './components/sections/Assistants';
 import Dozvon from './components/sections/Dozvon';
 import Profile from './components/sections/Profile';
 import Networking from './components/sections/Networking';
+import ContentEngine from './components/sections/ContentEngine';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Dozvon />
         <Profile />
         <Networking />
+        <ContentEngine />
       </main>
       <Footer />
     </div>

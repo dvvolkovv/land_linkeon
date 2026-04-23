@@ -99,5 +99,13 @@
     ],
     "cta": "Open networking at my.linkeon.io"
   },
+  "content": {
+    "eyebrow": "Content engine",
+    "h2": "Plus visuals and video — in the same tokens",
+    "sub": "Your AI marketer wrote the plan? Generate covers, carousels and short videos right there. No switching between services and subscriptions.",
+    "images": { "h3": "Images", "caption": "Nano Banana, realistic and fast. Covers, carousels, social visuals." },
+    "video": { "h3": "Video", "caption": "Kling 2.1. Short clips from text or image — ad creatives, previews, stories." },
+    "footer": "Runs on the same tokens as assistants. No separate subscriptions."
+  },
   "placeholder": "Filled in Task 21"
 }
