@@ -10,6 +10,7 @@ import ContentEngine from './components/sections/ContentEngine';
 import HowItWorks from './components/sections/HowItWorks';
 import UseCases from './components/sections/UseCases';
 import Pricing from './components/sections/Pricing';
+import FAQ from './components/sections/FAQ';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <HowItWorks />
         <UseCases />
         <Pricing />
+        <FAQ />
       </main>
       <Footer />
     </div>

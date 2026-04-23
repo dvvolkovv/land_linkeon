@@ -152,5 +152,19 @@
     "cta": "Buy",
     "trust": { "yookassa": "Pay via YooKassa", "email": "Receipt by email", "gift": "25,000 tokens on the house for new users" }
   },
+  "faq": {
+    "eyebrow": "Questions",
+    "h2": "What to know before you start",
+    "items": [
+      { "q": "What are tokens and how are they spent?", "a": "Tokens are the internal currency. They're used for each assistant reply, Outbound call, generated image or second of video. They don't expire." },
+      { "q": "How long does onboarding take?", "a": "SMS sign-in, 2 minutes. You start with 25,000 tokens, enough to try every feature." },
+      { "q": "Are my conversations private?", "a": "Yes. Only you have access to your profile. In settings you control what assistants remember." },
+      { "q": "How is Outbound legal?", "a": "Calls are from +7 (495) 133-62-76. At the start the AI introduces itself as an AI assistant. The recording is yours." },
+      { "q": "Is the Outbound voice mine or standard?", "a": "By default the standard voice «Alexey» is used. In settings you can connect a clone of your own voice (via ElevenLabs)." },
+      { "q": "Can I cancel a token purchase?", "a": "Unused tokens are refunded upon request to support within 14 days." },
+      { "q": "Is there an API?", "a": "Not yet. We're working on it — ping support if you're interested, we'll speed things up." },
+      { "q": "How is it different from ChatGPT?", "a": "ChatGPT is one helper. Linkeon is a team of assistants with a shared profile + Outbound + image and video generation in one bill." }
+    ]
+  },
   "placeholder": "Filled in Task 21"
 }
