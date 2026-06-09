@@ -1,6 +1,7 @@
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
+import PersonaCTA from './components/sections/PersonaCTA';
 import Problem from './components/sections/Problem';
 import Assistants from './components/sections/Assistants';
 import Dozvon from './components/sections/Dozvon';
@@ -19,6 +20,7 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <PersonaCTA />
         <Problem />
         <Assistants />
         <Dozvon />

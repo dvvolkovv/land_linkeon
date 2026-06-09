@@ -4,6 +4,7 @@ import Section from '../ui/Section';
 import Eyebrow from '../ui/Eyebrow';
 import Button from '../ui/Button';
 import FadeIn from '../ui/FadeIn';
+import { appUrl } from '../../lib/appUrl';
 
 interface Pkg {
   id: 'starter' | 'extended' | 'professional';
@@ -19,7 +20,7 @@ const PACKAGES: Pkg[] = [
   { id: 'professional', tokens: 1000000, price: 1990, savings: '30%' },
 ];
 
-const TOKENS_URL = 'https://my.linkeon.io/tokens';
+const TOKENS_URL = appUrl('/tokens');
 
 export default function Pricing() {
   const { t, i18n } = useTranslation();

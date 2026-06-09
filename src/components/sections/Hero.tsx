@@ -7,8 +7,9 @@ import GradientOrb from '../ui/GradientOrb';
 import ScreenshotFrame from '../ui/ScreenshotFrame';
 import FadeIn from '../ui/FadeIn';
 import { useTypewriter } from '../../lib/useTypewriter';
+import { appUrl } from '../../lib/appUrl';
 
-const START_URL = 'https://my.linkeon.io';
+const START_URL = appUrl();  // пробрасывает utm_* / ref на приложение (атрибуция)
 
 export default function Hero() {
   const { t, i18n } = useTranslation();

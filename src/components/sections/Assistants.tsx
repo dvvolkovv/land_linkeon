@@ -4,9 +4,10 @@ import Section from '../ui/Section';
 import Eyebrow from '../ui/Eyebrow';
 import ScreenshotFrame from '../ui/ScreenshotFrame';
 import FadeIn from '../ui/FadeIn';
+import { appUrl } from '../../lib/appUrl';
 
 const ICONS = [Bot, Megaphone, Scale, Calculator, UserCheck, Compass];
-const START_URL = 'https://my.linkeon.io';
+const START_URL = appUrl();
 
 export default function Assistants() {
   const { t } = useTranslation();

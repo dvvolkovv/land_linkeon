@@ -1,4 +1,26 @@
 {
+  "personaCta": {
+    "eyebrow": "For your goal",
+    "h2": "Where to start is up to you",
+    "cards": {
+      "business": {
+        "title": "For business",
+        "text": "An AI team for your business: lawyer, marketer, strategist and coach — no subscription, no hiring. Ask a question right now.",
+        "cta": "Ask the AI team"
+      },
+      "creator": {
+        "title": "For content",
+        "text": "An AI assistant for content: copy, ideas, headlines, SEO. From a post to a script — in minutes.",
+        "cta": "Create content"
+      },
+      "personal": {
+        "title": "For yourself",
+        "text": "An AI psychologist and coach, always available. Understand yourself — the first conversation is free.",
+        "cta": "Start a conversation"
+      }
+    },
+    "social": "16 AI specialists in one place · conversations about business, content and self-growth"
+  },
   "header": {
     "nav": {
       "features": "Features",

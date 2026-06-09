@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import Section from '../ui/Section';
 import Eyebrow from '../ui/Eyebrow';
 import FadeIn from '../ui/FadeIn';
+import { appUrl } from '../../lib/appUrl';
 
 export default function HowItWorks() {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ export default function HowItWorks() {
       </div>
 
       <FadeIn delay={500} className="text-center mt-12">
-        <a href="https://my.linkeon.io" data-cta="how-start" className="inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 font-semibold" target="_blank" rel="noopener noreferrer">
+        <a href={appUrl()} data-cta="how-start" className="inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 font-semibold" target="_blank" rel="noopener noreferrer">
           {t('how.cta')} <ArrowRight aria-hidden="true" className="w-4 h-4" />
         </a>
       </FadeIn>

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Menu, X } from 'lucide-react';
 import Button from '../ui/Button';
 import LangSwitcher from '../ui/LangSwitcher';
+import { appUrl } from '../../lib/appUrl';
 
 const LINKS = [
   { href: '#features', key: 'header.nav.features' },
@@ -11,7 +12,7 @@ const LINKS = [
   { href: '#faq', key: 'header.nav.faq' },
 ] as const;
 
-const LOGIN_URL = 'https://my.linkeon.io';
+const LOGIN_URL = appUrl();
 
 export default function Header() {
   const { t } = useTranslation();

@@ -3,9 +3,10 @@ import { ArrowRight } from 'lucide-react';
 import Section from '../ui/Section';
 import Eyebrow from '../ui/Eyebrow';
 import FadeIn from '../ui/FadeIn';
+import { appUrl } from '../../lib/appUrl';
 import ValueGraph from './ValueGraph';
 
-const SEARCH_URL = 'https://my.linkeon.io/search';
+const SEARCH_URL = appUrl('/search');
 
 export default function Networking() {
   const { t } = useTranslation();

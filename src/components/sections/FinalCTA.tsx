@@ -2,8 +2,9 @@ import { useTranslation } from 'react-i18next';
 import Button from '../ui/Button';
 import GradientOrb from '../ui/GradientOrb';
 import FadeIn from '../ui/FadeIn';
+import { appUrl } from '../../lib/appUrl';
 
-const LOGIN_URL = 'https://my.linkeon.io';
+const LOGIN_URL = appUrl();
 
 export default function FinalCTA() {
   const { t } = useTranslation();
