@@ -135,8 +135,8 @@ function renderRu(type: LegalType) {
         <H3>2. Цель Приложения</H3>
         <P>
           Приложение предназначено для предоставления пользователям доступа к AI-ассистентам
-          (маркетолог, юрист, бухгалтер, HR, коуч и др.), функциям генерации контента,
-          автоматического обзвона и единого профиля для задач бизнеса и личного развития.
+          (маркетолог, юрист, бухгалтер, HR, коуч и др.), функциям генерации контента
+          и единого профиля для задач бизнеса и личного развития.
         </P>
 
         <H3>3. Регистрация и аккаунт</H3>
@@ -442,7 +442,7 @@ function renderEn(type: LegalType) {
           <H3>2. Purpose of the Application</H3>
           <P>
             The Application provides users with access to AI assistants (marketer, lawyer,
-            accountant, HR, coach and others), content-generation tools, automated calling
+            accountant, HR, coach and others), content-generation tools
             and a unified profile for business and personal-development tasks.
           </P>
 
