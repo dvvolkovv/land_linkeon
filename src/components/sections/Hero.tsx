@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Phone } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import Eyebrow from '../ui/Eyebrow';
 import Button from '../ui/Button';
 import GradientOrb from '../ui/GradientOrb';
@@ -83,7 +83,7 @@ export default function Hero() {
             </ScreenshotFrame>
             <div className="absolute -bottom-6 left-2 sm:-left-4 bg-white border border-slate-200 rounded-xl shadow-lg p-3 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center">
-                <Phone className="w-5 h-5 text-indigo-600" />
+                <Sparkles className="w-5 h-5 text-indigo-600" />
               </div>
               <div>
                 <p className="text-xs text-slate-500">{t('hero.badge.title')}</p>

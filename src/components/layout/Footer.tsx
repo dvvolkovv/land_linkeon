@@ -124,7 +124,6 @@ export default function Footer() {
           <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wider mb-4">{t('footer.sections.product')}</h3>
           {col([
             { label: t('footer.product.assistants'), href: '#features' },
-            { label: t('footer.product.dozvon'), href: '#dozvon' },
             { label: t('footer.product.profile'), href: '#profile' },
             { label: t('footer.product.networking'), href: '#networking' },
             { label: t('footer.product.pricing'), href: '#pricing' },

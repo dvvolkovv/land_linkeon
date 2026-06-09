@@ -4,7 +4,6 @@ import Hero from './components/sections/Hero';
 import PersonaCTA from './components/sections/PersonaCTA';
 import Problem from './components/sections/Problem';
 import Assistants from './components/sections/Assistants';
-import Dozvon from './components/sections/Dozvon';
 import Profile from './components/sections/Profile';
 import Networking from './components/sections/Networking';
 import ContentEngine from './components/sections/ContentEngine';
@@ -23,7 +22,6 @@ function App() {
         <PersonaCTA />
         <Problem />
         <Assistants />
-        <Dozvon />
         <Profile />
         <Networking />
         <ContentEngine />

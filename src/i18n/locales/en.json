@@ -35,35 +35,69 @@
     "a11y": {
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
-      "logo": "LINKEON.IO \u2014 home"
+      "logo": "LINKEON.IO — home"
     }
   },
   "hero": {
     "eyebrow": "AI for business growth",
     "h1Part1": "Your AI team,",
-    "h1Rotating": ["outbound sales calls", "content creation", "legal consultations", "marketing strategy"],
+    "h1Rotating": [
+      "content creation",
+      "legal consultations",
+      "marketing strategy"
+    ],
     "h1Part2": "and a unified profile",
-    "sub": "Six AI assistants (marketer, lawyer, accountant, HR, coach and Roman) that call clients, write content and grow with your business. One profile for everything.",
+    "sub": "Six AI assistants (marketer, lawyer, accountant, HR, coach and Roman) that write content and grow with your business. One profile for everything.",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
     "trust": "25,000 tokens on the house · no card required · 2 minutes to sign up",
-    "badge": { "title": "Outbound active", "status": "3 / 10 calls" }
+    "badge": {
+      "title": "AI assistant",
+      "status": "online · replying"
+    }
   },
   "footer": {
     "tagline": "Neural network for business growth",
-    "sections": { "product": "Product", "company": "Company", "legal": "Legal" },
-    "product": { "assistants": "AI assistants", "dozvon": "Outbound", "profile": "Unified profile", "networking": "Networking", "pricing": "Pricing" },
-    "company": { "about": "About", "blog": "Blog", "referral": "Referral program", "support": "Support" },
-    "legal": { "privacy": "Privacy policy", "offer": "Terms of service", "pdn": "Data processing" },
+    "sections": {
+      "product": "Product",
+      "company": "Company",
+      "legal": "Legal"
+    },
+    "product": {
+      "assistants": "AI assistants",
+      "profile": "Unified profile",
+      "networking": "Networking",
+      "pricing": "Pricing"
+    },
+    "company": {
+      "about": "About",
+      "blog": "Blog",
+      "referral": "Referral program",
+      "support": "Support"
+    },
+    "legal": {
+      "privacy": "Privacy policy",
+      "offer": "Terms of service",
+      "pdn": "Data processing"
+    },
     "rights": "All rights reserved."
   },
   "problem": {
     "eyebrow": "The problem",
     "h2": "There aren't enough hours in a day to grow your business",
     "items": [
-      { "title": "Busywork eats your focus", "text": "Replying to clients, writing posts, drafting contracts, calling 20 companies — and suddenly you're not growing, you're firefighting." },
-      { "title": "Hiring is slow and expensive", "text": "Marketer, lawyer, HR — that's an extra ₽300–500K/mo in payroll at an early stage." },
-      { "title": "Ten tools, one context", "text": "ChatGPT, Notion, CRM, email — each knows a fragment about you, not the whole." }
+      {
+        "title": "Busywork eats your focus",
+        "text": "Replying to clients, writing posts, drafting contracts — and suddenly you're not growing, you're firefighting."
+      },
+      {
+        "title": "Hiring is slow and expensive",
+        "text": "Marketer, lawyer, HR — that's an extra ₽300–500K/mo in payroll at an early stage."
+      },
+      {
+        "title": "Ten tools, one context",
+        "text": "ChatGPT, Notion, CRM, email — each knows a fragment about you, not the whole."
+      }
     ],
     "footer": "Linkeon puts this in one product: AI assistants do the work, and your profile — the context — lives in one place."
   },
@@ -72,12 +106,30 @@
     "h2": "Six assistants in one window",
     "sub": "Each an expert in their role. They remember your business, know about each other, respond by voice or text.",
     "list": [
-      { "name": "Roman", "role": "Universal agent, does everything" },
-      { "name": "Marketer", "role": "Launch plans, content, market analytics" },
-      { "name": "Lawyer", "role": "Contracts, checklists, consultations" },
-      { "name": "Accountant", "role": "Taxes, calculations, 1C statements" },
-      { "name": "HR", "role": "Job posts, interview prompts, screening" },
-      { "name": "Coach", "role": "Strategy, priorities, founder psychology" }
+      {
+        "name": "Roman",
+        "role": "Universal agent, does everything"
+      },
+      {
+        "name": "Marketer",
+        "role": "Launch plans, content, market analytics"
+      },
+      {
+        "name": "Lawyer",
+        "role": "Contracts, checklists, consultations"
+      },
+      {
+        "name": "Accountant",
+        "role": "Taxes, calculations, 1C statements"
+      },
+      {
+        "name": "HR",
+        "role": "Job posts, interview prompts, screening"
+      },
+      {
+        "name": "Coach",
+        "role": "Strategy, priorities, founder psychology"
+      }
     ],
     "cta": "See all assistants"
   },
@@ -92,7 +144,11 @@
       "Records MP3 and delivers a summary to chat"
     ],
     "prompt": "find 10 BMW body shops in Moscow and ask how much a hood repaint on an X5 2020 would cost",
-    "badges": { "time": "12 minutes", "calls": "10 calls", "recordings": "10 MP3 + summaries" }
+    "badges": {
+      "time": "12 minutes",
+      "calls": "10 calls",
+      "recordings": "10 MP3 + summaries"
+    }
   },
   "profile": {
     "eyebrow": "Unified profile",
@@ -100,7 +156,7 @@
     "sub": "Through your conversations Linkeon builds your profile: values, business, pain points, communication style. Every assistant starts not from zero, but with full understanding.",
     "bullets": [
       "Grows from every conversation",
-      "Works across all assistants and Outbound",
+      "Works across all assistants",
       "You control what gets remembered",
       "Used to find partners by values"
     ]
@@ -109,15 +165,44 @@
     "eyebrow": "Networking",
     "h2": "Partners and experts who match your values",
     "sub": "A profile is not a resume. It's values, intent, style. Linkeon finds people who resonate with you — for partnerships, clients, hires, projects.",
-    "legend": { "self": "Your profile", "values": "Values and intent", "matches": "Matches with others" },
+    "legend": {
+      "self": "Your profile",
+      "values": "Values and intent",
+      "matches": "Matches with others"
+    },
     "graph": {
-      "values": ["Honesty", "Growth", "Freedom", "Family", "Impact", "Creativity", "Learning", "Trust"],
-      "others": ["A", "M", "K", "D", "S", "N"]
+      "values": [
+        "Honesty",
+        "Growth",
+        "Freedom",
+        "Family",
+        "Impact",
+        "Creativity",
+        "Learning",
+        "Trust"
+      ],
+      "others": [
+        "A",
+        "M",
+        "K",
+        "D",
+        "S",
+        "N"
+      ]
     },
     "cols": [
-      { "title": "Partners", "text": "Co-founders and experts with a similar worldview." },
-      { "title": "Clients", "text": "Those aligned with your meaning, not just price." },
-      { "title": "Community", "text": "Events, calls, chats around interests." }
+      {
+        "title": "Partners",
+        "text": "Co-founders and experts with a similar worldview."
+      },
+      {
+        "title": "Clients",
+        "text": "Those aligned with your meaning, not just price."
+      },
+      {
+        "title": "Community",
+        "text": "Events, meetups, chats around interests."
+      }
     ],
     "cta": "Open networking at my.linkeon.io"
   },
@@ -125,18 +210,36 @@
     "eyebrow": "Content engine",
     "h2": "Plus visuals and video — in the same tokens",
     "sub": "Your AI marketer wrote the plan? Generate covers, carousels and short videos right there. No switching between services and subscriptions.",
-    "images": { "h3": "Images", "caption": "Nano Banana, realistic and fast. Covers, carousels, social visuals." },
-    "video": { "h3": "Video", "caption": "Kling 2.1. Short clips from text or image — ad creatives, previews, stories." },
+    "images": {
+      "h3": "Images",
+      "caption": "Nano Banana, realistic and fast. Covers, carousels, social visuals."
+    },
+    "video": {
+      "h3": "Video",
+      "caption": "Kling 2.1. Short clips from text or image — ad creatives, previews, stories."
+    },
     "footer": "Runs on the same tokens as assistants. No separate subscriptions."
   },
   "how": {
     "eyebrow": "How it works",
     "h2": "From SMS to first result — 3 minutes",
     "steps": [
-      { "title": "SMS sign-in", "text": "Just your phone number. No card. +25,000 tokens on the house." },
-      { "title": "Talk to an assistant", "text": "Describe the task by voice or text. Your profile grows on its own." },
-      { "title": "Launch features", "text": "Outbound, content, contract — the assistant does it and delivers to chat." },
-      { "title": "Growth", "text": "Assistants remember context. Every next conversation is better." }
+      {
+        "title": "SMS sign-in",
+        "text": "Just your phone number. No card. +25,000 tokens on the house."
+      },
+      {
+        "title": "Talk to an assistant",
+        "text": "Describe the task by voice or text. Your profile grows on its own."
+      },
+      {
+        "title": "Launch features",
+        "text": "content, contract — the assistant does it and delivers to chat."
+      },
+      {
+        "title": "Growth",
+        "text": "Assistants remember context. Every next conversation is better."
+      }
     ],
     "cta": "Start free"
   },
@@ -147,17 +250,27 @@
       {
         "title": "Small business, no staff",
         "text": "One person = the whole company. Linkeon = marketing department, accounting, legal, sales.",
-        "benefits": ["Assistants as a department", "Outbound = outsourced sales", "Unified company profile"]
+        "benefits": [
+          "Assistants as a department",
+          "Unified company profile"
+        ]
       },
       {
         "title": "Freelancers and solo experts",
         "text": "You do projects, with 100 small tasks around them (contracts, social, leads). AI takes them off.",
-        "benefits": ["Contracts in a minute", "Ads for yourself", "More time for core work"]
+        "benefits": [
+          "Contracts in a minute",
+          "Ads for yourself",
+          "More time for core work"
+        ]
       },
       {
         "title": "Marketing agencies",
-        "text": "Many clients, few people. AI calls leads, writes ad copy, generates creatives.",
-        "benefits": ["10× campaign speed", "AI outbound for clients", "Video and visuals in one place"]
+        "text": "Many clients, few people. AI writes ad copy, generates creatives.",
+        "benefits": [
+          "10× campaign speed",
+          "Video and visuals in one place"
+        ]
       }
     ]
   },
@@ -165,27 +278,51 @@
     "eyebrow": "Pricing",
     "h2": "You only pay for tokens. No subscriptions.",
     "sub": "Tokens don't expire. Buy a pack once, use when needed.",
-    "plans": { "starter": "Starter", "extended": "Extended", "professional": "Professional" },
+    "plans": {
+      "starter": "Starter",
+      "extended": "Extended",
+      "professional": "Professional"
+    },
     "tokens": "tokens",
     "messages": "messages",
     "per1000": "per 1000 tokens",
     "popular": "Popular",
     "savings": "Save {{value}}",
     "cta": "Buy",
-    "trust": { "yookassa": "Pay via YooKassa", "email": "Receipt by email", "gift": "25,000 tokens on the house for new users" }
+    "trust": {
+      "yookassa": "Pay via YooKassa",
+      "email": "Receipt by email",
+      "gift": "25,000 tokens on the house for new users"
+    }
   },
   "faq": {
     "eyebrow": "Questions",
     "h2": "What to know before you start",
     "items": [
-      { "q": "What are tokens and how are they spent?", "a": "Tokens are the internal currency. They're used for each assistant reply, Outbound call, generated image or second of video. They don't expire." },
-      { "q": "How long does onboarding take?", "a": "SMS sign-in, 2 minutes. You start with 25,000 tokens, enough to try every feature." },
-      { "q": "Are my conversations private?", "a": "Yes. Only you have access to your profile. In settings you control what assistants remember." },
-      { "q": "How is Outbound legal?", "a": "Calls are from +7 (495) 133-62-76. At the start the AI introduces itself as an AI assistant. The recording is yours." },
-      { "q": "Is the Outbound voice mine or standard?", "a": "By default the standard voice «Alexey» is used. In settings you can connect a clone of your own voice (via ElevenLabs)." },
-      { "q": "Can I cancel a token purchase?", "a": "Unused tokens are refunded upon request to support within 14 days." },
-      { "q": "Is there an API?", "a": "Not yet. We're working on it — ping support if you're interested, we'll speed things up." },
-      { "q": "How is it different from ChatGPT?", "a": "ChatGPT is one helper. Linkeon is a team of assistants with a shared profile + Outbound + image and video generation in one bill." }
+      {
+        "q": "What are tokens and how are they spent?",
+        "a": "Tokens are the internal currency. They're used for each assistant reply, generated image or second of video. They don't expire."
+      },
+      {
+        "q": "How long does onboarding take?",
+        "a": "SMS sign-in, 2 minutes. You start with 25,000 tokens, enough to try every feature."
+      },
+      {
+        "q": "Are my conversations private?",
+        "a": "Yes. Only you have access to your profile. In settings you control what assistants remember."
+      },
+      {
+        "q": "Can I cancel a token purchase?",
+        "a": "Unused tokens are refunded upon request to support within 14 days."
+      },
+      {
+        "q": "Is there an API?",
+        "a": "Not yet. We're working on it — ping support if you're interested, we'll speed things up."
+      },
+      {
+        "q": "How is it different from ChatGPT?",
+        "a": "ChatGPT is one helper. Linkeon is a team of assistants with a shared profile + image and video generation in one bill."
+      }
     ]
   },
   "finalCta": {
