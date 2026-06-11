@@ -1,8 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
+import { trackLandingVisit } from './lib/track';
 import './i18n';
 import './index.css';
+
+// Зафиксировать заход на лендинг с источником (VK/utm и пр.) — верх воронки.
+trackLandingVisit();
 
 declare global {
   interface Window {
