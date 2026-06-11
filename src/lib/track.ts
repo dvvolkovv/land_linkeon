@@ -4,15 +4,18 @@
 // VK-клики на лендинг были «слепым пятном». Теперь лендинг шлёт landing_view с
 // source на бэкенд приложения (CORS открыт), props.site='landing' — чтобы
 // отличать верх воронки (клик по рекламе) от перехода в приложение.
+import { getAttribution } from './attribution';
+
 const BACKEND = 'https://my.linkeon.io';
 
+// Метки берём из persistAttribution() (URL → localStorage), а не из «живого»
+// URL: иначе при перезагрузке/скролле/внутреннем якоре метка терялась.
 const getSource = (): string => {
-  const p = new URLSearchParams(window.location.search);
-  if (p.get('ref')) return `referral:${p.get('ref')}`;
-  if (p.get('utm_source') || p.get('utm_campaign')) {
-    let s = `utm:${p.get('utm_source') || p.get('utm_campaign')}`;
-    const m = p.get('utm_medium');
-    if (m) s += `/${m}`;
+  const a = getAttribution();
+  if (a.ref) return `referral:${a.ref}`;
+  if (a.utm_source || a.utm_campaign) {
+    let s = `utm:${a.utm_source || a.utm_campaign}`;
+    if (a.utm_medium) s += `/${a.utm_medium}`;
     return s;
   }
   if (document.referrer) {
@@ -25,8 +28,8 @@ const getSource = (): string => {
 };
 
 const getCampaign = (): string | null => {
-  const p = new URLSearchParams(window.location.search);
-  const c = [p.get('utm_campaign'), p.get('utm_content')].filter(Boolean).join('/');
+  const a = getAttribution();
+  const c = [a.utm_campaign, a.utm_content].filter(Boolean).join('/');
   return c || null;
 };
 

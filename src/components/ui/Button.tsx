@@ -52,6 +52,12 @@ export default function Button(props: Props) {
   if ('href' in props && props.href !== undefined) {
     const { href, ...anchorRest } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
     const external = href.startsWith('http');
+    // Приложение (my.linkeon.io) — это ЦЕЛЬ воронки, а не «внешняя ссылка»:
+    // переходим в той же вкладке. target="_blank" из VK in-app браузера
+    // (мобильный трафик с рекламы) часто молча не срабатывает — тап «вникуда»,
+    // и пользователь не доходит до логина. Прочие http-ссылки — в новой вкладке.
+    const toApp = href.includes('my.linkeon.io');
+    const openNewTab = external && !toApp;
     return (
       <a
         {...anchorRest}
@@ -59,7 +65,7 @@ export default function Button(props: Props) {
         data-cta={dataCta}
         aria-disabled={disabled || undefined}
         tabIndex={disabled ? -1 : undefined}
-        target={external ? '_blank' : undefined}
+        target={openNewTab ? '_blank' : undefined}
         rel={external ? 'noopener noreferrer' : undefined}
         className={cls}
       >

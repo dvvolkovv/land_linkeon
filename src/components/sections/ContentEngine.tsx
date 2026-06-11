@@ -38,7 +38,7 @@ export default function ContentEngine() {
                 </div>
               ))}
             </div>
-            <a href={appUrl("/image-gen")} data-cta="content-imagegen" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold" target="_blank" rel="noopener noreferrer">
+            <a href={appUrl("/image-gen")} data-cta="content-imagegen" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold">
               my.linkeon.io/image-gen <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </a>
           </Card>
@@ -58,7 +58,7 @@ export default function ContentEngine() {
                 />
               </ScreenshotFrame>
             </div>
-            <a href={appUrl("/video")} data-cta="content-video" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold" target="_blank" rel="noopener noreferrer">
+            <a href={appUrl("/video")} data-cta="content-video" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold">
               my.linkeon.io/video <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </a>
           </Card>
