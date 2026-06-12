@@ -39,6 +39,14 @@
     }
   },
   "hero": {
+    "biz": {
+      "eyebrow": "An AI team for founders",
+      "h1Part1": "A lawyer, accountant and marketer —",
+      "h1Accent": "in one chat",
+      "h1Part2": "for your business",
+      "sub": "AI assistants handle a founder's tasks: review a contract, estimate taxes, write a post and a strategy, advise on hiring. First tasks are free.",
+      "ctaStart": "Try for free"
+    },
     "eyebrow": "AI for business growth",
     "h1Part1": "Your AI team,",
     "h1Rotating": [

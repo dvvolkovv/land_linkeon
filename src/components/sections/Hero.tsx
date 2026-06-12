@@ -24,6 +24,15 @@ export default function Hero() {
     [phrases]
   );
 
+  // Сегментный первый экран: ссылка из рекламной кампании несёт ?seg=biz и hero
+  // говорит сразу про бизнес-сценарий (юрист/бухгалтер/маркетолог/наставник),
+  // чтобы обещание объявления совпадало с тем, что человек видит на лендинге.
+  // seg влияет только на отображение — utm в app пробрасывается как обычно.
+  const seg = typeof window !== 'undefined'
+    ? new URLSearchParams(window.location.search).get('seg')
+    : null;
+  const isBiz = seg === 'biz';
+
   return (
     <section
       aria-labelledby="hero-title"
@@ -32,33 +41,44 @@ export default function Hero() {
       <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <div className="relative z-10 min-w-0">
           <FadeIn>
-            <Eyebrow className="mb-6">{t('hero.eyebrow')}</Eyebrow>
+            <Eyebrow className="mb-6">{isBiz ? t('hero.biz.eyebrow') : t('hero.eyebrow')}</Eyebrow>
           </FadeIn>
           <FadeIn delay={80}>
-            <h1
-              id="hero-title"
-              className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
-            >
-              {t('hero.h1Part1')}{' '}
-              <span className="relative inline-grid align-baseline text-indigo-600 max-w-full">
-                {/* Invisible longest phrase reserves layout space → no CLS. On mobile allow wrap (normal), desktop keeps single-line pre */}
-                <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
-                  {longest}
-                </span>
-                <span className="col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
-                  {rotating}
-                  <span className="inline-block w-0.5 h-[0.9em] bg-indigo-600 align-middle ml-0.5 animate-pulse" />
-                </span>
-              </span>{' '}
-              {t('hero.h1Part2')}
-            </h1>
+            {isBiz ? (
+              <h1
+                id="hero-title"
+                className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
+              >
+                {t('hero.biz.h1Part1')}{' '}
+                <span className="text-indigo-600">{t('hero.biz.h1Accent')}</span>{' '}
+                {t('hero.biz.h1Part2')}
+              </h1>
+            ) : (
+              <h1
+                id="hero-title"
+                className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
+              >
+                {t('hero.h1Part1')}{' '}
+                <span className="relative inline-grid align-baseline text-indigo-600 max-w-full">
+                  {/* Invisible longest phrase reserves layout space → no CLS. On mobile allow wrap (normal), desktop keeps single-line pre */}
+                  <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
+                    {longest}
+                  </span>
+                  <span className="col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
+                    {rotating}
+                    <span className="inline-block w-0.5 h-[0.9em] bg-indigo-600 align-middle ml-0.5 animate-pulse" />
+                  </span>
+                </span>{' '}
+                {t('hero.h1Part2')}
+              </h1>
+            )}
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-lg md:text-xl text-slate-600 max-w-xl mb-8">{t('hero.sub')}</p>
+            <p className="text-lg md:text-xl text-slate-600 max-w-xl mb-8">{isBiz ? t('hero.biz.sub') : t('hero.sub')}</p>
           </FadeIn>
           <FadeIn delay={220}>
             <div className="flex flex-col sm:flex-row gap-3 mb-6">
-              <Button variant="primary" size="lg" href={START_URL} dataCta="hero-start">{t('hero.ctaStart')}</Button>
+              <Button variant="primary" size="lg" href={START_URL} dataCta="hero-start">{isBiz ? t('hero.biz.ctaStart') : t('hero.ctaStart')}</Button>
               <Button variant="outline" size="lg" href={START_URL} dataCta="hero-login">{t('hero.ctaLogin')}</Button>
             </div>
           </FadeIn>
