@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { persistAttribution } from './lib/attribution';
 import { trackLandingVisit } from './lib/track';
+import { initVkPixel } from './lib/vkPixel';
 import './i18n';
 import './index.css';
 
@@ -10,6 +11,10 @@ import './index.css';
 // как URL «почистится» скроллом/якорем/перезагрузкой. Дальше и трекер, и CTA на
 // приложение читают метку отсюда (не теряется на стыке лендинг→app).
 persistAttribution();
+
+// VK-пиксель: pageView для связки клик по рекламе → визит (цель «registration»
+// срабатывает в приложении).
+initVkPixel();
 
 // Зафиксировать заход на лендинг с источником (VK/utm и пр.) — верх воронки.
 trackLandingVisit();
