@@ -20,6 +20,11 @@ export function appUrl(path = '/', extra?: Record<string, string>): string {
     if (extra) for (const [k, v] of Object.entries(extra)) {
       if (!url.searchParams.has(k)) url.searchParams.set(k, v);
     }
+    // Пробрасываем сегмент персоны (?seg=biz/creator), чтобы онбординг приложения
+    // показал сообщение под ту же персону, что и реклама/лендinг (message-match
+    // → выше конверсия в регистрацию). Цены/флоу те же.
+    const seg = new URLSearchParams(window.location.search).get('seg');
+    if (seg && !url.searchParams.has('seg')) url.searchParams.set('seg', seg);
     return url.toString();
   } catch {
     return APP;
