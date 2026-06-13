@@ -24,14 +24,18 @@ export default function Hero() {
     [phrases]
   );
 
-  // Сегментный первый экран: ссылка из рекламной кампании несёт ?seg=biz и hero
-  // говорит сразу про бизнес-сценарий (юрист/бухгалтер/маркетолог/наставник),
-  // чтобы обещание объявления совпадало с тем, что человек видит на лендинге.
+  // Сегментный первый экран: ссылка из рекламной кампании несёт ?seg=<персона>,
+  // и hero говорит сразу на языке этой персоны (biz — юрист/бухгалтер/маркетолог;
+  // creator — контент: тексты/картинки/видео/SMM), чтобы обещание объявления
+  // совпадало с лендингом. Цены/CTA те же — отличается только подача (f070368b).
   // seg влияет только на отображение — utm в app пробрасывается как обычно.
-  const seg = typeof window !== 'undefined'
+  const SEGMENTS = ['biz', 'creator'];
+  const rawSeg = typeof window !== 'undefined'
     ? new URLSearchParams(window.location.search).get('seg')
     : null;
-  const isBiz = seg === 'biz';
+  const segKey = rawSeg && SEGMENTS.includes(rawSeg) ? rawSeg : null;
+  // Динамический ключ i18n под выбранный сегмент (ключи hero.biz.* / hero.creator.*).
+  const segT = (suffix: string): string => t(`hero.${segKey}.${suffix}` as never);
 
   return (
     <section
@@ -41,17 +45,17 @@ export default function Hero() {
       <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <div className="relative z-10 min-w-0">
           <FadeIn>
-            <Eyebrow className="mb-6">{isBiz ? t('hero.biz.eyebrow') : t('hero.eyebrow')}</Eyebrow>
+            <Eyebrow className="mb-6">{segKey ? segT('eyebrow') : t('hero.eyebrow')}</Eyebrow>
           </FadeIn>
           <FadeIn delay={80}>
-            {isBiz ? (
+            {segKey ? (
               <h1
                 id="hero-title"
                 className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
               >
-                {t('hero.biz.h1Part1')}{' '}
-                <span className="text-indigo-600">{t('hero.biz.h1Accent')}</span>{' '}
-                {t('hero.biz.h1Part2')}
+                {segT('h1Part1')}{' '}
+                <span className="text-indigo-600">{segT('h1Accent')}</span>{' '}
+                {segT('h1Part2')}
               </h1>
             ) : (
               <h1
@@ -74,11 +78,11 @@ export default function Hero() {
             )}
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-lg md:text-xl text-slate-600 max-w-xl mb-8">{isBiz ? t('hero.biz.sub') : t('hero.sub')}</p>
+            <p className="text-lg md:text-xl text-slate-600 max-w-xl mb-8">{segKey ? segT('sub') : t('hero.sub')}</p>
           </FadeIn>
           <FadeIn delay={220}>
             <div className="flex flex-col sm:flex-row gap-3 mb-6">
-              <Button variant="primary" size="lg" href={START_URL} dataCta="hero-start">{isBiz ? t('hero.biz.ctaStart') : t('hero.ctaStart')}</Button>
+              <Button variant="primary" size="lg" href={START_URL} dataCta="hero-start">{segKey ? segT('ctaStart') : t('hero.ctaStart')}</Button>
               <Button variant="outline" size="lg" href={START_URL} dataCta="hero-login">{t('hero.ctaLogin')}</Button>
             </div>
           </FadeIn>
