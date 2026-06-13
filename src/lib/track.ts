@@ -58,3 +58,23 @@ export const trackLandingVisit = (): void => {
     }).catch(() => {});
   } catch { /* трекинг никогда не ломает лендинг */ }
 };
+
+// Клик по CTA лендинга (кнопка «Начать» и пр.) — пишем в НАШУ БД, чтобы видеть
+// шаг «загрузка лендинга → клик по кнопке» (раньше клики уходили только в Я.Метрику,
+// и провал лендинг→app нельзя было разложить). Это закрывает пробел в воронке.
+export const trackLandingCta = (cta: string): void => {
+  try {
+    const sid = sessionStorage.getItem('lp_sid') || 'lp_unknown';
+    void fetch(`${BACKEND}/webhook/events/track`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: 'landing_cta_click',
+        sessionId: sid,
+        source: getSource(),
+        props: { site: 'landing', cta, campaign: getCampaign() },
+      }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch { /* трекинг не ломает лендинг */ }
+};

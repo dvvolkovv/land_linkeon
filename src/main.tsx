@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { persistAttribution } from './lib/attribution';
-import { trackLandingVisit } from './lib/track';
+import { trackLandingVisit, trackLandingCta } from './lib/track';
 import { initVkPixel } from './lib/vkPixel';
 import './i18n';
 import './index.css';
@@ -30,8 +30,10 @@ document.addEventListener('click', (e) => {
   const el = target?.closest<HTMLElement>('[data-cta]');
   if (!el) return;
   const goal = el.dataset.cta;
-  if (!goal || !window.ym) return;
-  window.ym(105902201, 'reachGoal', goal);
+  if (!goal) return;
+  // Пишем клик и в нашу БД (видеть шаг лендинг→клик), и в Я.Метрику.
+  trackLandingCta(goal);
+  if (window.ym) window.ym(105902201, 'reachGoal', goal);
 }, { capture: true });
 
 createRoot(document.getElementById('root')!).render(
