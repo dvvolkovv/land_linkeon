@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { persistAttribution } from './lib/attribution';
-import { trackLandingVisit, trackLandingCta } from './lib/track';
+import { trackLandingVisit, trackLandingCta, initLandingEngagement } from './lib/track';
 import { initVkPixel } from './lib/vkPixel';
 import './i18n';
 import './index.css';
@@ -18,6 +18,10 @@ initVkPixel();
 
 // Зафиксировать заход на лендинг с источником (VK/utm и пр.) — верх воронки.
 trackLandingVisit();
+
+// Итог визита (скролл/время/увидел-ли-CTA) при уходе — чтобы разложить отвал
+// «пришёл, но не кликнул» на причины (внимание vs оффер vs не докрутил).
+initLandingEngagement();
 
 declare global {
   interface Window {
