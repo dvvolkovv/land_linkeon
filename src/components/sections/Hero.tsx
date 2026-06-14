@@ -87,7 +87,8 @@ export default function Hero() {
             </div>
           </FadeIn>
           <FadeIn delay={280}>
-            <p className="text-sm text-slate-500">{t('hero.trust')}</p>
+            <p className="text-sm font-medium text-slate-600">{t('hero.trust')}</p>
+            <p className="text-sm text-slate-500 mt-1">{t('hero.privacy')}</p>
           </FadeIn>
         </div>
 
