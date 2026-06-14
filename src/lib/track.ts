@@ -120,12 +120,18 @@ export const initLandingEngagement = (): void => {
           campaign: getCampaign(),
         },
       });
+      // ВАЖНО: НЕ sendBeacon. Лендинг (linkeon.io) шлёт на my.linkeon.io — это
+      // cross-origin. sendBeacon с Content-Type application/json требует CORS-
+      // preflight, которого beacon делать не умеет → запрос молча дропается
+      // (поймали: 20 landing_view, 0 landing_engagement). fetch+keepalive
+      // проходит CORS (как landing_view) и переживает уход со страницы.
       try {
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(`${BACKEND}/webhook/events/track`, new Blob([body], { type: 'application/json' }));
-        } else {
-          void fetch(`${BACKEND}/webhook/events/track`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true }).catch(() => {});
-        }
+        void fetch(`${BACKEND}/webhook/events/track`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body,
+          keepalive: true,
+        }).catch(() => {});
       } catch { /* ignore */ }
     };
 
