@@ -41,31 +41,34 @@
   "hero": {
     "biz": {
       "eyebrow": "An AI team for founders",
-      "h1Part1": "A lawyer, accountant and marketer —",
-      "h1Accent": "in one chat",
-      "h1Part2": "for your business",
-      "sub": "AI assistants handle a founder's tasks: review a contract, estimate taxes, write a post and a strategy, advise on hiring. First tasks are free.",
-      "ctaStart": "Try for free"
+      "h1Part1": "Contracts, taxes, promotion —",
+      "h1Accent": "solved in minutes",
+      "h1Part2": "for free",
+      "sub": "A lawyer reviews your contract, an accountant estimates taxes, a marketer writes the post and the plan. Ask your task — first result free, no card.",
+      "ctaStart": "Solve a task free",
+      "chips": ["📄 Contract review", "🧮 Taxes", "📈 Promotion plan"]
     },
     "creator": {
       "eyebrow": "An AI studio for content creators",
-      "h1Part1": "Copy, images and video",
+      "h1Part1": "Ready content for social —",
       "h1Accent": "in minutes",
-      "h1Part2": "— no team, no subscriptions",
-      "sub": "AI writes posts and scripts, generates images and video for social. Idea → ready content in minutes. The SMM assistant Yulia plans your feed. First pieces are free.",
-      "ctaStart": "Create content"
+      "h1Part2": ", free",
+      "sub": "AI writes posts, generates images and video, and the SMM assistant Yulia plans your feed. Bring an idea — leave with ready content.",
+      "ctaStart": "Create content free",
+      "chips": ["✍️ Posts", "🎨 Images", "🎬 Video"]
     },
     "eyebrow": "AI for business growth",
-    "h1Part1": "Your AI team,",
+    "h1Part1": "A ready result in minutes:",
     "h1Rotating": [
-      "content creation",
-      "legal consultations",
-      "marketing strategy"
+      "a post and image for social",
+      "a contract review",
+      "a promotion plan"
     ],
-    "h1Part2": "and a unified profile",
-    "sub": "Six AI assistants (marketer, lawyer, accountant, HR, coach and Roman) that write content and grow with your business. One profile for everything.",
+    "h1Part2": "— for free",
+    "sub": "Six AI assistants: write content, review contracts, estimate taxes, plan promotion. Bring a task — leave with the result. First one free, no card.",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
+    "chips": ["✍️ Content", "⚖️ Legal", "📈 Marketing"],
     "trust": "🎁 25,000 tokens free · no card · no subscription · 2-minute start",
     "privacy": "🔒 Private — we never share your data with third parties",
     "badge": {

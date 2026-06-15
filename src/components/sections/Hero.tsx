@@ -86,6 +86,18 @@ export default function Hero() {
               <Button variant="outline" size="lg" href={START_URL} dataCta="hero-login">{t('hero.ctaLogin')}</Button>
             </div>
           </FadeIn>
+          <FadeIn delay={260}>
+            {(() => {
+              const chips = t(segKey ? `hero.${segKey}.chips` : 'hero.chips', { returnObjects: true }) as unknown;
+              return Array.isArray(chips) && chips.length > 0 ? (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {(chips as string[]).map((c) => (
+                    <span key={c} className="text-sm text-slate-700 bg-slate-100 rounded-full px-3 py-1">{c}</span>
+                  ))}
+                </div>
+              ) : null;
+            })()}
+          </FadeIn>
           <FadeIn delay={280}>
             <p className="text-sm font-medium text-slate-600">{t('hero.trust')}</p>
             <p className="text-sm text-slate-500 mt-1">{t('hero.privacy')}</p>
