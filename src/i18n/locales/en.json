@@ -57,6 +57,24 @@
       "ctaStart": "Create content free",
       "chips": ["✍️ Posts", "🎨 Images", "🎬 Video"]
     },
+    "assistant": {
+      "eyebrow": "Your personal AI assistant",
+      "h1Part1": "A letter, text, post, plan —",
+      "h1Accent": "done in minutes",
+      "h1Part2": "for free",
+      "sub": "Roman — your universal AI assistant: business letters and documents, posts and content plans, sales copy, business ideas. Bring a task — leave with it done.",
+      "ctaStart": "Solve a task free",
+      "chips": ["📄 Letters & docs", "✍️ Texts & posts", "📈 Content plan"]
+    },
+    "video": {
+      "eyebrow": "AI short-video producer",
+      "h1Part1": "Idea → a ready clip",
+      "h1Accent": "in minutes",
+      "h1Part2": ", free",
+      "sub": "Yulia turns an idea into a short social video: script, shots, the style you want (Cinematic, Surreal). Reels, Shorts, TikTok — no filming, no editing.",
+      "ctaStart": "Make a clip free",
+      "chips": ["🎬 Reels & Shorts", "🎨 Any style", "⚡ In minutes"]
+    },
     "eyebrow": "AI for business growth",
     "h1Part1": "A ready result in minutes:",
     "h1Rotating": [

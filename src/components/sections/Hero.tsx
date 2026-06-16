@@ -29,7 +29,7 @@ export default function Hero() {
   // creator — контент: тексты/картинки/видео/SMM), чтобы обещание объявления
   // совпадало с лендингом. Цены/CTA те же — отличается только подача (f070368b).
   // seg влияет только на отображение — utm в app пробрасывается как обычно.
-  const SEGMENTS = ['biz', 'creator'];
+  const SEGMENTS = ['biz', 'creator', 'assistant', 'video'];
   const rawSeg = typeof window !== 'undefined'
     ? new URLSearchParams(window.location.search).get('seg')
     : null;
