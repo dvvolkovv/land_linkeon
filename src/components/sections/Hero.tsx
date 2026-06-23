@@ -81,10 +81,14 @@ export default function Hero() {
             <p className="text-lg md:text-xl text-slate-600 max-w-xl mb-8">{segKey ? segT('sub') : t('hero.sub')}</p>
           </FadeIn>
           <FadeIn delay={220}>
-            <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            {/* Один основной CTA для холодного трафика: вторая кнопка «Войти»
+                размывала действие (у холодного юзера ещё нет аккаунта) — вход
+                остаётся в шапке. Risk-reversal двигаем прямо под кнопку — в точку
+                принятия решения, чтобы снять страх коммитмента. */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-3">
               <Button variant="primary" size="lg" href={START_URL} dataCta="hero-start">{segKey ? segT('ctaStart') : t('hero.ctaStart')}</Button>
-              <Button variant="outline" size="lg" href={START_URL} dataCta="hero-login">{t('hero.ctaLogin')}</Button>
             </div>
+            <p className="text-sm font-medium text-slate-600 mb-6">{t('hero.trust')}</p>
           </FadeIn>
           <FadeIn delay={260}>
             {(() => {
@@ -99,8 +103,7 @@ export default function Hero() {
             })()}
           </FadeIn>
           <FadeIn delay={280}>
-            <p className="text-sm font-medium text-slate-600">{t('hero.trust')}</p>
-            <p className="text-sm text-slate-500 mt-1">{t('hero.privacy')}</p>
+            <p className="text-sm text-slate-500">{t('hero.privacy')}</p>
           </FadeIn>
         </div>
 
