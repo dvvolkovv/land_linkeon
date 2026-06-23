@@ -9,6 +9,7 @@ import Networking from './components/sections/Networking';
 import ContentEngine from './components/sections/ContentEngine';
 import HowItWorks from './components/sections/HowItWorks';
 import UseCases from './components/sections/UseCases';
+import Testimonials from './components/sections/Testimonials';
 import Pricing from './components/sections/Pricing';
 import FAQ from './components/sections/FAQ';
 import FinalCTA from './components/sections/FinalCTA';
@@ -27,6 +28,7 @@ function App() {
         <ContentEngine />
         <HowItWorks />
         <UseCases />
+        <Testimonials />
         <Pricing />
         <FAQ />
         <FinalCTA />

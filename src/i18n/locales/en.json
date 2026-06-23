@@ -295,6 +295,15 @@
       }
     ]
   },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "h2": "What users say",
+    "items": [
+      { "quote": "Honestly, it's just great. The assistant really helps — I'm a techie and can't pick nice wording myself, it often comes out dry like in documents. It broadens my vocabulary.", "author": "— technical specialist" },
+      { "quote": "The product turns out really good. Generating video here is more convenient than in the original Veo — clean audio, likeness from photos, the right format.", "author": "— content creator" },
+      { "quote": "Agreeing on a deck's design and copy used to take me days. Here I got a finished presentation in 5 minutes — very happy with the efficiency.", "author": "— entrepreneur" }
+    ]
+  },
   "pricing": {
     "eyebrow": "Pricing",
     "h2": "You only pay for tokens. No subscriptions.",
