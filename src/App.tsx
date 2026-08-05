@@ -13,6 +13,7 @@ import Testimonials from './components/sections/Testimonials';
 import Pricing from './components/sections/Pricing';
 import FAQ from './components/sections/FAQ';
 import FinalCTA from './components/sections/FinalCTA';
+import LanguageBanner from './components/ui/LanguageBanner';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <FinalCTA />
       </main>
       <Footer />
+      <LanguageBanner />
     </div>
   );
 }
