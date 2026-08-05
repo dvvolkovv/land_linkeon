@@ -8,6 +8,14 @@ import { languageFromPath, pathForLanguage } from '../../i18n/urlLanguage';
 // ограничении высоты списка в зажатом случае.
 const VIEWPORT_MARGIN = 8;
 
+// В браузере — настоящий useLayoutEffect: замер и переворот дропдауна должны
+// произойти до отрисовки, иначе список мигнёт не в ту сторону. В Node
+// (пререндер, scripts/prerender.mjs) layout-эффекты не выполняются вовсе, и
+// React ругается в stderr на каждый рендер — берём useEffect, чтобы не
+// засорять лог сборки. На разметку это не влияет: дропдаун закрыт, эффект
+// всё равно выходит по `!open`.
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export default function LangSwitcher() {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -43,7 +51,7 @@ export default function LangSwitcher() {
   // место под кнопкой и над ней после открытия и решаем сторону сами; в
   // мобильном меню кнопка прижата к низу панели через mt-auto, и раньше
   // список из шести пунктов открывался вниз и уезжал за край экрана.
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!open || !buttonRef.current || !listRef.current) return;
     const buttonEl = buttonRef.current;
     const listEl = listRef.current;
