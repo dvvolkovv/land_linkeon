@@ -47,14 +47,20 @@ if (template.includes('rel="canonical"')) {
   );
 }
 
-// Каждая из восьми подстановок (lang, шесть метатегов, root) обязана реально
-// найти своё место в шаблоне. Обычный String#replace/RegExp#replace fail-silent:
+// Каждая из девяти подстановок (lang, шесть метатегов, head, root) обязана
+// реально найти своё место в шаблоне. Обычный String#replace/RegExp#replace fail-silent:
 // если паттерн не найден, он просто возвращает исходную строку без изменений
 // и без ошибки — страница молча уедет с русским lang/title. Эта обёртка
 // проверяет факт совпадения ДО замены (а не сравнивает html до/после: для
 // code === DEFAULT_LANGUAGE замена лога `lang="ru"` на `lang="ru"` — валидный
 // no-op с точки зрения результата, но должна остаться найденной).
-function mustReplace(html, pattern, replacement, label) {
+//
+// Замена ВСЕГДА передаётся функцией, а не строкой. У String#replace со
+// строкой-заменой последовательности $&, $`, $', $1 внутри подставляемого
+// текста — это не текст, а команды подстановки. Сейчас $ в локалях нет, но
+// первая же цена вида «$100» в переводе или в отрендеренной разметке тихо
+// испортила бы страницу без единой ошибки. Функция возвращает строку как есть.
+function mustReplace(html, pattern, replace, label) {
   const found = typeof pattern === 'string' ? html.includes(pattern) : pattern.test(html);
   if (!found) {
     throw new Error(
@@ -62,7 +68,7 @@ function mustReplace(html, pattern, replacement, label) {
         'разметка шаблона изменилась? scripts/prerender.mjs нужно поправить вместе с index.html.',
     );
   }
-  return html.replace(pattern, replacement);
+  return html.replace(pattern, replace);
 }
 
 function headFor(code, title, description) {
@@ -86,36 +92,39 @@ function headFor(code, title, description) {
 // og:title, og:description, twitter:*) — подменяем все.
 function localizeMeta(html, title, description) {
   const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  // (_, before, after) => …: скобки в паттерне оставляют на месте сам тег и
+  // закрывающую кавычку, а текст подставляется функцией — см. mustReplace.
+  const attr = (before, value, after) => `${before}${esc(value)}${after}`;
   let out = html;
-  out = mustReplace(out, /<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`, '<title>');
+  out = mustReplace(out, /<title>[\s\S]*?<\/title>/, () => `<title>${esc(title)}</title>`, '<title>');
   out = mustReplace(
     out,
     /(<meta name="description" content=")[^"]*(")/,
-    `$1${esc(description)}$2`,
+    (_, before, after) => attr(before, description, after),
     'meta description',
   );
   out = mustReplace(
     out,
     /(<meta property="og:title" content=")[^"]*(")/,
-    `$1${esc(title)}$2`,
+    (_, before, after) => attr(before, title, after),
     'meta og:title',
   );
   out = mustReplace(
     out,
     /(<meta property="og:description" content=")[^"]*(")/,
-    `$1${esc(description)}$2`,
+    (_, before, after) => attr(before, description, after),
     'meta og:description',
   );
   out = mustReplace(
     out,
     /(<meta name="twitter:title" content=")[^"]*(")/,
-    `$1${esc(title)}$2`,
+    (_, before, after) => attr(before, title, after),
     'meta twitter:title',
   );
   out = mustReplace(
     out,
     /(<meta name="twitter:description" content=")[^"]*(")/,
-    `$1${esc(description)}$2`,
+    (_, before, after) => attr(before, description, after),
     'meta twitter:description',
   );
   return out;
@@ -130,10 +139,10 @@ for (const code of PUBLISHED_CODES) {
   const { html, title, description } = render(code);
 
   let page = template;
-  page = mustReplace(page, '<html lang="ru">', `<html lang="${code}">`, '<html lang>');
+  page = mustReplace(page, '<html lang="ru">', () => `<html lang="${code}">`, '<html lang>');
   page = localizeMeta(page, title, description);
-  page = page.replace('</head>', `${headFor(code, title, description)}\n  </head>`);
-  page = mustReplace(page, '<div id="root"></div>', `<div id="root">${html}</div>`, '<div id="root">');
+  page = mustReplace(page, '</head>', () => `${headFor(code, title, description)}\n  </head>`, '</head>');
+  page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${html}</div>`, '<div id="root">');
 
   if (!page.includes('<h1')) {
     throw new Error(`${code}: в разметке нет <h1> — пререндер отдал пустую страницу`);

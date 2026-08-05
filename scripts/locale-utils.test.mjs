@@ -36,7 +36,7 @@ describe('extractPlaceholders', () => {
     expect(extractPlaceholders('Осталось {{count}} дней')).toEqual(['{{count}}']);
   });
 
-  it('находит кастомные теги кнопок целиком', () => {
+  it('берёт содержимое скобок целиком, каким бы сложным оно ни было', () => {
     const s = '{{button: Купить | action: buy | variant: primary}}';
     expect(extractPlaceholders(s)).toEqual([s]);
   });
@@ -55,7 +55,7 @@ describe('placeholdersMatch', () => {
     expect(placeholdersMatch('Осталось {{count}} дней', 'Días restantes')).toBe(false);
   });
 
-  it('отклоняет перевод, переведший содержимое кастомного тега', () => {
+  it('отклоняет перевод, переведший содержимое плейсхолдера', () => {
     expect(
       placeholdersMatch('{{button: Купить | action: buy}}', '{{button: Comprar | action: buy}}'),
     ).toBe(false);

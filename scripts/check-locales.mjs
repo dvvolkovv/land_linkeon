@@ -9,31 +9,6 @@ import { dirname, join } from 'node:path';
 import { flatten, missingKeys } from './locale-utils.mjs';
 import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 
-/**
- * Админка не локализуется по решению из спеки: её видит только isAdmin,
- * аудитория русскоязычная. Ключи admin.* остаются лишь в ru.json,
- * i18next отдаёт по ним русский фолбэк — это и есть желаемое поведение,
- * поэтому требовать их в остальных локалях нельзя.
- */
-const UNTRANSLATED_PREFIXES = ['admin.'];
-
-const isTranslatable = (key) => !UNTRANSLATED_PREFIXES.some((p) => key.startsWith(p));
-
-const PLURAL_SUFFIXES = ['zero', 'one', 'two', 'few', 'many', 'other'];
-
-/**
- * Формы множественного числа зависят от языка: у русского их четыре
- * (one/few/many/other), у английского и немецкого две, у китайского одна.
- * Требовать от en ключ chat.file_count_few бессмысленно — по правилам CLDR
- * i18next его никогда не выберет. Категории берём из Intl.PluralRules,
- * а не из захардкоженного списка.
- */
-function isRequiredFor(key, locale) {
-  const suffix = key.split('_').pop();
-  if (!PLURAL_SUFFIXES.includes(suffix)) return true;
-  return new Intl.PluralRules(locale).resolvedOptions().pluralCategories.includes(suffix);
-}
-
 const here = dirname(fileURLToPath(import.meta.url));
 const localesDir = join(here, '..', 'src', 'i18n', 'locales');
 
@@ -41,30 +16,28 @@ function load(code) {
   return JSON.parse(readFileSync(join(localesDir, `${code}.json`), 'utf8'));
 }
 
-const source = Object.fromEntries(
-  Object.entries(flatten(load(DEFAULT_LANGUAGE))).filter(([key]) => isTranslatable(key)),
-);
+// Все ключи лендинга переводятся, исключений нет: ни админки, ни служебных
+// веток, ни ключей с формами множественного числа (i18next выбирает их по
+// правилам CLDR, и требовать от каждого языка все суффиксы нельзя). Появится
+// такое — здесь понадобится фильтр, сейчас он был бы фикцией.
+const source = flatten(load(DEFAULT_LANGUAGE));
 const sourceCount = Object.keys(source).length;
 let failed = false;
 
 for (const code of SUPPORTED_CODES) {
   if (code === DEFAULT_LANGUAGE) continue;
-  const required = Object.fromEntries(
-    Object.entries(source).filter(([key]) => isRequiredFor(key, code)),
-  );
-  const requiredCount = Object.keys(required).length;
-  const missing = missingKeys(required, flatten(load(code)));
+  const missing = missingKeys(source, flatten(load(code)));
   if (missing.length === 0) {
-    console.log(`✅ ${code}: ${requiredCount}/${requiredCount} ключей`);
+    console.log(`✅ ${code}: ${sourceCount}/${sourceCount} ключей`);
     continue;
   }
   failed = true;
-  console.error(`❌ ${code}: не хватает ${missing.length} из ${requiredCount} ключей`);
+  console.error(`❌ ${code}: не хватает ${missing.length} из ${sourceCount} ключей`);
   for (const key of missing.slice(0, 20)) console.error(`   ${key}`);
   if (missing.length > 20) console.error(`   … и ещё ${missing.length - 20}`);
 }
 
 if (failed) {
-  console.error('\nЗапустите: pnpm translate-locales');
+  console.error(`\nЗаполните недостающие ключи в src/i18n/locales/<код>.json по ${DEFAULT_LANGUAGE}.json.`);
   process.exit(1);
 }
