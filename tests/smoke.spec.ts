@@ -50,7 +50,9 @@ test.describe('landing smoke', () => {
     for (const code of UNPUBLISHED) {
       await expect(page.locator(`[data-testid="lang-option-${code}"]`)).toHaveCount(0);
     }
-    await expect(page.locator('[data-testid="lang-switcher"] [role="option"]')).toHaveCount(
+    // Раскрывашка со ссылками, а не listbox: считаем пункты списка, а не
+    // role="option" (см. комментарий в LangSwitcher.tsx).
+    await expect(page.locator('[data-testid="lang-switcher"] nav li')).toHaveCount(
       PUBLISHED.length,
     );
   });

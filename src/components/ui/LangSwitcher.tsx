@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, ChevronDown, Globe } from 'lucide-react';
 import { TRANSLATED_LANGUAGES } from '../../i18n/translatedLanguages';
@@ -16,9 +16,19 @@ const VIEWPORT_MARGIN = 8;
 // всё равно выходит по `!open`.
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
+// Подписи переключателя намеренно не переводятся и живут на английском: тем же
+// решением подписана кнопка баннера (LanguageBanner.tsx). Человек, который ищет
+// смену языка, пришёл сюда как раз потому, что текущего языка страницы не
+// понимает — «Язык: Русский» ему помогает не больше, чем сам русский текст.
+const A11Y_NAV_LABEL = 'Language';
+const a11yButtonLabel = (nativeName: string) => `Language: ${nativeName}`;
+
 export default function LangSwitcher() {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  // Компонент стоит на странице в нескольких экземплярах (шапка, мобильное
+  // меню, подвал) — id для aria-controls обязан быть свой у каждого.
+  const menuId = `lang-menu-${useId()}`;
   const [direction, setDirection] = useState<'down' | 'up'>('down');
   const [maxHeight, setMaxHeight] = useState<number | undefined>(undefined);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -95,12 +105,21 @@ export default function LangSwitcher() {
 
   return (
     <div className="relative" ref={boxRef} data-testid="lang-switcher">
+      {/*
+        Раскрывашка, а не listbox: внутри обычные ссылки на языковые версии, и
+        уходя по ним, посетитель перезагружает страницу. Роли listbox/option
+        обещали бы скринридеру aria-activedescendant и навигацию стрелками
+        внутри виджета — ничего этого здесь нет и быть не должно. Честная
+        разметка — кнопка с aria-expanded/aria-controls и подписанный <nav>
+        со списком ссылок; aria-controls ставим только когда список
+        отрисован, чтобы атрибут не ссылался на несуществующий id.
+      */}
       <button
         ref={buttonRef}
         type="button"
-        aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label={currentLang.nativeName}
+        aria-controls={open ? menuId : undefined}
+        aria-label={a11yButtonLabel(currentLang.nativeName)}
         onClick={() => setOpen((v) => !v)}
         className="inline-flex items-center gap-1.5 px-3 min-h-[40px] rounded-lg bg-gray-100 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors"
       >
@@ -110,31 +129,38 @@ export default function LangSwitcher() {
       </button>
 
       {open && (
-        <ul
-          ref={listRef}
-          role="listbox"
-          style={maxHeight !== undefined ? { maxHeight } : undefined}
-          className={`absolute right-0 z-50 min-w-[180px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg ${
+        <nav
+          id={menuId}
+          aria-label={A11Y_NAV_LABEL}
+          className={`absolute right-0 z-50 min-w-[180px] rounded-lg border border-gray-200 bg-white shadow-lg ${
             direction === 'up' ? 'bottom-full mb-1' : 'top-full mt-1'
-          } ${maxHeight !== undefined ? 'overflow-y-auto' : ''}`}
+          }`}
         >
-          {TRANSLATED_LANGUAGES.map((lang) => (
-            <li key={lang.code} role="option" aria-selected={lang.code === currentLang.code}>
-              <a
-                href={hrefFor(lang.code)}
-                hrefLang={lang.code}
-                data-testid={`lang-option-${lang.code}`}
-                className={`flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-gray-50 ${
-                  lang.code === currentLang.code ? 'font-semibold text-gray-900' : 'text-gray-700'
-                }`}
-              >
-                <span aria-hidden="true">{lang.flag}</span>
-                <span className="flex-1">{lang.nativeName}</span>
-                {lang.code === currentLang.code && <Check aria-hidden="true" className="w-4 h-4 text-brand-700" />}
-              </a>
-            </li>
-          ))}
-        </ul>
+          <ul
+            ref={listRef}
+            style={maxHeight !== undefined ? { maxHeight } : undefined}
+            className={`py-1 ${maxHeight !== undefined ? 'overflow-y-auto' : ''}`}
+          >
+            {TRANSLATED_LANGUAGES.map((lang) => (
+              <li key={lang.code}>
+                <a
+                  href={hrefFor(lang.code)}
+                  hrefLang={lang.code}
+                  lang={lang.code}
+                  aria-current={lang.code === currentLang.code ? 'true' : undefined}
+                  data-testid={`lang-option-${lang.code}`}
+                  className={`flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-gray-50 ${
+                    lang.code === currentLang.code ? 'font-semibold text-gray-900' : 'text-gray-700'
+                  }`}
+                >
+                  <span aria-hidden="true">{lang.flag}</span>
+                  <span className="flex-1">{lang.nativeName}</span>
+                  {lang.code === currentLang.code && <Check aria-hidden="true" className="w-4 h-4 text-brand-700" />}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
     </div>
   );
