@@ -16,6 +16,14 @@ describe('реестр языков', () => {
       expect(lang.flag.length).toBeGreaterThan(0);
     }
   });
+
+  // og:locale проставляет пререндер каждой языковой версии; без значения в
+  // реестре в head уехало бы content="undefined".
+  it('у каждого языка есть og:locale вида xx_XX', () => {
+    for (const lang of SUPPORTED_LANGUAGES) {
+      expect(lang.ogLocale, lang.code).toMatch(/^[a-z]{2}_[A-Z]{2}$/);
+    }
+  });
 });
 
 describe('resolveLanguage', () => {

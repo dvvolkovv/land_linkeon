@@ -11,19 +11,15 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { SUPPORTED_LANGUAGES, SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
 const dist = join(root, 'dist');
 
 const SITE = 'https://linkeon.io';
-const DEFAULT_LANGUAGE = 'ru';
-// Продублировано из src/i18n/languages.ts: тот файл — TypeScript, node его
-// не исполнит. За расхождением следит scripts/prerender.test.mjs.
-const CODES = ['ru', 'en', 'es', 'de', 'fr', 'zh'];
-const OG_LOCALES = {
-  ru: 'ru_RU', en: 'en_US', es: 'es_ES', de: 'de_DE', fr: 'fr_FR', zh: 'zh_CN',
-};
+
+const OG_LOCALES = Object.fromEntries(SUPPORTED_LANGUAGES.map((l) => [l.code, l.ogLocale]));
 
 const urlFor = (code) => (code === DEFAULT_LANGUAGE ? `${SITE}/` : `${SITE}/${code}/`);
 
@@ -61,10 +57,10 @@ function mustReplace(html, pattern, replacement, label) {
 }
 
 function headFor(code, title, description) {
-  const alternates = CODES.map(
+  const alternates = SUPPORTED_CODES.map(
     (c) => `    <link rel="alternate" hreflang="${c}" href="${urlFor(c)}" />`,
   ).join('\n');
-  const ogAlternates = CODES.filter((c) => c !== code)
+  const ogAlternates = SUPPORTED_CODES.filter((c) => c !== code)
     .map((c) => `    <meta property="og:locale:alternate" content="${OG_LOCALES[c]}" />`)
     .join('\n');
   return [
@@ -116,7 +112,7 @@ function localizeMeta(html, title, description) {
   return out;
 }
 
-for (const code of CODES) {
+for (const code of SUPPORTED_CODES) {
   const { html, title, description } = render(code);
 
   let page = template;
@@ -138,7 +134,7 @@ for (const code of CODES) {
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...CODES.map((c) => `  <url><loc>${urlFor(c)}</loc></url>`),
+  ...SUPPORTED_CODES.map((c) => `  <url><loc>${urlFor(c)}</loc></url>`),
   '</urlset>',
 ].join('\n');
 writeFileSync(join(dist, 'sitemap.xml'), sitemap + '\n', 'utf8');

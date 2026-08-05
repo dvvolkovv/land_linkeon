@@ -7,12 +7,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { flatten, missingKeys } from './locale-utils.mjs';
-
-// Список продублирован из src/i18n/languages.ts намеренно: тот файл —
-// TypeScript, node его не исполнит. check-locales.test.mjs следит,
-// чтобы дубль не разъехался с реестром.
-const SUPPORTED_CODES = ['ru', 'en', 'es', 'de', 'fr', 'zh'];
-const DEFAULT_LANGUAGE = 'ru';
+import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 
 /**
  * Админка не локализуется по решению из спеки: её видит только isAdmin,

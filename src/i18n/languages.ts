@@ -1,29 +1,14 @@
 /**
- * Копия spirits_front/src/i18n/languages.ts. Репозитории раздельные, общего
- * пакета нет — файл дублируется осознанно. За расхождением следит
- * languages.test.ts (список кодов) и check-locales.test.mjs.
- * Меняете здесь — меняйте и там.
+ * Типизированный вход в реестр языков для кода приложения.
+ *
+ * Сами данные лежат в languages.data.js — их же напрямую читают node-скрипты
+ * сборки (prerender.mjs, check-locales.mjs, vite.config.ts), которым
+ * TypeScript недоступен. Здесь только реэкспорт с типами и логика.
  */
-export interface LanguageDef {
-  /** Корень BCP-47: ru, en, es, de, fr, zh */
-  code: string;
-  /** Название языка на нём самом — так его ищут в списке */
-  nativeName: string;
-  flag: string;
-}
+export type { LanguageDef } from './languages.data.js';
+export { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, SUPPORTED_CODES } from './languages.data.js';
 
-export const SUPPORTED_LANGUAGES: LanguageDef[] = [
-  { code: 'ru', nativeName: 'Русский', flag: '🇷🇺' },
-  { code: 'en', nativeName: 'English', flag: '🇺🇸' },
-  { code: 'es', nativeName: 'Español', flag: '🇪🇸' },
-  { code: 'de', nativeName: 'Deutsch', flag: '🇩🇪' },
-  { code: 'fr', nativeName: 'Français', flag: '🇫🇷' },
-  { code: 'zh', nativeName: '中文', flag: '🇨🇳' },
-];
-
-export const DEFAULT_LANGUAGE = 'ru';
-
-export const SUPPORTED_CODES = SUPPORTED_LANGUAGES.map((l) => l.code);
+import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from './languages.data.js';
 
 /**
  * Схлопывает произвольный тег языка до поддерживаемого корня.
