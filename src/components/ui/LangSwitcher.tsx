@@ -1,13 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, ChevronDown, Globe } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '../../i18n/languages';
 import { languageFromPath, pathForLanguage } from '../../i18n/urlLanguage';
 
+// Зазор от края вьюпорта, который оставляем при расчёте направления и при
+// ограничении высоты списка в зажатом случае.
+const VIEWPORT_MARGIN = 8;
+
 export default function LangSwitcher() {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [direction, setDirection] = useState<'down' | 'up'>('down');
+  const [maxHeight, setMaxHeight] = useState<number | undefined>(undefined);
   const boxRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   const current = typeof window !== 'undefined'
     ? languageFromPath(window.location.pathname)
@@ -30,6 +38,42 @@ export default function LangSwitcher() {
     };
   }, [open]);
 
+  // Компонент стоит в трёх местах (десктоп-шапка, мобильное меню, подвал) —
+  // ни одно из них не должно знать, куда открывается список. Меряем реальное
+  // место под кнопкой и над ней после открытия и решаем сторону сами; в
+  // мобильном меню кнопка прижата к низу панели через mt-auto, и раньше
+  // список из шести пунктов открывался вниз и уезжал за край экрана.
+  useLayoutEffect(() => {
+    if (!open || !buttonRef.current || !listRef.current) return;
+    const buttonEl = buttonRef.current;
+    const listEl = listRef.current;
+
+    // Меряем натуральную высоту списка в обход React-состояния: если с
+    // прошлого открытия остался maxHeight от зажатого случая, offsetHeight
+    // отразил бы его, а не то, сколько всего пунктов реально нужно.
+    const previousMaxHeight = listEl.style.maxHeight;
+    listEl.style.maxHeight = 'none';
+    const listHeight = listEl.offsetHeight;
+    listEl.style.maxHeight = previousMaxHeight;
+
+    const buttonRect = buttonEl.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - buttonRect.bottom;
+    const spaceAbove = buttonRect.top;
+
+    if (spaceBelow >= listHeight + VIEWPORT_MARGIN) {
+      setDirection('down');
+      setMaxHeight(undefined);
+    } else if (spaceAbove >= listHeight + VIEWPORT_MARGIN) {
+      setDirection('up');
+      setMaxHeight(undefined);
+    } else {
+      // Не помещается ни сверху, ни снизу — оставляем вниз, но со своим
+      // скроллом, чтобы список не уезжал за вьюпорт целиком.
+      setDirection('down');
+      setMaxHeight(Math.max(spaceBelow - VIEWPORT_MARGIN, 120));
+    }
+  }, [open]);
+
   // Ссылка, а не changeLanguage: языковая версия должна быть отдельным URL,
   // которым можно поделиться и который проиндексируется.
   const hrefFor = (code: string) =>
@@ -40,6 +84,7 @@ export default function LangSwitcher() {
   return (
     <div className="relative" ref={boxRef} data-testid="lang-switcher">
       <button
+        ref={buttonRef}
         type="button"
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -54,8 +99,12 @@ export default function LangSwitcher() {
 
       {open && (
         <ul
+          ref={listRef}
           role="listbox"
-          className="absolute right-0 z-50 mt-1 min-w-[180px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+          style={maxHeight !== undefined ? { maxHeight } : undefined}
+          className={`absolute right-0 z-50 min-w-[180px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg ${
+            direction === 'up' ? 'bottom-full mb-1' : 'top-full mt-1'
+          } ${maxHeight !== undefined ? 'overflow-y-auto' : ''}`}
         >
           {SUPPORTED_LANGUAGES.map((lang) => (
             <li key={lang.code} role="option" aria-selected={lang.code === current}>
