@@ -30,6 +30,36 @@ const urlFor = (code) => (code === DEFAULT_LANGUAGE ? `${SITE}/` : `${SITE}/${co
 const { render } = await import(join(root, 'dist-ssr', 'entry-server.js'));
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
 
+// Скрипт перезаписывает dist/index.html (итерация DEFAULT_LANGUAGE), а шаблон
+// читает из того же файла. Без этой проверки повторный запуск без
+// предшествующего `vite build` берёт уже пререндеренную страницу как шаблон
+// и накладывает head второй раз — молча, с кодом выхода 0 (два canonical,
+// 14 hreflang вместо 7 и т.п., см. историю C2).
+if (template.includes('rel="canonical"')) {
+  throw new Error(
+    'dist/index.html уже пререндерен (в шаблоне есть rel="canonical") — ' +
+      'сначала запустите `vite build`, повторный запуск prerender.mjs по тому же dist/ не поддерживается.',
+  );
+}
+
+// Каждая из восьми подстановок (lang, шесть метатегов, root) обязана реально
+// найти своё место в шаблоне. Обычный String#replace/RegExp#replace fail-silent:
+// если паттерн не найден, он просто возвращает исходную строку без изменений
+// и без ошибки — страница молча уедет с русским lang/title. Эта обёртка
+// проверяет факт совпадения ДО замены (а не сравнивает html до/после: для
+// code === DEFAULT_LANGUAGE замена лога `lang="ru"` на `lang="ru"` — валидный
+// no-op с точки зрения результата, но должна остаться найденной).
+function mustReplace(html, pattern, replacement, label) {
+  const found = typeof pattern === 'string' ? html.includes(pattern) : pattern.test(html);
+  if (!found) {
+    throw new Error(
+      `пререндер: подстановка «${label}» не нашла место для замены в dist/index.html — ` +
+        'разметка шаблона изменилась? scripts/prerender.mjs нужно поправить вместе с index.html.',
+    );
+  }
+  return html.replace(pattern, replacement);
+}
+
 function headFor(code, title, description) {
   const alternates = CODES.map(
     (c) => `    <link rel="alternate" hreflang="${c}" href="${urlFor(c)}" />`,
@@ -51,23 +81,49 @@ function headFor(code, title, description) {
 // og:title, og:description, twitter:*) — подменяем все.
 function localizeMeta(html, title, description) {
   const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-  return html
-    .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`)
-    .replace(/(<meta name="description" content=")[^"]*(")/, `$1${esc(description)}$2`)
-    .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${esc(title)}$2`)
-    .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${esc(description)}$2`)
-    .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(title)}$2`)
-    .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(description)}$2`);
+  let out = html;
+  out = mustReplace(out, /<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`, '<title>');
+  out = mustReplace(
+    out,
+    /(<meta name="description" content=")[^"]*(")/,
+    `$1${esc(description)}$2`,
+    'meta description',
+  );
+  out = mustReplace(
+    out,
+    /(<meta property="og:title" content=")[^"]*(")/,
+    `$1${esc(title)}$2`,
+    'meta og:title',
+  );
+  out = mustReplace(
+    out,
+    /(<meta property="og:description" content=")[^"]*(")/,
+    `$1${esc(description)}$2`,
+    'meta og:description',
+  );
+  out = mustReplace(
+    out,
+    /(<meta name="twitter:title" content=")[^"]*(")/,
+    `$1${esc(title)}$2`,
+    'meta twitter:title',
+  );
+  out = mustReplace(
+    out,
+    /(<meta name="twitter:description" content=")[^"]*(")/,
+    `$1${esc(description)}$2`,
+    'meta twitter:description',
+  );
+  return out;
 }
 
 for (const code of CODES) {
   const { html, title, description } = render(code);
 
   let page = template;
-  page = page.replace('<html lang="ru">', `<html lang="${code}">`);
+  page = mustReplace(page, '<html lang="ru">', `<html lang="${code}">`, '<html lang>');
   page = localizeMeta(page, title, description);
   page = page.replace('</head>', `${headFor(code, title, description)}\n  </head>`);
-  page = page.replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+  page = mustReplace(page, '<div id="root"></div>', `<div id="root">${html}</div>`, '<div id="root">');
 
   if (!page.includes('<h1')) {
     throw new Error(`${code}: в разметке нет <h1> — пререндер отдал пустую страницу`);
