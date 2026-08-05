@@ -17,6 +17,7 @@ export function renderLegal(type: LegalType) {
       </div>
       {type === 'offer' && (
         <>
+          <div className="text-xs text-gray-500">Version dated 5 August 2026</div>
           <H3>1. General provisions</H3>
           <P>
             These Terms of Service govern the relationship between the administration of the
@@ -131,6 +132,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
+          <div className="text-xs text-gray-500">Version dated 5 August 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">Personal data operator</div>
             <div><strong>Name:</strong> Dmitry Viktorovich Volkov</div>
@@ -183,8 +185,13 @@ export function renderLegal(type: LegalType) {
               Country of operation: USA
             </li>
             <li>
-              <strong>Google</strong> (Gemini; Imagen 4.0 Ultra and Nano Banana — image
-              generation; Veo — video generation). Country of operation: USA
+              <strong>Google</strong> (Gemini — request processing and analysis of an uploaded
+              voice sample; Imagen 4.0 Ultra and Nano Banana — image generation; Veo — video
+              generation). Country of operation: USA
+            </li>
+            <li>
+              <strong>ElevenLabs</strong> — creation of a voice model from an uploaded voice
+              sample and narration of videos with that voice. Country of operation: USA
             </li>
             <li>
               <strong>DeepSeek</strong> — generation of greeting messages in chats with AI
@@ -201,10 +208,26 @@ export function renderLegal(type: LegalType) {
             <li>Other AI services engaged for particular features of the Application</li>
           </UL>
           <P>
-            <strong>Data transmitted:</strong> request text and the minimal profile context needed
-            to produce a response; for generation features — text prompts together with images and
-            audio uploaded by the user; for voice input — the audio stream from the microphone.
-            Phone number and payment data are NOT transmitted to AI vendors.
+            <strong>Data transmitted:</strong> the text of the user's requests and messages, the
+            history of the conversation with the assistant and the profile context; for generation
+            features — text prompts together with images and audio uploaded by the user; for voice
+            input — the audio stream from the microphone. The profile context transmitted to AI
+            vendors includes the user's first and last name, their interests, values, skills and
+            intentions, as well as the profile identifier — which, for users who registered with a
+            phone number, is that phone number itself. Data is transmitted as-is and is not
+            anonymized prior to transfer. Payment data is NOT transmitted to AI vendors.
+          </P>
+          <P>
+            <strong>Voice cloning.</strong> In the video creation section the user may enable
+            narration in their own voice. In that case the voice sample they upload is transmitted
+            to Google (the Gemini model) to produce a textual description of the voice, and to
+            ElevenLabs to create a voice model that is then used to narrate the generated video.
+            The sample is uploaded solely at the user's initiative and only where the user has
+            confirmed a separate consent; without such confirmation no upload takes place. The
+            audio file of the sample itself is not retained by the Operator — what is retained is
+            the identifier of the voice model held by ElevenLabs and the textual description of the
+            voice. The user may delete the voice model within the Application, upon which it is
+            also deleted on the ElevenLabs side.
           </P>
           <P>
             Once data has been transmitted to an AI vendor, the Operator does not control its
@@ -222,8 +245,9 @@ export function renderLegal(type: LegalType) {
           <P>
             <strong>Please note in particular: part of the user's data is transferred to the
             People's Republic of China.</strong> The following is transferred to the PRC: the text
-            of the user's messages to an AI assistant when greeting messages are generated (vendor
-            DeepSeek), and the text prompts, images and audio used to generate and process video
+            of the user's messages to an AI assistant together with their profile context when
+            greeting messages are generated (vendor DeepSeek), and the text prompts, images and
+            audio used to generate and process video
             (vendor Kling / Kuaishou). The People's Republic of China is not a party to the Council
             of Europe Convention for the Protection of Individuals with regard to Automatic
             Processing of Personal Data and is not included in the list of foreign states providing
@@ -232,8 +256,10 @@ export function renderLegal(type: LegalType) {
             of the Russian Federation.
           </P>
           <P>
-            Data is also transferred to the USA (OpenAI, Anthropic, Google). Speech recognition for
-            voice input is performed within the Russian Federation (Yandex SpeechKit).
+            Data is also transferred to the USA (OpenAI, Anthropic, Google, ElevenLabs), including
+            the user's voice sample where the feature narrating videos in the user's own voice is
+            used. Speech recognition for voice input is performed within the Russian Federation
+            (Yandex SpeechKit).
           </P>
           <P>
             By using AI assistants, the image- and video-generation features and voice input, the
@@ -278,9 +304,9 @@ export function renderLegal(type: LegalType) {
 
           <H3>8. Cookies and analytics</H3>
           <P>
-            The linkeon.io website and the Application use cookies, browser local storage
-            (localStorage, sessionStorage) and the counters of the following third-party web
-            analytics and advertising services:
+            The linkeon.io website uses cookies, browser local storage (localStorage,
+            sessionStorage) and the counters of the following third-party web analytics and
+            advertising services:
           </P>
           <UL>
             <li>
@@ -330,6 +356,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
+          <div className="text-xs text-gray-500">Version dated 5 August 2026</div>
           <P>
             By registering and using the LINKEON.IO Application the user consents to the processing
             of their personal data by Dmitry Viktorovich Volkov (INN 463404496646, email
@@ -342,6 +369,10 @@ export function renderLegal(type: LegalType) {
             <li>First name, last name, email (optional)</li>
             <li>Content of messages, requests and business-profile parameters entered in the Application</li>
             <li>History of interactions with AI assistants, session logs</li>
+            <li>Images and audio uploaded by the user, and the microphone audio stream where voice
+              input is used</li>
+            <li>A sample of the user's own voice — only where the feature narrating videos in the
+              user's own voice is used and only upon a separate confirmation of consent</li>
             <li>Technical information about the device and payment records</li>
           </UL>
 
@@ -364,10 +395,45 @@ export function renderLegal(type: LegalType) {
 
           <H3>4. Transfer to third parties</H3>
           <P>
-            For AI-request processing, anonymized and minimally necessary data is transferred to
-            third-party vendors: OpenAI, Anthropic and other AI services. Payment data is
-            transferred to certified payment aggregators (YooKassa and others). No other transfers
-            are performed except where directly required by Russian law.
+            For AI-request processing, personal data is transferred to third-party vendors:
+            OpenAI (USA), Anthropic (USA), Google (USA), ElevenLabs (USA), DeepSeek (PRC),
+            Kling / Kuaishou (PRC), Yandex SpeechKit (Russian Federation), as well as other AI
+            services engaged for particular features of the Application.
+          </P>
+          <P>
+            The following is transferred: the text of the user's messages and requests, the history
+            of the conversation with the assistant, the profile context (first and last name,
+            interests, values, skills, intentions, and the profile identifier — which, for users
+            who registered with a phone number, is that phone number itself), uploaded images and
+            audio, the audio stream from voice input, and a voice sample where the feature
+            narrating videos in the user's own voice is used. Data is transferred as-is and is not
+            anonymized prior to transfer.
+          </P>
+          <P>
+            Payment data is transferred to certified payment aggregators (YooKassa and others). No
+            other transfers are performed except where directly required by Russian law.
+          </P>
+
+          <H3>4.1. Cross-border transfer of personal data, including to the PRC</H3>
+          <P>
+            Some of the vendors listed above are located outside the Russian Federation, and the
+            user therefore also consents to the cross-border transfer of their personal data
+            (Article 12 of Federal Law No. 152-FZ of 27 July 2006 "On Personal Data").
+          </P>
+          <P>
+            <strong>Data is transferred, among other destinations, to the People's Republic of
+            China:</strong> the text of the user's messages together with their profile context —
+            when greeting messages are generated (vendor DeepSeek); text prompts, images and audio
+            — when video is generated and processed (vendor Kling / Kuaishou). The People's
+            Republic of China is not a party to the Council of Europe Convention for the Protection
+            of Individuals with regard to Automatic Processing of Personal Data and is not included
+            in the list of foreign states providing adequate protection of the rights of personal
+            data subjects; the level of legal protection of personal data in the PRC differs from
+            that established by the legislation of the Russian Federation.
+          </P>
+          <P>
+            Data is also transferred to the USA (OpenAI, Anthropic, Google, ElevenLabs). A detailed
+            description of cross-border transfers is set out in Section 3.1 of the Privacy Policy.
           </P>
 
           <H3>5. Duration of consent</H3>
