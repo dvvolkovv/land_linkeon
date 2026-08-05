@@ -171,12 +171,76 @@ export function renderLegal(type: LegalType) {
 
           <H3>3. Data processing via artificial intelligence</H3>
           <P>
-            The Application uses AI technologies provided by third-party vendors: OpenAI (ChatGPT,
-            GPT-4, GPT-5), Anthropic (Claude) and other AI services.
+            The Application uses AI technologies provided by the following third-party vendors:
           </P>
+          <UL>
+            <li>
+              <strong>OpenAI</strong> (ChatGPT, GPT-4, GPT-5) — processing of text requests.
+              Country of operation: USA
+            </li>
+            <li>
+              <strong>Anthropic</strong> (Claude) — processing of text requests.
+              Country of operation: USA
+            </li>
+            <li>
+              <strong>Google</strong> (Gemini; Imagen 4.0 Ultra and Nano Banana — image
+              generation; Veo — video generation). Country of operation: USA
+            </li>
+            <li>
+              <strong>DeepSeek</strong> — generation of greeting messages in chats with AI
+              assistants. <strong>Country of operation: People's Republic of China</strong>
+            </li>
+            <li>
+              <strong>Kling (Kuaishou)</strong> — video generation and processing.{' '}
+              <strong>Country of operation: People's Republic of China</strong>
+            </li>
+            <li>
+              <strong>Yandex SpeechKit</strong> — speech recognition for voice input.
+              Country of operation: Russian Federation
+            </li>
+            <li>Other AI services engaged for particular features of the Application</li>
+          </UL>
           <P>
             <strong>Data transmitted:</strong> request text and the minimal profile context needed
-            to produce a response. Phone number and payment data are NOT transmitted to AI vendors.
+            to produce a response; for generation features — text prompts together with images and
+            audio uploaded by the user; for voice input — the audio stream from the microphone.
+            Phone number and payment data are NOT transmitted to AI vendors.
+          </P>
+          <P>
+            Once data has been transmitted to an AI vendor, the Operator does not control its
+            further processing. By using the Application the user expressly agrees to the transfer
+            of their data for processing by means of AI technologies.
+          </P>
+
+          <H3>3.1. Cross-border transfer of personal data</H3>
+          <P>
+            Several of the vendors listed in Section 3 are located outside the Russian Federation.
+            Processing of user requests therefore entails a cross-border transfer of personal data
+            within the meaning of Article 12 of Federal Law No. 152-FZ of 27 July 2006 "On Personal
+            Data".
+          </P>
+          <P>
+            <strong>Please note in particular: part of the user's data is transferred to the
+            People's Republic of China.</strong> The following is transferred to the PRC: the text
+            of the user's messages to an AI assistant when greeting messages are generated (vendor
+            DeepSeek), and the text prompts, images and audio used to generate and process video
+            (vendor Kling / Kuaishou). The People's Republic of China is not a party to the Council
+            of Europe Convention for the Protection of Individuals with regard to Automatic
+            Processing of Personal Data and is not included in the list of foreign states providing
+            adequate protection of the rights of personal data subjects. The level of legal
+            protection of personal data in the PRC differs from that established by the legislation
+            of the Russian Federation.
+          </P>
+          <P>
+            Data is also transferred to the USA (OpenAI, Anthropic, Google). Speech recognition for
+            voice input is performed within the Russian Federation (Yandex SpeechKit).
+          </P>
+          <P>
+            By using AI assistants, the image- and video-generation features and voice input, the
+            user consents to such cross-border transfer, including transfer to the PRC. If such a
+            transfer is unacceptable to the user, they should refrain from using the corresponding
+            features of the Application. Do not disclose to AI assistants any information whose
+            transfer outside the Russian Federation is unacceptable to you.
           </P>
 
           <H3>4. Transfer of data to third parties</H3>
@@ -214,8 +278,46 @@ export function renderLegal(type: LegalType) {
 
           <H3>8. Cookies and analytics</H3>
           <P>
-            We use cookies and similar technologies (including Yandex Metrika) to improve the
-            Application and analyze usage. You can manage cookie settings in your browser.
+            The linkeon.io website and the Application use cookies, browser local storage
+            (localStorage, sessionStorage) and the counters of the following third-party web
+            analytics and advertising services:
+          </P>
+          <UL>
+            <li>
+              <strong>Yandex Metrica</strong>, counter No. 105902201 — visit statistics and goal
+              tracking. Session Replay (recording of user actions on the page), click map, outbound
+              link tracking and accurate bounce rate are enabled. The counter script is loaded upon
+              the user's first interaction with the page (scroll, touch, mouse movement, key press,
+              click) or no later than 6 seconds after the page has loaded.
+            </li>
+            <li>
+              <strong>VK Ads / top.Mail.Ru</strong>, pixel No. 3773048 — records the visit (pageView
+              event) so that an ad click can be matched to a site visit. The pixel is initialised on
+              every page load, without any prior user action and without a separate consent request.
+            </li>
+          </UL>
+          <P>
+            <strong>First-party telemetry.</strong> The linkeon.io website sends the following
+            events to the Operator's server (my.linkeon.io, endpoint /webhook/events/track):{' '}
+            <em>landing_view</em> — the fact of a site visit; <em>landing_cta_click</em> — a click
+            on the button leading to the Application; <em>landing_engagement</em> — a summary of the
+            visit. The events carry: the tab session identifier, the traffic source (utm_* and ref
+            parameters, or the domain name of the referring site), the advertising campaign name,
+            the referrer page address, the time spent on the page, the maximum scroll depth, and
+            whether the button leading to the Application was displayed to the user and whether it
+            was clicked.
+          </P>
+          <P>
+            <strong>Local storage.</strong> The attribution parameters taken from the page address
+            (utm_source, utm_medium, utm_campaign, utm_term, utm_content, ref) are stored in the
+            browser's localStorage under the key <em>ll_attribution</em> and reused on subsequent
+            visits. The tab session identifier and a flag indicating that the visit has already been
+            counted are stored in sessionStorage.
+          </P>
+          <P>
+            Cookies can be managed in your browser settings; local storage data is cleared together
+            with the site data by browser means. Disabling cookies and third-party counters may
+            limit the operation of certain features.
           </P>
 
           <H3>9. Policy changes</H3>
