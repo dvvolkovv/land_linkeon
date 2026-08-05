@@ -212,10 +212,10 @@ export function renderLegal(type: LegalType) {
             history of the conversation with the assistant and the profile context; for generation
             features — text prompts together with images and audio uploaded by the user; for voice
             input — the audio stream from the microphone. The profile context transmitted to AI
-            vendors includes the user's first and last name, their interests, values, skills and
-            intentions, as well as the profile identifier — which, for users who registered with a
-            phone number, is that phone number itself. Data is transmitted as-is and is not
-            anonymized prior to transfer. Payment data is NOT transmitted to AI vendors.
+            vendors includes the user's first and last name, together with their interests, values,
+            skills and intentions. The content of the conversation and of the profile is
+            transmitted as-is and is not anonymized. The user identifier, the phone number and
+            payment data are NOT transmitted to AI vendors.
           </P>
           <P>
             <strong>Voice cloning.</strong> In the video creation section the user may enable
@@ -403,11 +403,11 @@ export function renderLegal(type: LegalType) {
           <P>
             The following is transferred: the text of the user's messages and requests, the history
             of the conversation with the assistant, the profile context (first and last name,
-            interests, values, skills, intentions, and the profile identifier — which, for users
-            who registered with a phone number, is that phone number itself), uploaded images and
-            audio, the audio stream from voice input, and a voice sample where the feature
-            narrating videos in the user's own voice is used. Data is transferred as-is and is not
-            anonymized prior to transfer.
+            interests, values, skills, intentions), uploaded images and audio, the audio stream
+            from voice input, and a voice sample where the feature narrating videos in the user's
+            own voice is used. The content of the conversation and of the profile is transferred
+            as-is and is not anonymized. The user identifier and the phone number are not
+            transferred to AI vendors.
           </P>
           <P>
             Payment data is transferred to certified payment aggregators (YooKassa and others). No
