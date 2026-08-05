@@ -8,7 +8,7 @@ export default function Card({ children, className = '', ...rest }: Props) {
   return (
     <div
       {...rest}
-      className={`bg-white border border-slate-200 rounded-2xl transition-colors hover:border-slate-300 ${className}`}
+      className={`bg-white border border-gray-200 rounded-2xl transition-colors hover:border-gray-300 ${className}`}
     >
       {children}
     </div>

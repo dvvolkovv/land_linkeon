@@ -23,7 +23,7 @@ function FooterLink({ href, label, onLegalClick }: LinkItem & { onLegalClick?: (
     return (
       <a
         href={href}
-        className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+        className="text-sm text-gray-400 hover:text-gray-200 transition-colors"
         onClick={(e) => {
           e.preventDefault();
           onLegalClick(legal);
@@ -41,7 +41,7 @@ function FooterLink({ href, label, onLegalClick }: LinkItem & { onLegalClick?: (
   return (
     <a
       href={href}
-      className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+      className="text-sm text-gray-400 hover:text-gray-200 transition-colors"
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
       aria-disabled={disabled || undefined}
@@ -93,14 +93,14 @@ export default function Footer() {
   );
 
   return (
-    <footer className="bg-slate-900 text-slate-400 py-16 px-6">
+    <footer className="bg-gray-900 text-gray-400 py-16 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8">
         <div className="md:col-span-1">
           <div className="flex items-center gap-2 text-white font-semibold mb-3">
             <span>LINKEON</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
           </div>
-          <p className="text-sm text-slate-400 mb-6">{t('footer.tagline')}</p>
+          <p className="text-sm text-gray-400 mb-6">{t('footer.tagline')}</p>
           <div className="flex items-center gap-1 -ml-2.5">
             {SOCIALS.map(({ label, href, Icon }) => {
               const disabled = href === '#';
@@ -111,7 +111,7 @@ export default function Footer() {
                   aria-label={label}
                   aria-disabled={disabled || undefined}
                   tabIndex={disabled ? -1 : undefined}
-                  className={`inline-flex items-center justify-center w-11 h-11 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors ${disabled ? 'pointer-events-none opacity-40' : ''}`}
+                  className={`inline-flex items-center justify-center w-11 h-11 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors ${disabled ? 'pointer-events-none opacity-40' : ''}`}
                 >
                   <Icon aria-hidden="true" className="w-5 h-5" />
                 </a>
@@ -121,7 +121,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wider mb-4">{t('footer.sections.product')}</h3>
+          <h3 className="text-xs font-semibold text-gray-100 uppercase tracking-wider mb-4">{t('footer.sections.product')}</h3>
           {col([
             { label: t('footer.product.assistants'), href: '#features' },
             { label: t('footer.product.profile'), href: '#profile' },
@@ -131,17 +131,17 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wider mb-4">{t('footer.sections.company')}</h3>
+          <h3 className="text-xs font-semibold text-gray-100 uppercase tracking-wider mb-4">{t('footer.sections.company')}</h3>
           {col([
-            { label: t('footer.company.about'), href: '#' },
-            { label: t('footer.company.blog'), href: '#' },
-            { label: t('footer.company.referral'), href: 'https://my.linkeon.io/referral' },
-            { label: t('footer.company.support'), href: 'https://my.linkeon.io/support' },
+            // Разделов «О проекте» и «Блог» не существует, а /referral и /support
+            // в приложении — за авторизацией (гость улетал на онбординг). Оставляем
+            // единственный вход, доступный без логина: почта поддержки из юрдоков.
+            { label: t('footer.company.support'), href: 'mailto:support@linkeon.ru' },
           ])}
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wider mb-4">{t('footer.sections.legal')}</h3>
+          <h3 className="text-xs font-semibold text-gray-100 uppercase tracking-wider mb-4">{t('footer.sections.legal')}</h3>
           {col([
             { label: t('footer.legal.privacy'), href: '#privacy' },
             { label: t('footer.legal.offer'), href: '#offer' },
@@ -150,8 +150,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto border-t border-slate-800 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="text-sm text-slate-400">© {new Date().getFullYear()} LINKEON.IO · {t('footer.rights')}</span>
+      <div className="max-w-6xl mx-auto border-t border-gray-800 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-4">
+        <span className="text-sm text-gray-400">© {new Date().getFullYear()} LINKEON.IO · {t('footer.rights')}</span>
         <LangSwitcher />
       </div>
 

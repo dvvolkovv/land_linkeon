@@ -1,0 +1,366 @@
+{
+  "meta": {
+    "title": "LINKEON.IO — tu equipo de IA para crecer",
+    "description": "Asistentes de IA (marketing, legal, contabilidad, RR. HH., coaching) + un perfil único. Para pequeños negocios, freelancers y agencias."
+  },
+  "personaCta": {
+    "eyebrow": "Para tu objetivo",
+    "h2": "Tú decides por dónde empezar",
+    "cards": {
+      "business": {
+        "title": "Para tu negocio",
+        "text": "Un equipo de IA para tu negocio: abogado, marketing, estrategia y coaching, sin cuotas ni contrataciones. Pregunta ya mismo.",
+        "cta": "Pregunta al equipo"
+      },
+      "creator": {
+        "title": "Para contenido",
+        "text": "IA para tu contenido: textos, ideas, titulares, SEO. Del post al guion, en minutos.",
+        "cta": "Crear contenido"
+      },
+      "personal": {
+        "title": "Para ti",
+        "text": "Un psicólogo y coach de IA disponible siempre. Entiéndete mejor: la primera conversación es gratis.",
+        "cta": "Empezar a hablar"
+      }
+    },
+    "social": "16 especialistas de IA en una ventana · negocio, contenido y desarrollo personal"
+  },
+  "header": {
+    "nav": {
+      "features": "Funciones",
+      "how": "Cómo funciona",
+      "pricing": "Precios",
+      "faq": "FAQ"
+    },
+    "cta": {
+      "login": "Entrar",
+      "start": "Empieza gratis"
+    },
+    "a11y": {
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "logo": "LINKEON.IO — ir al inicio"
+    }
+  },
+  "hero": {
+    "biz": {
+      "eyebrow": "Equipo de IA para emprendedores",
+      "h1Part1": "Contratos, impuestos, marketing —",
+      "h1Accent": "listo en minutos",
+      "h1Part2": "gratis",
+      "sub": "El abogado revisa tu contrato, la contable calcula impuestos, el marketing escribe el post y el plan. Plantea tu tarea: el primer resultado es gratis y sin tarjeta.",
+      "ctaStart": "Resolver tarea gratis",
+      "chips": ["📄 Revisar contrato", "🧮 Impuestos", "📈 Plan de marketing"]
+    },
+    "creator": {
+      "eyebrow": "Estudio de IA para creadores",
+      "h1Part1": "Contenido listo para redes —",
+      "h1Accent": "en minutos",
+      "h1Part2": ", gratis",
+      "sub": "La IA escribe posts, crea imágenes y genera vídeos; Yulia, la asistente de SMM, planifica tu feed. Trae una idea y llévate el contenido listo.",
+      "ctaStart": "Crear contenido gratis",
+      "chips": ["✍️ Posts", "🎨 Imágenes", "🎬 Vídeos"]
+    },
+    "assistant": {
+      "eyebrow": "Tu asistente de IA personal",
+      "h1Part1": "Carta, texto, post, plan —",
+      "h1Accent": "lo hago en minutos",
+      "h1Part2": "gratis",
+      "sub": "Roman es tu asistente de IA todoterreno: cartas y documentos de trabajo, posts y planes de contenido, textos que venden, ideas de negocio. Trae la tarea y llévatela hecha.",
+      "ctaStart": "Resolver tarea gratis",
+      "chips": ["📄 Cartas y documentos", "✍️ Textos y posts", "📈 Plan de contenido"]
+    },
+    "video": {
+      "eyebrow": "Productor de vídeo con IA",
+      "h1Part1": "Idea → vídeo listo",
+      "h1Accent": "en minutos",
+      "h1Part2": "— sin rodaje",
+      "sub": "Yulia convierte tu idea en un vídeo corto para redes: guion, planos, montaje. Reels, Shorts, TikTok, sin editar nada. Con los 25.000 tokens de bienvenida sacas tu primer vídeo a partir de una imagen que ya tengas.",
+      "ctaStart": "Crear vídeo",
+      "chips": ["🎬 Reels y Shorts", "🎨 Guion y planos", "⚡ En minutos"]
+    },
+    "eyebrow": "IA para crecer tu negocio",
+    "h1Part1": "Resultado listo en minutos:",
+    "h1Rotating": [
+      "post e imagen para redes",
+      "revisión de contrato",
+      "plan de marketing"
+    ],
+    "h1Part2": "— gratis",
+    "sub": "16 asistentes de IA: escriben contenido, revisan contratos, calculan impuestos, planifican tu marketing. Trae una tarea y llévate el resultado. La primera, gratis y sin tarjeta.",
+    "ctaStart": "Empieza gratis",
+    "ctaLogin": "Entrar",
+    "chips": ["✍️ Contenido", "⚖️ Legal", "📈 Marketing"],
+    "trust": "🎁 25.000 tokens gratis · sin tarjeta · sin suscripción · listo en 2 minutos",
+    "privacy": "🔒 No vendemos tus conversaciones ni las usamos para publicidad. El procesamiento corre a cargo de los proveedores de IA.",
+    "badge": {
+      "title": "Asistente de IA",
+      "status": "en línea · responde"
+    }
+  },
+  "footer": {
+    "tagline": "IA para hacer crecer tu negocio",
+    "sections": {
+      "product": "Producto",
+      "company": "Soporte",
+      "legal": "Legal"
+    },
+    "product": {
+      "assistants": "Asistentes de IA",
+      "profile": "Perfil único",
+      "networking": "Networking",
+      "pricing": "Precios"
+    },
+    "company": {
+      "support": "support@linkeon.ru"
+    },
+    "legal": {
+      "privacy": "Política de privacidad",
+      "offer": "Condiciones del servicio",
+      "pdn": "Tratamiento de datos"
+    },
+    "rights": "Todos los derechos reservados."
+  },
+  "problem": {
+    "eyebrow": "El problema",
+    "h2": "El día no da para hacer crecer el negocio",
+    "items": [
+      {
+        "title": "La rutina te come el foco",
+        "text": "Contestar al cliente, escribir un post, redactar un contrato… y ya no creces: apagas fuegos."
+      },
+      {
+        "title": "Contratar es caro y lento",
+        "text": "Marketing, abogado, RR. HH.: son 300–500 mil ₽/mes de nómina en fase inicial."
+      },
+      {
+        "title": "Diez herramientas, un solo contexto",
+        "text": "ChatGPT, Notion, CRM, correo: cada uno sabe un trozo de ti, nunca el conjunto."
+      }
+    ],
+    "footer": "Linkeon lo reúne todo en un producto: los asistentes de IA hacen el trabajo y tu perfil —el contexto— vive en un solo sitio."
+  },
+  "assistants": {
+    "eyebrow": "Equipo de IA",
+    "h2": "16 asistentes en una ventana",
+    "sub": "Cada uno es experto en lo suyo. Recuerdan tu negocio, se conocen entre ellos y puedes dictarles la tarea por voz.",
+    "list": [
+      {
+        "name": "Roman, todoterreno",
+        "role": "Cualquier tarea: carta, texto, plan, análisis"
+      },
+      {
+        "name": "Alexandra, marketing",
+        "role": "Planes de lanzamiento, contenido, analítica"
+      },
+      {
+        "name": "Alexey, abogado",
+        "role": "Contratos, checklists, consultas"
+      },
+      {
+        "name": "Anna, contable",
+        "role": "Contabilidad, impuestos, finanzas"
+      },
+      {
+        "name": "Irina, RR. HH.",
+        "role": "Vacantes, preguntas de entrevista, evaluación"
+      },
+      {
+        "name": "Misha, coach",
+        "role": "Estrategia, prioridades, psicología"
+      }
+    ],
+    "cta": "Ver los 16 asistentes"
+  },
+  "profile": {
+    "eyebrow": "Perfil único",
+    "h2": "Un contexto que recuerdan todos",
+    "sub": "A medida que hablas, Linkeon completa tu perfil: valores, negocio, puntos de dolor, estilo de comunicación. Ningún asistente empieza de cero: todos te entienden desde el primer mensaje.",
+    "bullets": [
+      "Se enriquece con cada conversación",
+      "Funciona con todos los asistentes",
+      "Tú decides qué se recuerda",
+      "Sirve para encontrar socios afines a tus valores"
+    ]
+  },
+  "networking": {
+    "eyebrow": "Networking",
+    "h2": "Socios y expertos que comparten tus valores",
+    "sub": "Un perfil no es un currículum. Son valores, intenciones, estilo. Linkeon encuentra a personas con las que hay sintonía: para alianzas, clientes, contrataciones y proyectos.",
+    "legend": {
+      "self": "Tu perfil",
+      "values": "Valores e intenciones",
+      "matches": "Coincidencias con otros"
+    },
+    "graph": {
+      "values": [
+        "Honestidad",
+        "Crecimiento",
+        "Libertad",
+        "Familia",
+        "Impacto",
+        "Creatividad",
+        "Desarrollo",
+        "Confianza"
+      ],
+      "others": [
+        "A",
+        "M",
+        "C",
+        "D",
+        "S",
+        "N"
+      ]
+    },
+    "cols": [
+      {
+        "title": "Socios",
+        "text": "Cofundadores y expertos que ven el mundo como tú."
+      },
+      {
+        "title": "Clientes",
+        "text": "Gente a la que le importa tu propósito, no solo el precio."
+      },
+      {
+        "title": "Comunidad",
+        "text": "Peticiones a los tuyos, respuestas y chats."
+      }
+    ],
+    "cta": "Abrir networking en my.linkeon.io"
+  },
+  "content": {
+    "eyebrow": "Motor de contenido",
+    "h2": "Imágenes y vídeo, con los mismos tokens",
+    "sub": "¿Tu asistente de marketing ya tiene el plan? Genera ahí mismo portadas, carruseles y un vídeo corto. Sin saltar entre servicios ni suscripciones.",
+    "images": {
+      "h3": "Imágenes",
+      "caption": "Imagen 4.0 Ultra: realista y rápido. Portadas, carruseles y visuales para redes."
+    },
+    "video": {
+      "h3": "Vídeo",
+      "caption": "Kling y Veo. Vídeos cortos a partir de texto o imagen: creatividades, previews, stories."
+    },
+    "footer": "Funciona con los mismos tokens que los asistentes. Sin suscripciones aparte."
+  },
+  "how": {
+    "eyebrow": "Cómo funciona",
+    "h2": "Del registro al primer resultado: 2 minutos",
+    "steps": [
+      {
+        "title": "Entrar en un clic",
+        "text": "Con Yandex, Google o tu número de teléfono. Sin tarjeta. +25.000 tokens de regalo."
+      },
+      {
+        "title": "Habla con un asistente",
+        "text": "Describe la tarea por voz o por escrito. El perfil se completa solo."
+      },
+      {
+        "title": "Lanza las funciones",
+        "text": "contenido, contrato: el asistente lo hace y te devuelve el resultado en el chat."
+      },
+      {
+        "title": "Crecimiento",
+        "text": "Los asistentes recuerdan el contexto. Cada conversación sale mejor que la anterior."
+      }
+    ],
+    "cta": "Empieza gratis"
+  },
+  "useCases": {
+    "eyebrow": "Para quién",
+    "h2": "Negocios donde Linkeon sustituye al equipo",
+    "items": [
+      {
+        "title": "Pequeño negocio sin plantilla",
+        "text": "Una persona = toda la empresa. Linkeon = marketing, contabilidad, legal y ventas.",
+        "benefits": [
+          "Asistentes como departamento",
+          "Perfil único de la empresa"
+        ]
+      },
+      {
+        "title": "Freelancers y expertos en solitario",
+        "text": "Tú haces los proyectos y alrededor hay 100 microtareas (contratos, redes, leads). La IA se las lleva.",
+        "benefits": [
+          "Contratos en un minuto",
+          "Publicidad para ti mismo",
+          "Más tiempo para lo que importa"
+        ]
+      },
+      {
+        "title": "Agencias de marketing",
+        "text": "Muchos clientes, poca gente. La IA escribe los anuncios y genera las creatividades.",
+        "benefits": [
+          "Campañas 10× más rápidas",
+          "Vídeo y visuales en un solo sitio"
+        ]
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Opiniones",
+    "h2": "Lo que dicen los usuarios",
+    "items": [
+      { "quote": "La verdad, es una pasada. Ekaterina ayuda de verdad: soy técnico y no doy con las palabras bonitas, me sale todo seco, como en un documento. Ella amplía mi bagaje de conocimientos.", "author": "— especialista técnico" },
+      { "quote": "El producto está quedando muy bien. Generar vídeo aquí es más cómodo que en el Veo original: audio limpio, parecido a partir de la foto y el formato que necesito.", "author": "— creador de contenido" },
+      { "quote": "Antes tardaba varios días en cerrar el diseño y el texto de una presentación. Aquí la tuve lista en 5 minutos: encantado con la eficiencia.", "author": "— emprendedor" }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Precios",
+    "h2": "Pagas solo por tokens. Sin suscripciones.",
+    "sub": "Los tokens no caducan. Compras el pack una vez y lo usas cuando quieras.",
+    "plans": {
+      "starter": "Inicial",
+      "extended": "Ampliado",
+      "professional": "Profesional"
+    },
+    "tokens": "tokens",
+    "messages": "mensajes",
+    "per1000": "por 1000 tokens",
+    "popular": "Popular",
+    "savings": "Ahorras {{value}}",
+    "cta": "Comprar",
+    "trust": {
+      "yookassa": "Pago con YooKassa",
+      "email": "Recibo por e-mail",
+      "gift": "25.000 tokens de regalo para nuevos usuarios"
+    }
+  },
+  "faq": {
+    "eyebrow": "Preguntas",
+    "h2": "Lo importante antes de empezar",
+    "items": [
+      {
+        "q": "¿Qué son los tokens y cómo se gastan?",
+        "a": "Los tokens son la moneda interna. Se descuentan por cada respuesta de un asistente, cada imagen generada y cada segundo de vídeo. No caducan."
+      },
+      {
+        "q": "¿Cuánto tarda darse de alta?",
+        "a": "Entrar con Yandex, Google o tu número de teléfono lleva 2 minutos. De regalo empiezas con 25.000 tokens: unas 7 respuestas de asistente o 5 imágenes. Para probar vídeo en condiciones no dan de sí: ahí hace falta un pack."
+      },
+      {
+        "q": "¿Mis conversaciones son privadas?",
+        "a": "Sí. Solo tú tienes acceso a tu perfil. En los ajustes decides qué recuerdan los asistentes."
+      },
+      {
+        "q": "¿Se puede anular la compra de tokens?",
+        "a": "Los tokens no caducan, así que la compra no tiene fecha límite, pero no devolvemos el saldo sin usar. Sí devolvemos el dinero en dos casos: si el servicio estuvo caído más de 72 horas seguidas o si se cobró dos veces. Escribe a support@linkeon.ru y lo revisamos en 10 días hábiles."
+      },
+      {
+        "q": "¿Hay API?",
+        "a": "Todavía no. Está en camino: escribe a soporte si te interesa y le metemos prisa."
+      },
+      {
+        "q": "¿En qué se diferencia de ChatGPT?",
+        "a": "ChatGPT es un único ayudante. Linkeon es un equipo de asistentes con un perfil compartido, más generación de imágenes y vídeo en un mismo pago."
+      }
+    ]
+  },
+  "finalCta": {
+    "h2": "Monta tu equipo de IA en 2 minutos",
+    "sub": "Entra con Yandex o Google, 25.000 tokens de regalo, sin tarjeta",
+    "ctaStart": "Empieza gratis",
+    "ctaLogin": "Entrar",
+    "trust": "Sin suscripciones · sin tarjeta · los tokens no caducan"
+  }
+}

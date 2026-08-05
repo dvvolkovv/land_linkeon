@@ -6,7 +6,7 @@ interface Props {
   opacity?: number;
 }
 
-export default function GradientOrb({ className = '', size = 400, from = 'from-indigo-400', to = 'to-pink-300', opacity = 0.4 }: Props) {
+export default function GradientOrb({ className = '', size = 400, from = 'from-brand-500', to = 'to-pink-300', opacity = 0.4 }: Props) {
   return (
     <div
       aria-hidden="true"

@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "LINKEON.IO — an AI team for your business",
+    "description": "AI assistants (marketer, lawyer, accountant, HR, coach) plus one shared profile. For small businesses, freelancers and agencies."
+  },
   "personaCta": {
     "eyebrow": "For your goal",
     "h2": "Where to start is up to you",
@@ -46,7 +50,11 @@
       "h1Part2": "for free",
       "sub": "A lawyer reviews your contract, an accountant estimates taxes, a marketer writes the post and the plan. Ask your task — first result free, no card.",
       "ctaStart": "Solve a task free",
-      "chips": ["📄 Contract review", "🧮 Taxes", "📈 Promotion plan"]
+      "chips": [
+        "📄 Contract review",
+        "🧮 Taxes",
+        "📈 Promotion plan"
+      ]
     },
     "creator": {
       "eyebrow": "An AI studio for content creators",
@@ -55,7 +63,11 @@
       "h1Part2": ", free",
       "sub": "AI writes posts, generates images and video, and the SMM assistant Yulia plans your feed. Bring an idea — leave with ready content.",
       "ctaStart": "Create content free",
-      "chips": ["✍️ Posts", "🎨 Images", "🎬 Video"]
+      "chips": [
+        "✍️ Posts",
+        "🎨 Images",
+        "🎬 Video"
+      ]
     },
     "assistant": {
       "eyebrow": "Your personal AI assistant",
@@ -64,16 +76,24 @@
       "h1Part2": "for free",
       "sub": "Roman — your universal AI assistant: business letters and documents, posts and content plans, sales copy, business ideas. Bring a task — leave with it done.",
       "ctaStart": "Solve a task free",
-      "chips": ["📄 Letters & docs", "✍️ Texts & posts", "📈 Content plan"]
+      "chips": [
+        "📄 Letters & docs",
+        "✍️ Texts & posts",
+        "📈 Content plan"
+      ]
     },
     "video": {
       "eyebrow": "AI short-video producer",
       "h1Part1": "Idea → a ready clip",
       "h1Accent": "in minutes",
-      "h1Part2": ", free",
-      "sub": "Yulia turns an idea into a short social video: script, shots, the style you want (Cinematic, Surreal). Reels, Shorts, TikTok — no filming, no editing.",
-      "ctaStart": "Make a clip free",
-      "chips": ["🎬 Reels & Shorts", "🎨 Any style", "⚡ In minutes"]
+      "h1Part2": "— no filming",
+      "sub": "Yulia turns an idea into a short social video: script, shots, final cut. Reels, Shorts, TikTok — no editing. Your 25,000 starting tokens cover a first clip from an image you already have.",
+      "ctaStart": "Make a clip",
+      "chips": [
+        "🎬 Reels & Shorts",
+        "🎨 Script & shots",
+        "⚡ In minutes"
+      ]
     },
     "eyebrow": "AI for business growth",
     "h1Part1": "A ready result in minutes:",
@@ -83,12 +103,16 @@
       "a promotion plan"
     ],
     "h1Part2": "— for free",
-    "sub": "Six AI assistants: write content, review contracts, estimate taxes, plan promotion. Bring a task — leave with the result. First one free, no card.",
+    "sub": "16 AI assistants: write content, review contracts, estimate taxes, plan promotion. Bring a task — leave with the result. First one free, no card.",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
-    "chips": ["✍️ Content", "⚖️ Legal", "📈 Marketing"],
+    "chips": [
+      "✍️ Content",
+      "⚖️ Legal",
+      "📈 Marketing"
+    ],
     "trust": "🎁 25,000 tokens free · no card · no subscription · 2-minute start",
-    "privacy": "🔒 Private — we never share your data with third parties",
+    "privacy": "🔒 We never sell your chats or use them for ads. Processing runs on AI providers.",
     "badge": {
       "title": "AI assistant",
       "status": "online · replying"
@@ -98,7 +122,7 @@
     "tagline": "Neural network for business growth",
     "sections": {
       "product": "Product",
-      "company": "Company",
+      "company": "Support",
       "legal": "Legal"
     },
     "product": {
@@ -108,10 +132,7 @@
       "pricing": "Pricing"
     },
     "company": {
-      "about": "About",
-      "blog": "Blog",
-      "referral": "Referral program",
-      "support": "Support"
+      "support": "support@linkeon.ru"
     },
     "legal": {
       "privacy": "Privacy policy",
@@ -141,35 +162,35 @@
   },
   "assistants": {
     "eyebrow": "AI Team",
-    "h2": "Six assistants in one window",
-    "sub": "Each an expert in their role. They remember your business, know about each other, respond by voice or text.",
+    "h2": "16 assistants in one window",
+    "sub": "Each an expert in their role. They remember your business, know about each other, and you can dictate the task by voice.",
     "list": [
       {
-        "name": "Roman",
-        "role": "Universal agent, does everything"
+        "name": "Roman, generalist",
+        "role": "Any task: letters, copy, plans, reviews"
       },
       {
-        "name": "Marketer",
+        "name": "Alexandra, marketer",
         "role": "Launch plans, content, market analytics"
       },
       {
-        "name": "Lawyer",
+        "name": "Alexey, lawyer",
         "role": "Contracts, checklists, consultations"
       },
       {
-        "name": "Accountant",
-        "role": "Taxes, calculations, 1C statements"
+        "name": "Anna, accountant",
+        "role": "Bookkeeping, taxes, business finances"
       },
       {
-        "name": "HR",
+        "name": "Irina, HR",
         "role": "Job posts, interview prompts, screening"
       },
       {
-        "name": "Coach",
+        "name": "Misha, coach",
         "role": "Strategy, priorities, founder psychology"
       }
     ],
-    "cta": "See all assistants"
+    "cta": "See all 16 assistants"
   },
   "profile": {
     "eyebrow": "Unified profile",
@@ -222,7 +243,7 @@
       },
       {
         "title": "Community",
-        "text": "Events, meetups, chats around interests."
+        "text": "Requests to your people, replies and chats."
       }
     ],
     "cta": "Open networking at my.linkeon.io"
@@ -233,21 +254,21 @@
     "sub": "Your AI marketer wrote the plan? Generate covers, carousels and short videos right there. No switching between services and subscriptions.",
     "images": {
       "h3": "Images",
-      "caption": "Nano Banana, realistic and fast. Covers, carousels, social visuals."
+      "caption": "Imagen 4.0 Ultra — realistic and fast. Covers, carousels, social visuals."
     },
     "video": {
       "h3": "Video",
-      "caption": "Kling 2.1. Short clips from text or image — ad creatives, previews, stories."
+      "caption": "Kling and Veo. Short clips from text or image — ad creatives, previews, stories."
     },
     "footer": "Runs on the same tokens as assistants. No separate subscriptions."
   },
   "how": {
     "eyebrow": "How it works",
-    "h2": "From SMS to first result — 3 minutes",
+    "h2": "From sign-in to first result — 2 minutes",
     "steps": [
       {
-        "title": "SMS sign-in",
-        "text": "Just your phone number. No card. +25,000 tokens on the house."
+        "title": "One-tap sign-in",
+        "text": "Yandex or Google, or your phone number. No card. +25,000 tokens on the house."
       },
       {
         "title": "Talk to an assistant",
@@ -299,9 +320,18 @@
     "eyebrow": "Testimonials",
     "h2": "What users say",
     "items": [
-      { "quote": "Honestly, it's just great. The assistant really helps — I'm a techie and can't pick nice wording myself, it often comes out dry like in documents. It broadens my vocabulary.", "author": "— technical specialist" },
-      { "quote": "The product turns out really good. Generating video here is more convenient than in the original Veo — clean audio, likeness from photos, the right format.", "author": "— content creator" },
-      { "quote": "Agreeing on a deck's design and copy used to take me days. Here I got a finished presentation in 5 minutes — very happy with the efficiency.", "author": "— entrepreneur" }
+      {
+        "quote": "Honestly, it's just great. Ekaterina really helps — I'm a techie and can't pick nice wording myself, it often comes out dry like in documents. It broadens my vocabulary.",
+        "author": "— technical specialist"
+      },
+      {
+        "quote": "The product turns out really good. Generating video here is more convenient than in the original Veo — clean audio, likeness from photos, the right format.",
+        "author": "— content creator"
+      },
+      {
+        "quote": "Agreeing on a deck's design and copy used to take me days. Here I got a finished presentation in 5 minutes — very happy with the efficiency.",
+        "author": "— entrepreneur"
+      }
     ]
   },
   "pricing": {
@@ -335,7 +365,7 @@
       },
       {
         "q": "How long does onboarding take?",
-        "a": "SMS sign-in, 2 minutes. You start with 25,000 tokens, enough to try every feature."
+        "a": "Sign in with Yandex, Google or your phone number — 2 minutes. You start with 25,000 tokens on the house: roughly 7 assistant replies or 5 images. That won't get you far with video — for that you'll need a pack."
       },
       {
         "q": "Are my conversations private?",
@@ -343,7 +373,7 @@
       },
       {
         "q": "Can I cancel a token purchase?",
-        "a": "Unused tokens are refunded upon request to support within 14 days."
+        "a": "Tokens never expire, so a purchase has no deadline — but we don't refund an unused balance. We do refund money in two cases: the service was down for more than 72 hours straight, or you were charged twice. Email support@linkeon.ru — we review it within 10 business days."
       },
       {
         "q": "Is there an API?",
@@ -357,7 +387,7 @@
   },
   "finalCta": {
     "h2": "Assemble your AI department in 2 minutes",
-    "sub": "SMS sign-in, 25,000 tokens on the house, no card",
+    "sub": "Sign in with Yandex or Google, 25,000 tokens on the house, no card",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
     "trust": "No subscriptions · no card required · tokens don't expire"

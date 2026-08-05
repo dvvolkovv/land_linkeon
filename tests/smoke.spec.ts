@@ -1,4 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
+import { translatedCodes } from '../scripts/translated-languages.js';
+
+const PUBLISHED = translatedCodes();
+const UNPUBLISHED = SUPPORTED_CODES.filter((code) => !PUBLISHED.includes(code));
 
 test.describe('landing smoke', () => {
   test('hero is visible and CTAs link to my.linkeon.io', async ({ page }) => {
@@ -7,7 +12,9 @@ test.describe('landing smoke', () => {
 
     const heroStart = page.locator('[data-cta="hero-start"]');
     await expect(heroStart).toBeVisible();
-    await expect(heroStart).toHaveAttribute('href', 'https://my.linkeon.io');
+    // appUrl() нормализует адрес и может дописать метки привлечения —
+    // проверяем происхождение, а не точное совпадение строки.
+    await expect(heroStart).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
   });
 
   test('pricing section renders 3 packages with correct prices', async ({ page }) => {
@@ -20,16 +27,33 @@ test.describe('landing smoke', () => {
     await expect(page.getByText(/1\s?990/).first()).toBeVisible();
   });
 
-  test('FAQ has 8 questions', async ({ page }) => {
+  test('FAQ has 6 questions', async ({ page }) => {
     await page.goto('/#faq');
     const details = page.locator('#faq details');
-    await expect(details).toHaveCount(8);
+    await expect(details).toHaveCount(6);
   });
 
-  test('language switch toggles EN texts', async ({ page }) => {
+  // Переключатель предлагает ровно те языки, версии которых реально выпущены:
+  // ссылка на язык с пустой локалью привела бы на русский текст под чужим
+  // языковым адресом. Список — из того же источника, что и сборка.
+  test('language switcher offers exactly the published languages', async ({ page }) => {
     await page.goto('/');
-    const switcher = page.locator('[data-testid="lang-switcher"]').first();
-    await switcher.getByText('EN').click();
-    await expect(page.getByRole('heading', { level: 1 })).toContainText(/Your AI team/i);
+    await page.locator('[data-testid="lang-switcher"] button').first().click();
+
+    for (const code of PUBLISHED) {
+      const href = code === DEFAULT_LANGUAGE ? '/' : `/${code}/`;
+      await expect(page.locator(`[data-testid="lang-option-${code}"]`)).toHaveAttribute(
+        'href',
+        href,
+      );
+    }
+    for (const code of UNPUBLISHED) {
+      await expect(page.locator(`[data-testid="lang-option-${code}"]`)).toHaveCount(0);
+    }
+    // Раскрывашка со ссылками, а не listbox: считаем пункты списка, а не
+    // role="option" (см. комментарий в LangSwitcher.tsx).
+    await expect(page.locator('[data-testid="lang-switcher"] nav li')).toHaveCount(
+      PUBLISHED.length,
+    );
   });
 });

@@ -24,16 +24,17 @@ const TOKENS_URL = appUrl('/tokens');
 
 export default function Pricing() {
   const { t, i18n } = useTranslation();
-  const fmt = (n: number) => n.toLocaleString(i18n.language.startsWith('en') ? 'en-US' : 'ru-RU');
+  // Intl понимает голый код языка; отдельная таблица локалей не нужна.
+  const fmt = (n: number) => n.toLocaleString(i18n.language);
 
   return (
-    <Section id="pricing" ariaLabelledby="pricing-heading" className="bg-white border-y border-slate-200">
+    <Section id="pricing" ariaLabelledby="pricing-heading" className="bg-white border-y border-gray-200">
       <FadeIn className="text-center mb-16 max-w-2xl mx-auto">
         <Eyebrow className="mb-4">{t('pricing.eyebrow')}</Eyebrow>
-        <h2 id="pricing-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">
+        <h2 id="pricing-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-4 text-balance">
           {t('pricing.h2')}
         </h2>
-        <p className="text-lg text-slate-600">{t('pricing.sub')}</p>
+        <p className="text-lg text-gray-600">{t('pricing.sub')}</p>
       </FadeIn>
 
       <div className="grid md:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto">
@@ -42,30 +43,40 @@ export default function Pricing() {
           const msgs = Math.floor(p.tokens / 3500);
           return (
             <FadeIn key={p.id} delay={i * 100}>
-              <div className={`relative h-full flex flex-col rounded-2xl p-6 ${p.popular ? 'border-2 border-indigo-600 shadow-lg shadow-indigo-500/10 lg:scale-105 bg-white' : 'border border-slate-200 bg-white'}`}>
+              <div className={`relative h-full flex flex-col rounded-2xl p-6 ${p.popular ? 'border-2 border-brand-700 shadow-lg shadow-brand-600/10 lg:scale-105 bg-white' : 'border border-gray-200 bg-white'}`}>
+                {/*
+                  Бейджи говорят о разном («этот тариф берут чаще» против «здесь
+                  дешевле тысяча токенов») и на карточке extended висят рядом,
+                  поэтому различаются заливкой, а не второй краской: «Популярный» —
+                  сплошной brand-800 с белым текстом (5.5:1), «Экономия» — светлая
+                  подложка brand-100 с текстом brand-900 (8.8:1). Подложка сама по
+                  себе почти неотличима от белой карточки (1.08:1), поэтому границу
+                  пилюли держит обводка brand-700 (3.74:1 к белому — планка WCAG для
+                  нетекстовых границ).
+                */}
                 {p.popular && (
-                  <span className="absolute -top-3 left-4 bg-indigo-600 text-white text-xs font-semibold px-4 py-1 rounded-full">
+                  <span className="absolute -top-3 left-4 bg-brand-800 text-white text-xs font-semibold px-4 py-1 rounded-full">
                     {t('pricing.popular')}
                   </span>
                 )}
                 {p.savings && (
-                  <span className="absolute -top-3 right-4 bg-emerald-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute -top-3 right-4 bg-brand-100 text-brand-900 ring-1 ring-brand-700 text-xs font-semibold px-3 py-1 rounded-full">
                     {t('pricing.savings', { value: p.savings })}
                   </span>
                 )}
 
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">{t(`pricing.plans.${p.id}`)}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{t(`pricing.plans.${p.id}`)}</h3>
                 <div className="flex items-baseline gap-1.5 mb-1">
-                  <Coins aria-hidden="true" className="w-5 h-5 text-indigo-600" />
-                  <span className="text-2xl font-bold text-slate-900">{fmt(p.tokens)}</span>
-                  <span className="text-sm text-slate-500">{t('pricing.tokens')}</span>
+                  <Coins aria-hidden="true" className="w-5 h-5 text-brand-700" />
+                  <span className="text-2xl font-bold text-gray-900">{fmt(p.tokens)}</span>
+                  <span className="text-sm text-gray-500">{t('pricing.tokens')}</span>
                 </div>
-                <p className="text-xs text-slate-400 mb-6">≈ {msgs} {t('pricing.messages')}</p>
+                <p className="text-xs text-gray-400 mb-6">≈ {msgs} {t('pricing.messages')}</p>
                 <div className="mb-2">
-                  <span className="text-5xl font-bold text-slate-900">{p.price}</span>
-                  <span className="text-xl text-slate-600 ml-1">₽</span>
+                  <span className="text-5xl font-bold text-gray-900">{p.price}</span>
+                  <span className="text-xl text-gray-600 ml-1">₽</span>
                 </div>
-                <p className="text-xs text-slate-500 mb-6">≈ {perThousand} ₽ {t('pricing.per1000')}</p>
+                <p className="text-xs text-gray-500 mb-6">≈ {perThousand} ₽ {t('pricing.per1000')}</p>
                 <div className="mt-auto">
                   <Button
                     variant={p.popular ? 'primary' : 'outline'}
@@ -83,7 +94,7 @@ export default function Pricing() {
         })}
       </div>
 
-      <FadeIn delay={400} className="mt-10 flex flex-wrap gap-6 justify-center text-sm text-slate-500">
+      <FadeIn delay={400} className="mt-10 flex flex-wrap gap-6 justify-center text-sm text-gray-500">
         <span className="flex items-center gap-1.5"><Lock aria-hidden="true" className="w-4 h-4" /> {t('pricing.trust.yookassa')}</span>
         <span className="flex items-center gap-1.5"><Mail aria-hidden="true" className="w-4 h-4" /> {t('pricing.trust.email')}</span>
         <span className="flex items-center gap-1.5"><Gift aria-hidden="true" className="w-4 h-4" /> {t('pricing.trust.gift')}</span>

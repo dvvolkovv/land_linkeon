@@ -16,6 +16,8 @@ const FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_con
 type Attr = Partial<Record<(typeof FIELDS)[number], string>>;
 
 function fromUrl(): Attr {
+  // При рендере на сборке (Node) окна нет — меток тоже.
+  if (typeof window === 'undefined') return {};
   const p = new URLSearchParams(window.location.search);
   const a: Attr = {};
   for (const f of FIELDS) {
@@ -26,6 +28,7 @@ function fromUrl(): Attr {
 }
 
 function read(): Attr {
+  if (typeof window === 'undefined') return {};
   try {
     const raw = localStorage.getItem(KEY);
     return raw ? (JSON.parse(raw) as Attr) : {};

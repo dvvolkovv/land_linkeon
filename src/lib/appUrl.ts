@@ -23,7 +23,11 @@ export function appUrl(path = '/', extra?: Record<string, string>): string {
     // Пробрасываем сегмент персоны (?seg=biz/creator), чтобы онбординг приложения
     // показал сообщение под ту же персону, что и реклама/лендinг (message-match
     // → выше конверсия в регистрацию). Цены/флоу те же.
-    const seg = new URLSearchParams(window.location.search).get('seg');
+    // В пререндере окна нет: в статику уезжает дефолтный вариант ссылки,
+    // сегмент подставится на клиенте при первом же рендере.
+    const seg = typeof window === 'undefined'
+      ? null
+      : new URLSearchParams(window.location.search).get('seg');
     if (seg && !url.searchParams.has('seg')) url.searchParams.set('seg', seg);
     return url.toString();
   } catch {

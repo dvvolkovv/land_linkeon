@@ -14,15 +14,15 @@ export default function Profile() {
       <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <FadeIn>
           <Eyebrow className="mb-4">{t('profile.eyebrow')}</Eyebrow>
-          <h2 id="profile-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">
+          <h2 id="profile-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-4 text-balance">
             {t('profile.h2')}
           </h2>
-          <p className="text-lg text-slate-600 mb-6 max-w-xl">{t('profile.sub')}</p>
+          <p className="text-lg text-gray-600 mb-6 max-w-xl">{t('profile.sub')}</p>
           <ul className="space-y-3">
             {bullets.map((b) => (
               <li key={b} className="flex items-start gap-3">
-                <CheckCircle2 aria-hidden="true" className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                <span className="min-w-0 break-words text-slate-700">{b}</span>
+                <CheckCircle2 aria-hidden="true" className="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" />
+                <span className="min-w-0 break-words text-gray-700">{b}</span>
               </li>
             ))}
           </ul>
@@ -34,7 +34,7 @@ export default function Profile() {
               src="/screenshots/profile.webp"
               alt=""
               aria-hidden="true"
-              className="w-full h-full object-cover bg-slate-100"
+              className="w-full h-full object-cover bg-gray-100"
             />
           </ScreenshotFrame>
         </FadeIn>

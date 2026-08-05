@@ -11,10 +11,10 @@ export default function Problem() {
   const items = t('problem.items', { returnObjects: true }) as { title: string; text: string }[];
 
   return (
-    <Section id="problem" ariaLabelledby="problem-heading" className="bg-white border-y border-slate-200">
+    <Section id="problem" ariaLabelledby="problem-heading" className="bg-white border-y border-gray-200">
       <FadeIn className="text-center mb-16">
         <Eyebrow className="mb-4">{t('problem.eyebrow')}</Eyebrow>
-        <h2 id="problem-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 text-balance max-w-3xl mx-auto">
+        <h2 id="problem-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 text-balance max-w-3xl mx-auto">
           {t('problem.h2')}
         </h2>
       </FadeIn>
@@ -24,17 +24,17 @@ export default function Problem() {
           const Icon = ICONS[i];
           return (
             <FadeIn key={it.title} delay={i * 100}>
-              <div className="inline-flex p-3 rounded-xl bg-slate-100 mb-4">
-                <Icon aria-hidden="true" className="w-6 h-6 text-slate-700" />
+              <div className="inline-flex p-3 rounded-xl bg-gray-100 mb-4">
+                <Icon aria-hidden="true" className="w-6 h-6 text-gray-700" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">{it.title}</h3>
-              <p className="text-slate-600 leading-relaxed">{it.text}</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{it.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{it.text}</p>
             </FadeIn>
           );
         })}
       </div>
 
-      <FadeIn delay={400} className="mt-16 text-center max-w-2xl mx-auto text-lg text-slate-600">
+      <FadeIn delay={400} className="mt-16 text-center max-w-2xl mx-auto text-lg text-gray-600">
         {t('problem.footer')}
       </FadeIn>
     </Section>

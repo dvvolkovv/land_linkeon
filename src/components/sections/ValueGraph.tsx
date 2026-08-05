@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useInView } from '../../lib/useInView';
+import { brand } from '../../theme/colors.js';
 
 interface Node {
   id: string;
@@ -12,14 +13,24 @@ interface Node {
   orbitRadius?: number;
 }
 
+// Нейтраль — штатная шкала gray Tailwind (та же, что у приложения),
+// но здесь canvas, поэтому значения выписаны литералами.
+//
+// Узлы-ценности и связи-совпадения — разные сущности, у них своя строка в
+// легенде, поэтому они разведены по светлоте внутри одной бренд-шкалы, а не
+// оттенком: brand-500 (#4ade80, светлый зелёный) против brand-700 (#0d9488,
+// тёмная бирюза) — вдвое разная относительная яркость, различимо и в
+// градациях серого. Центр (self) уходит на самую тёмную ступень brand-900,
+// чтобы не сливаться со связями. Ступени продублированы в легенде
+// Networking.tsx.
 const COLORS = {
-  self: '#4f46e5',
-  value: '#10b981',
-  valueLabel: '#047857',
-  other: '#94a3b8',
-  otherLabel: '#64748b',
-  link: '#cbd5e1',
-  activeLink: '#818cf8',
+  self: brand[900],
+  value: brand[500],
+  valueLabel: brand[800],
+  other: '#9ca3af', // gray-400
+  otherLabel: '#6b7280', // gray-500
+  link: '#d1d5db', // gray-300
+  activeLink: brand[700],
 };
 
 export default function ValueGraph() {
