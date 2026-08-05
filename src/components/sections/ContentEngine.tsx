@@ -14,20 +14,20 @@ export default function ContentEngine() {
     <Section id="content" ariaLabelledby="content-heading">
       <FadeIn className="text-center mb-12 max-w-2xl mx-auto">
         <Eyebrow className="mb-4">{t('content.eyebrow')}</Eyebrow>
-        <h2 id="content-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-4 text-balance">
+        <h2 id="content-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-4 text-balance">
           {t('content.h2')}
         </h2>
-        <p className="text-lg text-slate-600">{t('content.sub')}</p>
+        <p className="text-lg text-gray-600">{t('content.sub')}</p>
       </FadeIn>
 
       <div className="grid md:grid-cols-2 gap-6 min-w-0 [&>*]:min-w-0">
         <FadeIn>
           <Card className="p-6 h-full flex flex-col">
-            <h3 className="text-xl font-semibold text-slate-900 mb-1">{t('content.images.h3')}</h3>
-            <p className="text-sm text-slate-500 mb-5">{t('content.images.caption')}</p>
+            <h3 className="text-xl font-semibold text-gray-900 mb-1">{t('content.images.h3')}</h3>
+            <p className="text-sm text-gray-500 mb-5">{t('content.images.caption')}</p>
             <div className="grid grid-cols-2 gap-2 flex-1">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="aspect-square rounded-lg overflow-hidden bg-slate-100">
+                <div key={i} className="aspect-square rounded-lg overflow-hidden bg-gray-100">
                   <img
                     src={`/screenshots/imagegen-${i}.webp`}
                     alt=""
@@ -38,7 +38,7 @@ export default function ContentEngine() {
                 </div>
               ))}
             </div>
-            <a href={appUrl("/image-gen")} data-cta="content-imagegen" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold">
+            <a href={appUrl("/image-gen")} data-cta="content-imagegen" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-brand-700 hover:text-brand-800 text-sm font-semibold">
               my.linkeon.io/image-gen <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </a>
           </Card>
@@ -46,26 +46,26 @@ export default function ContentEngine() {
 
         <FadeIn delay={120}>
           <Card className="p-6 h-full flex flex-col">
-            <h3 className="text-xl font-semibold text-slate-900 mb-1">{t('content.video.h3')}</h3>
-            <p className="text-sm text-slate-500 mb-5">{t('content.video.caption')}</p>
+            <h3 className="text-xl font-semibold text-gray-900 mb-1">{t('content.video.h3')}</h3>
+            <p className="text-sm text-gray-500 mb-5">{t('content.video.caption')}</p>
             <div className="flex-1">
               <ScreenshotFrame url="my.linkeon.io/video" aspect="aspect-video">
                 <video
                   src="/screenshots/video-sample.mp4"
                   autoPlay muted loop playsInline preload="none"
-                  className="w-full h-full object-cover bg-slate-100"
+                  className="w-full h-full object-cover bg-gray-100"
                   aria-hidden="true"
                 />
               </ScreenshotFrame>
             </div>
-            <a href={appUrl("/video")} data-cta="content-video" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-indigo-600 hover:text-indigo-700 text-sm font-semibold">
+            <a href={appUrl("/video")} data-cta="content-video" className="mt-5 inline-flex items-center gap-1 py-2 min-h-11 text-brand-700 hover:text-brand-800 text-sm font-semibold">
               my.linkeon.io/video <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </a>
           </Card>
         </FadeIn>
       </div>
 
-      <p className="text-center text-sm text-slate-500 mt-10">{t('content.footer')}</p>
+      <p className="text-center text-sm text-gray-500 mt-10">{t('content.footer')}</p>
     </Section>
   );
 }

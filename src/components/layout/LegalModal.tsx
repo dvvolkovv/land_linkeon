@@ -69,27 +69,27 @@ export default function LegalModal({ type, onClose }: LegalModalProps) {
         className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col outline-none"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-5 border-b border-slate-200">
-          <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
+        <div className="flex items-center justify-between p-5 border-b border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label={isEn ? 'Close' : 'Закрыть'}
-            className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
-            <X aria-hidden="true" className="w-5 h-5 text-slate-500" />
+            <X aria-hidden="true" className="w-5 h-5 text-gray-500" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-5 text-[15px] leading-relaxed text-slate-700 space-y-4">
+        <div className="flex-1 overflow-y-auto px-6 py-5 text-[15px] leading-relaxed text-gray-700 space-y-4">
           {isEn ? renderEn(type) : renderRu(type)}
         </div>
 
-        <div className="p-4 border-t border-slate-200">
+        <div className="p-4 border-t border-gray-200">
           <button
             type="button"
             onClick={onClose}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+            className="w-full bg-brand-700 hover:bg-brand-800 text-white font-medium py-3 px-6 rounded-lg transition-colors"
           >
             {isEn ? 'Close' : 'Закрыть'}
           </button>
@@ -100,15 +100,15 @@ export default function LegalModal({ type, onClose }: LegalModalProps) {
 }
 
 function H3({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-lg font-semibold text-slate-800 mt-5 mb-2">{children}</h3>;
+  return <h3 className="text-lg font-semibold text-gray-800 mt-5 mb-2">{children}</h3>;
 }
 
 function P({ children }: { children: React.ReactNode }) {
-  return <p className="text-slate-700">{children}</p>;
+  return <p className="text-gray-700">{children}</p>;
 }
 
 function UL({ children }: { children: React.ReactNode }) {
-  return <ul className="list-disc list-inside text-slate-700 space-y-1 ml-4">{children}</ul>;
+  return <ul className="list-disc list-inside text-gray-700 space-y-1 ml-4">{children}</ul>;
 }
 
 function renderRu(type: LegalType) {
@@ -234,7 +234,7 @@ function renderRu(type: LegalType) {
     return (
       <>
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
-          <div className="font-semibold text-slate-900">Оператор персональных данных</div>
+          <div className="font-semibold text-gray-900">Оператор персональных данных</div>
           <div><strong>Наименование:</strong> Волков Дмитрий Викторович</div>
           <div><strong>ИНН:</strong> 463404496646</div>
           <div><strong>Статус:</strong> плательщик налога на профессиональный доход (самозанятый)</div>
@@ -537,7 +537,7 @@ function renderEn(type: LegalType) {
       {type === 'privacy' && (
         <>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
-            <div className="font-semibold text-slate-900">Personal data operator</div>
+            <div className="font-semibold text-gray-900">Personal data operator</div>
             <div><strong>Name:</strong> Dmitry Viktorovich Volkov</div>
             <div><strong>INN:</strong> 463404496646</div>
             <div><strong>Status:</strong> payer of professional-income tax (self-employed)</div>

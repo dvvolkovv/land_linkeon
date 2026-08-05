@@ -25,9 +25,9 @@ type ButtonAsAnchor = CommonProps &
 type Props = ButtonAsButton | ButtonAsAnchor;
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30',
-  outline: 'border border-slate-300 text-slate-900 bg-white hover:border-slate-400 hover:bg-slate-50',
-  ghost: 'text-slate-700 hover:text-slate-900 hover:bg-slate-100',
+  primary: 'bg-brand-700 text-white shadow-lg shadow-brand-600/20 hover:bg-brand-800 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-600/30',
+  outline: 'border border-gray-300 text-gray-900 bg-white hover:border-gray-400 hover:bg-gray-50',
+  ghost: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100',
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -47,7 +47,7 @@ export default function Button(props: Props) {
   } = props;
 
   const disabledCls = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
-  const cls = `inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${variantClasses[variant]} ${sizeClasses[size]} ${disabledCls} ${className}`;
+  const cls = `inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2 ${variantClasses[variant]} ${sizeClasses[size]} ${disabledCls} ${className}`;
 
   if ('href' in props && props.href !== undefined) {
     const { href, ...anchorRest } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };

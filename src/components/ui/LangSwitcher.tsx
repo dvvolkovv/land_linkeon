@@ -9,14 +9,14 @@ export default function LangSwitcher() {
   };
 
   const base = 'inline-flex items-center justify-center px-3 text-xs font-semibold rounded-md transition-colors min-w-[44px] min-h-[40px]';
-  const active = 'bg-indigo-600 text-white';
-  const inactive = 'text-slate-600 hover:text-slate-900';
+  const active = 'bg-brand-700 text-white';
+  const inactive = 'text-gray-600 hover:text-gray-900';
 
   return (
     <div
       role="group"
       aria-label="Language"
-      className="inline-flex items-center gap-0.5 rounded-lg bg-slate-100 p-0.5"
+      className="inline-flex items-center gap-0.5 rounded-lg bg-gray-100 p-0.5"
       data-testid="lang-switcher"
     >
       <button

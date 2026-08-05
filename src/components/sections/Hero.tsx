@@ -51,26 +51,26 @@ export default function Hero() {
             {segKey ? (
               <h1
                 id="hero-title"
-                className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
+                className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-gray-900 mb-6 text-balance"
               >
                 {segT('h1Part1')}{' '}
-                <span className="text-indigo-600">{segT('h1Accent')}</span>{' '}
+                <span className="text-brand-700">{segT('h1Accent')}</span>{' '}
                 {segT('h1Part2')}
               </h1>
             ) : (
               <h1
                 id="hero-title"
-                className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 text-balance"
+                className="text-[2rem] leading-tight sm:text-5xl md:text-7xl font-semibold tracking-tight text-gray-900 mb-6 text-balance"
               >
                 {t('hero.h1Part1')}{' '}
-                <span className="relative inline-grid align-baseline text-indigo-600 max-w-full">
+                <span className="relative inline-grid align-baseline text-brand-700 max-w-full">
                   {/* Invisible longest phrase reserves layout space → no CLS. On mobile allow wrap (normal), desktop keeps single-line pre */}
                   <span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
                     {longest}
                   </span>
                   <span className="col-start-1 row-start-1 whitespace-normal sm:whitespace-pre break-words">
                     {rotating}
-                    <span className="inline-block w-0.5 h-[0.9em] bg-indigo-600 align-middle ml-0.5 animate-pulse" />
+                    <span className="inline-block w-0.5 h-[0.9em] bg-brand-700 align-middle ml-0.5 animate-pulse" />
                   </span>
                 </span>{' '}
                 {t('hero.h1Part2')}
@@ -78,7 +78,7 @@ export default function Hero() {
             )}
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-lg md:text-xl text-slate-600 max-w-xl mb-8">{segKey ? segT('sub') : t('hero.sub')}</p>
+            <p className="text-lg md:text-xl text-gray-600 max-w-xl mb-8">{segKey ? segT('sub') : t('hero.sub')}</p>
           </FadeIn>
           <FadeIn delay={220}>
             {/* Один основной CTA для холодного трафика: вторая кнопка «Войти»
@@ -88,7 +88,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-3 mb-3">
               <Button variant="primary" size="lg" href={START_URL} dataCta="hero-start">{segKey ? segT('ctaStart') : t('hero.ctaStart')}</Button>
             </div>
-            <p className="text-sm font-medium text-slate-600 mb-6">{t('hero.trust')}</p>
+            <p className="text-sm font-medium text-gray-600 mb-6">{t('hero.trust')}</p>
           </FadeIn>
           <FadeIn delay={260}>
             {(() => {
@@ -99,14 +99,14 @@ export default function Hero() {
               return Array.isArray(chips) && chips.length > 0 ? (
                 <div className="flex flex-wrap gap-2 mb-4">
                   {(chips as string[]).map((c) => (
-                    <span key={c} className="text-sm text-slate-700 bg-slate-100 rounded-full px-3 py-1">{c}</span>
+                    <span key={c} className="text-sm text-gray-700 bg-gray-100 rounded-full px-3 py-1">{c}</span>
                   ))}
                 </div>
               ) : null;
             })()}
           </FadeIn>
           <FadeIn delay={280}>
-            <p className="text-sm text-slate-500">{t('hero.privacy')}</p>
+            <p className="text-sm text-gray-500">{t('hero.privacy')}</p>
           </FadeIn>
         </div>
 
@@ -118,21 +118,21 @@ export default function Hero() {
                 src="/screenshots/hero-loop.mp4"
                 poster="/screenshots/hero-chat.webp"
                 autoPlay muted loop playsInline preload="metadata"
-                className="w-full h-full object-cover bg-slate-100"
+                className="w-full h-full object-cover bg-gray-100"
                 aria-hidden="true"
               >
                 <img src="/screenshots/hero-chat.webp" alt="" className="w-full h-full object-cover" />
               </video>
             </ScreenshotFrame>
-            <div className="absolute -bottom-6 left-2 sm:-left-4 bg-white border border-slate-200 rounded-xl shadow-lg p-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-indigo-600" />
+            <div className="absolute -bottom-6 left-2 sm:-left-4 bg-white border border-gray-200 rounded-xl shadow-lg p-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-brand-700" />
               </div>
               <div>
-                <p className="text-xs text-slate-500">{t('hero.badge.title')}</p>
-                <p className="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                <p className="text-xs text-gray-500">{t('hero.badge.title')}</p>
+                <p className="text-sm font-semibold text-gray-900 flex items-center gap-2">
                   {t('hero.badge.status')}
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
                 </p>
               </div>
             </div>
