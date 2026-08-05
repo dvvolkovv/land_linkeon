@@ -28,7 +28,6 @@ export default function LegalModal({ type, onClose }: LegalModalProps) {
   // языков кроме ru показываем английский перевод.
   const lng = i18n.language;
   const pack = lng === 'ru' ? legalRu : legalEn;
-  const showFallbackNotice = lng !== 'ru' && lng !== 'en';
 
   useEffect(() => {
     if (!type) return;
@@ -79,12 +78,6 @@ export default function LegalModal({ type, onClose }: LegalModalProps) {
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-5 text-[15px] leading-relaxed text-gray-700 space-y-4">
-          {showFallbackNotice && (
-            <p className="mb-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-900">
-              This document is available in Russian and English only. The Russian
-              version is the legally binding one.
-            </p>
-          )}
           {pack.renderLegal(type)}
         </div>
 
