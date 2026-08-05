@@ -47,7 +47,7 @@ export default function Button(props: Props) {
   } = props;
 
   const disabledCls = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
-  const cls = `inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2 ${variantClasses[variant]} ${sizeClasses[size]} ${disabledCls} ${className}`;
+  const cls = `inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-brand-800 focus:ring-offset-2 ${variantClasses[variant]} ${sizeClasses[size]} ${disabledCls} ${className}`;
 
   if ('href' in props && props.href !== undefined) {
     const { href, ...anchorRest } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
