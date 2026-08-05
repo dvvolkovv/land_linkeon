@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, ChevronDown, Globe } from 'lucide-react';
-import { SUPPORTED_LANGUAGES } from '../../i18n/languages';
+import { TRANSLATED_LANGUAGES } from '../../i18n/translatedLanguages';
 import { languageFromPath, pathForLanguage } from '../../i18n/urlLanguage';
 
 // Зазор от края вьюпорта, который оставляем при расчёте направления и при
@@ -28,7 +28,11 @@ export default function LangSwitcher() {
   const current = typeof window !== 'undefined'
     ? languageFromPath(window.location.pathname)
     : i18n.language;
-  const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === current) ?? SUPPORTED_LANGUAGES[0];
+  // На /es/ по старой ссылке languageFromPath отдаст es, но выпущенной
+  // испанской версии нет и текст показан русский — подписываем кнопку тем
+  // языком, который посетитель видит на самом деле (первый в реестре, ru).
+  const currentLang =
+    TRANSLATED_LANGUAGES.find((l) => l.code === current) ?? TRANSLATED_LANGUAGES[0];
 
   useEffect(() => {
     if (!open) return;
@@ -114,19 +118,19 @@ export default function LangSwitcher() {
             direction === 'up' ? 'bottom-full mb-1' : 'top-full mt-1'
           } ${maxHeight !== undefined ? 'overflow-y-auto' : ''}`}
         >
-          {SUPPORTED_LANGUAGES.map((lang) => (
-            <li key={lang.code} role="option" aria-selected={lang.code === current}>
+          {TRANSLATED_LANGUAGES.map((lang) => (
+            <li key={lang.code} role="option" aria-selected={lang.code === currentLang.code}>
               <a
                 href={hrefFor(lang.code)}
                 hrefLang={lang.code}
                 data-testid={`lang-option-${lang.code}`}
                 className={`flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-gray-50 ${
-                  lang.code === current ? 'font-semibold text-gray-900' : 'text-gray-700'
+                  lang.code === currentLang.code ? 'font-semibold text-gray-900' : 'text-gray-700'
                 }`}
               >
                 <span aria-hidden="true">{lang.flag}</span>
                 <span className="flex-1">{lang.nativeName}</span>
-                {lang.code === current && <Check aria-hidden="true" className="w-4 h-4 text-brand-700" />}
+                {lang.code === currentLang.code && <Check aria-hidden="true" className="w-4 h-4 text-brand-700" />}
               </a>
             </li>
           ))}

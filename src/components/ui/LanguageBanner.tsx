@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { SUPPORTED_LANGUAGES, resolveLanguage, type LanguageDef } from '../../i18n/languages';
+import { resolveLanguage, type LanguageDef } from '../../i18n/languages';
+import { TRANSLATED_LANGUAGES } from '../../i18n/translatedLanguages';
 import { languageFromPath, pathForLanguage } from '../../i18n/urlLanguage';
 
 const DISMISS_KEY = 'll_lang_banner_dismissed';
@@ -26,7 +27,9 @@ export default function LanguageBanner() {
     const current = languageFromPath(window.location.pathname);
     const preferred = resolveLanguage(navigator.language);
     if (preferred === current) return;
-    const lang = SUPPORTED_LANGUAGES.find((l) => l.code === preferred);
+    // Только выпущенные языки: предложить испанцу /es/, где лежит русский
+    // текст, — хуже, чем не предлагать ничего.
+    const lang = TRANSLATED_LANGUAGES.find((l) => l.code === preferred);
     if (!lang) return;
     setOffer({
       lang,

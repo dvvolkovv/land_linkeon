@@ -1,23 +1,32 @@
 #!/usr/bin/env node
 /**
- * Рендерит лендинг на каждом языке в статический HTML.
+ * Рендерит лендинг на каждом ВЫПУЩЕННОМ языке в статический HTML.
  *
- * Зачем: без этого поисковик видит пустой <div id="root"> и шесть языковых
- * версий не индексируются вообще. Клиент всё равно перерисует страницу
- * (createRoot), так что эта разметка — для краулера и первого кадра.
+ * Зачем: без этого поисковик видит пустой <div id="root"> и языковые версии
+ * не индексируются вообще. Клиент всё равно перерисует страницу (createRoot),
+ * так что эта разметка — для краулера и первого кадра.
+ *
+ * Выпущенный ≠ поддерживаемый: язык с пустой локалью отдал бы русский текст
+ * под своим <html lang>, своим canonical и своей строкой в sitemap — четыре
+ * индексируемых дубля одного контента плюс ложный hreflang. Поэтому и
+ * страницы, и hreflang-кластер, и og:locale:alternate, и sitemap строятся
+ * из translatedLanguages(), а не из реестра.
  *
  * Запускается из pnpm build ПОСЛЕ обеих сборок vite.
  */
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { SUPPORTED_LANGUAGES, SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
+import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
+import { translatedCodes } from './translated-languages.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
 const dist = join(root, 'dist');
 
 const SITE = 'https://linkeon.io';
+
+const PUBLISHED_CODES = translatedCodes();
 
 const OG_LOCALES = Object.fromEntries(SUPPORTED_LANGUAGES.map((l) => [l.code, l.ogLocale]));
 
@@ -57,10 +66,10 @@ function mustReplace(html, pattern, replacement, label) {
 }
 
 function headFor(code, title, description) {
-  const alternates = SUPPORTED_CODES.map(
+  const alternates = PUBLISHED_CODES.map(
     (c) => `    <link rel="alternate" hreflang="${c}" href="${urlFor(c)}" />`,
   ).join('\n');
-  const ogAlternates = SUPPORTED_CODES.filter((c) => c !== code)
+  const ogAlternates = PUBLISHED_CODES.filter((c) => c !== code)
     .map((c) => `    <meta property="og:locale:alternate" content="${OG_LOCALES[c]}" />`)
     .join('\n');
   return [
@@ -112,7 +121,12 @@ function localizeMeta(html, title, description) {
   return out;
 }
 
-for (const code of SUPPORTED_CODES) {
+const skipped = SUPPORTED_LANGUAGES.map((l) => l.code).filter((c) => !PUBLISHED_CODES.includes(c));
+if (skipped.length > 0) {
+  console.log(`⏭  локали пусты, версии не выпускаются: ${skipped.join(', ')}`);
+}
+
+for (const code of PUBLISHED_CODES) {
   const { html, title, description } = render(code);
 
   let page = template;
@@ -134,7 +148,7 @@ for (const code of SUPPORTED_CODES) {
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...SUPPORTED_CODES.map((c) => `  <url><loc>${urlFor(c)}</loc></url>`),
+  ...PUBLISHED_CODES.map((c) => `  <url><loc>${urlFor(c)}</loc></url>`),
   '</urlset>',
 ].join('\n');
 writeFileSync(join(dist, 'sitemap.xml'), sitemap + '\n', 'utf8');

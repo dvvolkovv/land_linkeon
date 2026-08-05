@@ -1,4 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
+import { translatedCodes } from '../scripts/translated-languages.js';
+
+const PUBLISHED = translatedCodes();
+const UNPUBLISHED = SUPPORTED_CODES.filter((code) => !PUBLISHED.includes(code));
 
 test.describe('landing smoke', () => {
   test('hero is visible and CTAs link to my.linkeon.io', async ({ page }) => {
@@ -28,10 +33,25 @@ test.describe('landing smoke', () => {
     await expect(details).toHaveCount(6);
   });
 
-  test('language switcher links to per-language URLs', async ({ page }) => {
+  // Переключатель предлагает ровно те языки, версии которых реально выпущены:
+  // ссылка на язык с пустой локалью привела бы на русский текст под чужим
+  // языковым адресом. Список — из того же источника, что и сборка.
+  test('language switcher offers exactly the published languages', async ({ page }) => {
     await page.goto('/');
     await page.locator('[data-testid="lang-switcher"] button').first().click();
-    await expect(page.locator('[data-testid="lang-option-en"]')).toHaveAttribute('href', '/en/');
-    await expect(page.locator('[data-testid="lang-option-zh"]')).toHaveAttribute('href', '/zh/');
+
+    for (const code of PUBLISHED) {
+      const href = code === DEFAULT_LANGUAGE ? '/' : `/${code}/`;
+      await expect(page.locator(`[data-testid="lang-option-${code}"]`)).toHaveAttribute(
+        'href',
+        href,
+      );
+    }
+    for (const code of UNPUBLISHED) {
+      await expect(page.locator(`[data-testid="lang-option-${code}"]`)).toHaveCount(0);
+    }
+    await expect(page.locator('[data-testid="lang-switcher"] [role="option"]')).toHaveCount(
+      PUBLISHED.length,
+    );
   });
 });

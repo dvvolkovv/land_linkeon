@@ -1,13 +1,15 @@
 import { test, expect, request } from '@playwright/test';
+import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
+import { translatedCodes } from '../scripts/translated-languages.js';
 
-const LANGUAGES = [
-  { code: 'ru', path: '/' },
-  { code: 'en', path: '/en/' },
-  { code: 'es', path: '/es/' },
-  { code: 'de', path: '/de/' },
-  { code: 'fr', path: '/fr/' },
-  { code: 'zh', path: '/zh/' },
-];
+// Список берётся из того же источника, что и сборка: выпускаются только языки
+// с непустой локалью. Захардкоженный массив здесь означал бы тесты страниц,
+// которых нет (и падения ровно в тот момент, когда переводы наконец доедут).
+const pathFor = (code: string) => (code === DEFAULT_LANGUAGE ? '/' : `/${code}/`);
+
+const PUBLISHED = translatedCodes();
+const LANGUAGES = PUBLISHED.map((code) => ({ code, path: pathFor(code) }));
+const UNPUBLISHED = SUPPORTED_CODES.filter((code) => !PUBLISHED.includes(code));
 
 test.describe('языковые версии', () => {
   for (const { code, path } of LANGUAGES) {
@@ -29,7 +31,7 @@ test.describe('языковые версии', () => {
       }
       expect(html).toContain('hreflang="x-default"');
 
-      const canonical = code === 'ru' ? 'https://linkeon.io/' : `https://linkeon.io/${code}/`;
+      const canonical = `https://linkeon.io${pathFor(code)}`;
       expect(html).toContain(`<link rel="canonical" href="${canonical}"`);
 
       // Регрессия C2: повторный (неидемпотентный) прогон пререндера
@@ -40,8 +42,10 @@ test.describe('языковые версии', () => {
       expect(count(/property="og:url"/g), 'ровно один og:url').toBe(1);
       // og:locale:alternate — отдельный тег, не должен попасть в счёт.
       expect(count(/property="og:locale"/g), 'ровно один og:locale').toBe(1);
-      // 6 языков + x-default = 7.
-      expect(count(/hreflang="/g), 'ровно семь hreflang').toBe(7);
+      expect(
+        count(/hreflang="/g),
+        `${LANGUAGES.length} выпущенных языков + x-default`,
+      ).toBe(LANGUAGES.length + 1);
 
       await ctx.dispose();
     });
@@ -81,15 +85,36 @@ test.describe('языковые версии', () => {
     await ctx.dispose();
   });
 
-  test('sitemap перечисляет все шесть версий', async ({ baseURL }) => {
+  test('sitemap перечисляет ровно выпущенные версии', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const res = await ctx.get('/sitemap.xml');
     expect(res.status()).toBe(200);
     const xml = await res.text();
     for (const { code } of LANGUAGES) {
-      const url = code === 'ru' ? 'https://linkeon.io/' : `https://linkeon.io/${code}/`;
-      expect(xml).toContain(`<loc>${url}</loc>`);
+      expect(xml).toContain(`<loc>https://linkeon.io${pathFor(code)}</loc>`);
     }
+    expect((xml.match(/<loc>/g) ?? []).length, 'лишних URL в sitemap нет').toBe(LANGUAGES.length);
+    await ctx.dispose();
+  });
+
+  // Главное свойство: язык с пустой локалью нигде не всплывает — иначе это
+  // индексируемый URL с русским текстом под чужим <html lang>.
+  test('непереведённые языки не публикуются', async ({ baseURL }) => {
+    test.skip(UNPUBLISHED.length === 0, 'переведены все языки реестра — проверять нечего');
+
+    const ctx = await request.newContext({ baseURL });
+    const [html, xml] = await Promise.all([
+      ctx.get('/').then((r) => r.text()),
+      ctx.get('/sitemap.xml').then((r) => r.text()),
+    ]);
+
+    for (const code of UNPUBLISHED) {
+      expect(html, `${code}: hreflang на невыпущенную версию`).not.toContain(`hreflang="${code}"`);
+      expect(xml, `${code}: невыпущенная версия в sitemap`).not.toContain(
+        `<loc>https://linkeon.io/${code}/</loc>`,
+      );
+    }
+
     await ctx.dispose();
   });
 });
