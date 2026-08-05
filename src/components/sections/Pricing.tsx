@@ -44,13 +44,23 @@ export default function Pricing() {
           return (
             <FadeIn key={p.id} delay={i * 100}>
               <div className={`relative h-full flex flex-col rounded-2xl p-6 ${p.popular ? 'border-2 border-brand-700 shadow-lg shadow-brand-600/10 lg:scale-105 bg-white' : 'border border-gray-200 bg-white'}`}>
+                {/*
+                  Бейджи говорят о разном («этот тариф берут чаще» против «здесь
+                  дешевле тысяча токенов») и на карточке extended висят рядом,
+                  поэтому различаются заливкой, а не второй краской: «Популярный» —
+                  сплошной brand-800 с белым текстом (5.5:1), «Экономия» — светлая
+                  подложка brand-100 с текстом brand-900 (8.8:1). Подложка сама по
+                  себе почти неотличима от белой карточки (1.08:1), поэтому границу
+                  пилюли держит обводка brand-700 (3.74:1 к белому — планка WCAG для
+                  нетекстовых границ).
+                */}
                 {p.popular && (
                   <span className="absolute -top-3 left-4 bg-brand-800 text-white text-xs font-semibold px-4 py-1 rounded-full">
                     {t('pricing.popular')}
                   </span>
                 )}
                 {p.savings && (
-                  <span className="absolute -top-3 right-4 bg-brand-800 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute -top-3 right-4 bg-brand-100 text-brand-900 ring-1 ring-brand-700 text-xs font-semibold px-3 py-1 rounded-full">
                     {t('pricing.savings', { value: p.savings })}
                   </span>
                 )}

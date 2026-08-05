@@ -26,10 +26,19 @@ export default function Networking() {
         <ValueGraph />
       </FadeIn>
 
+      {/*
+        Три пункта легенды — три ступени одной шкалы, разведённые по светлоте, а
+        не по оттенку: brand-900 (вы) → brand-700 (совпадения) → brand-500
+        (ценности). Пульсация у совпадений — необязательное украшение, а не
+        различитель: раньше «ценности» и «совпадения» были одним цветом и
+        отличались только ею, и в любом кадре с погашенной анимацией разница
+        пропадала. Те же три ступени берёт canvas в ValueGraph — легенда обязана
+        совпадать с картинкой.
+      */}
       <div className="mt-6 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-brand-700" aria-hidden="true" /> {t('networking.legend.self')}</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-brand-900" aria-hidden="true" /> {t('networking.legend.self')}</span>
         <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-brand-500" aria-hidden="true" /> {t('networking.legend.values')}</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse" aria-hidden="true" /> {t('networking.legend.matches')}</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-brand-700 animate-pulse" aria-hidden="true" /> {t('networking.legend.matches')}</span>
       </div>
 
       <div className="grid md:grid-cols-3 gap-8 mt-12">
