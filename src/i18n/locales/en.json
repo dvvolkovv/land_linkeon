@@ -87,7 +87,7 @@
       "a promotion plan"
     ],
     "h1Part2": "— for free",
-    "sub": "Six AI assistants: write content, review contracts, estimate taxes, plan promotion. Bring a task — leave with the result. First one free, no card.",
+    "sub": "16 AI assistants: write content, review contracts, estimate taxes, plan promotion. Bring a task — leave with the result. First one free, no card.",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
     "chips": ["✍️ Content", "⚖️ Legal", "📈 Marketing"],
@@ -145,35 +145,35 @@
   },
   "assistants": {
     "eyebrow": "AI Team",
-    "h2": "Six assistants in one window",
-    "sub": "Each an expert in their role. They remember your business, know about each other, respond by voice or text.",
+    "h2": "16 assistants in one window",
+    "sub": "Each an expert in their role. They remember your business, know about each other, and you can dictate the task by voice.",
     "list": [
       {
-        "name": "Roman",
-        "role": "Universal agent, does everything"
+        "name": "Roman, generalist",
+        "role": "Any task: letters, copy, plans, reviews"
       },
       {
-        "name": "Marketer",
+        "name": "Alexandra, marketer",
         "role": "Launch plans, content, market analytics"
       },
       {
-        "name": "Lawyer",
+        "name": "Alexey, lawyer",
         "role": "Contracts, checklists, consultations"
       },
       {
-        "name": "Accountant",
-        "role": "Taxes, calculations, 1C statements"
+        "name": "Anna, accountant",
+        "role": "Bookkeeping, taxes, business finances"
       },
       {
-        "name": "HR",
+        "name": "Irina, HR",
         "role": "Job posts, interview prompts, screening"
       },
       {
-        "name": "Coach",
+        "name": "Misha, coach",
         "role": "Strategy, priorities, founder psychology"
       }
     ],
-    "cta": "See all assistants"
+    "cta": "See all 16 assistants"
   },
   "profile": {
     "eyebrow": "Unified profile",
@@ -226,7 +226,7 @@
       },
       {
         "title": "Community",
-        "text": "Events, meetups, chats around interests."
+        "text": "Requests to your people, replies and chats."
       }
     ],
     "cta": "Open networking at my.linkeon.io"
@@ -237,11 +237,11 @@
     "sub": "Your AI marketer wrote the plan? Generate covers, carousels and short videos right there. No switching between services and subscriptions.",
     "images": {
       "h3": "Images",
-      "caption": "Nano Banana, realistic and fast. Covers, carousels, social visuals."
+      "caption": "Imagen 4.0 Ultra — realistic and fast. Covers, carousels, social visuals."
     },
     "video": {
       "h3": "Video",
-      "caption": "Kling 2.1. Short clips from text or image — ad creatives, previews, stories."
+      "caption": "Kling and Veo. Short clips from text or image — ad creatives, previews, stories."
     },
     "footer": "Runs on the same tokens as assistants. No separate subscriptions."
   },
