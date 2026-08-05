@@ -50,7 +50,11 @@
       "h1Part2": "for free",
       "sub": "A lawyer reviews your contract, an accountant estimates taxes, a marketer writes the post and the plan. Ask your task — first result free, no card.",
       "ctaStart": "Solve a task free",
-      "chips": ["📄 Contract review", "🧮 Taxes", "📈 Promotion plan"]
+      "chips": [
+        "📄 Contract review",
+        "🧮 Taxes",
+        "📈 Promotion plan"
+      ]
     },
     "creator": {
       "eyebrow": "An AI studio for content creators",
@@ -59,7 +63,11 @@
       "h1Part2": ", free",
       "sub": "AI writes posts, generates images and video, and the SMM assistant Yulia plans your feed. Bring an idea — leave with ready content.",
       "ctaStart": "Create content free",
-      "chips": ["✍️ Posts", "🎨 Images", "🎬 Video"]
+      "chips": [
+        "✍️ Posts",
+        "🎨 Images",
+        "🎬 Video"
+      ]
     },
     "assistant": {
       "eyebrow": "Your personal AI assistant",
@@ -68,7 +76,11 @@
       "h1Part2": "for free",
       "sub": "Roman — your universal AI assistant: business letters and documents, posts and content plans, sales copy, business ideas. Bring a task — leave with it done.",
       "ctaStart": "Solve a task free",
-      "chips": ["📄 Letters & docs", "✍️ Texts & posts", "📈 Content plan"]
+      "chips": [
+        "📄 Letters & docs",
+        "✍️ Texts & posts",
+        "📈 Content plan"
+      ]
     },
     "video": {
       "eyebrow": "AI short-video producer",
@@ -77,7 +89,11 @@
       "h1Part2": "— no filming",
       "sub": "Yulia turns an idea into a short social video: script, shots, final cut. Reels, Shorts, TikTok — no editing. Your 25,000 starting tokens cover a first clip from an image you already have.",
       "ctaStart": "Make a clip",
-      "chips": ["🎬 Reels & Shorts", "🎨 Script & shots", "⚡ In minutes"]
+      "chips": [
+        "🎬 Reels & Shorts",
+        "🎨 Script & shots",
+        "⚡ In minutes"
+      ]
     },
     "eyebrow": "AI for business growth",
     "h1Part1": "A ready result in minutes:",
@@ -90,7 +106,11 @@
     "sub": "16 AI assistants: write content, review contracts, estimate taxes, plan promotion. Bring a task — leave with the result. First one free, no card.",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
-    "chips": ["✍️ Content", "⚖️ Legal", "📈 Marketing"],
+    "chips": [
+      "✍️ Content",
+      "⚖️ Legal",
+      "📈 Marketing"
+    ],
     "trust": "🎁 25,000 tokens free · no card · no subscription · 2-minute start",
     "privacy": "🔒 We never sell your chats or use them for ads. Processing runs on AI providers.",
     "badge": {
@@ -300,9 +320,18 @@
     "eyebrow": "Testimonials",
     "h2": "What users say",
     "items": [
-      { "quote": "Honestly, it's just great. The assistant really helps — I'm a techie and can't pick nice wording myself, it often comes out dry like in documents. It broadens my vocabulary.", "author": "— technical specialist" },
-      { "quote": "The product turns out really good. Generating video here is more convenient than in the original Veo — clean audio, likeness from photos, the right format.", "author": "— content creator" },
-      { "quote": "Agreeing on a deck's design and copy used to take me days. Here I got a finished presentation in 5 minutes — very happy with the efficiency.", "author": "— entrepreneur" }
+      {
+        "quote": "Honestly, it's just great. Ekaterina really helps — I'm a techie and can't pick nice wording myself, it often comes out dry like in documents. It broadens my vocabulary.",
+        "author": "— technical specialist"
+      },
+      {
+        "quote": "The product turns out really good. Generating video here is more convenient than in the original Veo — clean audio, likeness from photos, the right format.",
+        "author": "— content creator"
+      },
+      {
+        "quote": "Agreeing on a deck's design and copy used to take me days. Here I got a finished presentation in 5 minutes — very happy with the efficiency.",
+        "author": "— entrepreneur"
+      }
     ]
   },
   "pricing": {
