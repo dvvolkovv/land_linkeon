@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useInView } from '../../lib/useInView';
+import { brand } from '../../theme/colors.js';
 
 interface Node {
   id: string;
@@ -12,14 +13,16 @@ interface Node {
   orbitRadius?: number;
 }
 
+// Нейтраль — штатная шкала gray Tailwind (та же, что у приложения),
+// но здесь canvas, поэтому значения выписаны литералами.
 const COLORS = {
-  self: '#4f46e5',
-  value: '#10b981',
-  valueLabel: '#047857',
-  other: '#94a3b8',
-  otherLabel: '#64748b',
-  link: '#cbd5e1',
-  activeLink: '#818cf8',
+  self: brand[700],
+  value: brand[500],
+  valueLabel: brand[800],
+  other: '#9ca3af', // gray-400
+  otherLabel: '#6b7280', // gray-500
+  link: '#d1d5db', // gray-300
+  activeLink: brand[500],
 };
 
 export default function ValueGraph() {
