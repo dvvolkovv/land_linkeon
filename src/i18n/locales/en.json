@@ -74,8 +74,8 @@
       "eyebrow": "AI short-video producer",
       "h1Part1": "Idea → a ready clip",
       "h1Accent": "in minutes",
-      "h1Part2": ", no filming",
-      "sub": "Yulia turns an idea into a short social video: script, shots, final cut. Reels, Shorts, TikTok — no camera, no editing. Your 25,000 starting tokens cover a first clip from an image you already have.",
+      "h1Part2": "— no filming",
+      "sub": "Yulia turns an idea into a short social video: script, shots, final cut. Reels, Shorts, TikTok — no editing. Your 25,000 starting tokens cover a first clip from an image you already have.",
       "ctaStart": "Make a clip",
       "chips": ["🎬 Reels & Shorts", "🎨 Script & shots", "⚡ In minutes"]
     },
@@ -92,7 +92,7 @@
     "ctaLogin": "Log in",
     "chips": ["✍️ Content", "⚖️ Legal", "📈 Marketing"],
     "trust": "🎁 25,000 tokens free · no card · no subscription · 2-minute start",
-    "privacy": "🔒 We never sell your chats or use them for ads. Requests are processed by AI providers.",
+    "privacy": "🔒 We never sell your chats or use them for ads. Processing runs on AI providers.",
     "badge": {
       "title": "AI assistant",
       "status": "online · replying"
