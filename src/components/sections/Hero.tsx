@@ -92,7 +92,10 @@ export default function Hero() {
           </FadeIn>
           <FadeIn delay={260}>
             {(() => {
-              const chips = t(segKey ? `hero.${segKey}.chips` : 'hero.chips', { returnObjects: true }) as unknown;
+              // as never — тот же приём, что и в segT выше: ключ здесь юнион
+              // литерала и шаблонного типа, и overload t() на нём не сходится.
+              const chipsKey = (segKey ? `hero.${segKey}.chips` : 'hero.chips') as never;
+              const chips = t(chipsKey, { returnObjects: true }) as unknown;
               return Array.isArray(chips) && chips.length > 0 ? (
                 <div className="flex flex-wrap gap-2 mb-4">
                   {(chips as string[]).map((c) => (

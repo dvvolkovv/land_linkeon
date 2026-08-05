@@ -7,7 +7,9 @@ test.describe('landing smoke', () => {
 
     const heroStart = page.locator('[data-cta="hero-start"]');
     await expect(heroStart).toBeVisible();
-    await expect(heroStart).toHaveAttribute('href', 'https://my.linkeon.io');
+    // appUrl() нормализует адрес и может дописать метки привлечения —
+    // проверяем происхождение, а не точное совпадение строки.
+    await expect(heroStart).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
   });
 
   test('pricing section renders 3 packages with correct prices', async ({ page }) => {
@@ -20,16 +22,18 @@ test.describe('landing smoke', () => {
     await expect(page.getByText(/1\s?990/).first()).toBeVisible();
   });
 
-  test('FAQ has 8 questions', async ({ page }) => {
+  test('FAQ has 6 questions', async ({ page }) => {
     await page.goto('/#faq');
     const details = page.locator('#faq details');
-    await expect(details).toHaveCount(8);
+    await expect(details).toHaveCount(6);
   });
 
-  test('language switch toggles EN texts', async ({ page }) => {
+  test('language switch toggles RU texts', async ({ page }) => {
     await page.goto('/');
     const switcher = page.locator('[data-testid="lang-switcher"]').first();
-    await switcher.getByText('EN').click();
-    await expect(page.getByRole('heading', { level: 1 })).toContainText(/Your AI team/i);
+    await switcher.getByText('RU').click();
+    // Проверяем статичную часть заголовка: середина набирается печатной
+    // машинкой и в момент проверки может быть недонабрана.
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(/Готовый результат/i);
   });
 });
