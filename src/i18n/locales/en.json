@@ -74,10 +74,10 @@
       "eyebrow": "AI short-video producer",
       "h1Part1": "Idea → a ready clip",
       "h1Accent": "in minutes",
-      "h1Part2": ", free",
-      "sub": "Yulia turns an idea into a short social video: script, shots, the style you want (Cinematic, Surreal). Reels, Shorts, TikTok — no filming, no editing.",
-      "ctaStart": "Make a clip free",
-      "chips": ["🎬 Reels & Shorts", "🎨 Any style", "⚡ In minutes"]
+      "h1Part2": ", no filming",
+      "sub": "Yulia turns an idea into a short social video: script, shots, final cut. Reels, Shorts, TikTok — no camera, no editing. Your 25,000 starting tokens cover a first clip from an image you already have.",
+      "ctaStart": "Make a clip",
+      "chips": ["🎬 Reels & Shorts", "🎨 Script & shots", "⚡ In minutes"]
     },
     "eyebrow": "AI for business growth",
     "h1Part1": "A ready result in minutes:",
@@ -92,7 +92,7 @@
     "ctaLogin": "Log in",
     "chips": ["✍️ Content", "⚖️ Legal", "📈 Marketing"],
     "trust": "🎁 25,000 tokens free · no card · no subscription · 2-minute start",
-    "privacy": "🔒 Private — we never share your data with third parties",
+    "privacy": "🔒 We never sell your chats or use them for ads. Requests are processed by AI providers.",
     "badge": {
       "title": "AI assistant",
       "status": "online · replying"
@@ -339,7 +339,7 @@
       },
       {
         "q": "How long does onboarding take?",
-        "a": "SMS sign-in, 2 minutes. You start with 25,000 tokens, enough to try every feature."
+        "a": "Sign in with Yandex, Google or your phone number — 2 minutes. You start with 25,000 tokens on the house: roughly 7 assistant replies or 5 images. That won't get you far with video — for that you'll need a pack."
       },
       {
         "q": "Are my conversations private?",
@@ -347,7 +347,7 @@
       },
       {
         "q": "Can I cancel a token purchase?",
-        "a": "Unused tokens are refunded upon request to support within 14 days."
+        "a": "Tokens never expire, so a purchase has no deadline — but we don't refund an unused balance. We do refund money in two cases: the service was down for more than 72 hours straight, or you were charged twice. Email support@linkeon.ru — we review it within 10 business days."
       },
       {
         "q": "Is there an API?",
