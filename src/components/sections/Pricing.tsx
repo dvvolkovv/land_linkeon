@@ -44,12 +44,12 @@ export default function Pricing() {
             <FadeIn key={p.id} delay={i * 100}>
               <div className={`relative h-full flex flex-col rounded-2xl p-6 ${p.popular ? 'border-2 border-brand-700 shadow-lg shadow-brand-600/10 lg:scale-105 bg-white' : 'border border-gray-200 bg-white'}`}>
                 {p.popular && (
-                  <span className="absolute -top-3 left-4 bg-brand-700 text-white text-xs font-semibold px-4 py-1 rounded-full">
+                  <span className="absolute -top-3 left-4 bg-brand-800 text-white text-xs font-semibold px-4 py-1 rounded-full">
                     {t('pricing.popular')}
                   </span>
                 )}
                 {p.savings && (
-                  <span className="absolute -top-3 right-4 bg-brand-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute -top-3 right-4 bg-brand-800 text-white text-xs font-semibold px-3 py-1 rounded-full">
                     {t('pricing.savings', { value: p.savings })}
                   </span>
                 )}

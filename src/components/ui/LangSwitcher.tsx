@@ -9,7 +9,7 @@ export default function LangSwitcher() {
   };
 
   const base = 'inline-flex items-center justify-center px-3 text-xs font-semibold rounded-md transition-colors min-w-[44px] min-h-[40px]';
-  const active = 'bg-brand-700 text-white';
+  const active = 'bg-brand-800 text-white';
   const inactive = 'text-gray-600 hover:text-gray-900';
 
   return (

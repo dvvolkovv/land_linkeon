@@ -40,7 +40,7 @@ export default function PersonaCTA() {
               <a
                 href={appUrl('/', { utm_content: utm })}
                 data-cta={`persona-${key}`}
-                className="mt-5 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold transition-colors"
+                className="mt-5 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-brand-800 hover:bg-brand-900 text-white text-sm font-semibold transition-colors"
               >
                 {t(`personaCta.cards.${key}.cta`)} <ArrowRight aria-hidden="true" className="w-4 h-4" />
               </a>

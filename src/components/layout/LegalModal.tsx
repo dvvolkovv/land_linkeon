@@ -89,7 +89,7 @@ export default function LegalModal({ type, onClose }: LegalModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="w-full bg-brand-700 hover:bg-brand-800 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+            className="w-full bg-brand-800 hover:bg-brand-900 text-white font-medium py-3 px-6 rounded-lg transition-colors"
           >
             {isEn ? 'Close' : 'Закрыть'}
           </button>

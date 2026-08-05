@@ -32,7 +32,7 @@ export default function HowItWorks() {
       </div>
 
       <FadeIn delay={500} className="text-center mt-12">
-        <a href={appUrl()} data-cta="how-start" className="inline-flex items-center gap-1 py-2 min-h-11 text-brand-700 hover:text-brand-800 font-semibold">
+        <a href={appUrl()} data-cta="how-start" className="inline-flex items-center gap-1 py-2 min-h-11 text-brand-800 hover:text-brand-900 font-semibold">
           {t('how.cta')} <ArrowRight aria-hidden="true" className="w-4 h-4" />
         </a>
       </FadeIn>
