@@ -11,7 +11,7 @@ export default function FinalCTA() {
   return (
     <section aria-labelledby="final-cta-heading" className="px-6 py-16 md:py-24">
       <FadeIn className="max-w-6xl mx-auto">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 to-brand-600 text-white text-center py-20 px-8">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-800 to-brand-900 text-white text-center py-20 px-8">
           <GradientOrb className="-top-40 left-1/2 -translate-x-1/2" size={800} from="from-pink-300" to="to-brand-500" opacity={0.3} />
           <h2 id="final-cta-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-balance">
             {t('finalCta.h2')}
