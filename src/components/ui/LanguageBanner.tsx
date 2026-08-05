@@ -51,7 +51,7 @@ export default function LanguageBanner() {
         href={offer.href}
         hrefLang={offer.lang.code}
         data-testid="lang-banner-link"
-        className="flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800"
+        className="flex items-center gap-2 text-sm font-semibold text-brand-800 hover:text-brand-900"
       >
         <span aria-hidden="true">{offer.lang.flag}</span>
         {offer.lang.nativeName}

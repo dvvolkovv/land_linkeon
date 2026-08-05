@@ -25,7 +25,7 @@ type ButtonAsAnchor = CommonProps &
 type Props = ButtonAsButton | ButtonAsAnchor;
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-brand-700 text-white shadow-lg shadow-brand-600/20 hover:bg-brand-800 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-600/30',
+  primary: 'bg-brand-800 text-white shadow-lg shadow-brand-800/20 hover:bg-brand-900 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-800/30',
   outline: 'border border-gray-300 text-gray-900 bg-white hover:border-gray-400 hover:bg-gray-50',
   ghost: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100',
 };
