@@ -28,12 +28,10 @@ test.describe('landing smoke', () => {
     await expect(details).toHaveCount(6);
   });
 
-  test('language switch toggles RU texts', async ({ page }) => {
+  test('language switcher links to per-language URLs', async ({ page }) => {
     await page.goto('/');
-    const switcher = page.locator('[data-testid="lang-switcher"]').first();
-    await switcher.getByText('RU').click();
-    // Проверяем статичную часть заголовка: середина набирается печатной
-    // машинкой и в момент проверки может быть недонабрана.
-    await expect(page.getByRole('heading', { level: 1 })).toContainText(/Готовый результат/i);
+    await page.locator('[data-testid="lang-switcher"] button').first().click();
+    await expect(page.locator('[data-testid="lang-option-en"]')).toHaveAttribute('href', '/en/');
+    await expect(page.locator('[data-testid="lang-option-zh"]')).toHaveAttribute('href', '/zh/');
   });
 });
