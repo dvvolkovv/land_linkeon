@@ -24,7 +24,8 @@ const TOKENS_URL = appUrl('/tokens');
 
 export default function Pricing() {
   const { t, i18n } = useTranslation();
-  const fmt = (n: number) => n.toLocaleString(i18n.language.startsWith('en') ? 'en-US' : 'ru-RU');
+  // Intl понимает голый код языка; отдельная таблица локалей не нужна.
+  const fmt = (n: number) => n.toLocaleString(i18n.language);
 
   return (
     <Section id="pricing" ariaLabelledby="pricing-heading" className="bg-white border-y border-gray-200">
