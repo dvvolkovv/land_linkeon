@@ -133,10 +133,10 @@ export default function Footer() {
         <div>
           <h3 className="text-xs font-semibold text-gray-100 uppercase tracking-wider mb-4">{t('footer.sections.company')}</h3>
           {col([
-            { label: t('footer.company.about'), href: '#' },
-            { label: t('footer.company.blog'), href: '#' },
-            { label: t('footer.company.referral'), href: 'https://my.linkeon.io/referral' },
-            { label: t('footer.company.support'), href: 'https://my.linkeon.io/support' },
+            // Разделов «О проекте» и «Блог» не существует, а /referral и /support
+            // в приложении — за авторизацией (гость улетал на онбординг). Оставляем
+            // единственный вход, доступный без логина: почта поддержки из юрдоков.
+            { label: t('footer.company.support'), href: 'mailto:support@linkeon.ru' },
           ])}
         </div>
 

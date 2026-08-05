@@ -102,7 +102,7 @@
     "tagline": "Neural network for business growth",
     "sections": {
       "product": "Product",
-      "company": "Company",
+      "company": "Support",
       "legal": "Legal"
     },
     "product": {
@@ -112,10 +112,7 @@
       "pricing": "Pricing"
     },
     "company": {
-      "about": "About",
-      "blog": "Blog",
-      "referral": "Referral program",
-      "support": "Support"
+      "support": "support@linkeon.ru"
     },
     "legal": {
       "privacy": "Privacy policy",
@@ -247,11 +244,11 @@
   },
   "how": {
     "eyebrow": "How it works",
-    "h2": "From SMS to first result — 3 minutes",
+    "h2": "From sign-in to first result — 2 minutes",
     "steps": [
       {
-        "title": "SMS sign-in",
-        "text": "Just your phone number. No card. +25,000 tokens on the house."
+        "title": "One-tap sign-in",
+        "text": "Yandex or Google, or your phone number. No card. +25,000 tokens on the house."
       },
       {
         "title": "Talk to an assistant",
@@ -361,7 +358,7 @@
   },
   "finalCta": {
     "h2": "Assemble your AI department in 2 minutes",
-    "sub": "SMS sign-in, 25,000 tokens on the house, no card",
+    "sub": "Sign in with Yandex or Google, 25,000 tokens on the house, no card",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
     "trust": "No subscriptions · no card required · tokens don't expire"
