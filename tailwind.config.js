@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import { brand } from './src/theme/colors.js';
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -11,6 +13,7 @@ export default {
       '2xl': '1536px',
     },
     extend: {
+      colors: { brand },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
