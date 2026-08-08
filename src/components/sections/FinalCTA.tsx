@@ -4,7 +4,6 @@ import GradientOrb from '../ui/GradientOrb';
 import FadeIn from '../ui/FadeIn';
 import { appUrl } from '../../lib/appUrl';
 
-const LOGIN_URL = appUrl();
 
 export default function FinalCTA() {
   const { t } = useTranslation();
@@ -19,10 +18,10 @@ export default function FinalCTA() {
           <p className="text-lg text-brand-100 max-w-xl mx-auto mt-4">{t('finalCta.sub')}</p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button variant="primary" size="lg" href={LOGIN_URL} dataCta="final-start" className="!bg-white !text-brand-800 !shadow-none hover:!bg-gray-100 hover:!shadow-xl">
+            <Button variant="primary" size="lg" href={appUrl()} dataCta="final-start" className="!bg-white !text-brand-800 !shadow-none hover:!bg-gray-100 hover:!shadow-xl">
               {t('finalCta.ctaStart')}
             </Button>
-            <Button variant="outline" size="lg" href={LOGIN_URL} dataCta="final-login" className="!bg-transparent !border-white !text-white hover:!bg-white/10 hover:!border-white">
+            <Button variant="outline" size="lg" href={appUrl()} dataCta="final-login" className="!bg-transparent !border-white !text-white hover:!bg-white/10 hover:!border-white">
               {t('finalCta.ctaLogin')}
             </Button>
           </div>

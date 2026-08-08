@@ -12,7 +12,6 @@ const LINKS = [
   { href: '#faq', key: 'header.nav.faq' },
 ] as const;
 
-const LOGIN_URL = appUrl();
 
 export default function Header() {
   const { t } = useTranslation();
@@ -68,8 +67,8 @@ export default function Header() {
 
         <div className="hidden lg:flex items-center gap-3">
           <LangSwitcher />
-          <Button variant="ghost" size="md" href={LOGIN_URL} dataCta="header-login">{t('header.cta.login')}</Button>
-          <Button variant="primary" size="md" href={LOGIN_URL} dataCta="header-start">{t('header.cta.start')}</Button>
+          <Button variant="ghost" size="md" href={appUrl()} dataCta="header-login">{t('header.cta.login')}</Button>
+          <Button variant="primary" size="md" href={appUrl()} dataCta="header-start">{t('header.cta.start')}</Button>
         </div>
 
         <button
@@ -111,8 +110,8 @@ export default function Header() {
             ))}
             <div className="mt-auto flex flex-col gap-3">
               <LangSwitcher />
-              <Button variant="outline" size="lg" href={LOGIN_URL} dataCta="header-login">{t('header.cta.login')}</Button>
-              <Button variant="primary" size="lg" href={LOGIN_URL} dataCta="header-start">{t('header.cta.start')}</Button>
+              <Button variant="outline" size="lg" href={appUrl()} dataCta="header-login">{t('header.cta.login')}</Button>
+              <Button variant="primary" size="lg" href={appUrl()} dataCta="header-start">{t('header.cta.start')}</Button>
             </div>
           </div>
         </div>

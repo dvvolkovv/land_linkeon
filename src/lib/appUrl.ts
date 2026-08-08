@@ -2,6 +2,7 @@
 // (utm_* / ref) из текущего URL лендинга. Без этого реклама неизмерима: метка
 // остаётся на лендинге, а eventsClient приложения её не видит → атрибуция
 // рвётся на стыке лендинг→app (бэклог d5245dce, 1a5adfbc).
+import i18n from 'i18next';
 import { getAttribution } from './attribution';
 
 const APP = 'https://my.linkeon.io';
@@ -29,6 +30,21 @@ export function appUrl(path = '/', extra?: Record<string, string>): string {
       ? null
       : new URLSearchParams(window.location.search).get('seg');
     if (seg && !url.searchParams.has('seg')) url.searchParams.set('seg', seg);
+
+    // Язык. Лендинг на linkeon.io, приложение на my.linkeon.io — это разные
+    // origin, и localStorage между ними НЕ общий. Выбранный здесь язык доедет
+    // до приложения только параметром в ссылке: иначе его детектор посмотрит в
+    // пустой localStorage чужого домена, затем в navigator, и англоязычный
+    // посетитель с русским браузером получит русскую страницу.
+    //
+    // Читаем на момент вызова, а не при импорте модуля: CTA должен строиться в
+    // рендере, чтобы переключение языка на лендинге меняло и ссылку.
+    const lang = i18n.resolvedLanguage || i18n.language;
+    if (lang && !url.searchParams.has('lang')) {
+      // Только базовый код: приложение знает ru/en/es/de/fr/zh, а не ru-RU.
+      url.searchParams.set('lang', lang.split('-')[0]);
+    }
+
     return url.toString();
   } catch {
     return APP;

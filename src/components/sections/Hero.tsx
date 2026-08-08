@@ -9,7 +9,6 @@ import FadeIn from '../ui/FadeIn';
 import { useTypewriter } from '../../lib/useTypewriter';
 import { appUrl } from '../../lib/appUrl';
 
-const START_URL = appUrl();  // пробрасывает utm_* / ref на приложение (атрибуция)
 
 export default function Hero() {
   const { t, i18n } = useTranslation();
@@ -86,7 +85,7 @@ export default function Hero() {
                 остаётся в шапке. Risk-reversal двигаем прямо под кнопку — в точку
                 принятия решения, чтобы снять страх коммитмента. */}
             <div className="flex flex-col sm:flex-row gap-3 mb-3">
-              <Button variant="primary" size="lg" href={START_URL} dataCta="hero-start">{segKey ? segT('ctaStart') : t('hero.ctaStart')}</Button>
+              <Button variant="primary" size="lg" href={appUrl()} dataCta="hero-start">{segKey ? segT('ctaStart') : t('hero.ctaStart')}</Button>
             </div>
             <p className="text-sm font-medium text-gray-600 mb-6">{t('hero.trust')}</p>
           </FadeIn>

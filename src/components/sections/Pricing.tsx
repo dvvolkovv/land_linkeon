@@ -20,7 +20,6 @@ const PACKAGES: Pkg[] = [
   { id: 'professional', tokens: 1000000, price: 1990, savings: '30%' },
 ];
 
-const TOKENS_URL = appUrl('/tokens');
 
 export default function Pricing() {
   const { t, i18n } = useTranslation();
@@ -81,7 +80,7 @@ export default function Pricing() {
                   <Button
                     variant={p.popular ? 'primary' : 'outline'}
                     size="lg"
-                    href={TOKENS_URL}
+                    href={appUrl('/tokens')}
                     dataCta={`pricing-${p.id}`}
                     className="w-full"
                   >

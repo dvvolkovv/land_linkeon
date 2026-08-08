@@ -7,7 +7,6 @@ import FadeIn from '../ui/FadeIn';
 import { appUrl } from '../../lib/appUrl';
 
 const ICONS = [Bot, Megaphone, Scale, Calculator, UserCheck, Compass];
-const START_URL = appUrl();
 
 export default function Assistants() {
   const { t } = useTranslation();
@@ -40,7 +39,7 @@ export default function Assistants() {
             })}
           </div>
 
-          <a href={START_URL} data-cta="assistants-link" className="inline-flex items-center gap-1 py-2 min-h-11 text-brand-800 hover:text-brand-900 font-semibold text-sm">
+          <a href={appUrl()} data-cta="assistants-link" className="inline-flex items-center gap-1 py-2 min-h-11 text-brand-800 hover:text-brand-900 font-semibold text-sm">
             {t('assistants.cta')} <ArrowRight aria-hidden="true" className="w-4 h-4" />
           </a>
         </FadeIn>
