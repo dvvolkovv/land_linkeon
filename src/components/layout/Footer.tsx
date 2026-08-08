@@ -127,12 +127,22 @@ export default function Footer() {
             { label: t('footer.product.profile'), href: '#profile' },
             { label: t('footer.product.networking'), href: '#networking' },
             { label: t('footer.product.pricing'), href: '#pricing' },
-            // Приложение раздаётся файлом, а не через Google Play. Ссылка
-            // относительная: nginx отдаёт /smm-media/ (публичный бакет MinIO)
-            // и на этом хосте тоже, а у кросс-доменной ссылки браузер
-            // проигнорировал бы download. Имя файла без версии — новая сборка
-            // заливается поверх и не требует правки лендинга.
-            { label: t('footer.product.android_app'), href: '/smm-media/linkeon-assets/app/linkeon-android.apk' },
+            // Приложение раздаётся файлом, а не через Google Play.
+            //
+            // Ссылка АБСОЛЮТНАЯ, и это важно: location /smm-media/ (публичный
+            // бакет MinIO) объявлен только в блоке my.linkeon.io. У этого
+            // хоста на любой неизвестный путь срабатывает SPA-фолбэк
+            // try_files … /index.html, то есть относительная ссылка отдавала
+            // 200 и 84 КБ HTML под именем .apk. Проверять такой путь по коду
+            // ответа бесполезно — нужен content-type.
+            //
+            // Атрибут download здесь всё равно не работал бы (кросс-домен),
+            // но файл скачивается сам: сервер отдаёт его с
+            // application/vnd.android.package-archive.
+            //
+            // Имя файла без версии — новая сборка заливается поверх и не
+            // требует правки лендинга.
+            { label: t('footer.product.android_app'), href: 'https://my.linkeon.io/smm-media/linkeon-assets/app/linkeon-android.apk' },
           ])}
         </div>
 
