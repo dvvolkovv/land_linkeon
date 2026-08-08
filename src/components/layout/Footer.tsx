@@ -127,6 +127,12 @@ export default function Footer() {
             { label: t('footer.product.profile'), href: '#profile' },
             { label: t('footer.product.networking'), href: '#networking' },
             { label: t('footer.product.pricing'), href: '#pricing' },
+            // Приложение раздаётся файлом, а не через Google Play. Ссылка
+            // относительная: nginx отдаёт /smm-media/ (публичный бакет MinIO)
+            // и на этом хосте тоже, а у кросс-доменной ссылки браузер
+            // проигнорировал бы download. Имя файла без версии — новая сборка
+            // заливается поверх и не требует правки лендинга.
+            { label: t('footer.product.android_app'), href: '/smm-media/linkeon-assets/app/linkeon-android.apk' },
           ])}
         </div>
 
