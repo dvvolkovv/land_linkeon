@@ -8,7 +8,7 @@
 export type { LanguageDef } from './languages.data.js';
 export { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, SUPPORTED_CODES } from './languages.data.js';
 
-import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from './languages.data.js';
+import { SUPPORTED_CODES } from './languages.data.js';
 
 /**
  * Язык для посетителя, чьей локали у нас нет (pt, uk, ja…). Не

@@ -8,6 +8,20 @@ import { languageFromPath, pathForLanguage } from '../../i18n/urlLanguage';
 // ограничении высоты списка в зажатом случае.
 const VIEWPORT_MARGIN = 8;
 
+// Явный выбор языка. Читает его inline-скрипт из <head>
+// (scripts/visitor-redirect.js): выбравшего автоматика больше не уводит.
+// Без этого русскоязычный человек с английской системой не смог бы остаться
+// на русском — переключил и при следующем заходе снова уехал на /en/.
+const CHOICE_KEY = 'll_lang_choice';
+
+function rememberChoice(code: string) {
+  try {
+    localStorage.setItem(CHOICE_KEY, code);
+  } catch {
+    /* приватный режим — переход состоится, просто не запомнится */
+  }
+}
+
 // В браузере — настоящий useLayoutEffect: замер и переворот дропдауна должны
 // произойти до отрисовки, иначе список мигнёт не в ту сторону. В Node
 // (пререндер, scripts/prerender.mjs) layout-эффекты не выполняются вовсе, и
@@ -149,6 +163,7 @@ export default function LangSwitcher() {
                   lang={lang.code}
                   aria-current={lang.code === currentLang.code ? 'true' : undefined}
                   data-testid={`lang-option-${lang.code}`}
+                  onClick={() => rememberChoice(lang.code)}
                   className={`flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-gray-50 ${
                     lang.code === currentLang.code ? 'font-semibold text-gray-900' : 'text-gray-700'
                   }`}

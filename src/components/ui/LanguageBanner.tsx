@@ -5,6 +5,9 @@ import { TRANSLATED_LANGUAGES } from '../../i18n/translatedLanguages';
 import { languageFromPath, pathForLanguage } from '../../i18n/urlLanguage';
 
 const DISMISS_KEY = 'll_lang_banner_dismissed';
+// Тот же ключ, что у переключателя и у inline-скрипта в <head>
+// (scripts/visitor-redirect.js): явный выбор отключает авторедирект.
+const CHOICE_KEY = 'll_lang_choice';
 
 /**
  * Предлагает перейти на язык браузера, но НЕ редиректит: автоматический
@@ -63,6 +66,15 @@ export default function LanguageBanner() {
         // страницы.
         lang={offer.lang.code}
         data-testid="lang-banner-link"
+        // Переход по баннеру — такой же явный выбор, как в переключателе:
+        // дальше автоматика этого посетителя не трогает.
+        onClick={() => {
+          try {
+            localStorage.setItem(CHOICE_KEY, offer.lang.code);
+          } catch {
+            /* приватный режим */
+          }
+        }}
         className="flex items-center gap-2 text-sm font-semibold text-brand-800 hover:text-brand-900"
       >
         <span aria-hidden="true">{offer.lang.flag}</span>
