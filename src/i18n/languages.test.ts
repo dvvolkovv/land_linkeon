@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { SUPPORTED_LANGUAGES, SUPPORTED_CODES, DEFAULT_LANGUAGE, resolveLanguage } from './languages';
+import {
+  SUPPORTED_LANGUAGES,
+  SUPPORTED_CODES,
+  DEFAULT_LANGUAGE,
+  VISITOR_FALLBACK,
+  resolveLanguage,
+} from './languages';
 
 describe('реестр языков', () => {
   it('содержит те же шесть языков, что приложение', () => {
@@ -33,10 +39,19 @@ describe('resolveLanguage', () => {
     expect(resolveLanguage('en_US')).toBe('en');
   });
 
-  it('неподдерживаемое и пустое уводит в язык по умолчанию', () => {
-    expect(resolveLanguage('ja')).toBe('ru');
-    expect(resolveLanguage(null)).toBe('ru');
-    expect(resolveLanguage(undefined)).toBe('ru');
-    expect(resolveLanguage('')).toBe('ru');
+  it('неподдерживаемое и пустое уводит в английский, а не в русский', () => {
+    // Иначе португальцу, уехавшему на /en/, баннер предложит русский:
+    // current='en', preferred=resolveLanguage('pt')='ru', языки не совпали.
+    expect(resolveLanguage('ja')).toBe(VISITOR_FALLBACK);
+    expect(resolveLanguage('pt-BR')).toBe('en');
+    expect(resolveLanguage(null)).toBe('en');
+    expect(resolveLanguage(undefined)).toBe('en');
+    expect(resolveLanguage('')).toBe('en');
+    expect(resolveLanguage('ja')).not.toBe(DEFAULT_LANGUAGE);
+  });
+
+  it('русский остаётся русским', () => {
+    expect(resolveLanguage('ru')).toBe('ru');
+    expect(resolveLanguage('ru-RU')).toBe('ru');
   });
 });
