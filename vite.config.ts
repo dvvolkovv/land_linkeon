@@ -1,10 +1,34 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { translatedCodes } from './scripts/translated-languages.js';
+import { snippetSource } from './scripts/visitor-redirect.js';
+import { DEFAULT_LANGUAGE } from './src/i18n/languages.data.js';
+
+/**
+ * Уводит посетителя с канонического русского корня на его языковую версию.
+ * Скрипт стоит первым в <head> и выполняется до бандла — иначе посетитель
+ * успевает увидеть кадр русской страницы. Логика и её тесты живут в
+ * scripts/visitor-redirect.js; сюда попадает её же исходник.
+ */
+function visitorLanguageRedirect(): Plugin {
+  return {
+    name: 'visitor-language-redirect',
+    transformIndexHtml() {
+      return [
+        {
+          tag: 'script',
+          attrs: { 'data-visitor-redirect': '' },
+          children: snippetSource(translatedCodes(), DEFAULT_LANGUAGE),
+          injectTo: 'head-prepend',
+        },
+      ];
+    },
+  };
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), visitorLanguageRedirect()],
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
