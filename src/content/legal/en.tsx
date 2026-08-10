@@ -154,6 +154,33 @@ export function renderLegal(type: LegalType) {
             <li>Technical information about your device and use of the Application</li>
           </UL>
 
+          <H3>1.1. Signing in through third-party services</H3>
+          <P>
+            In addition to signing in with a phone number or an email address, the Application
+            supports signing in through third-party services: Google, Yandex, Taler ID and Apple.
+          </P>
+          <P>
+            In that case the Operator receives from the chosen service a persistent account
+            identifier, an email address and a flag indicating whether that address is verified.
+            The password to the third-party account is never transmitted to the Operator and is
+            not known to it.
+          </P>
+          <P>
+            Apple allows the user to hide their real address. The Operator then receives a relay
+            address of the form <strong>***@privaterelay.appleid.com</strong>, or no address at
+            all, and the account is identified solely by its identifier.
+          </P>
+          <P>
+            The address received is also used to link accounts: if it is verified by the service
+            and already known to the Operator, the sign-in resolves to the existing account
+            instead of creating a new one.
+          </P>
+          <P>
+            The Operator gains no access to the contents of third-party accounts and performs no
+            actions in them on the user's behalf. The list of linked sign-in methods is available
+            in the Application; any of them can be removed unless it is the only one left.
+          </P>
+
           <H3>2. Use of information</H3>
           <UL>
             <li>Providing and improving the Application's services</li>
