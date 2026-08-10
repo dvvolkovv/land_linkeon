@@ -14,10 +14,20 @@ export function languageFromPath(pathname: string): string {
 /** Путь той же страницы на другом языке — для ссылок переключателя. */
 export function pathForLanguage(
   language: string,
-  _pathname: string,
+  pathname: string,
   search = '',
   hash = '',
 ): string {
   const base = language === DEFAULT_LANGUAGE ? '/' : `/${language}/`;
+
+  // Со страниц юридических документов переключатель обязан вести на тот же
+  // документ, а не на главную: иначе человек, читавший политику по-английски,
+  // при смене языка теряет место и оказывается на лендинге.
+  const rest = pathname.split('/').filter(Boolean);
+  const tail = SUPPORTED_CODES.includes(rest[0]) ? rest.slice(1) : rest;
+  if (tail[0] === 'legal' && tail[1]) {
+    return `${base}legal/${tail[1]}${search}${hash}`;
+  }
+
   return `${base}${search}${hash}`;
 }

@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
+import LegalPage from './pages/LegalPage';
+import { parseLegalPath } from './lib/legalRoute';
 import { persistAttribution } from './lib/attribution';
 import { trackLandingVisit, trackLandingCta, initLandingEngagement } from './lib/track';
 import { initVkPixel } from './lib/vkPixel';
@@ -40,8 +42,13 @@ document.addEventListener('click', (e) => {
   if (window.ym) window.ym(105902201, 'reachGoal', goal);
 }, { capture: true });
 
+// Роутера в проекте нет и заводить его ради трёх статических страниц не
+// стоит: путь разбирается один раз при загрузке, переходы между лендингом и
+// документами — обычные ссылки с полной перезагрузкой.
+const legal = parseLegalPath(window.location.pathname);
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    {legal ? <LegalPage doc={legal.doc} /> : <App />}
   </StrictMode>
 );

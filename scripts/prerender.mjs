@@ -32,6 +32,15 @@ const OG_LOCALES = Object.fromEntries(SUPPORTED_LANGUAGES.map((l) => [l.code, l.
 
 const urlFor = (code) => (code === DEFAULT_LANGUAGE ? `${SITE}/` : `${SITE}/${code}/`);
 
+// Юридические документы отдельными страницами с собственными адресами.
+// Без них ссылка на политику указывает на `#privacy`, то есть на главную:
+// краулер и Play Console видят лендинг, а не документ.
+const LEGAL_SLUGS = ['offer', 'privacy', 'pdn'];
+const legalUrlFor = (code, slug) =>
+  code === DEFAULT_LANGUAGE ? `${SITE}/legal/${slug}` : `${SITE}/${code}/legal/${slug}`;
+const legalDirFor = (code, slug) =>
+  code === DEFAULT_LANGUAGE ? join(dist, 'legal', slug) : join(dist, code, 'legal', slug);
+
 const { render } = await import(join(root, 'dist-ssr', 'entry-server.js'));
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
 
@@ -71,20 +80,21 @@ function mustReplace(html, pattern, replace, label) {
   return html.replace(pattern, replace);
 }
 
-function headFor(code, title, description) {
+function headFor(code, title, description, slug) {
+  const url = (c) => (slug ? legalUrlFor(c, slug) : urlFor(c));
   const alternates = PUBLISHED_CODES.map(
-    (c) => `    <link rel="alternate" hreflang="${c}" href="${urlFor(c)}" />`,
+    (c) => `    <link rel="alternate" hreflang="${c}" href="${url(c)}" />`,
   ).join('\n');
   const ogAlternates = PUBLISHED_CODES.filter((c) => c !== code)
     .map((c) => `    <meta property="og:locale:alternate" content="${OG_LOCALES[c]}" />`)
     .join('\n');
   return [
-    `    <link rel="canonical" href="${urlFor(code)}" />`,
+    `    <link rel="canonical" href="${url(code)}" />`,
     alternates,
-    `    <link rel="alternate" hreflang="x-default" href="${urlFor(DEFAULT_LANGUAGE)}" />`,
+    `    <link rel="alternate" hreflang="x-default" href="${url(DEFAULT_LANGUAGE)}" />`,
     `    <meta property="og:locale" content="${OG_LOCALES[code]}" />`,
     ogAlternates,
-    `    <meta property="og:url" content="${urlFor(code)}" />`,
+    `    <meta property="og:url" content="${url(code)}" />`,
   ].join('\n');
 }
 
@@ -154,10 +164,52 @@ for (const code of PUBLISHED_CODES) {
   console.log(`✅ ${code} → ${join(outDir, 'index.html').replace(root + '/', '')}`);
 }
 
+for (const code of PUBLISHED_CODES) {
+  for (const slug of LEGAL_SLUGS) {
+    const { html, title, description } = render(code, slug);
+
+    let page = template;
+    page = mustReplace(page, '<html lang="ru">', () => `<html lang="${code}">`, '<html lang>');
+    page = localizeMeta(page, title, description);
+    page = mustReplace(
+      page,
+      '</head>',
+      () => `${headFor(code, title, description, slug)}\n  </head>`,
+      '</head>',
+    );
+    page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${html}</div>`, '<div id="root">');
+
+    // Защита строже, чем у лендинга. Проверки на <h1> здесь мало: заголовок
+    // документа рисуется самой страницей и остаётся на месте, даже если текст
+    // не отрендерился вовсе. Проверено экспериментом — при выпавшем
+    // renderLegal() страница усыхала с 24 КБ до 12 КБ, сохраняя и <h1>,
+    // и <title>. На эти адреса ссылаются из магазинов приложений, и пустой
+    // документ там хуже отсутствующего.
+    if (!page.includes('<h1')) {
+      throw new Error(`${code}/${slug}: в разметке нет <h1> — пререндер отдал пустую страницу`);
+    }
+    // Реквизиты есть в каждом из трёх документов на обоих языках: это самый
+    // надёжный признак того, что текст на месте, а не только каркас.
+    if (!html.includes('463404496646')) {
+      throw new Error(
+        `${code}/${slug}: в документе нет реквизитов Исполнителя — текст не отрендерился`,
+      );
+    }
+
+    const outDir = legalDirFor(code, slug);
+    mkdirSync(outDir, { recursive: true });
+    writeFileSync(join(outDir, 'index.html'), page, 'utf8');
+    console.log(`✅ ${code}/${slug} → ${join(outDir, 'index.html').replace(root + '/', '')}`);
+  }
+}
+
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
   ...PUBLISHED_CODES.map((c) => `  <url><loc>${urlFor(c)}</loc></url>`),
+  ...PUBLISHED_CODES.flatMap((c) =>
+    LEGAL_SLUGS.map((slug) => `  <url><loc>${legalUrlFor(c, slug)}</loc></url>`),
+  ),
   '</urlset>',
 ].join('\n');
 writeFileSync(join(dist, 'sitemap.xml'), sitemap + '\n', 'utf8');
