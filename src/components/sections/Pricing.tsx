@@ -25,8 +25,8 @@ interface Pkg {
  */
 const PACKAGES: Pkg[] = [
   { id: 'starter', tokens: 50000, price: 149 },
-  { id: 'extended', tokens: 200000, price: 499, savings: '15%', popular: true },
-  { id: 'professional', tokens: 1000000, price: 1990, savings: '30%' },
+  { id: 'extended', tokens: 200000, price: 499, savings: '15%' },
+  { id: 'professional', tokens: 1000000, price: 1990, savings: '30%', popular: true },
   { id: 'business', tokens: 3000000, price: 4990, savings: '40%' },
   { id: 'maximum', tokens: 7000000, price: 9990, savings: '50%' },
 ];
@@ -143,7 +143,7 @@ export default function Pricing() {
               <div className={`relative h-full flex flex-col rounded-2xl p-6 min-w-0 ${fiveUp ? 'xl:p-5' : ''} ${p.popular ? 'border-2 border-brand-700 shadow-lg shadow-brand-600/10 lg:scale-105 bg-white' : 'border border-gray-200 bg-white'}`}>
                 {/*
                   Бейджи говорят о разном («этот тариф берут чаще» против «здесь
-                  дешевле тысяча токенов») и на карточке extended висят рядом,
+                  дешевле тысяча токенов») и на популярной карточке висят рядом,
                   поэтому различаются заливкой, а не второй краской: «Популярный» —
                   сплошной brand-800 с белым текстом (5.5:1), «Экономия» — светлая
                   подложка brand-100 с текстом brand-900 (8.8:1). Подложка сама по
