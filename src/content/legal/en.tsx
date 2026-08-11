@@ -28,7 +28,7 @@ export function renderLegal(type: LegalType) {
             (INN 463404496646)</strong>, payer of professional-income tax (self-employed),
             hereinafter — the "Operator" or "Administration".
           </P>
-          <P>Contact email: support@linkeon.ru</P>
+          <P>Contact email: support@linkeon.io</P>
           <P>
             These Terms constitute a public offer under Article 437 of the Civil Code of the
             Russian Federation. Use of the Application means full and unconditional acceptance
@@ -110,14 +110,14 @@ export function renderLegal(type: LegalType) {
             <li>Duplicate charge due to a technical error</li>
           </UL>
           <P>
-            Complaints are submitted to support@linkeon.ru and reviewed within 10 business days.
+            Complaints are submitted to support@linkeon.io and reviewed within 10 business days.
             Refunds are processed within 30 days, less payment-system fees (3–5%).
           </P>
 
           <H3>9. Dispute resolution</H3>
           <P>
             Disputes are resolved through negotiations with a mandatory pre-litigation procedure.
-            Before going to court, the user must send a written claim to support@linkeon.ru. If no
+            Before going to court, the user must send a written claim to support@linkeon.io. If no
             agreement is reached, disputes are resolved in court at the respondent's location in
             accordance with the legislation of the Russian Federation.
           </P>
@@ -138,7 +138,7 @@ export function renderLegal(type: LegalType) {
             <div><strong>Name:</strong> Dmitry Viktorovich Volkov</div>
             <div><strong>INN:</strong> 463404496646</div>
             <div><strong>Status:</strong> payer of professional-income tax (self-employed)</div>
-            <div><strong>Contact email:</strong> support@linkeon.ru</div>
+            <div><strong>Contact email:</strong> support@linkeon.io</div>
           </div>
           <P>
             This Privacy Policy applies to all personal data that the Operator may receive about
@@ -378,7 +378,7 @@ export function renderLegal(type: LegalType) {
           <P>We may update this Policy. We will notify you of material changes through the Application or by other means.</P>
 
           <H3>10. Contacts</H3>
-          <P>For questions about this Policy or the processing of your data: support@linkeon.ru.</P>
+          <P>For questions about this Policy or the processing of your data: support@linkeon.io.</P>
         </>
       )}
 
@@ -388,7 +388,7 @@ export function renderLegal(type: LegalType) {
           <P>
             By registering and using the LINKEON.IO Application the user consents to the processing
             of their personal data by Dmitry Viktorovich Volkov (INN 463404496646, email
-            support@linkeon.ru), hereinafter — the "Operator", on the terms set out below.
+            support@linkeon.io), hereinafter — the "Operator", on the terms set out below.
           </P>
 
           <H3>1. Personal data covered</H3>
@@ -468,7 +468,7 @@ export function renderLegal(type: LegalType) {
           <P>
             This consent is effective from the moment of registration until it is withdrawn by the
             user or the account is deleted. The user may withdraw consent at any time by writing
-            to support@linkeon.ru. Withdrawal leads to deletion of the account and data within
+            to support@linkeon.io. Withdrawal leads to deletion of the account and data within
             the time frames specified in the Privacy Policy (up to 30 calendar days).
           </P>
 
@@ -482,7 +482,7 @@ export function renderLegal(type: LegalType) {
 
           <H3>7. Contacts</H3>
           <P>
-            For all questions about the processing of personal data: support@linkeon.ru. Requests
+            For all questions about the processing of personal data: support@linkeon.io. Requests
             are reviewed within 30 calendar days.
           </P>
         </>

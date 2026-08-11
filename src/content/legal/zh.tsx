@@ -29,7 +29,7 @@ export function renderLegal(type: LegalType) {
           <P>
             本应用由 <strong>Dmitry Viktorovich Volkov（纳税人识别号 INN 463404496646）</strong>所有并运营，其为职业所得税纳税人（自雇人士），以下简称“服务提供方”或“管理方”。
           </P>
-          <P>联系邮箱：support@linkeon.ru</P>
+          <P>联系邮箱：support@linkeon.io</P>
           <P>根据《俄罗斯联邦民法典》第 437 条，本协议构成公开要约。使用本应用即表示完全且无条件地接受本协议的各项条款。</P>
 
           <H3>2. 本应用的用途</H3>
@@ -75,10 +75,10 @@ export function renderLegal(type: LegalType) {
             <li>技术故障连续持续超过 72 小时</li>
             <li>因技术错误导致的重复扣款</li>
           </UL>
-          <P>索赔请发送至邮箱 support@linkeon.ru，并将在 10 个工作日内予以审核。退款在 30 日内办理，并扣除支付系统手续费（3–5%）。</P>
+          <P>索赔请发送至邮箱 support@linkeon.io，并将在 10 个工作日内予以审核。退款在 30 日内办理，并扣除支付系统手续费（3–5%）。</P>
 
           <H3>9. 争议解决</H3>
-          <P>一切争议均通过协商解决，并须遵守强制性的诉前程序。向法院提起诉讼前，用户应先将书面索赔发送至邮箱 support@linkeon.ru。协商未果的，争议依照俄罗斯联邦法律在被告所在地通过司法程序解决。</P>
+          <P>一切争议均通过协商解决，并须遵守强制性的诉前程序。向法院提起诉讼前，用户应先将书面索赔发送至邮箱 support@linkeon.io。协商未果的，争议依照俄罗斯联邦法律在被告所在地通过司法程序解决。</P>
 
           <H3>10. 条款的变更</H3>
           <P>管理方保留随时变更本协议条款的权利。变更后继续使用本应用，即视为用户同意新的条款。</P>
@@ -93,7 +93,7 @@ export function renderLegal(type: LegalType) {
             <div><strong>名称：</strong>Dmitry Viktorovich Volkov</div>
             <div><strong>纳税人识别号 INN：</strong>463404496646</div>
             <div><strong>身份：</strong>职业所得税纳税人（自雇人士）</div>
-            <div><strong>联系邮箱：</strong>support@linkeon.ru</div>
+            <div><strong>联系邮箱：</strong>support@linkeon.io</div>
           </div>
           <P>本《隐私政策》适用于处理者在用户使用 LINKEON.IO 应用期间可能获取的全部个人信息。</P>
 
@@ -225,14 +225,14 @@ export function renderLegal(type: LegalType) {
           <P>我们可能会更新本政策。如有重大变更，我们将通过本应用或以其他方式通知您。</P>
 
           <H3>10. 联系方式</H3>
-          <P>如您对本政策或对您数据的处理有任何疑问，请通过 support@linkeon.ru 与我们联系。</P>
+          <P>如您对本政策或对您数据的处理有任何疑问，请通过 support@linkeon.io 与我们联系。</P>
         </>
       )}
 
       {type === 'pdn' && (
         <>
           <div className="text-xs text-gray-500">2026年8月5日修订版</div>
-          <P>用户注册并使用 LINKEON.IO 应用，即表示同意 Dmitry Viktorovich Volkov（纳税人识别号 INN 463404496646，邮箱 support@linkeon.ru，以下简称“个人信息处理者”）按照下列条件处理其个人信息。</P>
+          <P>用户注册并使用 LINKEON.IO 应用，即表示同意 Dmitry Viktorovich Volkov（纳税人识别号 INN 463404496646，邮箱 support@linkeon.io，以下简称“个人信息处理者”）按照下列条件处理其个人信息。</P>
 
           <H3>1. 个人信息的范围</H3>
           <UL>
@@ -271,13 +271,13 @@ export function renderLegal(type: LegalType) {
           <P>此外，数据还会传输至美国（OpenAI、Anthropic、Google、ElevenLabs）。跨境传输的详细说明载于《隐私政策》第 3.1 条。</P>
 
           <H3>5. 同意的有效期</H3>
-          <P>本同意自注册之时起生效，至用户撤回同意或账户被删除时终止。用户有权随时向 support@linkeon.ru 发送请求以撤回同意。撤回将导致按照《隐私政策》规定的期限（最长 30 个日历日）删除账户与数据。</P>
+          <P>本同意自注册之时起生效，至用户撤回同意或账户被删除时终止。用户有权随时向 support@linkeon.io 发送请求以撤回同意。撤回将导致按照《隐私政策》规定的期限（最长 30 个日历日）删除账户与数据。</P>
 
           <H3>6. 个人信息主体的权利</H3>
           <P>用户有权获取有关其数据的构成与处理情况的信息，在数据不完整、不准确或已过时的情况下要求更正、封锁或销毁数据，并有权就处理者的行为向俄罗斯联邦通信监督局（Roskomnadzor）或法院提出申诉。</P>
 
           <H3>7. 联系方式</H3>
-          <P>有关个人信息处理的一切问题请联系：support@linkeon.ru。请求将在 30 个日历日内予以审核。</P>
+          <P>有关个人信息处理的一切问题请联系：support@linkeon.io。请求将在 30 个日历日内予以审核。</P>
         </>
       )}
     </>

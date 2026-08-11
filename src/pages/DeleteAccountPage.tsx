@@ -48,7 +48,7 @@ const RU: Copy = {
     'Подтвердите удаление в диалоге.',
   ],
   byMailTitle: 'Письмом',
-  byMail: 'Если доступа к приложению нет, напишите на support@linkeon.ru с адреса или с номера телефона, привязанного к аккаунту. Мы удалим учётную запись в течение 30 дней.',
+  byMail: 'Если доступа к приложению нет, напишите на support@linkeon.io с адреса или с номера телефона, привязанного к аккаунту. Мы удалим учётную запись в течение 30 дней.',
   whatTitle: 'Что удаляется',
   removed: [
     'Профиль: имя, фотография, ценности, цели, интересы и навыки.',
@@ -77,7 +77,7 @@ const EN: Copy = {
     'Confirm deletion in the dialog.',
   ],
   byMailTitle: 'By email',
-  byMail: 'If you no longer have access to the app, write to support@linkeon.ru from the email address or phone number linked to your account. We will delete it within 30 days.',
+  byMail: 'If you no longer have access to the app, write to support@linkeon.io from the email address or phone number linked to your account. We will delete it within 30 days.',
   whatTitle: 'What is deleted',
   removed: [
     'Your profile: name, photo, values, goals, interests and skills.',

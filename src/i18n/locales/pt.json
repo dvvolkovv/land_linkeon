@@ -113,7 +113,7 @@
       "android_app": "App para Android"
     },
     "company": {
-      "support": "support@linkeon.ru"
+      "support": "support@linkeon.io"
     },
     "legal": {
       "privacy": "Política de privacidade",
@@ -345,7 +345,7 @@
       },
       {
         "q": "É possível cancelar a compra de tokens?",
-        "a": "Os tokens não expiram, por isso a compra não tem prazo — mas o saldo não utilizado não é devolvido. Devolvemos o dinheiro em dois casos: o serviço esteve em baixo mais de 72 horas seguidas ou o valor foi cobrado duas vezes. Escreve para support@linkeon.ru — analisamos em 10 dias úteis."
+        "a": "Os tokens não expiram, por isso a compra não tem prazo — mas o saldo não utilizado não é devolvido. Devolvemos o dinheiro em dois casos: o serviço esteve em baixo mais de 72 horas seguidas ou o valor foi cobrado duas vezes. Escreve para support@linkeon.io — analisamos em 10 dias úteis."
       },
       {
         "q": "Existe API?",

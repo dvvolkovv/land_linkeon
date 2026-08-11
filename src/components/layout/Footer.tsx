@@ -152,7 +152,7 @@ export default function Footer() {
             // Разделов «О проекте» и «Блог» не существует, а /referral и /support
             // в приложении — за авторизацией (гость улетал на онбординг). Оставляем
             // единственный вход, доступный без логина: почта поддержки из юрдоков.
-            { label: t('footer.company.support'), href: 'mailto:support@linkeon.ru' },
+            { label: t('footer.company.support'), href: 'mailto:support@linkeon.io' },
           ])}
         </div>
 

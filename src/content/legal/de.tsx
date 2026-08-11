@@ -28,7 +28,7 @@ export function renderLegal(type: LegalType) {
             (INN 463404496646)</strong>, Zahler der Steuer auf Berufseinkommen (Selbstständiger),
             nachfolgend — der „Anbieter“ oder die „Administration“, und wird von ihm betrieben.
           </P>
-          <P>Kontakt-E-Mail: support@linkeon.ru</P>
+          <P>Kontakt-E-Mail: support@linkeon.io</P>
           <P>
             Diese Nutzungsbedingungen stellen ein öffentliches Angebot gemäß Artikel 437 des
             Zivilgesetzbuchs der Russischen Föderation dar. Die Nutzung der Anwendung gilt als
@@ -115,7 +115,7 @@ export function renderLegal(type: LegalType) {
             <li>doppelte Abbuchung aufgrund eines technischen Fehlers</li>
           </UL>
           <P>
-            Die Beanstandung ist an support@linkeon.ru zu richten und wird innerhalb von
+            Die Beanstandung ist an support@linkeon.io zu richten und wird innerhalb von
             10 Werktagen geprüft. Die Rückerstattung erfolgt innerhalb von 30 Tagen abzüglich der
             Gebühren der Zahlungssysteme (3–5 %).
           </P>
@@ -124,7 +124,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Alle Streitigkeiten werden im Verhandlungswege unter Einhaltung des obligatorischen
             vorgerichtlichen Verfahrens beigelegt. Vor Anrufung des Gerichts hat der Nutzer eine
-            schriftliche Beanstandung an support@linkeon.ru zu senden. Kommt keine Einigung
+            schriftliche Beanstandung an support@linkeon.io zu senden. Kommt keine Einigung
             zustande, werden die Streitigkeiten gerichtlich am Sitz des Beklagten nach dem Recht
             der Russischen Föderation entschieden.
           </P>
@@ -148,7 +148,7 @@ export function renderLegal(type: LegalType) {
             <div><strong>Name:</strong> Dmitry Viktorovich Volkov</div>
             <div><strong>INN:</strong> 463404496646</div>
             <div><strong>Status:</strong> Zahler der Steuer auf Berufseinkommen (Selbstständiger)</div>
-            <div><strong>Kontakt-E-Mail:</strong> support@linkeon.ru</div>
+            <div><strong>Kontakt-E-Mail:</strong> support@linkeon.io</div>
           </div>
           <P>
             Diese Datenschutzerklärung gilt für alle personenbezogenen Daten, die der
@@ -409,7 +409,7 @@ export function renderLegal(type: LegalType) {
           <H3>10. Kontakt</H3>
           <P>
             Wenn Sie Fragen zu dieser Erklärung oder zur Verarbeitung Ihrer Daten haben, wenden Sie
-            sich an uns unter support@linkeon.ru.
+            sich an uns unter support@linkeon.io.
           </P>
         </>
       )}
@@ -419,7 +419,7 @@ export function renderLegal(type: LegalType) {
           <div className="text-xs text-gray-500">Fassung vom 5. August 2026</div>
           <P>
             Mit der Registrierung und der Nutzung der Anwendung LINKEON.IO willigt der Nutzer
-            gegenüber Dmitry Viktorovich Volkov (INN 463404496646, E-Mail support@linkeon.ru),
+            gegenüber Dmitry Viktorovich Volkov (INN 463404496646, E-Mail support@linkeon.io),
             nachfolgend — der „Verantwortliche“, in die Verarbeitung seiner personenbezogenen Daten
             zu den nachstehend genannten Bedingungen ein.
           </P>
@@ -508,7 +508,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Diese Einwilligung gilt ab dem Zeitpunkt der Registrierung bis zu ihrem Widerruf durch
             den Nutzer oder bis zur Löschung des Kontos. Der Nutzer ist berechtigt, die
-            Einwilligung jederzeit zu widerrufen, indem er eine Anfrage an support@linkeon.ru
+            Einwilligung jederzeit zu widerrufen, indem er eine Anfrage an support@linkeon.io
             richtet. Der Widerruf führt zur Löschung des Kontos und der Daten innerhalb der in der
             Datenschutzerklärung genannten Fristen (bis zu 30 Kalendertage).
           </P>
@@ -523,7 +523,7 @@ export function renderLegal(type: LegalType) {
 
           <H3>7. Kontakt</H3>
           <P>
-            Bei allen Fragen zur Verarbeitung personenbezogener Daten: support@linkeon.ru. Anfragen
+            Bei allen Fragen zur Verarbeitung personenbezogener Daten: support@linkeon.io. Anfragen
             werden innerhalb von 30 Kalendertagen bearbeitet.
           </P>
         </>

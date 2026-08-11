@@ -133,7 +133,7 @@
       "android_app": "Android app"
     },
     "company": {
-      "support": "support@linkeon.ru"
+      "support": "support@linkeon.io"
     },
     "legal": {
       "privacy": "Privacy policy",
@@ -374,7 +374,7 @@
       },
       {
         "q": "Can I cancel a token purchase?",
-        "a": "Tokens never expire, so a purchase has no deadline — but we don't refund an unused balance. We do refund money in two cases: the service was down for more than 72 hours straight, or you were charged twice. Email support@linkeon.ru — we review it within 10 business days."
+        "a": "Tokens never expire, so a purchase has no deadline — but we don't refund an unused balance. We do refund money in two cases: the service was down for more than 72 hours straight, or you were charged twice. Email support@linkeon.io — we review it within 10 business days."
       },
       {
         "q": "Is there an API?",

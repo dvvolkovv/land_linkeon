@@ -220,7 +220,7 @@ for (const code of PUBLISHED_CODES) {
   if (!page.includes('<h1')) throw new Error(`${code}/delete-account: пустая страница`);
   // Признак живого содержимого, а не каркаса: страница обязана называть
   // адрес поддержки, иначе она бесполезна и для Play, и для человека.
-  if (!html.includes('support@linkeon.ru')) {
+  if (!html.includes('support@linkeon.io')) {
     throw new Error(`${code}/delete-account: нет контакта поддержки — текст не отрендерился`);
   }
   const outDir = deleteDirFor(code);

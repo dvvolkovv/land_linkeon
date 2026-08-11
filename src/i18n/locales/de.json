@@ -113,7 +113,7 @@
       "android_app": "Android-App"
     },
     "company": {
-      "support": "support@linkeon.ru"
+      "support": "support@linkeon.io"
     },
     "legal": {
       "privacy": "Datenschutz",
@@ -345,7 +345,7 @@
       },
       {
         "q": "Kann ich einen Token-Kauf stornieren?",
-        "a": "Tokens verfallen nicht, der Kauf gilt also unbegrenzt — ein ungenutztes Guthaben zahlen wir aber nicht zurück. Geld erstatten wir in zwei Fällen: Der Dienst war länger als 72 Stunden am Stück nicht erreichbar, oder der Betrag wurde doppelt abgebucht. Schreib an support@linkeon.ru — wir prüfen das in 10 Werktagen."
+        "a": "Tokens verfallen nicht, der Kauf gilt also unbegrenzt — ein ungenutztes Guthaben zahlen wir aber nicht zurück. Geld erstatten wir in zwei Fällen: Der Dienst war länger als 72 Stunden am Stück nicht erreichbar, oder der Betrag wurde doppelt abgebucht. Schreib an support@linkeon.io — wir prüfen das in 10 Werktagen."
       },
       {
         "q": "Gibt es eine API?",

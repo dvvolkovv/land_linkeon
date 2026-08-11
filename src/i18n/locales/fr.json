@@ -133,7 +133,7 @@
       "android_app": "Application Android"
     },
     "company": {
-      "support": "support@linkeon.ru"
+      "support": "support@linkeon.io"
     },
     "legal": {
       "privacy": "Politique de confidentialité",
@@ -374,7 +374,7 @@
       },
       {
         "q": "Puis-je annuler un achat de jetons ?",
-        "a": "Les jetons n'expirent pas, donc ton achat n'a pas de date limite — mais le solde non utilisé n'est pas remboursé. On rembourse dans deux cas : le service est resté indisponible plus de 72 heures d'affilée, ou le montant a été débité deux fois. Écris à support@linkeon.ru — on traite la demande sous 10 jours ouvrés."
+        "a": "Les jetons n'expirent pas, donc ton achat n'a pas de date limite — mais le solde non utilisé n'est pas remboursé. On rembourse dans deux cas : le service est resté indisponible plus de 72 heures d'affilée, ou le montant a été débité deux fois. Écris à support@linkeon.io — on traite la demande sous 10 jours ouvrés."
       },
       {
         "q": "Y a-t-il une API ?",

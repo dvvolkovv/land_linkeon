@@ -30,7 +30,7 @@ export function renderLegal(type: LegalType) {
             (travailleur indépendant), ci-après — le « Prestataire » ou l’« Administration », qui
             en assure l’exploitation.
           </P>
-          <P>Adresse électronique de contact : support@linkeon.ru</P>
+          <P>Adresse électronique de contact : support@linkeon.io</P>
           <P>
             Les présentes Conditions constituent une offre publique au sens de l’article 437 du
             Code civil de la Fédération de Russie. L’utilisation de l’Application vaut acceptation
@@ -115,7 +115,7 @@ export function renderLegal(type: LegalType) {
             <li>Double prélèvement résultant d’une erreur technique</li>
           </UL>
           <P>
-            La réclamation est adressée à l’adresse support@linkeon.ru et examinée dans un délai de
+            La réclamation est adressée à l’adresse support@linkeon.io et examinée dans un délai de
             10 jours ouvrables. Le remboursement intervient dans un délai de 30 jours, déduction
             faite des commissions des systèmes de paiement (3–5 %).
           </P>
@@ -124,7 +124,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Tous les litiges sont réglés par voie de négociation, dans le respect d’une procédure
             précontentieuse obligatoire. Avant toute saisine du tribunal, l’utilisateur est tenu
-            d’adresser une réclamation écrite à l’adresse support@linkeon.ru. À défaut d’accord,
+            d’adresser une réclamation écrite à l’adresse support@linkeon.io. À défaut d’accord,
             les litiges sont tranchés par le tribunal du lieu où se trouve le défendeur,
             conformément à la législation de la Fédération de Russie.
           </P>
@@ -146,7 +146,7 @@ export function renderLegal(type: LegalType) {
             <div><strong>Dénomination :</strong> Dmitry Viktorovich Volkov</div>
             <div><strong>INN :</strong> 463404496646</div>
             <div><strong>Statut :</strong> redevable de l’impôt sur les revenus professionnels (travailleur indépendant)</div>
-            <div><strong>Adresse électronique de contact :</strong> support@linkeon.ru</div>
+            <div><strong>Adresse électronique de contact :</strong> support@linkeon.io</div>
           </div>
           <P>
             La présente Politique de confidentialité s’applique à l’ensemble des données à
@@ -409,7 +409,7 @@ export function renderLegal(type: LegalType) {
           <H3>10. Contacts</H3>
           <P>
             Si vous avez des questions sur la présente Politique ou sur le traitement de vos
-            données, écrivez-nous à l’adresse support@linkeon.ru.
+            données, écrivez-nous à l’adresse support@linkeon.io.
           </P>
         </>
       )}
@@ -420,7 +420,7 @@ export function renderLegal(type: LegalType) {
           <P>
             En s’inscrivant et en utilisant l’Application LINKEON.IO, l’utilisateur consent à ce
             que Dmitry Viktorovich Volkov (INN 463404496646, adresse électronique
-            support@linkeon.ru), ci-après — le « Responsable du traitement », traite ses données à
+            support@linkeon.io), ci-après — le « Responsable du traitement », traite ses données à
             caractère personnel aux conditions énoncées ci-dessous.
           </P>
 
@@ -513,7 +513,7 @@ export function renderLegal(type: LegalType) {
             Le présent consentement prend effet au moment de l’inscription et demeure valable
             jusqu’à son retrait par l’utilisateur ou jusqu’à la suppression du compte.
             L’utilisateur peut retirer son consentement à tout moment en adressant une demande à
-            support@linkeon.ru. Le retrait entraîne la suppression du compte et des données dans
+            support@linkeon.io. Le retrait entraîne la suppression du compte et des données dans
             les délais indiqués dans la Politique de confidentialité (jusqu’à 30 jours
             calendaires).
           </P>
@@ -529,7 +529,7 @@ export function renderLegal(type: LegalType) {
           <H3>7. Contacts</H3>
           <P>
             Pour toute question relative au traitement des données à caractère personnel :
-            support@linkeon.ru. Les demandes sont examinées dans un délai de 30 jours calendaires.
+            support@linkeon.io. Les demandes sont examinées dans un délai de 30 jours calendaires.
           </P>
         </>
       )}
