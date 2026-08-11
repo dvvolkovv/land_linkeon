@@ -41,7 +41,7 @@ export function appUrl(path = '/', extra?: Record<string, string>): string {
     // рендере, чтобы переключение языка на лендинге меняло и ссылку.
     const lang = i18n.resolvedLanguage || i18n.language;
     if (lang && !url.searchParams.has('lang')) {
-      // Только базовый код: приложение знает ru/en/es/de/fr/zh, а не ru-RU.
+      // Только базовый код: приложение знает ru/en/es/de/fr/zh/pt, а не ru-RU.
       url.searchParams.set('lang', lang.split('-')[0]);
     }
 

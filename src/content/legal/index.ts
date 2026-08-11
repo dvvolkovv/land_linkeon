@@ -5,6 +5,7 @@ import * as en from './en';
 import * as de from './de';
 import * as es from './es';
 import * as fr from './fr';
+import * as pt from './pt';
 import * as zh from './zh';
 
 /**
@@ -24,7 +25,7 @@ export interface LegalPack {
   renderLegal: (type: LegalType) => React.ReactNode;
 }
 
-const PACKS: Record<string, LegalPack> = { ru, en, de, es, fr, zh };
+const PACKS: Record<string, LegalPack> = { ru, en, de, es, fr, pt, zh };
 
 /**
  * Пакет для языка. Незнакомый язык уводится в английский, а не в русский:

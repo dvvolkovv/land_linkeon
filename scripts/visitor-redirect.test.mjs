@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { pickRedirect, snippetSource } from './visitor-redirect.js';
 
-const PUBLISHED = ['ru', 'en', 'es', 'de', 'fr', 'zh'];
+const PUBLISHED = ['ru', 'en', 'es', 'de', 'fr', 'zh', 'pt'];
 const base = {
   pathname: '/',
   languages: ['ru-RU'],
@@ -20,6 +20,8 @@ describe('pickRedirect', () => {
   it('схлопывает региональный вариант', () => {
     expect(pick({ languages: ['es-MX'] })).toBe('/es/');
     expect(pick({ languages: ['zh-Hans-CN'] })).toBe('/zh/');
+    // Локаль европейская, но бразильцу португальский ближе английского.
+    expect(pick({ languages: ['pt-BR'] })).toBe('/pt/');
   });
 
   it('русского оставляет на корне', () => {
@@ -27,15 +29,15 @@ describe('pickRedirect', () => {
   });
 
   it('незнакомую локаль уводит в английский', () => {
-    expect(pick({ languages: ['pt-BR'] })).toBe('/en/');
+    expect(pick({ languages: ['ko-KR'] })).toBe('/en/');
     expect(pick({ languages: ['ja-JP'] })).toBe('/en/');
   });
 
   it('берёт первый выпущенный язык из списка предпочтений', () => {
-    // Португалец, у которого вторым стоит русский, русский и получает:
+    // Кореец, у которого вторым стоит русский, русский и получает:
     // он сам объявил его приемлемым.
-    expect(pick({ languages: ['pt-BR', 'ru'] })).toBeNull();
-    expect(pick({ languages: ['pt-BR', 'de'] })).toBe('/de/');
+    expect(pick({ languages: ['ko-KR', 'ru'] })).toBeNull();
+    expect(pick({ languages: ['ko-KR', 'de'] })).toBe('/de/');
   });
 
   it('молчит везде, кроме канонического корня', () => {

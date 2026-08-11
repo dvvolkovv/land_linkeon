@@ -7,9 +7,10 @@ import es from './locales/es.json';
 import de from './locales/de.json';
 import fr from './locales/fr.json';
 import zh from './locales/zh.json';
+import pt from './locales/pt.json';
 import { DEFAULT_LANGUAGE } from './languages';
 
-const BUNDLED: Record<string, ResourceKey> = { ru, en, es, de, fr, zh };
+const BUNDLED: Record<string, ResourceKey> = { ru, en, es, de, fr, zh, pt };
 
 /**
  * Экземпляр i18n для рендера на сборке. В отличие от клиентского, локали

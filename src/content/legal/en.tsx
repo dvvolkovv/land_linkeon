@@ -146,6 +146,7 @@ export function renderLegal(type: LegalType) {
           </P>
 
           <H3>1. Information collected</H3>
+          <P>We collect the following information:</P>
           <UL>
             <li>Phone number for authentication</li>
             <li>First name, last name, email (optional)</li>

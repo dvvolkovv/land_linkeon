@@ -20,6 +20,12 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'de', nativeName: 'Deutsch', flag: '🇩🇪', ogLocale: 'de_DE' },
   { code: 'fr', nativeName: 'Français', flag: '🇫🇷', ogLocale: 'fr_FR' },
   { code: 'zh', nativeName: '中文', flag: '🇨🇳', ogLocale: 'zh_CN' },
+  // Португальский — европейский (pt-PT), не бразильский: витрина в App Store
+  // заведена как Portugal, и текст локали написан под неё («utilizador»,
+  // «ecrã», «telemóvel»). Код при этом голый `pt` — он корень BCP-47, до
+  // которого схлопывается и pt-BR: бразильцу европейский текст понятнее
+  // английского.
+  { code: 'pt', nativeName: 'Português', flag: '🇵🇹', ogLocale: 'pt_PT' },
 ];
 
 export const DEFAULT_LANGUAGE = 'ru';

@@ -90,10 +90,10 @@ export function renderLegal(type: LegalType) {
           <div className="text-xs text-gray-500">2026年8月5日修订版</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">个人信息处理者</div>
-            <div><strong>名称：</strong> Dmitry Viktorovich Volkov</div>
-            <div><strong>纳税人识别号 INN：</strong> 463404496646</div>
-            <div><strong>身份：</strong> 职业所得税纳税人（自雇人士）</div>
-            <div><strong>联系邮箱：</strong> support@linkeon.ru</div>
+            <div><strong>名称：</strong>Dmitry Viktorovich Volkov</div>
+            <div><strong>纳税人识别号 INN：</strong>463404496646</div>
+            <div><strong>身份：</strong>职业所得税纳税人（自雇人士）</div>
+            <div><strong>联系邮箱：</strong>support@linkeon.ru</div>
           </div>
           <P>本《隐私政策》适用于处理者在用户使用 LINKEON.IO 应用期间可能获取的全部个人信息。</P>
 

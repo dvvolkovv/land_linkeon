@@ -5,6 +5,7 @@ import Eyebrow from '../ui/Eyebrow';
 import Button from '../ui/Button';
 import FadeIn from '../ui/FadeIn';
 import { appUrl } from '../../lib/appUrl';
+import { formattingLocale } from '../../i18n/languages';
 
 interface Pkg {
   id: 'starter' | 'extended' | 'professional';
@@ -23,8 +24,10 @@ const PACKAGES: Pkg[] = [
 
 export default function Pricing() {
   const { t, i18n } = useTranslation();
-  // Intl понимает голый код языка; отдельная таблица локалей не нужна.
-  const fmt = (n: number) => n.toLocaleString(i18n.language);
+  // Через formattingLocale, а не по голому i18n.language: в CLDR базовый `pt` —
+  // это бразильские соглашения, и «50 000» на европейской странице
+  // превращалось в «50.000». Регион берётся из реестра языков.
+  const fmt = (n: number) => n.toLocaleString(formattingLocale(i18n.language));
 
   return (
     <Section id="pricing" ariaLabelledby="pricing-heading" className="bg-white border-y border-gray-200">

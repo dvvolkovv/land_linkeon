@@ -19,7 +19,7 @@ test.describe('авторедирект по локали браузера', () 
   });
 
   test('незнакомая локаль уезжает на английский, а не остаётся на русском', async ({ browser }) => {
-    const ctx = await browser.newContext({ locale: 'pt-BR' });
+    const ctx = await browser.newContext({ locale: 'ko-KR' });
     const page = await ctx.newPage();
     await page.goto('/');
     await expect(page).toHaveURL(/\/en\/$/);
@@ -83,8 +83,8 @@ test.describe('авторедирект по локали браузера', () 
     await ctx.close();
   });
 
-  test('португалец на /en/ не получает баннер с предложением русского', async ({ browser }) => {
-    const ctx = await browser.newContext({ locale: 'pt-BR' });
+  test('кореец на /en/ не получает баннер с предложением русского', async ({ browser }) => {
+    const ctx = await browser.newContext({ locale: 'ko-KR' });
     const page = await ctx.newPage();
     await page.goto('/');
     await expect(page).toHaveURL(/\/en\/$/);
