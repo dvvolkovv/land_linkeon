@@ -46,6 +46,19 @@ export function parseLegalPath(pathname: string): LegalRoute | null {
   return { language, doc: rest[1] };
 }
 
+/**
+ * Страница удаления аккаунта. Не юридический документ, но живёт по тем же
+ * правилам адресации: Play Console требует публичный адрес, доступный без
+ * входа и до установки.
+ */
+export function parseDeleteAccountPath(pathname: string): { language: string } | null {
+  const parts = pathname.split('/').filter(Boolean);
+  const language = SUPPORTED_CODES.includes(parts[0]) ? parts[0] : DEFAULT_LANGUAGE;
+  const rest = SUPPORTED_CODES.includes(parts[0]) ? parts.slice(1) : parts;
+  if (rest.length !== 1 || rest[0] !== 'delete-account') return null;
+  return { language };
+}
+
 /** Канонический путь документа. Русский живёт в корне, остальные под префиксом. */
 export function legalPath(language: string, doc: LegalType): string {
   const prefix = language === DEFAULT_LANGUAGE ? '' : `/${language}`;

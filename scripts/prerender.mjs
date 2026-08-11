@@ -41,6 +41,13 @@ const legalUrlFor = (code, slug) =>
 const legalDirFor = (code, slug) =>
   code === DEFAULT_LANGUAGE ? join(dist, 'legal', slug) : join(dist, code, 'legal', slug);
 
+// Страница удаления аккаунта. Обязательный адрес для Play Console: порядок
+// удаления должен быть виден ДО установки и БЕЗ входа.
+const deleteUrlFor = (code) =>
+  code === DEFAULT_LANGUAGE ? `${SITE}/delete-account` : `${SITE}/${code}/delete-account`;
+const deleteDirFor = (code) =>
+  code === DEFAULT_LANGUAGE ? join(dist, 'delete-account') : join(dist, code, 'delete-account');
+
 const { render } = await import(join(root, 'dist-ssr', 'entry-server.js'));
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
 
@@ -80,8 +87,8 @@ function mustReplace(html, pattern, replace, label) {
   return html.replace(pattern, replace);
 }
 
-function headFor(code, title, description, slug) {
-  const url = (c) => (slug ? legalUrlFor(c, slug) : urlFor(c));
+function headFor(code, title, description, slug, urlBuilder) {
+  const url = (c) => (urlBuilder ? urlBuilder(c) : slug ? legalUrlFor(c, slug) : urlFor(c));
   const alternates = PUBLISHED_CODES.map(
     (c) => `    <link rel="alternate" hreflang="${c}" href="${url(c)}" />`,
   ).join('\n');
@@ -203,6 +210,25 @@ for (const code of PUBLISHED_CODES) {
   }
 }
 
+for (const code of PUBLISHED_CODES) {
+  const { html, title, description } = render(code, 'delete-account');
+  let page = template;
+  page = mustReplace(page, '<html lang="ru">', () => `<html lang="${code}">`, '<html lang>');
+  page = localizeMeta(page, title, description);
+  page = mustReplace(page, '</head>', () => `${headFor(code, title, description, null, deleteUrlFor)}\n  </head>`, '</head>');
+  page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${html}</div>`, '<div id="root">');
+  if (!page.includes('<h1')) throw new Error(`${code}/delete-account: пустая страница`);
+  // Признак живого содержимого, а не каркаса: страница обязана называть
+  // адрес поддержки, иначе она бесполезна и для Play, и для человека.
+  if (!html.includes('support@linkeon.ru')) {
+    throw new Error(`${code}/delete-account: нет контакта поддержки — текст не отрендерился`);
+  }
+  const outDir = deleteDirFor(code);
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(join(outDir, 'index.html'), page, 'utf8');
+  console.log(`✅ ${code}/delete-account → ${join(outDir, 'index.html').replace(root + '/', '')}`);
+}
+
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -210,6 +236,7 @@ const sitemap = [
   ...PUBLISHED_CODES.flatMap((c) =>
     LEGAL_SLUGS.map((slug) => `  <url><loc>${legalUrlFor(c, slug)}</loc></url>`),
   ),
+  ...PUBLISHED_CODES.map((c) => `  <url><loc>${deleteUrlFor(c)}</loc></url>`),
   '</urlset>',
 ].join('\n');
 writeFileSync(join(dist, 'sitemap.xml'), sitemap + '\n', 'utf8');

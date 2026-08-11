@@ -2,7 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import LegalPage from './pages/LegalPage';
-import { parseLegalPath } from './lib/legalRoute';
+import DeleteAccountPage from './pages/DeleteAccountPage';
+import { parseDeleteAccountPath, parseLegalPath } from './lib/legalRoute';
 import { persistAttribution } from './lib/attribution';
 import { trackLandingVisit, trackLandingCta, initLandingEngagement } from './lib/track';
 import { initVkPixel } from './lib/vkPixel';
@@ -46,9 +47,10 @@ document.addEventListener('click', (e) => {
 // стоит: путь разбирается один раз при загрузке, переходы между лендингом и
 // документами — обычные ссылки с полной перезагрузкой.
 const legal = parseLegalPath(window.location.pathname);
+const deleteAccount = parseDeleteAccountPath(window.location.pathname);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {legal ? <LegalPage doc={legal.doc} /> : <App />}
+    {legal ? <LegalPage doc={legal.doc} /> : deleteAccount ? <DeleteAccountPage /> : <App />}
   </StrictMode>
 );

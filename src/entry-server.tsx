@@ -2,6 +2,7 @@ import { renderToString } from 'react-dom/server';
 import { I18nextProvider } from 'react-i18next';
 import App from './App';
 import LegalPage from './pages/LegalPage';
+import DeleteAccountPage from './pages/DeleteAccountPage';
 import type { LegalType } from './components/layout/LegalModal';
 import { createServerI18n } from './i18n/server';
 import { legalFor } from './content/legal';
@@ -18,14 +19,24 @@ import { legalFor } from './content/legal';
  */
 export function render(
   language: string,
-  legalDoc?: LegalType,
+  legalDoc?: LegalType | 'delete-account',
 ): { html: string; title: string; description: string } {
   const i18n = createServerI18n(language);
   const html = renderToString(
     <I18nextProvider i18n={i18n}>
-      {legalDoc ? <LegalPage doc={legalDoc} /> : <App />}
+      {legalDoc === 'delete-account' ? (
+        <DeleteAccountPage />
+      ) : legalDoc ? (
+        <LegalPage doc={legalDoc} />
+      ) : (
+        <App />
+      )}
     </I18nextProvider>,
   );
+  if (legalDoc === 'delete-account') {
+    const title = language === 'ru' ? 'Удаление аккаунта Linkeon' : 'Deleting your Linkeon account';
+    return { html, title, description: title };
+  }
   if (legalDoc) {
     // Заголовок документа берём из того же модуля, что и его текст, — иначе
     // название страницы и её содержимое могли бы разъехаться.
