@@ -342,7 +342,9 @@
     "plans": {
       "starter": "入门包",
       "extended": "进阶包",
-      "professional": "专业包"
+      "professional": "专业包",
+      "business": "商务版",
+      "maximum": "至尊版"
     },
     "tokens": "代币",
     "messages": "条消息",
@@ -352,6 +354,7 @@
     "cta": "购买",
     "trust": {
       "yookassa": "通过 YooKassa 支付",
+      "priem": "支持银行卡或加密货币支付",
       "email": "收据发到邮箱",
       "gift": "新用户送 25,000 代币"
     }

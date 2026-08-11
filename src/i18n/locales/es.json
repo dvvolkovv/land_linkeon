@@ -313,7 +313,9 @@
     "plans": {
       "starter": "Inicial",
       "extended": "Ampliado",
-      "professional": "Profesional"
+      "professional": "Profesional",
+      "business": "Empresarial",
+      "maximum": "Máximo"
     },
     "tokens": "tokens",
     "messages": "mensajes",
@@ -323,6 +325,7 @@
     "cta": "Comprar",
     "trust": {
       "yookassa": "Pago con YooKassa",
+      "priem": "Pago con tarjeta o cripto",
       "email": "Recibo por e-mail",
       "gift": "25.000 tokens de regalo para nuevos usuarios"
     }

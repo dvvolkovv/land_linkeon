@@ -17,14 +17,18 @@ test.describe('landing smoke', () => {
     await expect(heroStart).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
   });
 
-  test('pricing section renders 3 packages with correct prices', async ({ page }) => {
+  test('pricing section renders 5 packages with correct prices', async ({ page }) => {
     await page.goto('/#pricing');
     await expect(page.locator('[data-cta="pricing-starter"]')).toBeVisible();
     await expect(page.locator('[data-cta="pricing-extended"]')).toBeVisible();
     await expect(page.locator('[data-cta="pricing-professional"]')).toBeVisible();
+    await expect(page.locator('[data-cta="pricing-business"]')).toBeVisible();
+    await expect(page.locator('[data-cta="pricing-maximum"]')).toBeVisible();
     await expect(page.getByText(/^149$/).first()).toBeVisible();
     await expect(page.getByText(/^499$/).first()).toBeVisible();
     await expect(page.getByText(/1\s?990/).first()).toBeVisible();
+    await expect(page.getByText(/4\s?990/).first()).toBeVisible();
+    await expect(page.getByText(/9\s?990/).first()).toBeVisible();
   });
 
   test('FAQ has 6 questions', async ({ page }) => {

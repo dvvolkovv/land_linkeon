@@ -342,7 +342,9 @@
     "plans": {
       "starter": "Starter",
       "extended": "Extended",
-      "professional": "Professional"
+      "professional": "Professional",
+      "business": "Business",
+      "maximum": "Maximum"
     },
     "tokens": "tokens",
     "messages": "messages",
@@ -352,6 +354,7 @@
     "cta": "Buy",
     "trust": {
       "yookassa": "Pay via YooKassa",
+      "priem": "Card or crypto payment",
       "email": "Receipt by email",
       "gift": "25,000 tokens on the house for new users"
     }

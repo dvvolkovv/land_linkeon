@@ -342,7 +342,9 @@
     "plans": {
       "starter": "Démarrage",
       "extended": "Étendu",
-      "professional": "Professionnel"
+      "professional": "Professionnel",
+      "business": "Entreprise",
+      "maximum": "Maximum"
     },
     "tokens": "jetons",
     "messages": "messages",
@@ -352,6 +354,7 @@
     "cta": "Acheter",
     "trust": {
       "yookassa": "Paiement via YooKassa",
+      "priem": "Paiement par carte ou crypto",
       "email": "Reçu par e-mail",
       "gift": "25 000 jetons offerts aux nouveaux"
     }
