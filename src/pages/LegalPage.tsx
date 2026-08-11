@@ -3,8 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 
 import Footer from '../components/layout/Footer';
 import type { LegalType } from '../components/layout/LegalModal';
-import * as legalRu from '../content/legal/ru';
-import * as legalEn from '../content/legal/en';
+import { legalFor } from '../content/legal';
 import { DEFAULT_LANGUAGE } from '../i18n/languages';
 
 /**
@@ -20,9 +19,10 @@ import { DEFAULT_LANGUAGE } from '../i18n/languages';
  */
 export default function LegalPage({ doc }: { doc: LegalType }) {
   const { i18n } = useTranslation();
-  // Русская редакция — единственная, имеющая юридическую силу. Для всех
-  // остальных языков показываем английский перевод.
-  const pack = i18n.language === DEFAULT_LANGUAGE ? legalRu : legalEn;
+  // На каждый язык своя редакция: App Store требует ссылку на политику
+  // для КАЖДОЙ локали витрины, и вести их все на английский документ
+  // значит сымитировать требование, а не выполнить.
+  const pack = legalFor(i18n.language);
   const home = i18n.language === DEFAULT_LANGUAGE ? '/' : `/${i18n.language}/`;
   const back = i18n.language === DEFAULT_LANGUAGE ? 'На главную' : 'Back to home';
 

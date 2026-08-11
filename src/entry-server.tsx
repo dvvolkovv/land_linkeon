@@ -4,8 +4,7 @@ import App from './App';
 import LegalPage from './pages/LegalPage';
 import type { LegalType } from './components/layout/LegalModal';
 import { createServerI18n } from './i18n/server';
-import * as legalRu from './content/legal/ru';
-import * as legalEn from './content/legal/en';
+import { legalFor } from './content/legal';
 
 /**
  * Вызывается scripts/prerender.mjs на сборке. Возвращает разметку и
@@ -30,7 +29,7 @@ export function render(
   if (legalDoc) {
     // Заголовок документа берём из того же модуля, что и его текст, — иначе
     // название страницы и её содержимое могли бы разъехаться.
-    const pack = language === 'ru' ? legalRu : legalEn;
+    const pack = legalFor(language);
     return {
       html,
       title: `${pack.titles[legalDoc]} — Linkeon`,

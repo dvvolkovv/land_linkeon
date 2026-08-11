@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 
-import * as legalRu from '../../content/legal/ru';
-import * as legalEn from '../../content/legal/en';
+import { legalFor } from '../../content/legal';
 
 export type LegalType = 'privacy' | 'offer' | 'pdn';
 
@@ -24,10 +23,11 @@ interface LegalModalProps {
 export default function LegalModal({ type, onClose }: LegalModalProps) {
   const { i18n } = useTranslation();
   const dialogRef = useRef<HTMLDivElement>(null);
-  // Русская редакция — единственная, имеющая юридическую силу. Для всех
-  // языков кроме ru показываем английский перевод.
+  // Русская редакция — единственная, имеющая юридическую силу; остальные
+  // переведены с неё. Раньше выбор был двоичным, и немец с китайцем
+  // получали английский текст под своим языком.
   const lng = i18n.language;
-  const pack = lng === 'ru' ? legalRu : legalEn;
+  const pack = legalFor(lng);
 
   useEffect(() => {
     if (!type) return;
