@@ -81,6 +81,11 @@ export function renderLegal(type: LegalType) {
             nos casos previstos no ponto 8.
           </P>
 
+          <H3>4.2. Moderação e tolerância zero</H3>
+          <P>O Operador aplica uma política de <strong>tolerância zero</strong> em relação a conteúdos ofensivos e a utilizadores abusivos. Esses conteúdos são removidos e os infratores bloqueados sem aviso prévio.</P>
+          <P>É possível denunciar conteúdos ou outro utilizador diretamente na Aplicação: nas conversas e no perfil do utilizador está disponível um menu com as opções «Denunciar» e «Bloquear». O bloqueio produz efeitos imediatos e impede que o utilizador bloqueado lhe escreva.</P>
+          <P>O Operador compromete-se a analisar a denúncia recebida, remover o conteúdo infrator e bloquear o infrator <strong>no prazo de 24 horas</strong> a contar da receção da denúncia.</P>
+          <P>As infrações podem ainda ser comunicadas para support@linkeon.io.</P>
           <H3>5. Propriedade intelectual</H3>
           <P>
             Todos os direitos sobre a Aplicação, incluindo o código-fonte, o design, os logótipos e
@@ -347,6 +352,13 @@ export function renderLegal(type: LegalType) {
             <li><strong>Cópias de segurança:</strong> substituídas a cada 30 dias</li>
           </UL>
 
+          <H3>7.1. Tratamento de fotografias</H3>
+          <P>Ao carregar fotografias na Aplicação, o utilizador:</P>
+          <UL>
+            <li>confirma que é titular dos direitos sobre a imagem</li>
+            <li>concede ao Operador uma licença não exclusiva de utilização</li>
+            <li>garante que nas imagens não figuram terceiros sem o seu consentimento</li>
+          </UL>
           <H3>8. Cookies e análise de tráfego</H3>
           <P>
             No sítio linkeon.io são utilizados cookies, o armazenamento local do navegador

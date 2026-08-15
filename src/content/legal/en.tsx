@@ -76,6 +76,11 @@ export function renderLegal(type: LegalType) {
             the cases provided for in Section 8.
           </P>
 
+          <H3>4.2. Moderation and zero tolerance</H3>
+          <P>The Operator maintains a <strong>zero-tolerance</strong> policy towards objectionable content and abusive users. Such content is removed and offenders are blocked without prior warning.</P>
+          <P>Content or another user can be reported directly in the Application: a menu with "Report" and "Block" is available in conversations and on user profiles. Blocking takes effect immediately and prevents the blocked user from writing to you.</P>
+          <P>The Operator undertakes to review a submitted report, remove the offending content and block the offender <strong>within 24 hours</strong> of receiving the report.</P>
+          <P>Violations can additionally be reported to support@linkeon.io.</P>
           <H3>5. Intellectual property</H3>
           <P>
             All rights to the Application, including source code, design, logos and other
@@ -330,6 +335,13 @@ export function renderLegal(type: LegalType) {
             <li><strong>Backups:</strong> overwritten every 30 days</li>
           </UL>
 
+          <H3>7.1. Processing of photographs</H3>
+          <P>By uploading photographs to the Application, the user:</P>
+          <UL>
+            <li>confirms that they hold the rights to the image</li>
+            <li>grants the Operator a non-exclusive licence to use it</li>
+            <li>warrants that no third parties appear in the images without their consent</li>
+          </UL>
           <H3>8. Cookies and analytics</H3>
           <P>
             The linkeon.io website uses cookies, browser local storage (localStorage,

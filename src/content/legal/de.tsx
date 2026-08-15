@@ -80,6 +80,11 @@ export function renderLegal(type: LegalType) {
             erstattet, ausgenommen die in Abschnitt 8 vorgesehenen Fälle.
           </P>
 
+          <H3>4.2. Moderation und Nulltoleranz</H3>
+          <P>Der Betreiber verfolgt eine <strong>Null-Toleranz-Politik</strong> gegenüber anstößigen Inhalten und missbräuchlich handelnden Nutzern. Solche Inhalte werden entfernt, Zuwiderhandelnde ohne vorherige Warnung gesperrt.</P>
+          <P>Inhalte oder andere Nutzer können direkt in der Anwendung gemeldet werden: In Unterhaltungen und in Nutzerprofilen steht ein Menü mit den Punkten „Melden“ und „Sperren“ zur Verfügung. Die Sperre wirkt sofort und verhindert, dass der gesperrte Nutzer Ihnen schreibt.</P>
+          <P>Der Betreiber verpflichtet sich, eine eingegangene Meldung zu prüfen, den beanstandeten Inhalt zu entfernen und den Zuwiderhandelnden <strong>innerhalb von 24 Stunden</strong> nach Eingang der Meldung zu sperren.</P>
+          <P>Verstöße können zusätzlich an support@linkeon.io gemeldet werden.</P>
           <H3>5. Geistiges Eigentum</H3>
           <P>
             Sämtliche Rechte an der Anwendung, einschließlich Quellcode, Design, Logos und
@@ -351,6 +356,13 @@ export function renderLegal(type: LegalType) {
             <li><strong>Sicherungskopien:</strong> werden alle 30 Tage überschrieben</li>
           </UL>
 
+          <H3>7.1. Verarbeitung von Fotografien</H3>
+          <P>Mit dem Hochladen von Fotografien in die Anwendung:</P>
+          <UL>
+            <li>bestätigt der Nutzer, dass er Rechteinhaber des Bildes ist</li>
+            <li>erteilt er dem Verantwortlichen eine nicht ausschließliche Nutzungslizenz</li>
+            <li>sichert er zu, dass auf den Bildern keine Dritten ohne deren Einwilligung abgebildet sind</li>
+          </UL>
           <H3>8. Cookies und Analyse</H3>
           <P>
             Auf der Website linkeon.io werden Cookies, der lokale Speicher des Browsers

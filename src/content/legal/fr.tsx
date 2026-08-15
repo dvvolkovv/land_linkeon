@@ -81,6 +81,11 @@ export function renderLegal(type: LegalType) {
             sauf dans les cas prévus à la section 8.
           </P>
 
+          <H3>4.2. Modération et tolérance zéro</H3>
+          <P>L’Opérateur applique une politique de <strong>tolérance zéro</strong> à l’égard des contenus offensants et des utilisateurs abusifs. Ces contenus sont supprimés et les contrevenants bloqués sans avertissement préalable.</P>
+          <P>Un contenu ou un autre utilisateur peut être signalé directement dans l’Application : un menu comportant les options « Signaler » et « Bloquer » est disponible dans les conversations et sur le profil de l’utilisateur. Le blocage prend effet immédiatement et empêche l’utilisateur bloqué de vous écrire.</P>
+          <P>L’Opérateur s’engage à examiner le signalement reçu, à supprimer le contenu litigieux et à bloquer le contrevenant <strong>dans un délai de 24 heures</strong> à compter de la réception du signalement.</P>
+          <P>Les infractions peuvent en outre être signalées à support@linkeon.io.</P>
           <H3>5. Propriété intellectuelle</H3>
           <P>
             L’ensemble des droits sur l’Application, y compris le code source, le design, les
@@ -351,6 +356,13 @@ export function renderLegal(type: LegalType) {
             <li><strong>Sauvegardes :</strong> écrasées tous les 30 jours</li>
           </UL>
 
+          <H3>7.1. Traitement des photographies</H3>
+          <P>En téléversant des photographies dans l’Application, l’utilisateur :</P>
+          <UL>
+            <li>confirme qu’il détient les droits sur l’image</li>
+            <li>accorde au Responsable une licence non exclusive d’utilisation</li>
+            <li>garantit qu’aucun tiers ne figure sur les images sans son consentement</li>
+          </UL>
           <H3>8. Cookies et mesure d’audience</H3>
           <P>
             Le site linkeon.io utilise des cookies, le stockage local du navigateur (localStorage,
