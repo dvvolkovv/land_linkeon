@@ -36,8 +36,12 @@ export default function Agentic() {
     tabRefs.current[next]?.focus();
   };
 
+  // Секция идёт по фону страницы (gray-50), а не белой плашкой: соседняя
+  // Problem белая, и две белые подряд слились бы в одну полосу — на всём
+  // лендинге такой пары нет. Глубину даёт не фон секции, а карточки внутри:
+  // белая карточка запроса и брендовая карточка результата.
   return (
-    <Section id="agentic" ariaLabelledby="agentic-heading" className="bg-white border-y border-gray-200">
+    <Section id="agentic" ariaLabelledby="agentic-heading">
       <FadeIn className="text-center mb-12">
         <Eyebrow className="mb-4">{t('agentic.eyebrow')}</Eyebrow>
         <h2
@@ -89,11 +93,11 @@ export default function Agentic() {
         data-testid="agentic-panel"
         className="max-w-2xl mx-auto"
       >
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5">
           <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">
             {t('agentic.youLabel')}
           </p>
-          <p className="inline-flex items-center gap-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg px-3 py-2 mb-3">
+          <p className="inline-flex items-center gap-2 text-sm font-medium text-gray-900 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 mb-3">
             <Paperclip aria-hidden="true" className="w-4 h-4 text-gray-500" />
             {current.file}
           </p>
