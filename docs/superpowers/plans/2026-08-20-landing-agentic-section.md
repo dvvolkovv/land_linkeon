@@ -61,15 +61,36 @@ ssh dv@85.192.61.231 'cd ~/ci/land_linkeon && source ~/.nvm/nvm.sh && pnpm insta
 Ожидается: установка завершилась без ошибок. `source ~/.nvm/nvm.sh`
 обязателен в КАЖДОЙ ssh-команде — без него `node` на ноде не находится.
 
-- [ ] **Шаг 5: Снять базовую линию — на текущем `main` всё зелёное**
+- [ ] **Шаг 5: Снять базовую линию (ЗАФИКСИРОВАНА 2026-08-20 на `959b63c`)**
 
 ```bash
-ssh dv@85.192.61.231 'cd ~/ci/land_linkeon && source ~/.nvm/nvm.sh && pnpm check-locales && pnpm typecheck && pnpm test:unit'
+ssh dv@85.192.61.231 'cd ~/ci/land_linkeon && source ~/.nvm/nvm.sh && pnpm check-locales && pnpm typecheck && pnpm test:unit && pnpm build && CI=1 pnpm test'
 ```
 
-Ожидается: `✅ en: N/N ключей` для всех шести неруских локалей, `tsc` молча,
-vitest — все тесты passed. Если что-то красное УЖЕ сейчас — запиши что именно
-и не приписывай это своим изменениям позже.
+Фактическая база на `main` (не «всё зелёное» — не приписывай это своим правкам):
+
+- `check-locales` — ✅ 144/144 по всем шести локалям;
+- `typecheck`, `lint` — молча;
+- `test:unit` — 55 passed;
+- `build` — собирается, включая пререндер всех локалей;
+- `CI=1 pnpm test` — **26 passed, 1 skipped, 2 FAILED**:
+  1. `i18n.spec.ts` → «sitemap перечисляет ровно выпущенные версии»: ожидает 7
+     `<loc>`, получает 35. Регрессия от коммита `959b63c` (в sitemap добавились
+     юридические страницы, тест не обновили). К нашей работе отношения не имеет —
+     сказать владельцу, чинить отдельной веткой.
+  2. `smoke.spec.ts` → «pricing section renders 5 packages»: headless-браузер
+     ходит с `Accept-Language: en-US`, инлайновый редирект уводит `/` на `/en/`,
+     там прайс валютный (три пакета вместо пяти) и `pricing-starter` не
+     существует. Тест завязан на русскую версию — на любой машине с нерусской
+     локалью браузера он красный.
+
+Мерить свою работу нужно **дельтой** к этим двум падениям: после наших задач
+должно остаться ровно два тех же падения и ни одного нового.
+
+**Следствие для наших тестов:** `page.goto('/')` в Playwright уводит на `/en/`.
+Браузерные проверки не должны опираться на русский текст — только на структуру
+и расширения файлов (они по правилам перевода одинаковы во всех локалях).
+Русский текст проверяем сырым HTTP-запросом, без браузера: редиректа там нет.
 
 ---
 
@@ -467,18 +488,22 @@ git commit -m "feat(i18n): секция «не чат-бот» на es, de, fr, 
   // Секция «не чат-бот»: главное обещание лендинга, которого нет ни в одной
   // другой секции. Проверяем и переключение табов — без него видно только
   // первый сценарий, и секция теряет две трети смысла.
+  // Проверки завязаны на расширения файлов, а не на текст: инлайновый
+  // редирект уводит headless-браузер (Accept-Language: en-US) с «/» на
+  // «/en/», и русские строки здесь искать нельзя. Расширения по правилам
+  // перевода одинаковы во всех локалях — на них опираться можно.
   test('agentic section shows the first case and switches tabs', async ({ page }) => {
     await page.goto('/#agentic');
 
     const panel = page.locator('[data-testid="agentic-panel"]');
     await expect(panel).toBeVisible();
     // Первый сценарий отрисован без клика — он же уезжает в пререндер.
-    await expect(panel).toContainText('договор-аренды.pdf');
-    await expect(panel).toContainText('протокол-разногласий.docx');
+    await expect(panel).toContainText('.pdf');
+    await expect(panel).toContainText('.docx');
 
     await page.locator('[data-testid="agentic-tab-1"]').click();
-    await expect(panel).toContainText('выписка.xlsx');
-    await expect(panel).not.toContainText('договор-аренды.pdf');
+    await expect(panel).toContainText('.xlsx');
+    await expect(panel).not.toContainText('.pdf');
 
     await page.locator('[data-testid="agentic-tab-2"]').click();
     await expect(panel).toContainText('reels.mp4');
@@ -741,9 +766,11 @@ ssh dv@85.192.61.231 "cd ~/ci/land_linkeon && git fetch -q origin && git checkou
 
 Ожидается: `check-locales` — шесть `✅`; `typecheck`, `lint` — молча;
 `test:unit` — passed; `build` — собрался вместе с пререндером всех локалей;
-`pnpm test` — весь Playwright-набор зелёный, включая существующие тесты
-языковых версий (они проверяют, что в сыром HTML каждой локали есть `<h1>` и
-корректные `hreflang` — новая секция не должна их сломать).
+`CI=1 pnpm test` — **ровно два предсуществующих падения из Задачи 0**
+(`sitemap перечисляет ровно выпущенные версии` и `pricing section renders 5
+packages`) и ни одного нового. Наши два теста — зелёные. Существующие тесты
+языковых версий (в сыром HTML каждой локали есть `<h1>` и корректные
+`hreflang`) новая секция ломать не должна.
 
 - [ ] **Шаг 2: Глазами посмотреть на секцию**
 

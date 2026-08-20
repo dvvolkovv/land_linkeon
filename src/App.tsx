@@ -3,6 +3,7 @@ import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import PersonaCTA from './components/sections/PersonaCTA';
 import Problem from './components/sections/Problem';
+import Agentic from './components/sections/Agentic';
 import Assistants from './components/sections/Assistants';
 import Profile from './components/sections/Profile';
 import Networking from './components/sections/Networking';
@@ -23,6 +24,7 @@ function App() {
         <Hero />
         <PersonaCTA />
         <Problem />
+        <Agentic />
         <Assistants />
         <Profile />
         <Networking />

@@ -103,7 +103,7 @@
       "a promotion plan"
     ],
     "h1Part2": "— for free",
-    "sub": "16 AI assistants: write content, review contracts, estimate taxes, plan promotion. Bring a task — leave with the result. First one free, no card.",
+    "sub": "16 AI assistants: they read your files, search, crunch numbers and hand back finished documents, images and video. Bring a task — take the result. The first one is free, no card needed.",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
     "chips": [
@@ -160,6 +160,53 @@
       }
     ],
     "footer": "Linkeon puts this in one product: AI assistants do the work, and your profile — the context — lives in one place."
+  },
+  "agentic": {
+    "eyebrow": "Not a chatbot",
+    "h2": "Your assistant doesn't reply with text — it does the work",
+    "sub": "A regular bot can only write back. A Linkeon assistant has a workspace of its own: it opens your files, searches the web, writes and runs code, puts a document together — and hands you the finished file.",
+    "youLabel": "You",
+    "assistantLabel": "Assistant",
+    "note": "Files are processed on Linkeon's side — nothing to install on your computer. Runs on the same tokens as the conversation.",
+    "cta": "Give your assistant a task",
+    "cases": [
+      {
+        "tab": "Contract",
+        "file": "lease-agreement.pdf",
+        "ask": "Check the risks and draft a list of objections",
+        "steps": [
+          "opens the file — 14 pages",
+          "checks the terms, searches the web for precedent",
+          "finds 4 risky clauses",
+          "drafts the document with exact wording"
+        ],
+        "result": "objections.docx"
+      },
+      {
+        "tab": "Spreadsheet",
+        "file": "bank-statement.xlsx",
+        "ask": "Break the spending down by category and show where the money leaks",
+        "steps": [
+          "reads 2,300 rows of the statement",
+          "writes and runs code to parse them",
+          "groups the spending by category",
+          "charts it month by month"
+        ],
+        "result": "spending-by-category.xlsx"
+      },
+      {
+        "tab": "Video",
+        "file": "product-photo.jpg",
+        "ask": "Turn this into a Reels clip",
+        "steps": [
+          "writes a 15-second script",
+          "generates frames from the photo",
+          "assembles the video",
+          "adds a voice-over"
+        ],
+        "result": "reels.mp4"
+      }
+    ]
   },
   "assistants": {
     "eyebrow": "AI Team",

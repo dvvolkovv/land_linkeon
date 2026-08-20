@@ -87,7 +87,7 @@
       "Marketingplan"
     ],
     "h1Part2": "— gratis",
-    "sub": "16 AI-Assistenten: schreiben Content, prüfen Verträge, rechnen Steuern, planen Marketing. Bring die Aufgabe — nimm das Ergebnis mit. Das erste ist gratis, ohne Karte.",
+    "sub": "16 AI-Assistenten: Sie lesen deine Dateien, recherchieren, rechnen und geben fertige Dokumente, Bilder und Videos zurück. Bring die Aufgabe — nimm das Ergebnis mit. Das erste ist gratis, ohne Karte.",
     "ctaStart": "Gratis starten",
     "ctaLogin": "Login",
     "chips": ["✍️ Content", "⚖️ Recht", "📈 Marketing"],
@@ -140,6 +140,53 @@
       }
     ],
     "footer": "Linkeon bündelt das in einem Produkt: AI-Assistenten erledigen die Aufgaben, und dein Profil — der Kontext — liegt an einem Ort."
+  },
+  "agentic": {
+    "eyebrow": "Kein Chatbot",
+    "h2": "Dein Assistent antwortet nicht mit Text — er erledigt die Arbeit",
+    "sub": "Ein gewöhnlicher Bot kann nur zurückschreiben. Der Linkeon-Assistent hat einen eigenen Arbeitsplatz: Er öffnet deine Dateien, recherchiert im Netz, schreibt und führt Code aus, baut das Dokument zusammen — und gibt dir die fertige Datei.",
+    "youLabel": "Du",
+    "assistantLabel": "Assistent",
+    "note": "Die Dateien werden auf Linkeon-Seite verarbeitet — auf deinem Rechner ist nichts zu installieren. Läuft mit denselben Tokens wie das Gespräch.",
+    "cta": "Gib deinem Assistenten eine Aufgabe",
+    "cases": [
+      {
+        "tab": "Vertrag",
+        "file": "mietvertrag.pdf",
+        "ask": "Prüf die Risiken und entwirf eine Liste mit Einwänden",
+        "steps": [
+          "öffnet die Datei — 14 Seiten",
+          "gleicht die Klauseln ab, sucht Präzedenzfälle im Netz",
+          "findet 4 riskante Punkte",
+          "baut das Dokument mit den genauen Formulierungen"
+        ],
+        "result": "einwaende.docx"
+      },
+      {
+        "tab": "Tabelle",
+        "file": "kontoauszug.xlsx",
+        "ask": "Sortier die Ausgaben nach Kategorien und zeig, wo das Geld versickert",
+        "steps": [
+          "liest 2.300 Zeilen des Auszugs",
+          "schreibt und führt Code zum Auswerten aus",
+          "gruppiert die Ausgaben nach Kategorie",
+          "zeichnet das Diagramm Monat für Monat"
+        ],
+        "result": "ausgaben-nach-kategorien.xlsx"
+      },
+      {
+        "tab": "Video",
+        "file": "produktfoto.jpg",
+        "ask": "Mach daraus einen Clip für Reels",
+        "steps": [
+          "schreibt ein Skript für 15 Sekunden",
+          "generiert die Frames aus dem Foto",
+          "setzt das Video zusammen",
+          "fügt die Vertonung hinzu"
+        ],
+        "result": "reels.mp4"
+      }
+    ]
   },
   "assistants": {
     "eyebrow": "AI-Team",
