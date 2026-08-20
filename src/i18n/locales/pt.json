@@ -87,7 +87,7 @@
       "plano de divulgação"
     ],
     "h1Part2": "— de graça",
-    "sub": "16 assistentes de IA: escrevem conteúdo, analisam contratos, calculam impostos, planeiam a divulgação. Traz a tarefa — leva o resultado. O primeiro é grátis, sem cartão.",
+    "sub": "16 assistentes de IA: leem os teus ficheiros, pesquisam, calculam e devolvem documentos, imagens e vídeos prontos. Traz a tarefa — leva o resultado. O primeiro é grátis, sem cartão.",
     "ctaStart": "Começar grátis",
     "ctaLogin": "Entrar",
     "chips": ["✍️ Conteúdo", "⚖️ Jurídico", "📈 Marketing"],
@@ -140,6 +140,53 @@
       }
     ],
     "footer": "A Linkeon junta tudo num só produto: os assistentes de IA fazem o trabalho e o teu perfil — o contexto — vive num só sítio."
+  },
+  "agentic": {
+    "eyebrow": "Não é um chatbot",
+    "h2": "O assistente não responde com texto — faz o trabalho",
+    "sub": "Um bot vulgar só sabe responder por escrito. O assistente da Linkeon tem um espaço de trabalho próprio: abre os teus ficheiros, pesquisa na internet, escreve e corre código, monta o documento — e devolve-te o ficheiro pronto.",
+    "youLabel": "Tu",
+    "assistantLabel": "Assistente",
+    "note": "Os ficheiros são processados do lado da Linkeon — não há nada para instalar no teu computador. Funciona com os mesmos tokens da conversa.",
+    "cta": "Dá uma tarefa ao assistente",
+    "cases": [
+      {
+        "tab": "Contrato",
+        "file": "contrato-de-arrendamento.pdf",
+        "ask": "Verifica os riscos e prepara uma lista de objeções",
+        "steps": [
+          "abre o ficheiro — 14 páginas",
+          "confere as cláusulas, procura jurisprudência na internet",
+          "encontra 4 cláusulas de risco",
+          "redige o documento com as formulações exatas"
+        ],
+        "result": "objecoes.docx"
+      },
+      {
+        "tab": "Tabela",
+        "file": "extrato-bancario.xlsx",
+        "ask": "Distribui as despesas por categorias e mostra por onde foge o dinheiro",
+        "steps": [
+          "lê 2 300 linhas do extrato",
+          "escreve e corre código para as processar",
+          "agrupa as despesas por categoria",
+          "traça o gráfico mês a mês"
+        ],
+        "result": "despesas-por-categoria.xlsx"
+      },
+      {
+        "tab": "Vídeo",
+        "file": "foto-do-produto.jpg",
+        "ask": "Transforma isto num clipe para Reels",
+        "steps": [
+          "escreve um guião de 15 segundos",
+          "gera os planos a partir da foto",
+          "monta o vídeo",
+          "acrescenta a locução"
+        ],
+        "result": "reels.mp4"
+      }
+    ]
   },
   "assistants": {
     "eyebrow": "Equipa de IA",

@@ -103,7 +103,7 @@
       "un plan marketing"
     ],
     "h1Part2": "— gratuit",
-    "sub": "16 assistants IA : ils écrivent ton contenu, décortiquent tes contrats, calculent tes impôts, planifient ta promo. Donne ta tâche, repars avec le résultat. Le premier est gratuit, sans carte.",
+    "sub": "16 assistants IA : ils lisent tes fichiers, cherchent, calculent et te rendent des documents, des images et des vidéos prêts à l'emploi. Donne ta tâche, repars avec le résultat. Le premier est gratuit, sans carte.",
     "ctaStart": "Essai gratuit",
     "ctaLogin": "Connexion",
     "chips": [
@@ -160,6 +160,53 @@
       }
     ],
     "footer": "Linkeon réunit tout dans un seul produit : les assistants IA font le travail, et ton profil — ton contexte — vit au même endroit."
+  },
+  "agentic": {
+    "eyebrow": "Pas un chatbot",
+    "h2": "Ton assistant ne répond pas par du texte — il fait le travail",
+    "sub": "Un bot ordinaire sait seulement répondre. L'assistant Linkeon a son propre poste de travail : il ouvre tes fichiers, cherche sur le web, écrit et exécute du code, assemble le document — et te rend le fichier fini.",
+    "youLabel": "Toi",
+    "assistantLabel": "Assistant",
+    "note": "Les fichiers sont traités côté Linkeon — rien à installer sur ton ordinateur. Ça tourne sur les mêmes jetons que la conversation.",
+    "cta": "Donne une tâche à ton assistant",
+    "cases": [
+      {
+        "tab": "Contrat",
+        "file": "contrat-de-location.pdf",
+        "ask": "Vérifie les risques et prépare une liste d'objections",
+        "steps": [
+          "ouvre le fichier — 14 pages",
+          "confronte les clauses, cherche la jurisprudence en ligne",
+          "repère 4 clauses à risque",
+          "rédige le document avec les formulations exactes"
+        ],
+        "result": "objections.docx"
+      },
+      {
+        "tab": "Tableur",
+        "file": "releve-bancaire.xlsx",
+        "ask": "Ventile les dépenses par catégorie et montre où l'argent fuit",
+        "steps": [
+          "lit les 2 300 lignes du relevé",
+          "écrit et exécute du code pour les analyser",
+          "regroupe les dépenses par catégorie",
+          "trace le graphique mois par mois"
+        ],
+        "result": "depenses-par-categorie.xlsx"
+      },
+      {
+        "tab": "Vidéo",
+        "file": "photo-produit.jpg",
+        "ask": "Transforme-la en clip pour Reels",
+        "steps": [
+          "écrit un script de 15 secondes",
+          "génère les plans à partir de la photo",
+          "assemble la vidéo",
+          "ajoute la voix off"
+        ],
+        "result": "reels.mp4"
+      }
+    ]
   },
   "assistants": {
     "eyebrow": "L'équipe IA",

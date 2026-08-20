@@ -164,7 +164,7 @@
   "agentic": {
     "eyebrow": "Not a chatbot",
     "h2": "Your assistant doesn't reply with text — it does the work",
-    "sub": "A regular bot can only write back. A Linkeon assistant has a desk of its own: it opens your files, searches the web, writes and runs code, puts a document together — and hands you the finished file.",
+    "sub": "A regular bot can only write back. A Linkeon assistant has a workspace of its own: it opens your files, searches the web, writes and runs code, puts a document together — and hands you the finished file.",
     "youLabel": "You",
     "assistantLabel": "Assistant",
     "note": "Files are processed on Linkeon's side — nothing to install on your computer. Runs on the same tokens as the conversation.",

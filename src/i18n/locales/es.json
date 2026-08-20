@@ -87,7 +87,7 @@
       "plan de marketing"
     ],
     "h1Part2": "— gratis",
-    "sub": "16 asistentes de IA: escriben contenido, revisan contratos, calculan impuestos, planifican tu marketing. Trae una tarea y llévate el resultado. La primera, gratis y sin tarjeta.",
+    "sub": "16 asistentes de IA: leen tus archivos, buscan, calculan y te devuelven documentos, imágenes y vídeos listos. Trae una tarea y llévate el resultado. La primera, gratis y sin tarjeta.",
     "ctaStart": "Empieza gratis",
     "ctaLogin": "Entrar",
     "chips": ["✍️ Contenido", "⚖️ Legal", "📈 Marketing"],
@@ -140,6 +140,53 @@
       }
     ],
     "footer": "Linkeon lo reúne todo en un producto: los asistentes de IA hacen el trabajo y tu perfil —el contexto— vive en un solo sitio."
+  },
+  "agentic": {
+    "eyebrow": "No es un chatbot",
+    "h2": "Tu asistente no responde con texto: hace el trabajo",
+    "sub": "Un bot corriente solo sabe contestar. El asistente de Linkeon tiene un espacio de trabajo propio: abre tus archivos, busca en internet, escribe y ejecuta código, monta el documento — y te devuelve el archivo listo.",
+    "youLabel": "Tú",
+    "assistantLabel": "Asistente",
+    "note": "Los archivos se procesan del lado de Linkeon: no hay que instalar nada en tu ordenador. Consume los mismos tokens que la conversación.",
+    "cta": "Dale una tarea a tu asistente",
+    "cases": [
+      {
+        "tab": "Contrato",
+        "file": "contrato-de-alquiler.pdf",
+        "ask": "Revisa los riesgos y prepara una lista de objeciones",
+        "steps": [
+          "abre el archivo — 14 páginas",
+          "coteja las cláusulas, busca jurisprudencia en la red",
+          "encuentra 4 cláusulas de riesgo",
+          "redacta el documento con las fórmulas exactas"
+        ],
+        "result": "objeciones.docx"
+      },
+      {
+        "tab": "Tabla",
+        "file": "extracto-bancario.xlsx",
+        "ask": "Reparte los gastos por categorías y muestra por dónde se escapa el dinero",
+        "steps": [
+          "lee 2.300 filas del extracto",
+          "escribe y ejecuta código para procesarlas",
+          "agrupa los gastos por categoría",
+          "traza el gráfico mes a mes"
+        ],
+        "result": "gastos-por-categoria.xlsx"
+      },
+      {
+        "tab": "Vídeo",
+        "file": "foto-de-producto.jpg",
+        "ask": "Conviértelo en un vídeo para Reels",
+        "steps": [
+          "escribe un guion de 15 segundos",
+          "genera los fotogramas a partir de la foto",
+          "monta el vídeo",
+          "añade la locución"
+        ],
+        "result": "reels.mp4"
+      }
+    ]
   },
   "assistants": {
     "eyebrow": "Equipo de IA",
