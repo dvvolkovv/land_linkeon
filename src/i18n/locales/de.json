@@ -43,14 +43,13 @@
     }
   },
   "hero": {
-    "eyebrow": "Linkeon",
+    "eyebrow": "Hilfe griffbereit",
     "h1": "Sie müssen nicht alles",
     "h1Accent": "allein herausfinden",
     "sub": "Ein Vertrag, die Steuern, ein Text für Kunden, das Gespräch, das Sie seit zwei Wochen vor sich herschieben. Erzählen Sie es mit Ihren Worten — auch wenn es holprig klingt. Auf der anderen Seite sitzt jemand, der sich damit auskennt, und gibt es Ihnen fertig zurück.",
     "ctaStart": "Anfangen kostet nichts",
-    "ctaLogin": "Anmelden",
     "trust": "Die ersten Gespräche gehen auf uns. Nach der Karte fragen wir nicht.",
-    "privacy": "Ihre Chats verkaufen wir nicht und nutzen sie nicht für Werbung. Verarbeitung bei AI-Anbietern.",
+    "privacy": "Ihre Chats verkaufen wir nicht und nutzen sie nicht für Werbung. Verarbeitung bei KI-Anbietern.",
     "badge": {
       "title": "Assistent",
       "status": "erreichbar"
@@ -63,7 +62,7 @@
       "ctaStart": "Aufgabe mitbringen"
     },
     "creator": {
-      "eyebrow": "Für alle, die Inhalte machen",
+      "eyebrow": "Für Content",
       "h1": "Die Idee haben Sie schon —",
       "h1Accent": "den Rest bauen wir",
       "sub": "Text, Bild, Clip, ein Plan für die kommende Woche. Yulia fragt, worum es geht und für wen, und bringt es fertig zurück. Ändern können Sie es, so oft Sie wollen.",
@@ -73,14 +72,14 @@
       "eyebrow": "Persönlicher Helfer",
       "h1": "Brief, Text, Plan —",
       "h1Accent": "Sie müssen nicht selbst schreiben",
-      "sub": "Roman übernimmt alles: Geschäftsbriefe, Dokumente, Posts, Texte, Ideen. Sagen Sie mit Ihren Worten, was Sie brauchen — den Rest fragt er von selbst nach.",
+      "sub": "Roman übernimmt alles: Geschäftsbriefe, Dokumente, Posts, Texte, Ideen. Sagen Sie mit Ihren Worten, was Sie brauchen — was noch fehlt, fragt er von selbst nach.",
       "ctaStart": "Anfangen kostet nichts"
     },
     "video": {
       "eyebrow": "Kurze Videos",
       "h1": "Ein Clip aus einer Idee —",
       "h1Accent": "ohne Dreh und Schnitt",
-      "sub": "Yulia schreibt das Skript, sucht die Szenen zusammen und schneidet den Clip für Reels, Shorts oder TikTok. Das Willkommensgeschenk reicht für das erste Video.",
+      "sub": "Yulia schreibt das Skript, sucht die Szenen zusammen und schneidet den Clip für Reels, Shorts oder TikTok. Das Willkommensgeschenk reicht für den ersten Clip aus einem Bild, das Sie schon haben.",
       "ctaStart": "Clip machen"
     }
   },

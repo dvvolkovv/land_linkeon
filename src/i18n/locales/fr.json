@@ -43,13 +43,12 @@
     }
   },
   "hero": {
-    "eyebrow": "Linkeon",
-    "h1": "Vous n'êtes pas obligé",
-    "h1Accent": "de tout démêler seul",
-    "sub": "Un contrat, les impôts, un texte pour vos clients, cette conversation que vous repoussez depuis deux semaines. Racontez avec vos mots, même si ça sort de travers. En face, il y a quelqu'un qui s'y connaît et qui vous le rend prêt.",
+    "eyebrow": "Une aide à portée",
+    "h1": "Vous n'avez pas à tout démêler",
+    "h1Accent": "en solitaire",
+    "sub": "Un contrat, les impôts, un texte pour vos clients, cette conversation que vous repoussez depuis deux semaines. Racontez avec vos mots, même si ça sort de travers. En face, il y a quelqu'un qui s'y connaît et qui vous le renvoie fini.",
     "ctaStart": "Commencer, c'est gratuit",
-    "ctaLogin": "Connexion",
-    "trust": "Les premières conversations sont pour nous. On ne demande pas de carte.",
+    "trust": "Les premières conversations, c'est offert. On ne demande pas de carte.",
     "privacy": "Nous ne vendons pas vos échanges et ne nous en servons pas pour la pub. Traitement chez les fournisseurs d'IA.",
     "badge": {
       "title": "Assistant",
@@ -63,10 +62,10 @@
       "ctaStart": "Apporter une tâche"
     },
     "creator": {
-      "eyebrow": "Pour ceux qui créent du contenu",
+      "eyebrow": "Pour le contenu",
       "h1": "L'idée, vous l'avez déjà —",
       "h1Accent": "le reste, on l'assemble",
-      "sub": "Un texte, une image, une vidéo, un plan pour la semaine. Yulia demande de quoi il s'agit et pour qui, puis rapporte le résultat. Vous pouvez faire refaire autant de fois que vous le voulez.",
+      "sub": "Un texte, une image, une vidéo, un plan pour la semaine. Yulia demande de quoi il s'agit et pour qui, puis rapporte le résultat. On refait autant de fois qu'il le faut.",
       "ctaStart": "Montrer l'idée"
     },
     "assistant": {
@@ -80,7 +79,7 @@
       "eyebrow": "Vidéos courtes",
       "h1": "Une vidéo à partir d'une idée —",
       "h1Accent": "sans tournage ni montage",
-      "sub": "Yulia écrit le scénario, réunit les plans et monte la vidéo pour Reels, Shorts ou TikTok. Le cadeau de bienvenue suffit pour la première.",
+      "sub": "Yulia écrit le scénario, réunit les plans et monte la vidéo pour Reels, Shorts ou TikTok. Le cadeau de bienvenue suffit pour une première vidéo tirée d'une image que vous avez déjà.",
       "ctaStart": "Faire une vidéo"
     }
   },

@@ -43,12 +43,11 @@
     }
   },
   "hero": {
-    "eyebrow": "Linkeon",
+    "eyebrow": "Ayuda a mano",
     "h1": "No tiene por qué",
     "h1Accent": "entenderlo todo usted solo",
     "sub": "Un contrato, los impuestos, un texto para un cliente, esa conversación que lleva dos semanas aplazando. Cuéntelo con sus palabras, aunque le salga torpe. Al otro lado hay alguien que sabe del tema y se lo devuelve resuelto.",
     "ctaStart": "Empezar es gratis",
-    "ctaLogin": "Entrar",
     "trust": "Las primeras conversaciones corren de nuestra cuenta. No le pedimos la tarjeta.",
     "privacy": "No vendemos sus conversaciones ni las usamos para publicidad. El procesamiento corre a cargo de los proveedores de IA.",
     "badge": {
@@ -63,7 +62,7 @@
       "ctaStart": "Traer una tarea"
     },
     "creator": {
-      "eyebrow": "Para quien crea contenido",
+      "eyebrow": "Para contenido",
       "h1": "La idea ya la tiene —",
       "h1Accent": "el resto lo montamos",
       "sub": "Un texto, una imagen, un vídeo, un plan para la semana. Yulia pregunta de qué va y para quién, y lo trae terminado. Puede pedir cambios las veces que quiera.",
@@ -73,14 +72,14 @@
       "eyebrow": "Asistente personal",
       "h1": "Una carta, un texto, un plan —",
       "h1Accent": "no tiene que escribirlo usted",
-      "sub": "Roman se ocupa de todo: cartas de trabajo, documentos, posts, textos, ideas. Diga con sus palabras qué necesita y el resto lo pregunta él.",
+      "sub": "Roman se ocupa de todo: correos de trabajo, documentos, posts, textos, ideas. Diga con sus palabras qué necesita y el resto lo pregunta él.",
       "ctaStart": "Empezar es gratis"
     },
     "video": {
       "eyebrow": "Vídeos cortos",
       "h1": "Un vídeo a partir de una idea —",
       "h1Accent": "sin rodar ni editar",
-      "sub": "Yulia escribe el guion, monta los planos y cierra el vídeo para Reels, Shorts o TikTok. Con el regalo de bienvenida le sale el primero.",
+      "sub": "Yulia escribe el guion, monta los planos y cierra el vídeo para Reels, Shorts o TikTok. Con el regalo de bienvenida le sale el primero a partir de una imagen que ya tenga.",
       "ctaStart": "Hacer un vídeo"
     }
   },

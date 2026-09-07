@@ -43,14 +43,13 @@
     }
   },
   "hero": {
-    "eyebrow": "Linkeon",
+    "eyebrow": "Help at hand",
     "h1": "You don't have to",
     "h1Accent": "figure it all out alone",
     "sub": "A contract, your taxes, a note to a client, the conversation you've been putting off for two weeks now. Say it in your own words — even if it comes out messy. Someone who knows this stuff will pick it up and hand it back done.",
     "ctaStart": "Start — it's free",
-    "ctaLogin": "Log in",
     "trust": "The first conversations are on us. We don't ask for a card.",
-    "privacy": "We never sell your chats or use them for ads. Processing runs on AI providers.",
+    "privacy": "We never sell your chats or use them for ads. Processing is handled by our AI providers.",
     "badge": {
       "title": "Assistant",
       "status": "here"
@@ -63,15 +62,15 @@
       "ctaStart": "Bring your task"
     },
     "creator": {
-      "eyebrow": "For people who make content",
+      "eyebrow": "For content",
       "h1": "You already have the idea —",
       "h1Accent": "we'll put the rest together",
       "sub": "Copy, an image, a clip, a plan for the week ahead. Yulia asks what it's about and who it's for, then brings it back finished. Redo it as many times as you like.",
       "ctaStart": "Show your idea"
     },
     "assistant": {
-      "eyebrow": "A personal assistant",
-      "h1": "A letter, a text, a plan —",
+      "eyebrow": "Personal assistant",
+      "h1": "An email, a document, a plan —",
       "h1Accent": "you don't have to write it yourself",
       "sub": "Roman takes on anything: business letters, documents, posts, copy, ideas. Say what you need in your own words — he'll ask about the rest himself.",
       "ctaStart": "Start — it's free"
@@ -80,7 +79,7 @@
       "eyebrow": "Short videos",
       "h1": "A clip from a single idea —",
       "h1Accent": "no filming, no editing",
-      "sub": "Yulia writes the script, puts the shots together and cuts the clip for Reels, Shorts or TikTok. The welcome gift covers your first video.",
+      "sub": "Yulia writes the script, puts the shots together and cuts the clip for Reels, Shorts or TikTok. The welcome gift covers a first clip made from an image you already have.",
       "ctaStart": "Make a clip"
     }
   },

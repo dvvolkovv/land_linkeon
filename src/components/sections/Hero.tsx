@@ -7,7 +7,7 @@ import FadeIn from '../ui/FadeIn';
 import { appUrl } from '../../lib/appUrl';
 
 export default function Hero() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Сегментный первый экран: ссылка из рекламной кампании несёт ?seg=<персона>,
   // и hero говорит сразу на языке этой персоны. Цены/CTA те же — отличается
@@ -17,9 +17,21 @@ export default function Hero() {
     ? new URLSearchParams(window.location.search).get('seg')
     : null;
   const segKey = rawSeg && SEGMENTS.includes(rawSeg) ? rawSeg : null;
-  // Динамический ключ i18n под выбранный сегмент (ключи hero.biz.* и т.д.).
-  const segT = (suffix: string): string => t(`hero.${segKey}.${suffix}` as never);
-  const at = (suffix: string): string => (segKey ? segT(suffix) : t(`hero.${suffix}` as never));
+  // Ключ сегмента с запасным: у сегментов нет trust/privacy/badge, да и любой
+  // недостающий ключ иначе отрисовался бы на странице своим именем (а
+  // h1Accent — ещё и фирменным цветом). Массив ключей отдаёт i18next базовый
+  // hero.*, если у сегмента такого нет. as never — t() не сводит overload на
+  // шаблонном типе ключа.
+  const heroT = (suffix: string): string => {
+    const keys = segKey ? [`hero.${segKey}.${suffix}`, `hero.${suffix}`] : [`hero.${suffix}`];
+    return t(keys as never);
+  };
+
+  // Заголовок склеивается из двух частей, вторая — акцентная. В языках со
+  // словесным пробелом их разделяет пробел; в китайском такой разделитель —
+  // видимая дыра посреди самого крупного текста на странице, а перенос строки
+  // CJK делает по любому знаку, так что разделитель не нужен.
+  const h1Separator = i18n.language.startsWith('zh') ? '' : ' ';
 
   return (
     <section
@@ -29,31 +41,31 @@ export default function Hero() {
       <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <div className="relative z-10 min-w-0">
           <FadeIn>
-            <Eyebrow className="mb-6">{at('eyebrow')}</Eyebrow>
+            <Eyebrow className="mb-6">{heroT('eyebrow')}</Eyebrow>
           </FadeIn>
           <FadeIn delay={80}>
             <h1
               id="hero-title"
               className="text-[2rem] leading-[1.2] sm:text-5xl md:text-6xl font-medium tracking-tight text-paper-900 mb-6 text-balance"
             >
-              {at('h1')}{' '}
-              <span className="text-brand-700">{at('h1Accent')}</span>
+              {heroT('h1')}{h1Separator}
+              <span className="text-brand-700">{heroT('h1Accent')}</span>
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-lg md:text-xl leading-relaxed text-paper-700 max-w-xl mb-8">{at('sub')}</p>
+            <p className="text-lg md:text-xl leading-relaxed text-paper-700 max-w-xl mb-8">{heroT('sub')}</p>
           </FadeIn>
           <FadeIn delay={220}>
             {/* Один основной CTA для холодного трафика: вторая кнопка «Войти»
                 размывала действие — вход остаётся в шапке. Risk-reversal стоит
                 прямо под кнопкой, в точке принятия решения. */}
             <div className="flex flex-col sm:flex-row gap-3 mb-3">
-              <Button variant="primary" size="lg" href={appUrl()} dataCta="hero-start">{at('ctaStart')}</Button>
+              <Button variant="primary" size="lg" href={appUrl()} dataCta="hero-start">{heroT('ctaStart')}</Button>
             </div>
-            <p className="text-sm text-paper-600 mb-6">{t('hero.trust')}</p>
+            <p className="text-sm text-paper-600 mb-6">{heroT('trust')}</p>
           </FadeIn>
           <FadeIn delay={280}>
-            <p className="text-sm text-paper-600">{t('hero.privacy')}</p>
+            <p className="text-sm text-paper-600">{heroT('privacy')}</p>
           </FadeIn>
         </div>
 
@@ -75,9 +87,9 @@ export default function Hero() {
                 <Sparkles className="w-5 h-5 text-brand-700" />
               </div>
               <div>
-                <p className="text-xs text-paper-600">{t('hero.badge.title')}</p>
+                <p className="text-xs text-paper-600">{heroT('badge.title')}</p>
                 <p className="text-sm font-semibold text-paper-900 flex items-center gap-2">
-                  {t('hero.badge.status')}
+                  {heroT('badge.status')}
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
                 </p>
               </div>
