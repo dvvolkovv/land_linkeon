@@ -174,36 +174,42 @@
     ]
   },
   "assistants": {
-    "eyebrow": "L'équipe IA",
-    "h2": "16 assistants, un seul écran",
-    "sub": "Chacun est expert dans son rôle. Ils connaissent ta boîte, se connaissent entre eux, et tu peux leur dicter ta tâche à la voix.",
+    "eyebrow": "Qui est là",
+    "h2": "Avec qui vous allez parler",
+    "sub": "Chacun a sa spécialité et sa manière. Vous racontez une fois — tous s'en souviennent.",
     "list": [
       {
-        "name": "Roman, polyvalent",
-        "role": "Toute tâche : mail, texte, plan, analyse"
+        "name": "Roman",
+        "role": "polyvalent",
+        "quote": "Apportez ça tel quel : un fichier, un vocal, un truc en vrac. Je démêle ça, et si ce n'est pas mon domaine, j'appelle quelqu'un de plus calé."
       },
       {
-        "name": "Alexandra, marketing",
-        "role": "Plans de lancement, contenu, analytics"
+        "name": "Alexandra",
+        "role": "marketing",
+        "quote": "Dites-moi d'abord à qui vous vendez. Sans ça, n'importe quel texte sera joli et inutile."
       },
       {
-        "name": "Alexey, juriste",
-        "role": "Contrats, check-lists, conseils"
+        "name": "Alexeï",
+        "role": "juriste",
+        "quote": "Montrez-moi le contrat en entier. Je vous dis franchement où on peut vous piéger et ce qu'il faut faire réécrire."
       },
       {
-        "name": "Anna, comptable",
-        "role": "Compta, impôts, finances de la boîte"
+        "name": "Anna",
+        "role": "comptable",
+        "quote": "Pas de panique. On calcule ce que vous devez vraiment, et on règle un point après l'autre."
       },
       {
-        "name": "Irina, RH",
-        "role": "Annonces, questions d'entretien, évaluation"
+        "name": "Irina",
+        "role": "RH",
+        "quote": "Dites-moi quelle personne vous manque. L'annonce et les questions d'entretien, je m'en occupe moi-même."
       },
       {
-        "name": "Misha, coach",
-        "role": "Stratégie, priorités, psychologie"
+        "name": "Micha",
+        "role": "coach",
+        "quote": "Ne commençons pas par les tâches. Commençons par ceci : pourquoi vous repoussez ça depuis deux semaines."
       }
     ],
-    "cta": "Voir les 16 assistants"
+    "cta": "Les rencontrer tous"
   },
   "profile": {
     "eyebrow": "Profil unique",

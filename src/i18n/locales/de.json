@@ -174,36 +174,42 @@
     ]
   },
   "assistants": {
-    "eyebrow": "AI-Team",
-    "h2": "16 Assistenten, ein Fenster",
-    "sub": "Jeder ein Experte in seiner Rolle. Sie kennen dein Business, wissen voneinander, und die Aufgabe kannst du einfach diktieren.",
+    "eyebrow": "Wer da ist",
+    "h2": "Mit wem Sie sprechen werden",
+    "sub": "Jeder hat sein eigenes Fach und seine eigene Art. Einmal erzählt — und alle behalten es.",
     "list": [
       {
-        "name": "Roman, Allrounder",
-        "role": "Jede Aufgabe: Brief, Text, Plan, Analyse"
+        "name": "Roman",
+        "role": "Allrounder",
+        "quote": "Bringen Sie es, wie es ist: Datei, Sprachnachricht, Durcheinander. Ich sortiere das, und wenn es nicht mein Fach ist, hole ich jemanden, der es besser kann."
       },
       {
-        "name": "Alexandra, Marketing",
-        "role": "Launch-Pläne, Content, Analytik"
+        "name": "Alexandra",
+        "role": "Marketing",
+        "quote": "Sagen Sie mir zuerst, wem Sie das verkaufen. Ohne das wird jeder Text schön und nutzlos."
       },
       {
-        "name": "Alexey, Anwalt",
-        "role": "Verträge, Checklisten, Beratung"
+        "name": "Alexej",
+        "role": "Anwalt",
+        "quote": "Zeigen Sie mir den Vertrag komplett. Ich sage Ihnen direkt, wo man Sie auflaufen lassen kann und was Sie umschreiben lassen sollten."
       },
       {
-        "name": "Anna, Buchhaltung",
-        "role": "Buchhaltung, Steuern, Finanzen"
+        "name": "Anna",
+        "role": "Buchhalterin",
+        "quote": "Keine Panik. Wir rechnen aus, was Sie wirklich schulden, und arbeiten es Punkt für Punkt ab."
       },
       {
-        "name": "Irina, HR",
-        "role": "Stellenanzeigen, Interviewfragen, Auswahl"
+        "name": "Irina",
+        "role": "HR",
+        "quote": "Erzählen Sie mir, welcher Mensch Ihnen fehlt. Die Stellenanzeige und die Fragen fürs Gespräch schreibe ich selbst."
       },
       {
-        "name": "Misha, Coach",
-        "role": "Strategie, Prioritäten, Psychologie"
+        "name": "Mischa",
+        "role": "Coach",
+        "quote": "Fangen wir nicht bei den Aufgaben an. Sondern damit, warum Sie das seit zwei Wochen vor sich herschieben."
       }
     ],
-    "cta": "Alle 16 Assistenten ansehen"
+    "cta": "Alle kennenlernen"
   },
   "profile": {
     "eyebrow": "Einheitliches Profil",

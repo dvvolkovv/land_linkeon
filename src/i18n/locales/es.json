@@ -174,36 +174,42 @@
     ]
   },
   "assistants": {
-    "eyebrow": "Equipo de IA",
-    "h2": "16 asistentes en una ventana",
-    "sub": "Cada uno es experto en lo suyo. Recuerdan tu negocio, se conocen entre ellos y puedes dictarles la tarea por voz.",
+    "eyebrow": "Quién está a su lado",
+    "h2": "Con quién va a hablar",
+    "sub": "Cada uno tiene su especialidad y su manera. Lo cuenta una vez y lo recuerdan todos.",
     "list": [
       {
-        "name": "Roman, todoterreno",
-        "role": "Cualquier tarea: carta, texto, plan, análisis"
+        "name": "Román",
+        "role": "todoterreno",
+        "quote": "Tráigalo como esté: un archivo, un audio, un lío. Yo lo desenredo, y si no es lo mío, llamo a quien sepa más."
       },
       {
-        "name": "Alexandra, marketing",
-        "role": "Planes de lanzamiento, contenido, analítica"
+        "name": "Alexandra",
+        "role": "marketing",
+        "quote": "Primero dígame a quién le vende esto. Sin eso, cualquier texto le saldrá bonito e inútil."
       },
       {
-        "name": "Alexey, abogado",
-        "role": "Contratos, checklists, consultas"
+        "name": "Alexéi",
+        "role": "abogado",
+        "quote": "Enséñeme el contrato entero. Le digo sin rodeos dónde le pueden jugar una mala pasada y qué pedir que reescriban."
       },
       {
-        "name": "Anna, contable",
-        "role": "Contabilidad, impuestos, finanzas"
+        "name": "Anna",
+        "role": "contable",
+        "quote": "Sin agobios. Calculamos lo que debe de verdad y lo vamos cerrando, una cosa cada vez."
       },
       {
-        "name": "Irina, RR. HH.",
-        "role": "Vacantes, preguntas de entrevista, evaluación"
+        "name": "Irina",
+        "role": "RR. HH.",
+        "quote": "Cuénteme qué persona le falta. La oferta de empleo y las preguntas de la entrevista las preparo yo misma."
       },
       {
-        "name": "Misha, coach",
-        "role": "Estrategia, prioridades, psicología"
+        "name": "Misha",
+        "role": "coach",
+        "quote": "No empecemos por las tareas. Empecemos por otra cosa: por qué lleva dos semanas aplazando esto."
       }
     ],
-    "cta": "Ver los 16 asistentes"
+    "cta": "Conocerlos a todos"
   },
   "profile": {
     "eyebrow": "Perfil único",

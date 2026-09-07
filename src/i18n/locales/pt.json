@@ -174,36 +174,42 @@
     ]
   },
   "assistants": {
-    "eyebrow": "Equipa de IA",
-    "h2": "16 assistentes numa só janela",
-    "sub": "Cada um é especialista no seu papel. Lembram-se do teu negócio, conhecem-se entre si e a tarefa pode ser ditada por voz.",
+    "eyebrow": "Quem está por perto",
+    "h2": "Com quem vai falar",
+    "sub": "Cada um tem a sua especialidade e a sua maneira. Conta uma vez e todos se lembram.",
     "list": [
       {
-        "name": "Roman, generalista",
-        "role": "Qualquer tarefa: carta, texto, plano, análise"
+        "name": "Roman",
+        "role": "generalista",
+        "quote": "Traga como está: um ficheiro, um áudio, uma trapalhada. Eu trato disso e, se não for a minha área, chamo quem perceba mais."
       },
       {
-        "name": "Alexandra, marketing",
-        "role": "Planos de lançamento, conteúdo, analítica"
+        "name": "Alexandra",
+        "role": "marketing",
+        "quote": "Primeiro diga-me a quem está a vender isto. Sem isso, qualquer texto sai bonito e inútil."
       },
       {
-        "name": "Alexey, advogado",
-        "role": "Contratos, checklists, consultas"
+        "name": "Alexei",
+        "role": "advogado",
+        "quote": "Mostre-me o contrato todo. Digo-lhe sem rodeios onde lhe podem armar uma cilada e o que pedir para reescreverem."
       },
       {
-        "name": "Anna, contabilista",
-        "role": "Contabilidade, impostos, finanças do negócio"
+        "name": "Anna",
+        "role": "contabilista",
+        "quote": "Sem pânico. Calculamos o que deve mesmo e vamos fechando uma coisa de cada vez."
       },
       {
-        "name": "Irina, RH",
-        "role": "Anúncios de emprego, perguntas de entrevista, avaliação"
+        "name": "Irina",
+        "role": "RH",
+        "quote": "Conte-me que pessoa lhe falta. O anúncio e as perguntas da entrevista preparo eu."
       },
       {
-        "name": "Misha, coach",
-        "role": "Estratégia, prioridades, psicologia"
+        "name": "Micha",
+        "role": "coach",
+        "quote": "Não vamos começar pelas tarefas. Vamos começar por outra coisa: porque anda a adiar isto há duas semanas."
       }
     ],
-    "cta": "Ver todos os 16 assistentes"
+    "cta": "Conhecer todos"
   },
   "profile": {
     "eyebrow": "Perfil único",

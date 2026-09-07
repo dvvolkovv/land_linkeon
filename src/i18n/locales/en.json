@@ -174,36 +174,42 @@
     ]
   },
   "assistants": {
-    "eyebrow": "AI Team",
-    "h2": "16 assistants in one window",
-    "sub": "Each an expert in their role. They remember your business, know about each other, and you can dictate the task by voice.",
+    "eyebrow": "Who's around",
+    "h2": "Who you'll be talking to",
+    "sub": "Each has their own field and their own manner. You explain it once — they all remember.",
     "list": [
       {
-        "name": "Roman, generalist",
-        "role": "Any task: letters, copy, plans, reviews"
+        "name": "Roman",
+        "role": "generalist",
+        "quote": "Bring it as it is — a file, a voice note, a jumble. I'll work it out, and if it's not my area, I'll call in someone better at it."
       },
       {
-        "name": "Alexandra, marketer",
-        "role": "Launch plans, content, market analytics"
+        "name": "Alexandra",
+        "role": "marketer",
+        "quote": "First tell me who you're selling this to. Without that, any copy comes out pretty and useless."
       },
       {
-        "name": "Alexey, lawyer",
-        "role": "Contracts, checklists, consultations"
+        "name": "Alexey",
+        "role": "lawyer",
+        "quote": "Show me the whole contract. I'll tell you straight where it could turn against you, and what to ask them to rewrite."
       },
       {
-        "name": "Anna, accountant",
-        "role": "Bookkeeping, taxes, business finances"
+        "name": "Anna",
+        "role": "accountant",
+        "quote": "No panic. We work out what you actually owe, and clear it one item at a time."
       },
       {
-        "name": "Irina, HR",
-        "role": "Job posts, interview prompts, screening"
+        "name": "Irina",
+        "role": "HR",
+        "quote": "Tell me what kind of person you're missing. The job post and the interview questions I'll put together myself."
       },
       {
-        "name": "Misha, coach",
-        "role": "Strategy, priorities, founder psychology"
+        "name": "Misha",
+        "role": "coach",
+        "quote": "Let's not start with the tasks. Let's start with why you've been putting this off for two weeks now."
       }
     ],
-    "cta": "See all 16 assistants"
+    "cta": "Meet them all"
   },
   "profile": {
     "eyebrow": "Unified profile",
