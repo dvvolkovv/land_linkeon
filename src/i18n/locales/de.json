@@ -108,23 +108,23 @@
     "rights": "Alle Rechte vorbehalten."
   },
   "problem": {
-    "eyebrow": "Das Problem",
-    "h2": "Der Tag hat zu wenig Stunden fürs Wachstum",
+    "eyebrow": "Wie es meistens läuft",
+    "h2": "Mehr zu tun, als ein Mensch schafft",
     "items": [
       {
-        "title": "Routine frisst den Fokus",
-        "text": "Kunden antworten, Posts schreiben, Verträge aufsetzen — und schon wächst du nicht, sondern löschst Brände."
+        "title": "Kleinkram nimmt den ganzen Tag",
+        "text": "Dem Kunden antworten, den Post fertig schreiben, den Vertrag durchsehen. Abends ist vieles geschafft, und das, worum es eigentlich geht, ist keinen Schritt weiter."
       },
       {
-        "title": "Einstellen: teuer und langsam",
-        "text": "Marketer, Anwalt, HR — das sind 300–500 Tsd. ₽/Monat Gehalt in der frühen Phase."
+        "title": "Niemand, den man fragen kann",
+        "text": "Eine Frage von fünf Minuten, aber niemand da, den Sie fragen können: der Anwalt ist beschäftigt, die Buchhalterin antwortet morgen, und entscheiden müssen Sie jetzt."
       },
       {
-        "title": "Zehn Tools, ein Kontext",
-        "text": "ChatGPT, Notion, CRM, Mail — jedes kennt ein Stück von dir, keins das Ganze."
+        "title": "Jedes Mal alles neu erklären",
+        "text": "Zehn Tabs und zehn Dienste, und in jedem erzählen Sie wieder von vorn, wer Sie sind und was Sie machen."
       }
     ],
-    "footer": "Linkeon bündelt das in einem Produkt: AI-Assistenten erledigen die Aufgaben, und dein Profil — der Kontext — liegt an einem Ort."
+    "footer": "Linkeon bringt das an einen Ort: Die Assistenten erledigen die Arbeit, und was Sie einmal erzählt haben, behalten sie alle."
   },
   "agentic": {
     "eyebrow": "Kein Chatbot",

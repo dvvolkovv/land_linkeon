@@ -108,23 +108,23 @@
     "rights": "Todos los derechos reservados."
   },
   "problem": {
-    "eyebrow": "El problema",
-    "h2": "El día no da para hacer crecer el negocio",
+    "eyebrow": "Cómo suele ser",
+    "h2": "Más cosas de las que puede llevar una persona",
     "items": [
       {
-        "title": "La rutina te come el foco",
-        "text": "Contestar al cliente, escribir un post, redactar un contrato… y ya no creces: apagas fuegos."
+        "title": "Las pequeñas cosas se llevan el día",
+        "text": "Contestar a un cliente, terminar el post, repasar un contrato. Al final del día ha hecho mucho, y aquello por lo que empezó todo sigue donde estaba."
       },
       {
-        "title": "Contratar es caro y lento",
-        "text": "Marketing, abogado, RR. HH.: son 300–500 mil ₽/mes de nómina en fase inicial."
+        "title": "No hay a quién preguntar",
+        "text": "Una pregunta de cinco minutos y nadie a quien hacérsela: el abogado está ocupado, la contable responde mañana y hay que resolverlo ahora."
       },
       {
-        "title": "Diez herramientas, un solo contexto",
-        "text": "ChatGPT, Notion, CRM, correo: cada uno sabe un trozo de ti, nunca el conjunto."
+        "title": "Explicarlo todo otra vez desde el principio",
+        "text": "Diez pestañas y diez servicios, y en cada uno vuelve a contar quién es y a qué se dedica."
       }
     ],
-    "footer": "Linkeon lo reúne todo en un producto: los asistentes de IA hacen el trabajo y tu perfil —el contexto— vive en un solo sitio."
+    "footer": "Linkeon lo reúne en un mismo sitio: los asistentes hacen el trabajo y lo que contó una vez lo recuerdan todos."
   },
   "agentic": {
     "eyebrow": "No es un chatbot",

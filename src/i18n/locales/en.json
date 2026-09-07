@@ -108,23 +108,23 @@
     "rights": "All rights reserved."
   },
   "problem": {
-    "eyebrow": "The problem",
-    "h2": "There aren't enough hours in a day to grow your business",
+    "eyebrow": "How it usually goes",
+    "h2": "More to do than one person can carry",
     "items": [
       {
-        "title": "Busywork eats your focus",
-        "text": "Replying to clients, writing posts, drafting contracts — and suddenly you're not growing, you're firefighting."
+        "title": "The small stuff takes the day",
+        "text": "Reply to a client, finish the post, read the contract through. By evening you've done plenty, and the thing it was all for hasn't moved."
       },
       {
-        "title": "Hiring is slow and expensive",
-        "text": "Marketer, lawyer, HR — that's an extra ₽300–500K/mo in payroll at an early stage."
+        "title": "No one to ask",
+        "text": "A five-minute question, and no one to put it to: the lawyer is busy, the accountant will get back to you tomorrow, and it has to be settled now."
       },
       {
-        "title": "Ten tools, one context",
-        "text": "ChatGPT, Notion, CRM, email — each knows a fragment about you, not the whole."
+        "title": "Explaining yourself from scratch every time",
+        "text": "Ten tabs and ten services, and in every one of them you start over: who you are and what you do."
       }
     ],
-    "footer": "Linkeon puts this in one product: AI assistants do the work, and your profile — the context — lives in one place."
+    "footer": "Linkeon brings this into one place: the assistants do the work, and what you said once, they all remember."
   },
   "agentic": {
     "eyebrow": "Not a chatbot",

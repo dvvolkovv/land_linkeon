@@ -108,23 +108,23 @@
     "rights": "Tous droits réservés."
   },
   "problem": {
-    "eyebrow": "Le problème",
-    "h2": "Le temps manque pour faire grandir ta boîte",
+    "eyebrow": "Comment ça se passe d'habitude",
+    "h2": "Il y a plus à faire qu'une personne ne peut porter",
     "items": [
       {
-        "title": "La routine dévore ton focus",
-        "text": "Répondre à un client, écrire un post, rédiger un contrat — et tu ne grandis plus, tu éteins des incendies."
+        "title": "Les petites choses prennent la journée",
+        "text": "Répondre à un client, finir le post, relire un contrat. Le soir, vous avez abattu du travail, et ce pour quoi tout ça a commencé n'a pas bougé."
       },
       {
-        "title": "Recruter, c'est cher et long",
-        "text": "Un marketeur, un juriste, un RH : de 300 000 à 500 000 ₽/mois de masse salariale en phase de démarrage."
+        "title": "Personne à qui demander",
+        "text": "Une question de cinq minutes, et personne à qui la poser : le juriste est occupé, le comptable répondra demain, et il faut trancher maintenant."
       },
       {
-        "title": "Dix outils, un seul contexte",
-        "text": "ChatGPT, Notion, CRM, e-mail : chacun connaît un bout de toi, jamais l'ensemble."
+        "title": "Tout réexpliquer depuis le début",
+        "text": "Dix onglets et dix services, et dans chacun vous racontez de nouveau qui vous êtes et ce que vous faites."
       }
     ],
-    "footer": "Linkeon réunit tout dans un seul produit : les assistants IA font le travail, et ton profil — ton contexte — vit au même endroit."
+    "footer": "Linkeon rassemble tout au même endroit : les assistants font le travail, et ce que vous avez raconté une fois, ils s'en souviennent tous."
   },
   "agentic": {
     "eyebrow": "Pas un chatbot",
