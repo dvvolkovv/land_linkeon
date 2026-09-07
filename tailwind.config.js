@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import { brand } from './src/theme/colors.js';
+import { paper } from './src/theme/paper.js';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -13,7 +14,7 @@ export default {
       '2xl': '1536px',
     },
     extend: {
-      colors: { brand },
+      colors: { brand, paper },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
