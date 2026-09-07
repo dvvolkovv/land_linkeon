@@ -22,7 +22,7 @@ export default function PersonaCTA() {
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-10">
           <Eyebrow className="mb-4 justify-center">{t('personaCta.eyebrow')}</Eyebrow>
-          <h2 id="personacta-heading" className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 text-balance">
+          <h2 id="personacta-heading" className="text-4xl md:text-5xl font-medium tracking-tight text-paper-900 text-balance">
             {t('personaCta.h2')}
           </h2>
         </div>
@@ -31,12 +31,12 @@ export default function PersonaCTA() {
       <div className="grid md:grid-cols-3 gap-5">
         {CARDS.map(({ key, Icon, utm }, i) => (
           <FadeIn key={key} delay={i * 120}>
-            <div className="h-full flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div className="h-full flex flex-col rounded-2xl border border-paper-300 bg-paper-50 p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-11 h-11 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
                 <Icon aria-hidden="true" className="w-6 h-6 text-brand-700" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{t(`personaCta.cards.${key}.title`)}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed flex-1">{t(`personaCta.cards.${key}.text`)}</p>
+              <h3 className="text-lg font-semibold text-paper-900 mb-2">{t(`personaCta.cards.${key}.title`)}</h3>
+              <p className="text-sm text-paper-700 leading-relaxed flex-1">{t(`personaCta.cards.${key}.text`)}</p>
               <a
                 href={appUrl('/', { utm_content: utm })}
                 data-cta={`persona-${key}`}
@@ -49,9 +49,10 @@ export default function PersonaCTA() {
         ))}
       </div>
 
-      {/* Социальное доказательство — честные цифры из БД (16 ассистентов) */}
+      {/* Подпись под развилкой: говорит, что это одно место и один контекст,
+          а не три разных продукта. */}
       <FadeIn delay={400}>
-        <p className="mt-8 text-center text-sm text-gray-500">{t('personaCta.social')}</p>
+        <p className="mt-8 text-center text-sm text-paper-600">{t('personaCta.social')}</p>
       </FadeIn>
     </Section>
   );

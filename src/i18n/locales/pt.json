@@ -4,26 +4,26 @@
     "description": "Assistentes de IA (marketing, jurídico, contabilidade, RH, coaching) e um perfil único. Para pequenos negócios, freelancers e agências."
   },
   "personaCta": {
-    "eyebrow": "Para o teu objetivo",
-    "h2": "Por onde começar decides tu",
+    "eyebrow": "Por onde começar",
+    "h2": "O que tem agora entre mãos",
     "cards": {
       "business": {
-        "title": "Para o negócio",
-        "text": "Uma equipa de IA para o teu negócio: advogado, marketing, estratégia e coaching — sem mensalidades nem contratações. Faz já a tua pergunta.",
-        "cta": "Perguntar à equipa de IA"
+        "title": "Um negócio que leva para a frente por sua conta",
+        "text": "Um contrato, os impostos, o e-mail que devia ter saído ontem. Um advogado, uma contabilista e alguém do marketing — sem contratar ninguém e sem marcar hora.",
+        "cta": "Trazer uma tarefa"
       },
       "creator": {
-        "title": "Para conteúdo",
-        "text": "Um assistente de IA para conteúdo: textos, ideias, títulos, SEO. Do post ao guião — em minutos.",
-        "cta": "Criar conteúdo"
+        "title": "Uma ideia que precisa de chegar às pessoas",
+        "text": "Um texto, uma imagem, um vídeo, um plano para a semana. Traga a ideia e leva o trabalho pronto — e pode mandar refazer as vezes que quiser.",
+        "cta": "Mostrar a ideia"
       },
       "personal": {
-        "title": "Para ti",
-        "text": "Um psicólogo e coach de IA sempre disponível. Percebe-te melhor — a primeira conversa é grátis.",
+        "title": "Uma conversa que anda a adiar",
+        "text": "Às vezes não é preciso uma solução, mas alguém que não se canse de ouvir e não comece a dar conselhos. A primeira conversa é grátis.",
         "cta": "Começar a conversa"
       }
     },
-    "social": "16 especialistas de IA numa só janela · conversas sobre negócio, conteúdo e desenvolvimento pessoal"
+    "social": "Conversas sobre o seu negócio, sobre o trabalho e sobre si — no mesmo sítio, com quem já conhece o seu contexto"
   },
   "header": {
     "nav": {

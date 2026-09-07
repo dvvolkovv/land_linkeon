@@ -4,26 +4,26 @@
     "description": "Des assistants IA (marketing, juridique, comptabilité, RH, coaching) + un profil unique. Pour les petites boîtes, les freelances et les agences."
   },
   "personaCta": {
-    "eyebrow": "Pour ton besoin",
-    "h2": "À toi de voir par où commencer",
+    "eyebrow": "Par où commencer",
+    "h2": "Ce qui vous occupe en ce moment",
     "cards": {
       "business": {
-        "title": "Pour ton business",
-        "text": "Une équipe IA pour ton business : juriste, marketing, stratège, coach. Sans abonnement ni recrutement. Pose ta question maintenant.",
-        "cta": "Parler à l'équipe IA"
+        "title": "Une activité que vous portez en solitaire",
+        "text": "Un contrat, les impôts, le mail qui devait partir hier. Un juriste, un comptable et un marketeur — sans embaucher personne et sans prendre rendez-vous.",
+        "cta": "Apporter une tâche"
       },
       "creator": {
-        "title": "Pour le contenu",
-        "text": "Un assistant IA pour ton contenu : textes, idées, accroches, SEO. Du post au script, en quelques minutes.",
-        "cta": "Créer du contenu"
+        "title": "Une idée qu'il faut montrer aux gens",
+        "text": "Un texte, une image, une vidéo, un plan pour la semaine. Apportez l'idée, vous repartez avec le résultat — et on refait autant de fois qu'il le faut.",
+        "cta": "Montrer l'idée"
       },
       "personal": {
-        "title": "Pour toi",
-        "text": "Un psy et un coach IA, dispo à toute heure. Fais le point sur toi — la première conversation est gratuite.",
-        "cta": "Parler maintenant"
+        "title": "Une conversation que vous repoussez",
+        "text": "Parfois, ce qu'il faut n'est pas une solution mais quelqu'un qui ne se lasse pas d'écouter et qui ne se met pas à donner des conseils. La première conversation est gratuite.",
+        "cta": "Commencer à parler"
       }
     },
-    "social": "16 spécialistes IA au même endroit · business, contenu et développement perso"
+    "social": "Des conversations sur votre activité, sur le travail et sur vous — au même endroit, avec des gens qui connaissent déjà votre contexte"
   },
   "header": {
     "nav": {

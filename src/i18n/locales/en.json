@@ -4,26 +4,26 @@
     "description": "AI assistants (marketer, lawyer, accountant, HR, coach) plus one shared profile. For small businesses, freelancers and agencies."
   },
   "personaCta": {
-    "eyebrow": "For your goal",
-    "h2": "Where to start is up to you",
+    "eyebrow": "Where to start",
+    "h2": "What you're dealing with",
     "cards": {
       "business": {
-        "title": "For business",
-        "text": "An AI team for your business: lawyer, marketer, strategist and coach — no subscription, no hiring. Ask a question right now.",
-        "cta": "Ask the AI team"
+        "title": "The business you're carrying on your own",
+        "text": "A contract, the taxes, the email that should have gone out yesterday. A lawyer, an accountant and a marketer — without hiring anyone, without booking an appointment.",
+        "cta": "Bring your task"
       },
       "creator": {
-        "title": "For content",
-        "text": "An AI assistant for content: copy, ideas, headlines, SEO. From a post to a script — in minutes.",
-        "cta": "Create content"
+        "title": "An idea you need to show people",
+        "text": "Copy, an image, a clip, a plan for the week. Bring the idea and you leave with it finished — and you can redo it as many times as you like.",
+        "cta": "Show your idea"
       },
       "personal": {
-        "title": "For yourself",
-        "text": "An AI psychologist and coach, always available. Understand yourself — the first conversation is free.",
+        "title": "The conversation you keep putting off",
+        "text": "Sometimes what you need isn't a solution but someone who won't get tired of listening and won't start handing out advice. The first conversation is free.",
         "cta": "Start a conversation"
       }
     },
-    "social": "16 AI specialists in one place · conversations about business, content and self-growth"
+    "social": "Conversations about your business, about work and about yourself — in one place, with someone who already knows your context"
   },
   "header": {
     "nav": {

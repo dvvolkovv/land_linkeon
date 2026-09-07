@@ -4,26 +4,26 @@
     "description": "AI-Assistenten (Marketing, Recht, Buchhaltung, HR, Coaching) plus ein gemeinsames Profil. Für kleine Unternehmen, Freelancer und Agenturen."
   },
   "personaCta": {
-    "eyebrow": "Für deine Aufgabe",
-    "h2": "Wo du startest, entscheidest du",
+    "eyebrow": "Womit anfangen",
+    "h2": "Was bei Ihnen gerade ansteht",
     "cards": {
       "business": {
-        "title": "Fürs Business",
-        "text": "AI-Team für dein Business: Anwalt, Marketer, Stratege und Coach — ohne Abo, ohne Recruiting. Stell jetzt deine Frage.",
-        "cta": "AI-Team fragen"
+        "title": "Ein Geschäft, das Sie allein stemmen",
+        "text": "Ein Vertrag, die Steuern, die Mail, die schon gestern raus sollte. Anwalt, Buchhalterin und Marketer — ohne jemanden einzustellen und ohne Termin.",
+        "cta": "Aufgabe mitbringen"
       },
       "creator": {
-        "title": "Für Content",
-        "text": "AI-Assistent für Content: Texte, Ideen, Headlines, SEO. Vom Post bis zum Skript — in Minuten.",
-        "cta": "Content erstellen"
+        "title": "Eine Idee, die unter die Leute soll",
+        "text": "Text, Bild, Clip, ein Plan für die Woche. Bringen Sie den Einfall mit und nehmen Sie ihn fertig wieder mit — ändern können Sie ihn, so oft Sie wollen.",
+        "cta": "Idee zeigen"
       },
       "personal": {
-        "title": "Für dich",
-        "text": "AI-Psychologe und Coach, immer erreichbar. Versteh dich selbst — das erste Gespräch ist gratis.",
+        "title": "Ein Gespräch, das Sie vor sich herschieben",
+        "text": "Manchmal braucht es keine Lösung, sondern jemanden, der nicht müde wird zuzuhören und nicht anfängt, Ratschläge zu geben. Das erste Gespräch kostet nichts.",
         "cta": "Gespräch starten"
       }
     },
-    "social": "16 AI-Spezialisten an einem Ort · Gespräche über Business, Content und Persönlichkeit"
+    "social": "Gespräche übers Geschäft, über die Arbeit und über sich selbst — an einem Ort, bei jemandem, der Ihren Kontext schon kennt"
   },
   "header": {
     "nav": {

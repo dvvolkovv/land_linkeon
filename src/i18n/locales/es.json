@@ -4,26 +4,26 @@
     "description": "Asistentes de IA (marketing, legal, contabilidad, RR. HH., coaching) + un perfil único. Para pequeños negocios, freelancers y agencias."
   },
   "personaCta": {
-    "eyebrow": "Para tu objetivo",
-    "h2": "Tú decides por dónde empezar",
+    "eyebrow": "Por dónde empezar",
+    "h2": "Lo que tiene ahora entre manos",
     "cards": {
       "business": {
-        "title": "Para tu negocio",
-        "text": "Un equipo de IA para tu negocio: abogado, marketing, estrategia y coaching, sin cuotas ni contrataciones. Pregunta ya mismo.",
-        "cta": "Pregunta al equipo"
+        "title": "Un negocio que saca adelante por su cuenta",
+        "text": "Un contrato, los impuestos, el correo que tenía que haber salido ayer. Un abogado, una contable y alguien de marketing — sin contratar a nadie y sin pedir cita.",
+        "cta": "Traer una tarea"
       },
       "creator": {
-        "title": "Para contenido",
-        "text": "IA para tu contenido: textos, ideas, titulares, SEO. Del post al guion, en minutos.",
-        "cta": "Crear contenido"
+        "title": "Una idea que hay que enseñar a la gente",
+        "text": "Un texto, una imagen, un vídeo, un plan para la semana. Traiga la idea y se lleva el resultado, y puede pedir cambios las veces que quiera.",
+        "cta": "Mostrar la idea"
       },
       "personal": {
-        "title": "Para ti",
-        "text": "Un psicólogo y coach de IA disponible siempre. Entiéndete mejor: la primera conversación es gratis.",
+        "title": "Una conversación que lleva aplazando",
+        "text": "A veces no hace falta una solución, sino alguien que no se canse de escuchar y que no se ponga a dar consejos. La primera conversación es gratis.",
         "cta": "Empezar a hablar"
       }
     },
-    "social": "16 especialistas de IA en una ventana · negocio, contenido y desarrollo personal"
+    "social": "Conversaciones sobre el negocio, sobre el trabajo y sobre usted — en un mismo sitio, con quien ya conoce su contexto"
   },
   "header": {
     "nav": {
