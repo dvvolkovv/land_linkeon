@@ -14,16 +14,16 @@
       },
       "creator": {
         "title": "Eine Idee, die unter die Leute soll",
-        "text": "Text, Bild, Clip, ein Plan für die Woche. Bringen Sie den Einfall mit und nehmen Sie ihn fertig wieder mit — ändern können Sie ihn, so oft Sie wollen.",
+        "text": "Text, Bild, Clip, ein Plan für die Woche. Bringen Sie den Einfall mit — fertig bekommen Sie ihn zurück, und ändern können Sie ihn, so oft Sie wollen.",
         "cta": "Idee zeigen"
       },
       "personal": {
         "title": "Ein Gespräch, das Sie vor sich herschieben",
-        "text": "Manchmal braucht es keine Lösung, sondern jemanden, der nicht müde wird zuzuhören und nicht anfängt, Ratschläge zu geben. Das erste Gespräch kostet nichts.",
+        "text": "Manchmal braucht es keine Lösung, sondern jemanden, der nicht müde wird zuzuhören und nicht anfängt, Ratschläge zu geben.",
         "cta": "Gespräch starten"
       }
     },
-    "social": "Gespräche übers Geschäft, über die Arbeit und über sich selbst — an einem Ort, bei jemandem, der Ihren Kontext schon kennt"
+    "social": "Gespräche übers Geschäft, über das, was Sie gerade bauen, und über sich selbst — an einem Ort, bei jemandem, der Ihren Kontext schon kennt"
   },
   "header": {
     "nav": {
@@ -116,8 +116,8 @@
         "text": "Dem Kunden antworten, den Post fertig schreiben, den Vertrag durchsehen. Abends ist vieles geschafft, und das, worum es eigentlich geht, ist keinen Schritt weiter."
       },
       {
-        "title": "Niemand, den man fragen kann",
-        "text": "Eine Frage von fünf Minuten, aber niemand da, den Sie fragen können: der Anwalt ist beschäftigt, die Buchhalterin antwortet morgen, und entscheiden müssen Sie jetzt."
+        "title": "Niemand, den Sie fragen können",
+        "text": "Eine Frage von fünf Minuten, aber da ist niemand: der Anwalt ist beschäftigt, die Buchhalterin antwortet morgen, und entscheiden müssen Sie jetzt."
       },
       {
         "title": "Jedes Mal alles neu erklären",

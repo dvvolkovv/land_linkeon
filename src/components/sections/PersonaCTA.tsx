@@ -7,7 +7,7 @@ import { appUrl } from '../../lib/appUrl';
 
 // CRO-секция под персоны с наибольшим ARPPU (бэклог 1a5adfbc). Каждый блок ведёт
 // на приложение с проброшенной UTM-меткой + своим utm_content, чтобы видеть,
-// какой оффер конвертит (атрибуция d5245dce).
+// какая развилка конвертит (атрибуция d5245dce).
 const CARDS = [
   { key: 'business', Icon: Briefcase,    utm: 'cta_business' },
   { key: 'creator',  Icon: PenTool,      utm: 'cta_creator' },

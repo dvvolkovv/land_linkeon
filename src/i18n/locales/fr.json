@@ -19,11 +19,11 @@
       },
       "personal": {
         "title": "Une conversation que vous repoussez",
-        "text": "Parfois, ce qu'il faut n'est pas une solution mais quelqu'un qui ne se lasse pas d'écouter et qui ne se met pas à donner des conseils. La première conversation est gratuite.",
+        "text": "Parfois, ce qu'il faut n'est pas une solution mais quelqu'un qui ne se lasse pas d'écouter et qui ne se met pas à donner des conseils.",
         "cta": "Commencer à parler"
       }
     },
-    "social": "Des conversations sur votre activité, sur le travail et sur vous — au même endroit, avec des gens qui connaissent déjà votre contexte"
+    "social": "Des conversations sur votre activité, sur ce que vous créez et sur vous — au même endroit, avec quelqu'un qui connaît déjà votre contexte"
   },
   "header": {
     "nav": {
@@ -113,7 +113,7 @@
     "items": [
       {
         "title": "Les petites choses prennent la journée",
-        "text": "Répondre à un client, finir le post, relire un contrat. Le soir, vous avez abattu du travail, et ce pour quoi tout ça a commencé n'a pas bougé."
+        "text": "Répondre à un client, finir le post, relire un contrat. Le soir, vous avez abattu du travail, et ce pour quoi vous faites tout ça n'a pas bougé."
       },
       {
         "title": "Personne à qui demander",

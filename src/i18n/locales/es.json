@@ -19,11 +19,11 @@
       },
       "personal": {
         "title": "Una conversación que lleva aplazando",
-        "text": "A veces no hace falta una solución, sino alguien que no se canse de escuchar y que no se ponga a dar consejos. La primera conversación es gratis.",
+        "text": "A veces no hace falta una solución, sino alguien que no se canse de escuchar y que no se ponga a dar consejos.",
         "cta": "Empezar a hablar"
       }
     },
-    "social": "Conversaciones sobre el negocio, sobre el trabajo y sobre usted — en un mismo sitio, con quien ya conoce su contexto"
+    "social": "Conversaciones sobre el negocio, sobre lo que está creando y sobre usted — en un mismo sitio, con quien ya conoce su contexto"
   },
   "header": {
     "nav": {
@@ -72,7 +72,7 @@
       "eyebrow": "Asistente personal",
       "h1": "Una carta, un texto, un plan —",
       "h1Accent": "no tiene que escribirlo usted",
-      "sub": "Roman se ocupa de todo: correos de trabajo, documentos, posts, textos, ideas. Diga con sus palabras qué necesita y el resto lo pregunta él.",
+      "sub": "Román se ocupa de todo: correos de trabajo, documentos, posts, textos, ideas. Diga con sus palabras qué necesita y el resto lo pregunta él.",
       "ctaStart": "Empezar es gratis"
     },
     "video": {

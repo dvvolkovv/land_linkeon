@@ -19,11 +19,11 @@
       },
       "personal": {
         "title": "The conversation you keep putting off",
-        "text": "Sometimes what you need isn't a solution but someone who won't get tired of listening and won't start handing out advice. The first conversation is free.",
+        "text": "Sometimes what you need isn't a solution but someone who won't get tired of listening and won't start handing out advice.",
         "cta": "Start a conversation"
       }
     },
-    "social": "Conversations about your business, about work and about yourself — in one place, with someone who already knows your context"
+    "social": "Conversations about the business, about what you're making and about yourself — in one place, with someone who already knows your context"
   },
   "header": {
     "nav": {
@@ -113,7 +113,7 @@
     "items": [
       {
         "title": "The small stuff takes the day",
-        "text": "Reply to a client, finish the post, read the contract through. By evening you've done plenty, and the thing it was all for hasn't moved."
+        "text": "Reply to a client, finish the post, give the contract a read. By evening you've done plenty, and the thing it was all for hasn't moved."
       },
       {
         "title": "No one to ask",
