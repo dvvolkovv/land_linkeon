@@ -44,8 +44,8 @@
   },
   "hero": {
     "eyebrow": "Ayuda a mano",
-    "h1": "No tiene por qué",
-    "h1Accent": "entenderlo todo usted solo",
+    "h1": "No tiene por qué entenderlo todo",
+    "h1Accent": "por su cuenta",
     "sub": "Un contrato, los impuestos, un texto para un cliente, esa conversación que lleva dos semanas aplazando. Cuéntelo con sus palabras, aunque le salga torpe. Al otro lado hay alguien que sabe del tema y se lo devuelve resuelto.",
     "ctaStart": "Empezar es gratis",
     "trust": "Las primeras conversaciones corren de nuestra cuenta. No le pedimos la tarjeta.",
@@ -58,7 +58,7 @@
       "eyebrow": "Para el negocio",
       "h1": "Contratos, impuestos, marketing —",
       "h1Accent": "hay con quién revisarlo",
-      "sub": "El abogado lee el contrato entero y le dice dónde puede salir perjudicado. La contable calcula lo que debe de verdad. El de marketing escribe eso que lleva aplazando. Venga con lo que tenga.",
+      "sub": "El abogado lee el contrato entero y le dice dónde le pueden jugar una mala pasada. La contable calcula lo que debe de verdad. El de marketing escribe eso que lleva aplazando. Venga con lo que tenga.",
       "ctaStart": "Traer una tarea"
     },
     "creator": {
