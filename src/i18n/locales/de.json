@@ -335,6 +335,105 @@
       }
     ]
   },
+  "features": {
+    "eyebrow": "Features",
+    "h2": "Was in Linkeon enthalten ist",
+    "sub": "Ein Konto und ein Guthaben. Alles Aufgezählte steht direkt nach dem Login bereit.",
+    "groups": [
+      {
+        "title": "Gespräch und Arbeit mit Dokumenten",
+        "items": [
+          "16 Assistenten, jeder mit seinem eigenen Fach",
+          "Dateien: PDF, Tabellen, Dokumente — komplett gelesen, als fertige Datei zurück",
+          "Websuche und Berechnungen innerhalb der Aufgabe",
+          "Eigene Assistenten: einen Spezialisten für Ihre Arbeit zusammenstellen",
+          "Spracheingabe: diktieren statt tippen",
+          "Sprachanruf: laut durchsprechen statt hin und her zu schreiben"
+        ]
+      },
+      {
+        "title": "Content",
+        "items": [
+          "Texte, Posts, Mails, Content-Pläne",
+          "Bilder nach Beschreibung oder nach Ihrem Foto",
+          "Video: Skript, Szenen und der fertige Clip",
+          "Social-Media-Konten verbinden und aus Linkeon posten",
+          "Kampagnen und Zeitpläne für regelmäßiges Posten"
+        ]
+      },
+      {
+        "title": "Menschen",
+        "items": [
+          "Einheitliches Profil: ein Kontext für alle Assistenten",
+          "Menschen nach Werten und Zielen finden",
+          "Einschätzung der Übereinstimmung vor dem Kennenlernen",
+          "Kontaktanfragen und Nachrichten innerhalb von Linkeon",
+          "Räume: ein Treffen per Link, mit einem Assistenten darin"
+        ]
+      },
+      {
+        "title": "Wo das läuft",
+        "items": [
+          "Website — am Rechner und am Telefon",
+          "Android-App",
+          "Telegram-Bot und Mini-App",
+          "Eigener Telegram-Bot mit Ihrem Assistenten darin",
+          "Gemeinsames Guthaben und gemeinsame Historie in allen Kanälen"
+        ]
+      }
+    ],
+    "matrix": {
+      "title": "Was wo läuft",
+      "note": "Die Tabelle wird von Hand geprüft. Das Datum der letzten Prüfung steht in der Zeile darunter.",
+      "columns": {
+        "feature": "Funktion",
+        "web": "Web",
+        "tg": "Telegram",
+        "android": "Android"
+      },
+      "rows": [
+        {
+          "label": "Gespräch mit den Assistenten",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Dateien und Dokumente",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Bilder und Video",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Sprachanruf",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Menschen finden und Übereinstimmung",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Tokens bezahlen",
+          "web": true,
+          "tg": false,
+          "android": true
+        }
+      ],
+      "checked": "Geprüft am 07.09.2026",
+      "yes": "Ja",
+      "no": "Nein"
+    }
+  },
   "testimonials": {
     "eyebrow": "Stimmen",
     "h2": "Was Nutzer sagen",

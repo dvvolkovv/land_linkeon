@@ -335,6 +335,105 @@
       }
     ]
   },
+  "features": {
+    "eyebrow": "Funcionalidades",
+    "h2": "O que a Linkeon inclui",
+    "sub": "Uma conta e um saldo. Tudo o que está aqui listado fica disponível logo depois de entrar.",
+    "groups": [
+      {
+        "title": "Conversa e trabalho com documentos",
+        "items": [
+          "16 assistentes, cada um com a sua especialidade",
+          "Ficheiros: PDF, folhas de cálculo, documentos — lê-os por inteiro e devolve o ficheiro pronto",
+          "Pesquisa na internet e cálculos dentro da própria tarefa",
+          "Assistentes próprios: montar um especialista para o seu trabalho",
+          "Entrada por voz: ditar em vez de escrever",
+          "Chamada de voz: falar em voz alta em vez de trocar mensagens"
+        ]
+      },
+      {
+        "title": "Conteúdo",
+        "items": [
+          "Textos, posts, e-mails, planos de conteúdo",
+          "Imagens a partir de uma descrição ou da sua fotografia",
+          "Vídeo: guião, planos e montagem do vídeo",
+          "Ligação das redes sociais e publicação a partir da Linkeon",
+          "Campanhas e calendários para publicar com regularidade"
+        ]
+      },
+      {
+        "title": "Pessoas",
+        "items": [
+          "Perfil único: um contexto comum a todos os assistentes",
+          "Procura de pessoas por valores e objetivos",
+          "Avaliação da compatibilidade antes de se conhecerem",
+          "Pedidos de contacto e mensagens dentro da Linkeon",
+          "Salas: um encontro por link, com um assistente lá dentro"
+        ]
+      },
+      {
+        "title": "Onde isto funciona",
+        "items": [
+          "O site — no computador e no telemóvel",
+          "A app para Android",
+          "O bot de Telegram e a mini app",
+          "O seu próprio bot de Telegram com o seu assistente lá dentro",
+          "O mesmo saldo e o mesmo histórico em todos os canais"
+        ]
+      }
+    ],
+    "matrix": {
+      "title": "O que funciona onde",
+      "note": "A tabela é verificada à mão. A data da última verificação está na legenda abaixo.",
+      "columns": {
+        "feature": "Funcionalidade",
+        "web": "Web",
+        "tg": "Telegram",
+        "android": "Android"
+      },
+      "rows": [
+        {
+          "label": "Conversa com os assistentes",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Ficheiros e documentos",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Imagens e vídeo",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Chamada de voz",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Procura de pessoas e compatibilidade",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Pagamento de tokens",
+          "web": true,
+          "tg": false,
+          "android": true
+        }
+      ],
+      "checked": "Verificado a 07/09/2026",
+      "yes": "Sim",
+      "no": "Não"
+    }
+  },
   "testimonials": {
     "eyebrow": "Opiniões",
     "h2": "O que dizem os utilizadores",

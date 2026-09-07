@@ -335,6 +335,105 @@
       }
     ]
   },
+  "features": {
+    "eyebrow": "Features",
+    "h2": "What Linkeon includes",
+    "sub": "One account and one balance. Everything listed here is available the moment you sign in.",
+    "groups": [
+      {
+        "title": "Conversation and working with documents",
+        "items": [
+          "16 assistants, each with their own field",
+          "Files: PDFs, spreadsheets, documents — read end to end, handed back as a finished file",
+          "Web search and calculations inside the task",
+          "Your own assistants: put together a specialist for the work you do",
+          "Voice input: dictate instead of typing",
+          "Voice call: talk it through out loud instead of writing back and forth"
+        ]
+      },
+      {
+        "title": "Content",
+        "items": [
+          "Copy, posts, emails, content plans",
+          "Images from a description or from your photo",
+          "Video: script, shots and the finished clip",
+          "Connecting social accounts and publishing from Linkeon",
+          "Campaigns and schedules for posting regularly"
+        ]
+      },
+      {
+        "title": "People",
+        "items": [
+          "Unified profile: one context, shared by every assistant",
+          "Finding people by values and goals",
+          "A compatibility check before you meet",
+          "Contact requests and messages inside Linkeon",
+          "Rooms: a meeting over a link, with an assistant in the room"
+        ]
+      },
+      {
+        "title": "Where this works",
+        "items": [
+          "The website — on a computer and on a phone",
+          "The Android app",
+          "The Telegram bot and the mini app",
+          "Your own Telegram bot with your assistant inside it",
+          "One balance and one history across every channel"
+        ]
+      }
+    ],
+    "matrix": {
+      "title": "What works where",
+      "note": "The table is checked by hand. The date of the last check is in the caption below.",
+      "columns": {
+        "feature": "Feature",
+        "web": "Web",
+        "tg": "Telegram",
+        "android": "Android"
+      },
+      "rows": [
+        {
+          "label": "Talking to the assistants",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Files and documents",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Images and video",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Voice call",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Finding people and compatibility",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Paying for tokens",
+          "web": true,
+          "tg": false,
+          "android": true
+        }
+      ],
+      "checked": "Verified 7 Sep 2026",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
   "testimonials": {
     "eyebrow": "Testimonials",
     "h2": "What users say",

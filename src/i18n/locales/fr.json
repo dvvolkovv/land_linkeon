@@ -335,6 +335,105 @@
       }
     ]
   },
+  "features": {
+    "eyebrow": "Fonctions",
+    "h2": "Ce que comprend Linkeon",
+    "sub": "Un compte et un solde. Tout ce qui est listé ici est accessible dès la connexion.",
+    "groups": [
+      {
+        "title": "Conversation et travail sur les documents",
+        "items": [
+          "16 assistants, chacun avec sa spécialité",
+          "Fichiers : PDF, tableurs, documents — lus en entier, rendus en fichier fini",
+          "Recherche sur le web et calculs à l'intérieur de la tâche",
+          "Vos propres assistants : composer un spécialiste pour votre travail",
+          "Saisie vocale : dicter au lieu de taper",
+          "Appel vocal : en parler à voix haute plutôt que par écrit"
+        ]
+      },
+      {
+        "title": "Contenu",
+        "items": [
+          "Textes, posts, mails, plans de contenu",
+          "Images à partir d'une description ou de votre photo",
+          "Vidéo : scénario, plans et montage du clip",
+          "Connexion des réseaux sociaux et publication depuis Linkeon",
+          "Campagnes et calendriers pour publier régulièrement"
+        ]
+      },
+      {
+        "title": "Les gens",
+        "items": [
+          "Profil unique : un contexte commun à tous les assistants",
+          "Recherche de personnes par valeurs et objectifs",
+          "Évaluation de la compatibilité avant de se rencontrer",
+          "Demandes de contact et messages à l'intérieur de Linkeon",
+          "Salles : une rencontre par lien, avec un assistant dedans"
+        ]
+      },
+      {
+        "title": "Où ça fonctionne",
+        "items": [
+          "Le site — sur ordinateur et sur téléphone",
+          "L'application Android",
+          "Le bot Telegram et la mini-application",
+          "Votre propre bot Telegram avec votre assistant dedans",
+          "Un solde et un historique communs à tous les canaux"
+        ]
+      }
+    ],
+    "matrix": {
+      "title": "Ce qui fonctionne où",
+      "note": "Le tableau est vérifié à la main. La date de la dernière vérification figure dans la légende ci-dessous.",
+      "columns": {
+        "feature": "Fonction",
+        "web": "Web",
+        "tg": "Telegram",
+        "android": "Android"
+      },
+      "rows": [
+        {
+          "label": "Conversation avec les assistants",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Fichiers et documents",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Images et vidéo",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Appel vocal",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Recherche de personnes et compatibilité",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Paiement des jetons",
+          "web": true,
+          "tg": false,
+          "android": true
+        }
+      ],
+      "checked": "Vérifié le 07/09/2026",
+      "yes": "Oui",
+      "no": "Non"
+    }
+  },
   "testimonials": {
     "eyebrow": "Avis",
     "h2": "La parole aux utilisateurs",
