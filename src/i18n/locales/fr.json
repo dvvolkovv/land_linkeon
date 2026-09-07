@@ -43,79 +43,45 @@
     }
   },
   "hero": {
+    "eyebrow": "Linkeon",
+    "h1": "Vous n'êtes pas obligé",
+    "h1Accent": "de tout démêler seul",
+    "sub": "Un contrat, les impôts, un texte pour vos clients, cette conversation que vous repoussez depuis deux semaines. Racontez avec vos mots, même si ça sort de travers. En face, il y a quelqu'un qui s'y connaît et qui vous le rend prêt.",
+    "ctaStart": "Commencer, c'est gratuit",
+    "ctaLogin": "Connexion",
+    "trust": "Les premières conversations sont pour nous. On ne demande pas de carte.",
+    "privacy": "Nous ne vendons pas vos échanges et ne nous en servons pas pour la pub. Traitement chez les fournisseurs d'IA.",
+    "badge": {
+      "title": "Assistant",
+      "status": "à l'écoute"
+    },
     "biz": {
-      "eyebrow": "L'équipe IA de l'entrepreneur",
-      "h1Part1": "Contrat, impôts, marketing —",
-      "h1Accent": "réglés en minutes",
-      "h1Part2": ", gratuit",
-      "sub": "Le juriste décortique ton contrat, le comptable calcule tes impôts, le marketeur écrit ton post et ton plan. Donne ta tâche — premier résultat gratuit, sans carte.",
-      "ctaStart": "Résoudre gratuitement",
-      "chips": [
-        "📄 Analyse contrat",
-        "🧮 Impôts",
-        "📈 Plan marketing"
-      ]
+      "eyebrow": "Pour votre activité",
+      "h1": "Contrat, impôts, publicité —",
+      "h1Accent": "quelqu'un regarde ça avec vous",
+      "sub": "Le juriste lit le contrat en entier et vous dit où on peut vous piéger. Le comptable calcule ce que vous devez vraiment. Le marketeur écrit ce que vous repoussez. Venez avec ce que vous avez.",
+      "ctaStart": "Apporter une tâche"
     },
     "creator": {
-      "eyebrow": "Le studio IA des créateurs de contenu",
-      "h1Part1": "Du contenu prêt pour tes réseaux —",
-      "h1Accent": "en minutes",
-      "h1Part2": ", gratuit",
-      "sub": "L'IA écrit tes posts, dessine tes visuels et génère tes vidéos ; Yulia, l'assistante SMM, cale ton calendrier. Apporte une idée, repars avec le contenu prêt.",
-      "ctaStart": "Créer du contenu gratuit",
-      "chips": [
-        "✍️ Posts",
-        "🎨 Visuels",
-        "🎬 Vidéos"
-      ]
+      "eyebrow": "Pour ceux qui créent du contenu",
+      "h1": "L'idée, vous l'avez déjà —",
+      "h1Accent": "le reste, on l'assemble",
+      "sub": "Un texte, une image, une vidéo, un plan pour la semaine. Yulia demande de quoi il s'agit et pour qui, puis rapporte le résultat. Vous pouvez faire refaire autant de fois que vous le voulez.",
+      "ctaStart": "Montrer l'idée"
     },
     "assistant": {
-      "eyebrow": "Ton assistant IA perso",
-      "h1Part1": "Mail, texte, post, plan —",
-      "h1Accent": "prêts en minutes",
-      "h1Part2": ", gratuit",
-      "sub": "Roman, l'assistant IA à tout faire : mails et documents pro, posts et calendriers éditoriaux, textes qui vendent, idées business. Donne ta tâche, repars avec le résultat.",
-      "ctaStart": "Résoudre gratuitement",
-      "chips": [
-        "📄 Mails et documents",
-        "✍️ Textes et posts",
-        "📈 Plan éditorial"
-      ]
+      "eyebrow": "Assistant personnel",
+      "h1": "Un mail, un texte, un plan —",
+      "h1Accent": "pas besoin de l'écrire vous-même",
+      "sub": "Roman prend tout en charge : mails professionnels, documents, posts, textes, idées. Dites avec vos mots ce qu'il vous faut — il demandera le reste lui-même.",
+      "ctaStart": "Commencer, c'est gratuit"
     },
     "video": {
-      "eyebrow": "Le producteur IA de vidéos courtes",
-      "h1Part1": "Une idée → ta vidéo",
-      "h1Accent": "en minutes",
-      "h1Part2": "— sans caméra",
-      "sub": "Yulia transforme ton idée en vidéo courte pour les réseaux : script, plans, assemblage. Reels, Shorts, TikTok — sans montage. Tes 25 000 jetons de départ suffisent pour une première vidéo à partir d'une image que tu as déjà.",
-      "ctaStart": "Créer ma vidéo",
-      "chips": [
-        "🎬 Reels et Shorts",
-        "🎨 Script et plans",
-        "⚡ En minutes"
-      ]
-    },
-    "eyebrow": "L'IA qui fait grandir ta boîte",
-    "h1Part1": "Un résultat prêt en minutes :",
-    "h1Rotating": [
-      "un post et son visuel",
-      "un contrat décodé",
-      "un plan marketing"
-    ],
-    "h1Part2": "— gratuit",
-    "sub": "16 assistants IA : ils lisent tes fichiers, cherchent, calculent et te rendent des documents, des images et des vidéos prêts à l'emploi. Donne ta tâche, repars avec le résultat. Le premier est gratuit, sans carte.",
-    "ctaStart": "Essai gratuit",
-    "ctaLogin": "Connexion",
-    "chips": [
-      "✍️ Contenu",
-      "⚖️ Droit",
-      "📈 Marketing"
-    ],
-    "trust": "🎁 25 000 jetons offerts · sans carte · sans abonnement · prêt en 2 minutes",
-    "privacy": "🔒 On ne vend pas tes échanges et on ne s'en sert pas pour la pub. Traitement chez les fournisseurs d'IA.",
-    "badge": {
-      "title": "Assistant IA",
-      "status": "en ligne · répond"
+      "eyebrow": "Vidéos courtes",
+      "h1": "Une vidéo à partir d'une idée —",
+      "h1Accent": "sans tournage ni montage",
+      "sub": "Yulia écrit le scénario, réunit les plans et monte la vidéo pour Reels, Shorts ou TikTok. Le cadeau de bienvenue suffit pour la première.",
+      "ctaStart": "Faire une vidéo"
     }
   },
   "footer": {

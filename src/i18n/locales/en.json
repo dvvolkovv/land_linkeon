@@ -43,79 +43,45 @@
     }
   },
   "hero": {
+    "eyebrow": "Linkeon",
+    "h1": "You don't have to",
+    "h1Accent": "figure it all out alone",
+    "sub": "A contract, your taxes, a note to a client, the conversation you've been putting off for two weeks now. Say it in your own words — even if it comes out messy. Someone who knows this stuff will pick it up and hand it back done.",
+    "ctaStart": "Start — it's free",
+    "ctaLogin": "Log in",
+    "trust": "The first conversations are on us. We don't ask for a card.",
+    "privacy": "We never sell your chats or use them for ads. Processing runs on AI providers.",
+    "badge": {
+      "title": "Assistant",
+      "status": "here"
+    },
     "biz": {
-      "eyebrow": "An AI team for founders",
-      "h1Part1": "Contracts, taxes, promotion —",
-      "h1Accent": "solved in minutes",
-      "h1Part2": "for free",
-      "sub": "A lawyer reviews your contract, an accountant estimates taxes, a marketer writes the post and the plan. Ask your task — first result free, no card.",
-      "ctaStart": "Solve a task free",
-      "chips": [
-        "📄 Contract review",
-        "🧮 Taxes",
-        "📈 Promotion plan"
-      ]
+      "eyebrow": "For your business",
+      "h1": "A contract, taxes, promotion —",
+      "h1Accent": "there's someone to go through it with",
+      "sub": "A lawyer reads the contract end to end and tells you where it could turn against you. An accountant works out what you actually owe. A marketer writes the thing you keep putting off. Come with whatever you have.",
+      "ctaStart": "Bring your task"
     },
     "creator": {
-      "eyebrow": "An AI studio for content creators",
-      "h1Part1": "Ready content for social —",
-      "h1Accent": "in minutes",
-      "h1Part2": ", free",
-      "sub": "AI writes posts, generates images and video, and the SMM assistant Yulia plans your feed. Bring an idea — leave with ready content.",
-      "ctaStart": "Create content free",
-      "chips": [
-        "✍️ Posts",
-        "🎨 Images",
-        "🎬 Video"
-      ]
+      "eyebrow": "For people who make content",
+      "h1": "You already have the idea —",
+      "h1Accent": "we'll put the rest together",
+      "sub": "Copy, an image, a clip, a plan for the week ahead. Yulia asks what it's about and who it's for, then brings it back finished. Redo it as many times as you like.",
+      "ctaStart": "Show your idea"
     },
     "assistant": {
-      "eyebrow": "Your personal AI assistant",
-      "h1Part1": "A letter, text, post, plan —",
-      "h1Accent": "done in minutes",
-      "h1Part2": "for free",
-      "sub": "Roman — your universal AI assistant: business letters and documents, posts and content plans, sales copy, business ideas. Bring a task — leave with it done.",
-      "ctaStart": "Solve a task free",
-      "chips": [
-        "📄 Letters & docs",
-        "✍️ Texts & posts",
-        "📈 Content plan"
-      ]
+      "eyebrow": "A personal assistant",
+      "h1": "A letter, a text, a plan —",
+      "h1Accent": "you don't have to write it yourself",
+      "sub": "Roman takes on anything: business letters, documents, posts, copy, ideas. Say what you need in your own words — he'll ask about the rest himself.",
+      "ctaStart": "Start — it's free"
     },
     "video": {
-      "eyebrow": "AI short-video producer",
-      "h1Part1": "Idea → a ready clip",
-      "h1Accent": "in minutes",
-      "h1Part2": "— no filming",
-      "sub": "Yulia turns an idea into a short social video: script, shots, final cut. Reels, Shorts, TikTok — no editing. Your 25,000 starting tokens cover a first clip from an image you already have.",
-      "ctaStart": "Make a clip",
-      "chips": [
-        "🎬 Reels & Shorts",
-        "🎨 Script & shots",
-        "⚡ In minutes"
-      ]
-    },
-    "eyebrow": "AI for business growth",
-    "h1Part1": "A ready result in minutes:",
-    "h1Rotating": [
-      "a post and image for social",
-      "a contract review",
-      "a promotion plan"
-    ],
-    "h1Part2": "— for free",
-    "sub": "16 AI assistants: they read your files, search, crunch numbers and hand back finished documents, images and video. Bring a task — take the result. The first one is free, no card needed.",
-    "ctaStart": "Start free",
-    "ctaLogin": "Log in",
-    "chips": [
-      "✍️ Content",
-      "⚖️ Legal",
-      "📈 Marketing"
-    ],
-    "trust": "🎁 25,000 tokens free · no card · no subscription · 2-minute start",
-    "privacy": "🔒 We never sell your chats or use them for ads. Processing runs on AI providers.",
-    "badge": {
-      "title": "AI assistant",
-      "status": "online · replying"
+      "eyebrow": "Short videos",
+      "h1": "A clip from a single idea —",
+      "h1Accent": "no filming, no editing",
+      "sub": "Yulia writes the script, puts the shots together and cuts the clip for Reels, Shorts or TikTok. The welcome gift covers your first video.",
+      "ctaStart": "Make a clip"
     }
   },
   "footer": {
