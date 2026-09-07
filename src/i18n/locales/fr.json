@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "LINKEON.IO — l'équipe IA qui fait grandir ton business",
+    "title": "LINKEON.IO — l'équipe IA qui fait grandir votre business",
     "description": "Des assistants IA (marketing, juridique, comptabilité, RH, coaching) + un profil unique. Pour les petites boîtes, les freelances et les agences."
   },
   "personaCta": {
@@ -84,7 +84,7 @@
     }
   },
   "footer": {
-    "tagline": "L'IA pour la croissance de ton business",
+    "tagline": "L'IA pour la croissance de votre business",
     "sections": {
       "product": "Produit",
       "company": "Support",
@@ -128,12 +128,12 @@
   },
   "agentic": {
     "eyebrow": "Pas un chatbot",
-    "h2": "Ton assistant ne répond pas par du texte — il fait le travail",
-    "sub": "Un bot ordinaire sait seulement répondre. L'assistant Linkeon a son propre poste de travail : il ouvre tes fichiers, cherche sur le web, écrit et exécute du code, assemble le document — et te rend le fichier fini.",
-    "youLabel": "Toi",
+    "h2": "Votre assistant ne répond pas par du texte — il fait le travail",
+    "sub": "Un bot ordinaire sait seulement répondre. L'assistant Linkeon a son propre poste de travail : il ouvre vos fichiers, cherche sur le web, écrit et exécute du code, assemble le document — et vous rend le fichier fini.",
+    "youLabel": "Vous",
     "assistantLabel": "Assistant",
-    "note": "Les fichiers sont traités côté Linkeon — rien à installer sur ton ordinateur. Ça tourne sur les mêmes jetons que la conversation.",
-    "cta": "Donne une tâche à ton assistant",
+    "note": "Les fichiers sont traités côté Linkeon — rien à installer sur votre ordinateur. Ça tourne sur les mêmes jetons que la conversation.",
+    "cta": "Donnez une tâche à votre assistant",
     "cases": [
       {
         "tab": "Contrat",
@@ -208,20 +208,20 @@
   "profile": {
     "eyebrow": "Profil unique",
     "h2": "Un seul contexte, tous s'en souviennent",
-    "sub": "Au fil des conversations, Linkeon complète ton profil : valeurs, activité, points de blocage, style de communication. Chaque assistant démarre non pas de zéro, mais en te comprenant déjà.",
+    "sub": "Au fil des conversations, Linkeon complète votre profil : valeurs, activité, points de blocage, style de communication. Chaque assistant démarre non pas de zéro, mais en vous comprenant déjà.",
     "bullets": [
       "S'enrichit à chaque conversation",
       "Valable pour tous les assistants",
-      "Tu décides de ce qui est mémorisé",
-      "Sert à trouver des partenaires qui partagent tes valeurs"
+      "Vous décidez de ce qui est mémorisé",
+      "Sert à trouver des partenaires qui partagent vos valeurs"
     ]
   },
   "networking": {
     "eyebrow": "Networking",
-    "h2": "Des partenaires et des experts qui partagent tes valeurs",
+    "h2": "Des partenaires et des experts qui partagent vos valeurs",
     "sub": "Un profil, ce n'est pas un CV. Ce sont des valeurs, des intentions, un style. Linkeon trouve les gens avec qui ça résonne — pour des partenariats, des clients, des recrutements, des projets.",
     "legend": {
-      "self": "Ton profil",
+      "self": "Votre profil",
       "values": "Valeurs et intentions",
       "matches": "Affinités avec d'autres"
     },
@@ -248,15 +248,15 @@
     "cols": [
       {
         "title": "Partenaires",
-        "text": "Des cofondateurs et des experts qui voient le monde comme toi."
+        "text": "Des cofondateurs et des experts qui voient le monde comme vous."
       },
       {
         "title": "Clients",
-        "text": "Ceux qui achètent ton sens, pas seulement ton prix."
+        "text": "Ceux qui achètent votre sens, pas seulement votre prix."
       },
       {
         "title": "Communauté",
-        "text": "Demandes aux tiens, réponses et discussions."
+        "text": "Demandes aux vôtres, réponses et discussions."
       }
     ],
     "cta": "Ouvrir le networking sur my.linkeon.io"
@@ -264,7 +264,7 @@
   "content": {
     "eyebrow": "Moteur de contenu",
     "h2": "Visuels et vidéos — avec les mêmes jetons",
-    "sub": "Ton assistant marketing a bouclé le plan ? Génère dans la foulée les couvertures, les carrousels et une vidéo courte. Sans jongler entre services et abonnements.",
+    "sub": "Votre assistant marketing a bouclé le plan ? Générez dans la foulée les couvertures, les carrousels et une vidéo courte. Sans jongler entre services et abonnements.",
     "images": {
       "h3": "Images",
       "caption": "Imagen 4.0 Ultra — réaliste et rapide. Couvertures, carrousels, visuels pour les réseaux."
@@ -285,7 +285,7 @@
       },
       {
         "title": "Discussion avec l'assistant",
-        "text": "Décris ta tâche à la voix ou par écrit. Ton profil se construit tout seul."
+        "text": "Décrivez votre tâche à la voix ou par écrit. Votre profil se construit tout seul."
       },
       {
         "title": "Lancement des fonctions",
@@ -312,11 +312,11 @@
       },
       {
         "title": "Freelances et experts solo",
-        "text": "Tu livres des projets, et autour gravitent 100 petites tâches (contrats, réseaux, leads). L'IA te les enlève.",
+        "text": "Vous livrez des projets, et autour gravitent 100 petites tâches (contrats, réseaux, leads). L'IA vous les enlève.",
         "benefits": [
           "Contrats en une minute",
-          "Ta pub, faite pour toi",
-          "Plus de temps pour ton vrai métier"
+          "Votre pub, faite pour vous",
+          "Plus de temps pour votre vrai métier"
         ]
       },
       {
@@ -349,8 +349,8 @@
   },
   "pricing": {
     "eyebrow": "Tarifs",
-    "h2": "Tu paies les jetons. Sans abonnement.",
-    "sub": "Les jetons n'expirent pas. Tu achètes un pack une fois et tu l'utilises quand tu veux.",
+    "h2": "Vous payez les jetons. Sans abonnement.",
+    "sub": "Les jetons n'expirent pas. Vous achetez un pack une fois et vous l'utilisez quand vous voulez.",
     "plans": {
       "starter": "Démarrage",
       "extended": "Étendu",
@@ -373,7 +373,7 @@
   },
   "faq": {
     "eyebrow": "Questions",
-    "h2": "À savoir avant de te lancer",
+    "h2": "À savoir avant de vous lancer",
     "items": [
       {
         "q": "C'est quoi, les jetons, et comment se dépensent-ils ?",
@@ -381,19 +381,19 @@
       },
       {
         "q": "Combien de temps pour démarrer ?",
-        "a": "Connexion avec Yandex, Google ou ton numéro de téléphone : 2 minutes. On t'offre 25 000 jetons au départ, soit environ 7 réponses d'assistant ou 5 images. Pas de quoi tester la vidéo sérieusement — pour ça, il faut un pack."
+        "a": "Connexion avec Yandex, Google ou votre numéro de téléphone : 2 minutes. On vous offre 25 000 jetons au départ, soit environ 7 réponses d'assistant ou 5 images. Pas de quoi tester la vidéo sérieusement — pour ça, il faut un pack."
       },
       {
         "q": "Mes échanges sont-ils privés ?",
-        "a": "Oui. Toi seul as accès à ton profil. Dans les réglages, tu décides de ce que les assistants mémorisent."
+        "a": "Oui. Votre profil n'est accessible qu'à vous. Dans les réglages, vous décidez de ce que les assistants mémorisent."
       },
       {
         "q": "Puis-je annuler un achat de jetons ?",
-        "a": "Les jetons n'expirent pas, donc ton achat n'a pas de date limite — mais le solde non utilisé n'est pas remboursé. On rembourse dans deux cas : le service est resté indisponible plus de 72 heures d'affilée, ou le montant a été débité deux fois. Écris à support@linkeon.io — on traite la demande sous 10 jours ouvrés."
+        "a": "Les jetons n'expirent pas, donc votre achat n'a pas de date limite — mais le solde non utilisé n'est pas remboursé. On rembourse dans deux cas : le service est resté indisponible plus de 72 heures d'affilée, ou le montant a été débité deux fois. Écrivez à support@linkeon.io — on traite la demande sous 10 jours ouvrés."
       },
       {
         "q": "Y a-t-il une API ?",
-        "a": "Pas encore. On la prépare — écris au support si ça t'intéresse, on accélérera."
+        "a": "Pas encore. On la prépare — écrivez au support si ça vous intéresse, on accélérera."
       },
       {
         "q": "En quoi c'est différent de ChatGPT ?",

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "LINKEON.IO — tu equipo de IA para crecer",
+    "title": "LINKEON.IO — su equipo de IA para crecer",
     "description": "Asistentes de IA (marketing, legal, contabilidad, RR. HH., coaching) + un perfil único. Para pequeños negocios, freelancers y agencias."
   },
   "personaCta": {
@@ -34,7 +34,7 @@
     },
     "cta": {
       "login": "Entrar",
-      "start": "Empieza gratis"
+      "start": "Empiece gratis"
     },
     "a11y": {
       "openMenu": "Abrir menú",
@@ -84,7 +84,7 @@
     }
   },
   "footer": {
-    "tagline": "IA para hacer crecer tu negocio",
+    "tagline": "IA para hacer crecer su negocio",
     "sections": {
       "product": "Producto",
       "company": "Soporte",
@@ -128,12 +128,12 @@
   },
   "agentic": {
     "eyebrow": "No es un chatbot",
-    "h2": "Tu asistente no responde con texto: hace el trabajo",
-    "sub": "Un bot corriente solo sabe contestar. El asistente de Linkeon tiene un espacio de trabajo propio: abre tus archivos, busca en internet, escribe y ejecuta código, monta el documento — y te devuelve el archivo listo.",
-    "youLabel": "Tú",
+    "h2": "Su asistente no responde con texto: hace el trabajo",
+    "sub": "Un bot corriente solo sabe contestar. El asistente de Linkeon tiene un espacio de trabajo propio: abre sus archivos, busca en internet, escribe y ejecuta código, monta el documento — y le devuelve el archivo listo.",
+    "youLabel": "Usted",
     "assistantLabel": "Asistente",
-    "note": "Los archivos se procesan del lado de Linkeon: no hay que instalar nada en tu ordenador. Consume los mismos tokens que la conversación.",
-    "cta": "Dale una tarea a tu asistente",
+    "note": "Los archivos se procesan del lado de Linkeon: no hay que instalar nada en su ordenador. Consume los mismos tokens que la conversación.",
+    "cta": "Dele una tarea a su asistente",
     "cases": [
       {
         "tab": "Contrato",
@@ -208,20 +208,20 @@
   "profile": {
     "eyebrow": "Perfil único",
     "h2": "Un contexto que recuerdan todos",
-    "sub": "A medida que hablas, Linkeon completa tu perfil: valores, negocio, puntos de dolor, estilo de comunicación. Ningún asistente empieza de cero: todos te entienden desde el primer mensaje.",
+    "sub": "A medida que habla, Linkeon completa su perfil: valores, negocio, puntos de dolor, estilo de comunicación. Ningún asistente empieza de cero: todos le entienden desde el primer mensaje.",
     "bullets": [
       "Se enriquece con cada conversación",
       "Funciona con todos los asistentes",
-      "Tú decides qué se recuerda",
-      "Sirve para encontrar socios afines a tus valores"
+      "Usted decide qué se recuerda",
+      "Sirve para encontrar socios afines a sus valores"
     ]
   },
   "networking": {
     "eyebrow": "Networking",
-    "h2": "Socios y expertos que comparten tus valores",
+    "h2": "Socios y expertos que comparten sus valores",
     "sub": "Un perfil no es un currículum. Son valores, intenciones, estilo. Linkeon encuentra a personas con las que hay sintonía: para alianzas, clientes, contrataciones y proyectos.",
     "legend": {
-      "self": "Tu perfil",
+      "self": "Su perfil",
       "values": "Valores e intenciones",
       "matches": "Coincidencias con otros"
     },
@@ -248,15 +248,15 @@
     "cols": [
       {
         "title": "Socios",
-        "text": "Cofundadores y expertos que ven el mundo como tú."
+        "text": "Cofundadores y expertos que ven el mundo como usted."
       },
       {
         "title": "Clientes",
-        "text": "Gente a la que le importa tu propósito, no solo el precio."
+        "text": "Gente a la que le importa su propósito, no solo el precio."
       },
       {
         "title": "Comunidad",
-        "text": "Peticiones a los tuyos, respuestas y chats."
+        "text": "Peticiones a los suyos, respuestas y chats."
       }
     ],
     "cta": "Abrir networking en my.linkeon.io"
@@ -264,7 +264,7 @@
   "content": {
     "eyebrow": "Motor de contenido",
     "h2": "Imágenes y vídeo, con los mismos tokens",
-    "sub": "¿Tu asistente de marketing ya tiene el plan? Genera ahí mismo portadas, carruseles y un vídeo corto. Sin saltar entre servicios ni suscripciones.",
+    "sub": "¿Su asistente de marketing ya tiene el plan? Genere ahí mismo portadas, carruseles y un vídeo corto. Sin saltar entre servicios ni suscripciones.",
     "images": {
       "h3": "Imágenes",
       "caption": "Imagen 4.0 Ultra: realista y rápido. Portadas, carruseles y visuales para redes."
@@ -281,22 +281,22 @@
     "steps": [
       {
         "title": "Entrar en un clic",
-        "text": "Con Yandex, Google o tu número de teléfono. Sin tarjeta. +25.000 tokens de regalo."
+        "text": "Con Yandex, Google o su número de teléfono. Sin tarjeta. +25.000 tokens de regalo."
       },
       {
-        "title": "Habla con un asistente",
-        "text": "Describe la tarea por voz o por escrito. El perfil se completa solo."
+        "title": "Hable con un asistente",
+        "text": "Describa la tarea por voz o por escrito. El perfil se completa solo."
       },
       {
-        "title": "Lanza las funciones",
-        "text": "contenido, contrato: el asistente lo hace y te devuelve el resultado en el chat."
+        "title": "Lance las funciones",
+        "text": "contenido, contrato: el asistente lo hace y le devuelve el resultado en el chat."
       },
       {
         "title": "Crecimiento",
         "text": "Los asistentes recuerdan el contexto. Cada conversación sale mejor que la anterior."
       }
     ],
-    "cta": "Empieza gratis"
+    "cta": "Empiece gratis"
   },
   "useCases": {
     "eyebrow": "Para quién",
@@ -312,10 +312,10 @@
       },
       {
         "title": "Freelancers y expertos en solitario",
-        "text": "Tú haces los proyectos y alrededor hay 100 microtareas (contratos, redes, leads). La IA se las lleva.",
+        "text": "Usted hace los proyectos y alrededor hay 100 microtareas (contratos, redes, leads). La IA se las lleva.",
         "benefits": [
           "Contratos en un minuto",
-          "Publicidad para ti mismo",
+          "Publicidad para usted",
           "Más tiempo para lo que importa"
         ]
       },
@@ -340,8 +340,8 @@
   },
   "pricing": {
     "eyebrow": "Precios",
-    "h2": "Pagas solo por tokens. Sin suscripciones.",
-    "sub": "Los tokens no caducan. Compras el pack una vez y lo usas cuando quieras.",
+    "h2": "Paga solo por tokens. Sin suscripciones.",
+    "sub": "Los tokens no caducan. Compra el pack una vez y lo usa cuando quiera.",
     "plans": {
       "starter": "Inicial",
       "extended": "Ampliado",
@@ -353,7 +353,7 @@
     "messages": "mensajes",
     "per1000": "por 1000 tokens",
     "popular": "Popular",
-    "savings": "Ahorras {{value}}",
+    "savings": "Ahorra {{value}}",
     "cta": "Comprar",
     "trust": {
       "yookassa": "Pago con YooKassa",
@@ -372,19 +372,19 @@
       },
       {
         "q": "¿Cuánto tarda darse de alta?",
-        "a": "Entrar con Yandex, Google o tu número de teléfono lleva 2 minutos. De regalo empiezas con 25.000 tokens: unas 7 respuestas de asistente o 5 imágenes. Para probar vídeo en condiciones no dan de sí: ahí hace falta un pack."
+        "a": "Entrar con Yandex, Google o su número de teléfono lleva 2 minutos. De regalo empieza con 25.000 tokens: unas 7 respuestas de asistente o 5 imágenes. Para probar vídeo en condiciones no dan de sí: ahí hace falta un pack."
       },
       {
         "q": "¿Mis conversaciones son privadas?",
-        "a": "Sí. Solo tú tienes acceso a tu perfil. En los ajustes decides qué recuerdan los asistentes."
+        "a": "Sí. Solo usted tiene acceso a su perfil. En los ajustes decide qué recuerdan los asistentes."
       },
       {
         "q": "¿Se puede anular la compra de tokens?",
-        "a": "Los tokens no caducan, así que la compra no tiene fecha límite, pero no devolvemos el saldo sin usar. Sí devolvemos el dinero en dos casos: si el servicio estuvo caído más de 72 horas seguidas o si se cobró dos veces. Escribe a support@linkeon.io y lo revisamos en 10 días hábiles."
+        "a": "Los tokens no caducan, así que la compra no tiene fecha límite, pero no devolvemos el saldo sin usar. Sí devolvemos el dinero en dos casos: si el servicio estuvo caído más de 72 horas seguidas o si se cobró dos veces. Escriba a support@linkeon.io y lo revisamos en 10 días hábiles."
       },
       {
         "q": "¿Hay API?",
-        "a": "Todavía no. Está en camino: escribe a soporte si te interesa y le metemos prisa."
+        "a": "Todavía no. Está en camino: escriba a soporte si le interesa y le metemos prisa."
       },
       {
         "q": "¿En qué se diferencia de ChatGPT?",

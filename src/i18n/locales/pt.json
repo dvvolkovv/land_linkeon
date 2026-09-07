@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "LINKEON.IO — a equipa de IA que faz o teu negócio crescer",
+    "title": "LINKEON.IO — a equipa de IA que faz o seu negócio crescer",
     "description": "Assistentes de IA (marketing, jurídico, contabilidade, RH, coaching) e um perfil único. Para pequenos negócios, freelancers e agências."
   },
   "personaCta": {
@@ -129,11 +129,11 @@
   "agentic": {
     "eyebrow": "Não é um chatbot",
     "h2": "O assistente não responde com texto — faz o trabalho",
-    "sub": "Um bot vulgar só sabe responder por escrito. O assistente da Linkeon tem um espaço de trabalho próprio: abre os teus ficheiros, pesquisa na internet, escreve e corre código, monta o documento — e devolve-te o ficheiro pronto.",
-    "youLabel": "Tu",
+    "sub": "Um bot vulgar só sabe responder por escrito. O assistente da Linkeon tem um espaço de trabalho próprio: abre os seus ficheiros, pesquisa na internet, escreve e corre código, monta o documento — e devolve-lhe o ficheiro pronto.",
+    "youLabel": "Você",
     "assistantLabel": "Assistente",
-    "note": "Os ficheiros são processados do lado da Linkeon — não há nada para instalar no teu computador. Funciona com os mesmos tokens da conversa.",
-    "cta": "Dá uma tarefa ao assistente",
+    "note": "Os ficheiros são processados do lado da Linkeon — não há nada para instalar no seu computador. Funciona com os mesmos tokens da conversa.",
+    "cta": "Dê uma tarefa ao assistente",
     "cases": [
       {
         "tab": "Contrato",
@@ -208,20 +208,20 @@
   "profile": {
     "eyebrow": "Perfil único",
     "h2": "Um só contexto — todos os assistentes se lembram",
-    "sub": "Ao longo das conversas, a Linkeon vai completando o teu perfil: valores, negócio, dores, estilo de comunicação. Nenhum assistente começa do zero — todos te percebem desde a primeira mensagem.",
+    "sub": "Ao longo das conversas, a Linkeon vai completando o seu perfil: valores, negócio, dores, estilo de comunicação. Nenhum assistente começa do zero — todos percebem quem você é desde a primeira mensagem.",
     "bullets": [
       "Cresce com cada conversa",
       "Funciona em todos os assistentes",
-      "És tu que decides o que fica memorizado",
+      "É você que decide o que fica memorizado",
       "Serve para encontrar parceiros com os mesmos valores"
     ]
   },
   "networking": {
     "eyebrow": "Networking",
-    "h2": "Parceiros e especialistas que partilham os teus valores",
+    "h2": "Parceiros e especialistas que partilham os seus valores",
     "sub": "Um perfil não é um currículo. São valores, intenções, estilo. A Linkeon encontra pessoas com quem há sintonia — para parcerias, clientes, contratações e projetos.",
     "legend": {
-      "self": "O teu perfil",
+      "self": "O seu perfil",
       "values": "Valores e intenções",
       "matches": "Coincidências com outros"
     },
@@ -248,15 +248,15 @@
     "cols": [
       {
         "title": "Parceiros",
-        "text": "Cofundadores e especialistas que veem o mundo como tu."
+        "text": "Cofundadores e especialistas que veem o mundo como você."
       },
       {
         "title": "Clientes",
-        "text": "Quem se identifica com o teu propósito, não só com o preço."
+        "text": "Quem se identifica com o seu propósito, não só com o preço."
       },
       {
         "title": "Comunidade",
-        "text": "Pedidos aos teus, respostas e conversas."
+        "text": "Pedidos aos seus, respostas e conversas."
       }
     ],
     "cta": "Abrir o networking em my.linkeon.io"
@@ -264,7 +264,7 @@
   "content": {
     "eyebrow": "Motor de conteúdo",
     "h2": "Mais imagens e vídeo — com os mesmos tokens",
-    "sub": "O assistente de marketing já fez o plano? Gera aí mesmo capas, carrosséis e um vídeo curto. Sem andar a saltar entre serviços e subscrições.",
+    "sub": "O assistente de marketing já fez o plano? Gere aí mesmo capas, carrosséis e um vídeo curto. Sem andar a saltar entre serviços e subscrições.",
     "images": {
       "h3": "Imagens",
       "caption": "Imagen 4.0 Ultra — realista e rápido. Capas, carrosséis e visuais para as redes."
@@ -285,7 +285,7 @@
       },
       {
         "title": "Conversa com um assistente",
-        "text": "Descreve a tarefa por voz ou por escrito. O perfil completa-se sozinho."
+        "text": "Descreva a tarefa por voz ou por escrito. O perfil completa-se sozinho."
       },
       {
         "title": "Lançar as funcionalidades",
@@ -312,10 +312,10 @@
       },
       {
         "title": "Freelancers e especialistas a solo",
-        "text": "Tu fazes os projetos e à volta há 100 pequenas tarefas (contratos, redes sociais, leads). A IA tira-as de cima de ti.",
+        "text": "Você faz os projetos e à volta há 100 pequenas tarefas (contratos, redes sociais, leads). A IA tira-as de cima de si.",
         "benefits": [
           "Contratos num minuto",
-          "Publicidade para ti próprio",
+          "Publicidade para si",
           "Mais tempo para o trabalho que conta"
         ]
       },
@@ -340,8 +340,8 @@
   },
   "pricing": {
     "eyebrow": "Preços",
-    "h2": "Pagas só pelos tokens. Sem subscrições.",
-    "sub": "Os tokens não expiram. Compras o pacote uma vez e usas quando precisares.",
+    "h2": "Paga só pelos tokens. Sem subscrições.",
+    "sub": "Os tokens não expiram. Compra o pacote uma vez e usa quando precisar.",
     "plans": {
       "starter": "Inicial",
       "extended": "Alargado",
@@ -376,15 +376,15 @@
       },
       {
         "q": "As minhas conversas são privadas?",
-        "a": "Sim. Só tu tens acesso ao teu perfil. Nas definições decides o que os assistentes memorizam."
+        "a": "Sim. Só você tem acesso ao seu perfil. Nas definições decide o que os assistentes memorizam."
       },
       {
         "q": "É possível cancelar a compra de tokens?",
-        "a": "Os tokens não expiram, por isso a compra não tem prazo — mas o saldo não utilizado não é devolvido. Devolvemos o dinheiro em dois casos: o serviço esteve em baixo mais de 72 horas seguidas ou o valor foi cobrado duas vezes. Escreve para support@linkeon.io — analisamos em 10 dias úteis."
+        "a": "Os tokens não expiram, por isso a compra não tem prazo — mas o saldo não utilizado não é devolvido. Devolvemos o dinheiro em dois casos: o serviço esteve em baixo mais de 72 horas seguidas ou o valor foi cobrado duas vezes. Escreva para support@linkeon.io — analisamos em 10 dias úteis."
       },
       {
         "q": "Existe API?",
-        "a": "Ainda não. Está a caminho — escreve ao apoio se te interessar, damos-lhe prioridade."
+        "a": "Ainda não. Está a caminho — escreva ao apoio se lhe interessar, damos-lhe prioridade."
       },
       {
         "q": "Em que é diferente do ChatGPT?",
