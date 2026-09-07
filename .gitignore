@@ -26,3 +26,4 @@ dist-ssr
 .playwright-video-tmp
 test-results
 playwright-report
+.superpowers/
