@@ -24,10 +24,13 @@ const ICONS = [Bot, Megaphone, Scale, Calculator, UserCheck, Compass];
 
 export default function Assistants() {
   const { t } = useTranslation();
-  const list = t('assistants.list', { returnObjects: true }) as { name: string; role: string; quote: string }[];
+  const raw = t('assistants.list', { returnObjects: true }) as { name: string; role: string; quote: string }[];
+  // Локаль — данные снаружи компонента: потерянный ключ здесь снимал бы всю
+  // страницу, error boundary в App.tsx нет.
+  const list = Array.isArray(raw) ? raw : [];
 
   return (
-    <Section id="features" ariaLabelledby="assistants-heading">
+    <Section id="assistants" ariaLabelledby="assistants-heading" className="bg-paper-100">
       <div className="grid lg:grid-cols-2 gap-10 md:gap-12 items-center min-w-0 [&>*]:min-w-0">
         <FadeIn>
           <Eyebrow className="mb-4">{t('assistants.eyebrow')}</Eyebrow>

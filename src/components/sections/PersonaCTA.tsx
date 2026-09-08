@@ -17,8 +17,10 @@ const CARDS = [
 export default function PersonaCTA() {
   const { t } = useTranslation();
 
+  // Фон — тот же paper-100, что у Hero: секции идут встык и должны читаться
+  // одним тёплым полотном, а не кремовой шапкой на холодном gray-50.
   return (
-    <Section id="for-you" ariaLabelledby="personacta-heading">
+    <Section id="for-you" ariaLabelledby="personacta-heading" className="bg-paper-100">
       <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-10">
           <Eyebrow className="mb-4 justify-center">{t('personaCta.eyebrow')}</Eyebrow>

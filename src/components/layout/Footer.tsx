@@ -123,7 +123,7 @@ export default function Footer() {
         <div>
           <h3 className="text-xs font-semibold text-gray-100 uppercase tracking-wider mb-4">{t('footer.sections.product')}</h3>
           {col([
-            { label: t('footer.product.assistants'), href: '#features' },
+            { label: t('footer.product.assistants'), href: '#assistants' },
             { label: t('footer.product.profile'), href: '#profile' },
             { label: t('footer.product.networking'), href: '#networking' },
             { label: t('footer.product.pricing'), href: '#pricing' },

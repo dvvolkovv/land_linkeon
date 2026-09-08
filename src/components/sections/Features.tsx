@@ -28,8 +28,15 @@ type Row = { label: string; web: boolean; tg: boolean; android: boolean };
 
 export default function Features() {
   const { t } = useTranslation();
-  const groups = t('features.groups', { returnObjects: true }) as Group[];
-  const rows = t('features.matrix.rows', { returnObjects: true }) as Row[];
+  // Всё, что приходит из локали, — данные снаружи компонента: аудит или
+  // переводчик может уронить ключ, и тогда .map() по undefined снимает всю
+  // страницу целиком (error boundary в App.tsx нет). Сводим к массивам здесь,
+  // один раз, а не защищаемся по месту.
+  const rawGroups = t('features.groups', { returnObjects: true }) as Group[];
+  const rawRows = t('features.matrix.rows', { returnObjects: true }) as Row[];
+  const groups = (Array.isArray(rawGroups) ? rawGroups : [])
+    .map((g) => ({ ...g, items: Array.isArray(g?.items) ? g.items : [] }));
+  const rows = Array.isArray(rawRows) ? rawRows : [];
 
   // Доступное имя ячейки обязано нести ЗНАЧЕНИЕ, а не название колонки:
   // колонку и строку скринридер и так объявляет сам по th/scope, а вот «есть»
@@ -48,7 +55,7 @@ export default function Features() {
   );
 
   return (
-    <Section id="features-catalog" ariaLabelledby="features-heading" className="bg-paper-100">
+    <Section id="features" ariaLabelledby="features-heading" className="bg-paper-100">
       <FadeIn className="max-w-2xl mb-12">
         <Eyebrow className="mb-4">{t('features.eyebrow')}</Eyebrow>
         <h2 id="features-heading" className="text-4xl md:text-5xl font-medium tracking-tight text-paper-900 mb-4 text-balance">
@@ -58,7 +65,7 @@ export default function Features() {
       </FadeIn>
 
       <div className="grid md:grid-cols-2 gap-5">
-        {(Array.isArray(groups) ? groups : []).map((g, i) => (
+        {groups.map((g, i) => (
           <FadeIn key={g.title} delay={i * 100}>
             <div className="h-full rounded-2xl border border-paper-300 bg-paper-50 p-6">
               <h3 className="text-base font-semibold text-paper-900 mb-4">{g.title}</h3>
@@ -75,11 +82,23 @@ export default function Features() {
         ))}
       </div>
 
+      {/* Ни одной строки — прячем блок целиком: заголовок «Где что работает»
+          с шапкой колонок над пустым tbody обещает таблицу, которой нет. */}
+      {rows.length > 0 && (
       <FadeIn delay={200}>
-        <h3 className="text-base font-semibold text-paper-900 mt-12 mb-4">{t('features.matrix.title')}</h3>
+        <h3 id="features-matrix-heading" className="text-base font-semibold text-paper-900 mt-12 mb-4">{t('features.matrix.title')}</h3>
         {/* Таблица уезжает в горизонтальный скролл на узком экране: сжимать
-            колонки до нечитаемости хуже, чем прокрутить. */}
-        <div className="overflow-x-auto rounded-2xl border border-paper-300 bg-paper-50">
+            колонки до нечитаемости хуже, чем прокрутить. Скроллящийся контейнер
+            обязан быть фокусируемым (WCAG 2.1.1): в Firefox и Safari div с
+            overflow-x не получает фокус сам, и таблица становится недоступна
+            с клавиатуры. tabIndex даёт фокус, role+aria-labelledby — имя, без
+            которого фокусируемая область объявляется скринридером как «группа». */}
+        <div
+          tabIndex={0}
+          role="region"
+          aria-labelledby="features-matrix-heading"
+          className="overflow-x-auto rounded-2xl border border-paper-300 bg-paper-50"
+        >
           <table className="w-full min-w-[480px] text-sm">
             <caption className="sr-only">{t('features.matrix.title')}</caption>
             <thead>
@@ -91,7 +110,7 @@ export default function Features() {
               </tr>
             </thead>
             <tbody>
-              {(Array.isArray(rows) ? rows : []).map((r) => (
+              {rows.map((r) => (
                 <tr key={r.label}>
                   <th scope="row" className="px-4 py-2.5 text-left font-normal text-paper-800 border-b border-paper-200">{r.label}</th>
                   {cell(r.web)}
@@ -103,6 +122,7 @@ export default function Features() {
           </table>
         </div>
       </FadeIn>
+      )}
     </Section>
   );
 }

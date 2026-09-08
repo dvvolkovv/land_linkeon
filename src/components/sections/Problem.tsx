@@ -8,7 +8,10 @@ const ICONS = [Clock, Users, Layers];
 
 export default function Problem() {
   const { t } = useTranslation();
-  const items = t('problem.items', { returnObjects: true }) as { title: string; text: string }[];
+  const raw = t('problem.items', { returnObjects: true }) as { title: string; text: string }[];
+  // Локаль — данные снаружи компонента: потерянный ключ здесь снимал бы всю
+  // страницу, error boundary в App.tsx нет.
+  const items = Array.isArray(raw) ? raw : [];
 
   return (
     <Section id="problem" ariaLabelledby="problem-heading" className="bg-paper-50 border-y border-paper-300">
