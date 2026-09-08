@@ -46,7 +46,7 @@
     "eyebrow": "Ajuda à mão",
     "h1": "Não tem de entender tudo",
     "h1Accent": "por sua conta",
-    "sub": "Um contrato, os impostos, um texto para os clientes, aquela conversa que anda a adiar há duas semanas. Conte pelas suas palavras, mesmo que lhe saia atabalhoado. Do outro lado está alguém que entende do assunto e devolve-lhe o trabalho pronto.",
+    "sub": "Um contrato, os impostos, um texto para os clientes, uma conversa para a qual ainda não lhe chega a coragem. Conte pelas suas palavras, mesmo que lhe saia atabalhoado. Do outro lado está alguém que entende do assunto e devolve-lhe o trabalho pronto.",
     "ctaStart": "Começar é grátis",
     "trust": "As primeiras conversas são por nossa conta. Não pedimos cartão.",
     "privacy": "Não vendemos as suas conversas nem as usamos para publicidade. O processamento é feito pelos fornecedores de IA.",
@@ -58,7 +58,7 @@
       "eyebrow": "Para o negócio",
       "h1": "Contratos, impostos, divulgação —",
       "h1Accent": "há quem veja isso consigo",
-      "sub": "O advogado lê o contrato todo e diz onde lhe podem armar uma cilada. A contabilista calcula o que deve mesmo. O marketing escreve o que anda a adiar. Venha com o que tiver.",
+      "sub": "O advogado percorre o contrato cláusula a cláusula e mostra-lhe o que aquilo lhe pode custar. A contabilista fecha as contas e diz-lhe o valor. O marketing escreve aquilo a que nunca chega. Venha com o que tiver.",
       "ctaStart": "Trazer uma tarefa"
     },
     "creator": {
@@ -79,7 +79,7 @@
       "eyebrow": "Vídeos curtos",
       "h1": "Um vídeo a partir de uma ideia —",
       "h1Accent": "sem filmar nem editar",
-      "sub": "A Yulia escreve o guião, junta os planos e fecha o vídeo para Reels, Shorts ou TikTok. O presente de boas-vindas dá para o primeiro a partir de uma imagem que já tenha.",
+      "sub": "A Yulia escreve o guião, junta os planos e fecha o vídeo para Reels, Shorts ou TikTok. Traga uma imagem que já tenha e ela monta o vídeo à volta dela.",
       "ctaStart": "Fazer um vídeo"
     }
   },
@@ -384,7 +384,6 @@
     ],
     "matrix": {
       "title": "O que funciona onde",
-      "note": "A tabela é verificada à mão. A data da última verificação está na legenda abaixo.",
       "columns": {
         "feature": "Funcionalidade",
         "web": "Web",
@@ -429,7 +428,6 @@
           "android": true
         }
       ],
-      "checked": "Verificado a 07/09/2026",
       "yes": "Sim",
       "no": "Não"
     }

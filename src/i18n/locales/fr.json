@@ -34,7 +34,7 @@
     },
     "cta": {
       "login": "Connexion",
-      "start": "Essai gratuit"
+      "start": "Commencer gratuitement"
     },
     "a11y": {
       "openMenu": "Ouvrir le menu",
@@ -46,7 +46,7 @@
     "eyebrow": "Une aide à portée de main",
     "h1": "Vous n'avez pas à tout démêler",
     "h1Accent": "en solitaire",
-    "sub": "Un contrat, les impôts, un texte pour vos clients, cette conversation que vous repoussez depuis deux semaines. Racontez avec vos mots, même si ça sort de travers. En face, il y a quelqu'un qui s'y connaît et qui vous le renvoie fini.",
+    "sub": "Un contrat, les impôts, un texte pour vos clients, une conversation pour laquelle vous n'avez pas encore le courage. Racontez avec vos mots, même si ça sort de travers. En face, il y a quelqu'un qui s'y connaît et qui vous le renvoie fini.",
     "ctaStart": "Commencer, c'est gratuit",
     "trust": "Les premières conversations, c'est offert. On ne demande pas de carte.",
     "privacy": "Nous ne vendons pas vos échanges et ne nous en servons pas pour la pub. Traitement chez les fournisseurs d'IA.",
@@ -58,7 +58,7 @@
       "eyebrow": "Pour votre activité",
       "h1": "Contrat, impôts, publicité —",
       "h1Accent": "quelqu'un regarde ça avec vous",
-      "sub": "Le juriste lit le contrat en entier et vous dit où on peut vous piéger. Le comptable calcule ce que vous devez vraiment. Le marketeur écrit ce que vous repoussez. Venez avec ce que vous avez.",
+      "sub": "Le juriste reprend le contrat clause par clause et vous montre ce que ça peut vous coûter. Le comptable met les chiffres au clair et vous donne le montant. Le marketeur écrit ce à quoi vous n'arrivez jamais. Venez avec ce que vous avez.",
       "ctaStart": "Apporter une tâche"
     },
     "creator": {
@@ -79,7 +79,7 @@
       "eyebrow": "Vidéos courtes",
       "h1": "Une vidéo à partir d'une idée —",
       "h1Accent": "sans tournage ni montage",
-      "sub": "Yulia écrit le scénario, réunit les plans et monte la vidéo pour Reels, Shorts ou TikTok. Le cadeau de bienvenue suffit pour une première vidéo tirée d'une image que vous avez déjà.",
+      "sub": "Yulia écrit le scénario, réunit les plans et monte la vidéo pour Reels, Shorts ou TikTok. Apportez une image que vous avez déjà, elle construira la vidéo autour.",
       "ctaStart": "Faire une vidéo"
     }
   },
@@ -302,7 +302,7 @@
         "text": "Les assistants gardent le contexte. Chaque échange suivant est meilleur."
       }
     ],
-    "cta": "Essai gratuit"
+    "cta": "Commencer gratuitement"
   },
   "useCases": {
     "eyebrow": "Pour qui",
@@ -384,7 +384,6 @@
     ],
     "matrix": {
       "title": "Ce qui fonctionne où",
-      "note": "Le tableau est vérifié à la main. La date de la dernière vérification figure dans la légende ci-dessous.",
       "columns": {
         "feature": "Fonction",
         "web": "Web",
@@ -429,7 +428,6 @@
           "android": true
         }
       ],
-      "checked": "Vérifié le 07/09/2026",
       "yes": "Oui",
       "no": "Non"
     }
@@ -509,7 +507,7 @@
   "finalCta": {
     "h2": "Essayez avec quelque chose de vrai",
     "sub": "Pas avec une question test — avec ce qui traîne vraiment. Connexion avec Yandex ou Google, 25 000 jetons offerts, sans carte.",
-    "ctaStart": "Essai gratuit",
+    "ctaStart": "Commencer gratuitement",
     "ctaLogin": "Connexion",
     "trust": "Sans abonnement · les jetons n'expirent pas · supprimer le compte prend un clic"
   }

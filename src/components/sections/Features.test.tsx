@@ -67,7 +67,7 @@ describe('Features: матрица каналов', () => {
       it('секция отрисована целиком, без непереведённых ключей', () => {
         const html = render(code);
         expect(html).toContain(locale.features.h2);
-        expect(html).toContain(locale.features.matrix.checked);
+        expect(html).toContain(locale.features.matrix.title);
         expect(html).not.toContain('features.');
       });
     });

@@ -46,7 +46,7 @@
     "eyebrow": "Help at hand",
     "h1": "You don't have to",
     "h1Accent": "figure it all out alone",
-    "sub": "A contract, your taxes, a note to a client, the conversation you've been putting off for two weeks now. Say it in your own words — even if it comes out messy. Someone who knows this stuff will pick it up and hand it back done.",
+    "sub": "A contract, your taxes, a note to a client, a conversation you don't quite have the nerve for yet. Say it in your own words — even if it comes out messy. Someone who knows this stuff will pick it up and hand it back done.",
     "ctaStart": "Start — it's free",
     "trust": "The first conversations are on us. We don't ask for a card.",
     "privacy": "We never sell your chats or use them for ads. Processing is handled by our AI providers.",
@@ -58,7 +58,7 @@
       "eyebrow": "For your business",
       "h1": "A contract, taxes, promotion —",
       "h1Accent": "there's someone to go through it with",
-      "sub": "A lawyer reads the contract end to end and tells you where it could turn against you. An accountant works out what you actually owe. A marketer writes the thing you keep putting off. Come with whatever you have.",
+      "sub": "A lawyer goes through the contract clause by clause and shows you what it could cost you. An accountant reconciles the numbers and gives you the figure. A marketer writes the thing you never get round to. Come with whatever you have.",
       "ctaStart": "Bring your task"
     },
     "creator": {
@@ -79,7 +79,7 @@
       "eyebrow": "Short videos",
       "h1": "A clip from a single idea —",
       "h1Accent": "no filming, no editing",
-      "sub": "Yulia writes the script, puts the shots together and cuts the clip for Reels, Shorts or TikTok. The welcome gift covers a first clip made from an image you already have.",
+      "sub": "Yulia writes the script, puts the shots together and cuts the clip for Reels, Shorts or TikTok. Bring an image you already have and she'll build the clip around it.",
       "ctaStart": "Make a clip"
     }
   },
@@ -384,7 +384,6 @@
     ],
     "matrix": {
       "title": "What works where",
-      "note": "The table is checked by hand. The date of the last check is in the caption below.",
       "columns": {
         "feature": "Feature",
         "web": "Web",
@@ -429,7 +428,6 @@
           "android": true
         }
       ],
-      "checked": "Verified 7 Sep 2026",
       "yes": "Yes",
       "no": "No"
     }

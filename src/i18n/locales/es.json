@@ -46,7 +46,7 @@
     "eyebrow": "Ayuda a mano",
     "h1": "No tiene por qué entenderlo todo",
     "h1Accent": "por su cuenta",
-    "sub": "Un contrato, los impuestos, un texto para un cliente, esa conversación que lleva dos semanas aplazando. Cuéntelo con sus palabras, aunque le salga torpe. Al otro lado hay alguien que sabe del tema y se lo devuelve resuelto.",
+    "sub": "Un contrato, los impuestos, un texto para un cliente, una conversación para la que aún no le llegan las fuerzas. Cuéntelo con sus palabras, aunque le salga torpe. Al otro lado hay alguien que sabe del tema y se lo devuelve resuelto.",
     "ctaStart": "Empezar es gratis",
     "trust": "Las primeras conversaciones corren de nuestra cuenta. No le pedimos la tarjeta.",
     "privacy": "No vendemos sus conversaciones ni las usamos para publicidad. El procesamiento corre a cargo de los proveedores de IA.",
@@ -58,7 +58,7 @@
       "eyebrow": "Para el negocio",
       "h1": "Contratos, impuestos, marketing —",
       "h1Accent": "hay con quién revisarlo",
-      "sub": "El abogado lee el contrato entero y le dice dónde le pueden jugar una mala pasada. La contable calcula lo que debe de verdad. El de marketing escribe eso que lleva aplazando. Venga con lo que tenga.",
+      "sub": "El abogado repasa el contrato cláusula a cláusula y le enseña lo que puede costarle. La contable cuadra las cuentas y le da la cifra. El de marketing escribe eso a lo que usted nunca llega. Venga con lo que tenga.",
       "ctaStart": "Traer una tarea"
     },
     "creator": {
@@ -79,7 +79,7 @@
       "eyebrow": "Vídeos cortos",
       "h1": "Un vídeo a partir de una idea —",
       "h1Accent": "sin rodar ni editar",
-      "sub": "Yulia escribe el guion, monta los planos y cierra el vídeo para Reels, Shorts o TikTok. Con el regalo de bienvenida le sale el primero a partir de una imagen que ya tenga.",
+      "sub": "Yulia escribe el guion, monta los planos y cierra el vídeo para Reels, Shorts o TikTok. Tráigale una imagen que ya tenga y ella monta el vídeo a partir de ahí.",
       "ctaStart": "Hacer un vídeo"
     }
   },
@@ -384,7 +384,6 @@
     ],
     "matrix": {
       "title": "Qué funciona y dónde",
-      "note": "La tabla se revisa a mano. La fecha de la última revisión está debajo de la tabla.",
       "columns": {
         "feature": "Función",
         "web": "Web",
@@ -429,7 +428,6 @@
           "android": true
         }
       ],
-      "checked": "Revisado el 07/09/2026",
       "yes": "Sí",
       "no": "No"
     }

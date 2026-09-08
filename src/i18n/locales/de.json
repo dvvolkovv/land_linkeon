@@ -46,7 +46,7 @@
     "eyebrow": "Hilfe griffbereit",
     "h1": "Sie müssen nicht alles",
     "h1Accent": "allein herausfinden",
-    "sub": "Ein Vertrag, die Steuern, ein Text für Kunden, das Gespräch, das Sie seit zwei Wochen vor sich herschieben. Erzählen Sie es mit Ihren Worten — auch wenn es holprig klingt. Auf der anderen Seite sitzt jemand, der sich damit auskennt, und gibt es Ihnen fertig zurück.",
+    "sub": "Ein Vertrag, die Steuern, ein Text für Kunden, ein Gespräch, für das Ihnen bisher die Kraft fehlt. Erzählen Sie es mit Ihren Worten — auch wenn es holprig klingt. Auf der anderen Seite sitzt jemand, der sich damit auskennt, und gibt es Ihnen fertig zurück.",
     "ctaStart": "Anfangen kostet nichts",
     "trust": "Die ersten Gespräche gehen auf uns. Nach der Karte fragen wir nicht.",
     "privacy": "Ihre Chats verkaufen wir nicht und nutzen sie nicht für Werbung. Verarbeitung bei KI-Anbietern.",
@@ -58,7 +58,7 @@
       "eyebrow": "Fürs Geschäft",
       "h1": "Vertrag, Steuern, Werbung —",
       "h1Accent": "jemand geht das mit Ihnen durch",
-      "sub": "Der Anwalt liest den Vertrag komplett und sagt Ihnen, wo man Sie auflaufen lassen kann. Die Buchhalterin rechnet aus, was Sie wirklich schulden. Der Marketer schreibt das, was Sie vor sich herschieben. Kommen Sie mit dem, was Sie haben.",
+      "sub": "Der Anwalt geht den Vertrag Klausel für Klausel durch und zeigt Ihnen, was Sie das kosten kann. Die Buchhalterin bringt die Zahlen zusammen und nennt Ihnen die Summe. Der Marketer schreibt das, wozu Sie nie kommen. Kommen Sie mit dem, was Sie haben.",
       "ctaStart": "Aufgabe mitbringen"
     },
     "creator": {
@@ -79,7 +79,7 @@
       "eyebrow": "Kurze Videos",
       "h1": "Ein Clip aus einer Idee —",
       "h1Accent": "ohne Dreh und Schnitt",
-      "sub": "Yulia schreibt das Skript, sucht die Szenen zusammen und schneidet den Clip für Reels, Shorts oder TikTok. Das Willkommensgeschenk reicht für den ersten Clip aus einem Bild, das Sie schon haben.",
+      "sub": "Yulia schreibt das Skript, sucht die Szenen zusammen und schneidet den Clip für Reels, Shorts oder TikTok. Bringen Sie ein Bild mit, das Sie schon haben — daraus baut sie den Clip.",
       "ctaStart": "Clip machen"
     }
   },
@@ -384,7 +384,6 @@
     ],
     "matrix": {
       "title": "Was wo läuft",
-      "note": "Die Tabelle wird von Hand geprüft. Das Datum der letzten Prüfung steht in der Zeile darunter.",
       "columns": {
         "feature": "Funktion",
         "web": "Web",
@@ -429,7 +428,6 @@
           "android": true
         }
       ],
-      "checked": "Geprüft am 07.09.2026",
       "yes": "Ja",
       "no": "Nein"
     }
