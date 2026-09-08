@@ -4,26 +4,26 @@
     "description": "AI assistants (marketer, lawyer, accountant, HR, coach) plus one shared profile. For small businesses, freelancers and agencies."
   },
   "personaCta": {
-    "eyebrow": "For your goal",
-    "h2": "Where to start is up to you",
+    "eyebrow": "Where to start",
+    "h2": "What you're dealing with",
     "cards": {
       "business": {
-        "title": "For business",
-        "text": "An AI team for your business: lawyer, marketer, strategist and coach — no subscription, no hiring. Ask a question right now.",
-        "cta": "Ask the AI team"
+        "title": "The business you're carrying on your own",
+        "text": "A contract, the taxes, the email that should have gone out yesterday. A lawyer, an accountant and a marketer — without hiring anyone, without booking an appointment.",
+        "cta": "Bring your task"
       },
       "creator": {
-        "title": "For content",
-        "text": "An AI assistant for content: copy, ideas, headlines, SEO. From a post to a script — in minutes.",
-        "cta": "Create content"
+        "title": "An idea you need to show people",
+        "text": "Copy, an image, a clip, a plan for the week. Bring the idea and you leave with it finished — and you can redo it as many times as you like.",
+        "cta": "Show your idea"
       },
       "personal": {
-        "title": "For yourself",
-        "text": "An AI psychologist and coach, always available. Understand yourself — the first conversation is free.",
+        "title": "The conversation you keep putting off",
+        "text": "Sometimes what you need isn't a solution but someone who won't get tired of listening and won't start handing out advice.",
         "cta": "Start a conversation"
       }
     },
-    "social": "16 AI specialists in one place · conversations about business, content and self-growth"
+    "social": "Conversations about the business, about what you're making and about yourself — in one place, with someone who already knows your context"
   },
   "header": {
     "nav": {
@@ -43,79 +43,44 @@
     }
   },
   "hero": {
+    "eyebrow": "Help at hand",
+    "h1": "You don't have to",
+    "h1Accent": "figure it all out alone",
+    "sub": "A contract, your taxes, a note to a client, a conversation you don't quite have the nerve for yet. Say it in your own words — even if it comes out messy. Someone who knows this stuff will pick it up and hand it back done.",
+    "ctaStart": "Start — it's free",
+    "trust": "The first conversations are on us. We don't ask for a card.",
+    "privacy": "We never sell your chats or use them for ads. Processing is handled by our AI providers.",
+    "badge": {
+      "title": "Assistant",
+      "status": "here"
+    },
     "biz": {
-      "eyebrow": "An AI team for founders",
-      "h1Part1": "Contracts, taxes, promotion —",
-      "h1Accent": "solved in minutes",
-      "h1Part2": "for free",
-      "sub": "A lawyer reviews your contract, an accountant estimates taxes, a marketer writes the post and the plan. Ask your task — first result free, no card.",
-      "ctaStart": "Solve a task free",
-      "chips": [
-        "📄 Contract review",
-        "🧮 Taxes",
-        "📈 Promotion plan"
-      ]
+      "eyebrow": "For your business",
+      "h1": "A contract, taxes, promotion —",
+      "h1Accent": "there's someone to go through it with",
+      "sub": "A lawyer goes through the contract clause by clause and shows you what it could cost you. An accountant reconciles the numbers and gives you the figure. A marketer writes the thing you never get round to. Come with whatever you have.",
+      "ctaStart": "Bring your task"
     },
     "creator": {
-      "eyebrow": "An AI studio for content creators",
-      "h1Part1": "Ready content for social —",
-      "h1Accent": "in minutes",
-      "h1Part2": ", free",
-      "sub": "AI writes posts, generates images and video, and the SMM assistant Yulia plans your feed. Bring an idea — leave with ready content.",
-      "ctaStart": "Create content free",
-      "chips": [
-        "✍️ Posts",
-        "🎨 Images",
-        "🎬 Video"
-      ]
+      "eyebrow": "For content",
+      "h1": "You already have the idea —",
+      "h1Accent": "we'll put the rest together",
+      "sub": "Copy, an image, a clip, a plan for the week ahead. Yulia asks what it's about and who it's for, then brings it back finished. Redo it as many times as you like.",
+      "ctaStart": "Show your idea"
     },
     "assistant": {
-      "eyebrow": "Your personal AI assistant",
-      "h1Part1": "A letter, text, post, plan —",
-      "h1Accent": "done in minutes",
-      "h1Part2": "for free",
-      "sub": "Roman — your universal AI assistant: business letters and documents, posts and content plans, sales copy, business ideas. Bring a task — leave with it done.",
-      "ctaStart": "Solve a task free",
-      "chips": [
-        "📄 Letters & docs",
-        "✍️ Texts & posts",
-        "📈 Content plan"
-      ]
+      "eyebrow": "Personal assistant",
+      "h1": "An email, a document, a plan —",
+      "h1Accent": "you don't have to write it yourself",
+      "sub": "Roman takes on anything: business letters, documents, posts, copy, ideas. Say what you need in your own words — he'll ask about the rest himself.",
+      "ctaStart": "Start — it's free"
     },
     "video": {
-      "eyebrow": "AI short-video producer",
-      "h1Part1": "Idea → a ready clip",
-      "h1Accent": "in minutes",
-      "h1Part2": "— no filming",
-      "sub": "Yulia turns an idea into a short social video: script, shots, final cut. Reels, Shorts, TikTok — no editing. Your 25,000 starting tokens cover a first clip from an image you already have.",
-      "ctaStart": "Make a clip",
-      "chips": [
-        "🎬 Reels & Shorts",
-        "🎨 Script & shots",
-        "⚡ In minutes"
-      ]
-    },
-    "eyebrow": "AI for business growth",
-    "h1Part1": "A ready result in minutes:",
-    "h1Rotating": [
-      "a post and image for social",
-      "a contract review",
-      "a promotion plan"
-    ],
-    "h1Part2": "— for free",
-    "sub": "16 AI assistants: they read your files, search, crunch numbers and hand back finished documents, images and video. Bring a task — take the result. The first one is free, no card needed.",
-    "ctaStart": "Start free",
-    "ctaLogin": "Log in",
-    "chips": [
-      "✍️ Content",
-      "⚖️ Legal",
-      "📈 Marketing"
-    ],
-    "trust": "🎁 25,000 tokens free · no card · no subscription · 2-minute start",
-    "privacy": "🔒 We never sell your chats or use them for ads. Processing runs on AI providers.",
-    "badge": {
-      "title": "AI assistant",
-      "status": "online · replying"
+      "eyebrow": "Short videos",
+      "h1": "A clip from a single idea —",
+      "h1Accent": "no filming, no editing",
+      "sub": "Yulia writes the script, puts the shots together and cuts the clip for Reels, Shorts or TikTok. Bring an image you already have and she'll build the clip around it.",
+      "ctaStart": "Make a clip"
     }
   },
   "footer": {
@@ -143,23 +108,23 @@
     "rights": "All rights reserved."
   },
   "problem": {
-    "eyebrow": "The problem",
-    "h2": "There aren't enough hours in a day to grow your business",
+    "eyebrow": "How it usually goes",
+    "h2": "More to do than one person can carry",
     "items": [
       {
-        "title": "Busywork eats your focus",
-        "text": "Replying to clients, writing posts, drafting contracts — and suddenly you're not growing, you're firefighting."
+        "title": "The small stuff takes the day",
+        "text": "Reply to a client, finish the post, give the contract a read. By evening you've done plenty, and the thing it was all for hasn't moved."
       },
       {
-        "title": "Hiring is slow and expensive",
-        "text": "Marketer, lawyer, HR — that's an extra ₽300–500K/mo in payroll at an early stage."
+        "title": "No one to ask",
+        "text": "A five-minute question, and no one to put it to: the lawyer is busy, the accountant will get back to you tomorrow, and it has to be settled now."
       },
       {
-        "title": "Ten tools, one context",
-        "text": "ChatGPT, Notion, CRM, email — each knows a fragment about you, not the whole."
+        "title": "Explaining yourself from scratch every time",
+        "text": "Ten tabs and ten services, and in every one of them you start over: who you are and what you do."
       }
     ],
-    "footer": "Linkeon puts this in one product: AI assistants do the work, and your profile — the context — lives in one place."
+    "footer": "Linkeon brings this into one place: the assistants do the work, and what you said once, they all remember."
   },
   "agentic": {
     "eyebrow": "Not a chatbot",
@@ -209,36 +174,42 @@
     ]
   },
   "assistants": {
-    "eyebrow": "AI Team",
-    "h2": "16 assistants in one window",
-    "sub": "Each an expert in their role. They remember your business, know about each other, and you can dictate the task by voice.",
+    "eyebrow": "Who's around",
+    "h2": "Who you'll be talking to",
+    "sub": "Each has their own field and their own manner. You explain it once — they all remember.",
     "list": [
       {
-        "name": "Roman, generalist",
-        "role": "Any task: letters, copy, plans, reviews"
+        "name": "Roman",
+        "role": "generalist",
+        "quote": "Bring it as it is — a file, a voice note, a jumble. I'll work it out, and if it's not my area, I'll call in someone better at it."
       },
       {
-        "name": "Alexandra, marketer",
-        "role": "Launch plans, content, market analytics"
+        "name": "Alexandra",
+        "role": "marketer",
+        "quote": "First tell me who you're selling this to. Without that, any copy comes out pretty and useless."
       },
       {
-        "name": "Alexey, lawyer",
-        "role": "Contracts, checklists, consultations"
+        "name": "Alexey",
+        "role": "lawyer",
+        "quote": "Show me the whole contract. I'll tell you straight where it could turn against you, and what to ask them to rewrite."
       },
       {
-        "name": "Anna, accountant",
-        "role": "Bookkeeping, taxes, business finances"
+        "name": "Anna",
+        "role": "accountant",
+        "quote": "Don't panic. We'll work out what you actually owe and clear it one item at a time."
       },
       {
-        "name": "Irina, HR",
-        "role": "Job posts, interview prompts, screening"
+        "name": "Irina",
+        "role": "HR",
+        "quote": "Tell me who you need on the team. The job post and interview questions I'll write myself."
       },
       {
-        "name": "Misha, coach",
-        "role": "Strategy, priorities, founder psychology"
+        "name": "Misha",
+        "role": "coach",
+        "quote": "Let's not start with the tasks. Let's start with why you've been putting this off for two weeks now."
       }
     ],
-    "cta": "See all 16 assistants"
+    "cta": "Meet them all"
   },
   "profile": {
     "eyebrow": "Unified profile",
@@ -364,6 +335,103 @@
       }
     ]
   },
+  "features": {
+    "eyebrow": "Features",
+    "h2": "What Linkeon includes",
+    "sub": "One account and one balance. Everything listed here is available the moment you sign in.",
+    "groups": [
+      {
+        "title": "Conversation and working with documents",
+        "items": [
+          "18 assistants, each with their own field",
+          "Files: PDFs, spreadsheets, documents — read end to end, handed back as a finished file",
+          "Web search and calculations inside the task",
+          "Your own assistants: put together a specialist for the work you do",
+          "Voice input: dictate instead of typing",
+          "Voice call: talk it through out loud instead of writing back and forth"
+        ]
+      },
+      {
+        "title": "Content",
+        "items": [
+          "Copy, posts, emails, content plans",
+          "Images from a description or from your photo",
+          "Video: script, shots and the finished clip",
+          "Connecting social accounts and publishing from Linkeon",
+          "Campaigns and schedules for posting regularly"
+        ]
+      },
+      {
+        "title": "People",
+        "items": [
+          "Unified profile: one context, shared by every assistant",
+          "Finding people by values and goals",
+          "A compatibility check before you meet",
+          "Contact requests and messages inside Linkeon",
+          "Rooms: a meeting over a link, with an assistant in the room"
+        ]
+      },
+      {
+        "title": "Where this works",
+        "items": [
+          "The website — on a computer and on a phone",
+          "The Android app",
+          "The Telegram bot and the mini app",
+          "Your own Telegram bot with your assistant inside it",
+          "One balance and one history across every channel"
+        ]
+      }
+    ],
+    "matrix": {
+      "title": "What works where",
+      "columns": {
+        "feature": "Feature",
+        "web": "Web",
+        "tg": "Telegram",
+        "android": "Android"
+      },
+      "rows": [
+        {
+          "label": "Talking to the assistants",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Files and documents",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Images and video",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Voice call",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Finding people and compatibility",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Paying for tokens",
+          "web": true,
+          "tg": false,
+          "android": true
+        }
+      ],
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
   "testimonials": {
     "eyebrow": "Testimonials",
     "h2": "What users say",
@@ -437,10 +505,10 @@
     ]
   },
   "finalCta": {
-    "h2": "Assemble your AI department in 2 minutes",
-    "sub": "Sign in with Yandex or Google, 25,000 tokens on the house, no card",
+    "h2": "Try it on something real",
+    "sub": "Not on a test question — on the thing that's actually been sitting there. Sign in with Yandex or Google, 25,000 tokens as a welcome gift, no card needed.",
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
-    "trust": "No subscriptions · no card required · tokens don't expire"
+    "trust": "No subscription · tokens don't expire · deleting your account takes one click"
   }
 }

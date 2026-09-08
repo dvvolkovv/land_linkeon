@@ -1,29 +1,29 @@
 {
   "meta": {
-    "title": "LINKEON.IO — dein AI-Team fürs Wachstum",
+    "title": "LINKEON.IO — Ihr AI-Team fürs Wachstum",
     "description": "AI-Assistenten (Marketing, Recht, Buchhaltung, HR, Coaching) plus ein gemeinsames Profil. Für kleine Unternehmen, Freelancer und Agenturen."
   },
   "personaCta": {
-    "eyebrow": "Für deine Aufgabe",
-    "h2": "Wo du startest, entscheidest du",
+    "eyebrow": "Womit anfangen",
+    "h2": "Was bei Ihnen gerade ansteht",
     "cards": {
       "business": {
-        "title": "Fürs Business",
-        "text": "AI-Team für dein Business: Anwalt, Marketer, Stratege und Coach — ohne Abo, ohne Recruiting. Stell jetzt deine Frage.",
-        "cta": "AI-Team fragen"
+        "title": "Ein Geschäft, das Sie allein stemmen",
+        "text": "Ein Vertrag, die Steuern, die Mail, die schon gestern raus sollte. Anwalt, Buchhalterin und Marketer — ohne jemanden einzustellen und ohne Termin.",
+        "cta": "Aufgabe mitbringen"
       },
       "creator": {
-        "title": "Für Content",
-        "text": "AI-Assistent für Content: Texte, Ideen, Headlines, SEO. Vom Post bis zum Skript — in Minuten.",
-        "cta": "Content erstellen"
+        "title": "Eine Idee, die unter die Leute soll",
+        "text": "Text, Bild, Clip, ein Plan für die Woche. Bringen Sie den Einfall mit — fertig bekommen Sie ihn zurück, und ändern können Sie ihn, so oft Sie wollen.",
+        "cta": "Idee zeigen"
       },
       "personal": {
-        "title": "Für dich",
-        "text": "AI-Psychologe und Coach, immer erreichbar. Versteh dich selbst — das erste Gespräch ist gratis.",
+        "title": "Ein Gespräch, das Sie vor sich herschieben",
+        "text": "Manchmal braucht es keine Lösung, sondern jemanden, der nicht müde wird zuzuhören und nicht anfängt, Ratschläge zu geben.",
         "cta": "Gespräch starten"
       }
     },
-    "social": "16 AI-Spezialisten an einem Ort · Gespräche über Business, Content und Persönlichkeit"
+    "social": "Gespräche übers Geschäft, über das, was Sie gerade bauen, und über sich selbst — an einem Ort, bei jemandem, der Ihren Kontext schon kennt"
   },
   "header": {
     "nav": {
@@ -43,63 +43,48 @@
     }
   },
   "hero": {
+    "eyebrow": "Hilfe griffbereit",
+    "h1": "Sie müssen nicht alles",
+    "h1Accent": "allein herausfinden",
+    "sub": "Ein Vertrag, die Steuern, ein Text für Kunden, ein Gespräch, für das Ihnen bisher die Kraft fehlt. Erzählen Sie es mit Ihren Worten — auch wenn es holprig klingt. Auf der anderen Seite sitzt jemand, der sich damit auskennt, und gibt es Ihnen fertig zurück.",
+    "ctaStart": "Anfangen kostet nichts",
+    "trust": "Die ersten Gespräche gehen auf uns. Nach der Karte fragen wir nicht.",
+    "privacy": "Ihre Chats verkaufen wir nicht und nutzen sie nicht für Werbung. Verarbeitung bei KI-Anbietern.",
+    "badge": {
+      "title": "Assistent",
+      "status": "erreichbar"
+    },
     "biz": {
-      "eyebrow": "AI-Team für Unternehmer",
-      "h1Part1": "Vertrag, Steuern, Marketing —",
-      "h1Accent": "in Minuten gelöst",
-      "h1Part2": "gratis",
-      "sub": "Der Anwalt prüft den Vertrag, die Buchhalterin rechnet die Steuern, der Marketer schreibt Post und Plan. Stell deine Aufgabe — erstes Ergebnis gratis, ohne Karte.",
-      "ctaStart": "Aufgabe gratis lösen",
-      "chips": ["📄 Vertragsprüfung", "🧮 Steuern", "📈 Marketingplan"]
+      "eyebrow": "Fürs Geschäft",
+      "h1": "Vertrag, Steuern, Werbung —",
+      "h1Accent": "jemand geht das mit Ihnen durch",
+      "sub": "Der Anwalt geht den Vertrag Klausel für Klausel durch und zeigt Ihnen, was Sie das kosten kann. Die Buchhalterin bringt die Zahlen zusammen und nennt Ihnen die Summe. Der Marketer schreibt das, wozu Sie nie kommen. Kommen Sie mit dem, was Sie haben.",
+      "ctaStart": "Aufgabe mitbringen"
     },
     "creator": {
-      "eyebrow": "AI-Studio für Creator",
-      "h1Part1": "Fertiger Content für Social —",
-      "h1Accent": "in Minuten",
-      "h1Part2": ", gratis",
-      "sub": "Die AI schreibt Posts, malt Bilder und generiert Videos, SMM-Assistentin Yulia plant deinen Feed. Bring eine Idee — nimm fertigen Content mit.",
-      "ctaStart": "Content gratis erstellen",
-      "chips": ["✍️ Posts", "🎨 Bilder", "🎬 Videos"]
+      "eyebrow": "Für Content",
+      "h1": "Die Idee haben Sie schon —",
+      "h1Accent": "den Rest bauen wir",
+      "sub": "Text, Bild, Clip, ein Plan für die kommende Woche. Yulia fragt, worum es geht und für wen, und bringt es fertig zurück. Ändern können Sie es, so oft Sie wollen.",
+      "ctaStart": "Idee zeigen"
     },
     "assistant": {
-      "eyebrow": "Persönlicher AI-Helfer",
-      "h1Part1": "Brief, Text, Post, Plan —",
-      "h1Accent": "in Minuten fertig",
-      "h1Part2": "gratis",
-      "sub": "Roman ist dein AI-Allrounder: Geschäftsbriefe und Dokumente, Posts und Content-Pläne, Verkaufstexte, Ideen fürs Business. Bring die Aufgabe — nimm das Ergebnis mit.",
-      "ctaStart": "Aufgabe gratis lösen",
-      "chips": ["📄 Briefe & Dokumente", "✍️ Texte & Posts", "📈 Content-Plan"]
+      "eyebrow": "Persönlicher Helfer",
+      "h1": "Brief, Text, Plan —",
+      "h1Accent": "Sie müssen nicht selbst schreiben",
+      "sub": "Roman übernimmt alles: Geschäftsbriefe, Dokumente, Posts, Texte, Ideen. Sagen Sie mit Ihren Worten, was Sie brauchen — was noch fehlt, fragt er von selbst nach.",
+      "ctaStart": "Anfangen kostet nichts"
     },
     "video": {
-      "eyebrow": "AI-Produzent für Kurzvideos",
-      "h1Part1": "Idee → fertiger Clip",
-      "h1Accent": "in Minuten",
-      "h1Part2": "— ohne Dreh",
-      "sub": "Yulia macht aus deiner Idee ein kurzes Social-Video: Skript, Szenen, Schnitt. Reels, Shorts, TikTok — ohne Montage. Die 25.000 Start-Tokens reichen für den ersten Clip aus einem fertigen Bild.",
-      "ctaStart": "Clip erstellen",
-      "chips": ["🎬 Reels & Shorts", "🎨 Skript & Szenen", "⚡ In Minuten"]
-    },
-    "eyebrow": "AI fürs Business-Wachstum",
-    "h1Part1": "Fertiges Ergebnis in Minuten:",
-    "h1Rotating": [
-      "Post und Bild für Social",
-      "Vertragsprüfung",
-      "Marketingplan"
-    ],
-    "h1Part2": "— gratis",
-    "sub": "16 AI-Assistenten: Sie lesen deine Dateien, recherchieren, rechnen und geben fertige Dokumente, Bilder und Videos zurück. Bring die Aufgabe — nimm das Ergebnis mit. Das erste ist gratis, ohne Karte.",
-    "ctaStart": "Gratis starten",
-    "ctaLogin": "Login",
-    "chips": ["✍️ Content", "⚖️ Recht", "📈 Marketing"],
-    "trust": "🎁 25.000 Tokens gratis · ohne Karte · ohne Abo · in 2 Minuten startklar",
-    "privacy": "🔒 Deine Chats verkaufen wir nicht und nutzen sie nicht für Werbung. Verarbeitung bei AI-Anbietern.",
-    "badge": {
-      "title": "AI-Assistent",
-      "status": "online · antwortet"
+      "eyebrow": "Kurze Videos",
+      "h1": "Ein Clip aus einer Idee —",
+      "h1Accent": "ohne Dreh und Schnitt",
+      "sub": "Yulia schreibt das Skript, sucht die Szenen zusammen und schneidet den Clip für Reels, Shorts oder TikTok. Bringen Sie ein Bild mit, das Sie schon haben — daraus baut sie den Clip.",
+      "ctaStart": "Clip machen"
     }
   },
   "footer": {
-    "tagline": "Neuronales Netz für dein Business-Wachstum",
+    "tagline": "Neuronales Netz für Ihr Business-Wachstum",
     "sections": {
       "product": "Produkt",
       "company": "Support",
@@ -123,32 +108,32 @@
     "rights": "Alle Rechte vorbehalten."
   },
   "problem": {
-    "eyebrow": "Das Problem",
-    "h2": "Der Tag hat zu wenig Stunden fürs Wachstum",
+    "eyebrow": "Wie es meistens läuft",
+    "h2": "Mehr zu tun, als ein Mensch schafft",
     "items": [
       {
-        "title": "Routine frisst den Fokus",
-        "text": "Kunden antworten, Posts schreiben, Verträge aufsetzen — und schon wächst du nicht, sondern löschst Brände."
+        "title": "Kleinkram nimmt den ganzen Tag",
+        "text": "Dem Kunden antworten, den Post fertig schreiben, den Vertrag durchsehen. Abends ist vieles geschafft, und das, worum es eigentlich geht, ist keinen Schritt weiter."
       },
       {
-        "title": "Einstellen: teuer und langsam",
-        "text": "Marketer, Anwalt, HR — das sind 300–500 Tsd. ₽/Monat Gehalt in der frühen Phase."
+        "title": "Niemand, den Sie fragen können",
+        "text": "Eine Frage von fünf Minuten, aber da ist niemand: der Anwalt ist beschäftigt, die Buchhalterin antwortet morgen, und entscheiden müssen Sie jetzt."
       },
       {
-        "title": "Zehn Tools, ein Kontext",
-        "text": "ChatGPT, Notion, CRM, Mail — jedes kennt ein Stück von dir, keins das Ganze."
+        "title": "Jedes Mal alles neu erklären",
+        "text": "Zehn Tabs und zehn Dienste, und in jedem erzählen Sie wieder von vorn, wer Sie sind und was Sie machen."
       }
     ],
-    "footer": "Linkeon bündelt das in einem Produkt: AI-Assistenten erledigen die Aufgaben, und dein Profil — der Kontext — liegt an einem Ort."
+    "footer": "Linkeon bringt das an einen Ort: Die Assistenten erledigen die Arbeit, und was Sie einmal erzählt haben, behalten sie alle."
   },
   "agentic": {
     "eyebrow": "Kein Chatbot",
-    "h2": "Dein Assistent antwortet nicht mit Text — er erledigt die Arbeit",
-    "sub": "Ein gewöhnlicher Bot kann nur zurückschreiben. Der Linkeon-Assistent hat einen eigenen Arbeitsplatz: Er öffnet deine Dateien, recherchiert im Netz, schreibt und führt Code aus, baut das Dokument zusammen — und gibt dir die fertige Datei.",
-    "youLabel": "Du",
+    "h2": "Ihr Assistent antwortet nicht mit Text — er erledigt die Arbeit",
+    "sub": "Ein gewöhnlicher Bot kann nur zurückschreiben. Der Linkeon-Assistent hat einen eigenen Arbeitsplatz: Er öffnet Ihre Dateien, recherchiert im Netz, schreibt und führt Code aus, baut das Dokument zusammen — und gibt Ihnen die fertige Datei.",
+    "youLabel": "Sie",
     "assistantLabel": "Assistent",
-    "note": "Die Dateien werden auf Linkeon-Seite verarbeitet — auf deinem Rechner ist nichts zu installieren. Läuft mit denselben Tokens wie das Gespräch.",
-    "cta": "Gib deinem Assistenten eine Aufgabe",
+    "note": "Die Dateien werden auf Linkeon-Seite verarbeitet — auf Ihrem Rechner ist nichts zu installieren. Läuft mit denselben Tokens wie das Gespräch.",
+    "cta": "Geben Sie Ihrem Assistenten eine Aufgabe",
     "cases": [
       {
         "tab": "Vertrag",
@@ -189,54 +174,60 @@
     ]
   },
   "assistants": {
-    "eyebrow": "AI-Team",
-    "h2": "16 Assistenten, ein Fenster",
-    "sub": "Jeder ein Experte in seiner Rolle. Sie kennen dein Business, wissen voneinander, und die Aufgabe kannst du einfach diktieren.",
+    "eyebrow": "Wer da ist",
+    "h2": "Mit wem Sie sprechen werden",
+    "sub": "Jeder hat sein eigenes Fach und seine eigene Art. Einmal erzählt — und alle behalten es.",
     "list": [
       {
-        "name": "Roman, Allrounder",
-        "role": "Jede Aufgabe: Brief, Text, Plan, Analyse"
+        "name": "Roman",
+        "role": "Allrounder",
+        "quote": "Bringen Sie es, wie es ist: Datei, Sprachnachricht, Chaos. Ich sortiere das. Ist es nicht mein Fach, hole ich jemanden, der es besser kann."
       },
       {
-        "name": "Alexandra, Marketing",
-        "role": "Launch-Pläne, Content, Analytik"
+        "name": "Alexandra",
+        "role": "Marketing",
+        "quote": "Sagen Sie mir zuerst, wem Sie das verkaufen. Ohne das wird jeder Text schön und nutzlos."
       },
       {
-        "name": "Alexey, Anwalt",
-        "role": "Verträge, Checklisten, Beratung"
+        "name": "Alexej",
+        "role": "Anwalt",
+        "quote": "Den Vertrag bitte komplett, nicht nur die Stelle, die Sie stört. Ich sage Ihnen direkt, wo man Sie auflaufen lässt."
       },
       {
-        "name": "Anna, Buchhaltung",
-        "role": "Buchhaltung, Steuern, Finanzen"
+        "name": "Anna",
+        "role": "Buchhalterin",
+        "quote": "Keine Panik. Wir rechnen aus, was Sie wirklich schulden, und arbeiten es Punkt für Punkt ab."
       },
       {
-        "name": "Irina, HR",
-        "role": "Stellenanzeigen, Interviewfragen, Auswahl"
+        "name": "Irina",
+        "role": "HR",
+        "quote": "Was für einen Menschen brauchen Sie? Stellenanzeige und Fragen fürs Gespräch schreibe ich selbst."
       },
       {
-        "name": "Misha, Coach",
-        "role": "Strategie, Prioritäten, Psychologie"
+        "name": "Mischa",
+        "role": "Coach",
+        "quote": "Fangen wir nicht bei den Aufgaben an. Sondern damit, warum Sie das seit zwei Wochen vor sich herschieben."
       }
     ],
-    "cta": "Alle 16 Assistenten ansehen"
+    "cta": "Alle kennenlernen"
   },
   "profile": {
     "eyebrow": "Einheitliches Profil",
     "h2": "Ein Kontext — jeder Assistent kennt ihn",
-    "sub": "In euren Gesprächen baut Linkeon dein Profil auf: Werte, Business, Pain Points, Kommunikationsstil. Jeder Assistent startet nicht bei null, sondern mit vollem Verständnis.",
+    "sub": "In Ihren Gesprächen baut Linkeon Ihr Profil auf: Werte, Business, Pain Points, Kommunikationsstil. Jeder Assistent startet nicht bei null, sondern mit vollem Verständnis.",
     "bullets": [
       "Wächst mit jedem Gespräch",
       "Gilt in allen Assistenten",
-      "Du bestimmst, was gespeichert wird",
+      "Sie bestimmen, was gespeichert wird",
       "Findet Partner mit gleichen Werten"
     ]
   },
   "networking": {
     "eyebrow": "Networking",
-    "h2": "Partner und Experten, die deine Werte teilen",
+    "h2": "Partner und Experten, die Ihre Werte teilen",
     "sub": "Ein Profil ist kein Lebenslauf. Es sind Werte, Absichten, Stil. Linkeon findet Menschen, mit denen es klickt — für Partnerschaften, Kunden, Teams, Projekte.",
     "legend": {
-      "self": "Dein Profil",
+      "self": "Ihr Profil",
       "values": "Werte und Absichten",
       "matches": "Treffer mit anderen"
     },
@@ -267,11 +258,11 @@
       },
       {
         "title": "Kunden",
-        "text": "Menschen, denen dein Sinn wichtig ist, nicht nur der Preis."
+        "text": "Menschen, denen Ihr Sinn wichtig ist, nicht nur der Preis."
       },
       {
         "title": "Community",
-        "text": "Anfragen an deine Leute, Antworten und Chats."
+        "text": "Anfragen an Ihre Leute, Antworten und Chats."
       }
     ],
     "cta": "Networking in my.linkeon.io öffnen"
@@ -279,7 +270,7 @@
   "content": {
     "eyebrow": "Content-Engine",
     "h2": "Dazu Bilder und Videos — dieselben Tokens",
-    "sub": "Der Marketing-Assistent hat den Plan geschrieben? Generier direkt Cover, Karussells und ein kurzes Video. Ohne Wechsel zwischen Diensten und Abos.",
+    "sub": "Der Marketing-Assistent hat den Plan geschrieben? Generieren Sie direkt Cover, Karussells und ein kurzes Video. Ohne Wechsel zwischen Diensten und Abos.",
     "images": {
       "h3": "Bilder",
       "caption": "Imagen 4.0 Ultra — realistisch und schnell. Cover, Karussells, Visuals für Social."
@@ -300,7 +291,7 @@
       },
       {
         "title": "Gespräch mit dem Assistenten",
-        "text": "Beschreib die Aufgabe per Sprache oder Text. Das Profil wächst von selbst."
+        "text": "Beschreiben Sie die Aufgabe per Sprache oder Text. Das Profil wächst von selbst."
       },
       {
         "title": "Features starten",
@@ -327,10 +318,10 @@
       },
       {
         "title": "Freelancer und Solo-Experten",
-        "text": "Du machst Projekte, drumherum 100 Kleinigkeiten (Verträge, Social, Leads). Die AI nimmt sie dir ab.",
+        "text": "Sie machen Projekte, drumherum 100 Kleinigkeiten (Verträge, Social, Leads). Die AI nimmt sie Ihnen ab.",
         "benefits": [
           "Verträge in einer Minute",
-          "Werbung für dich",
+          "Werbung für Sie",
           "Mehr Zeit für die Kernarbeit"
         ]
       },
@@ -344,6 +335,103 @@
       }
     ]
   },
+  "features": {
+    "eyebrow": "Features",
+    "h2": "Was in Linkeon enthalten ist",
+    "sub": "Ein Konto und ein Guthaben. Alles Aufgezählte steht direkt nach dem Login bereit.",
+    "groups": [
+      {
+        "title": "Gespräch und Arbeit mit Dokumenten",
+        "items": [
+          "18 Assistenten, jeder mit seinem eigenen Fach",
+          "Dateien: PDF, Tabellen, Dokumente — komplett gelesen, als fertige Datei zurück",
+          "Websuche und Berechnungen innerhalb der Aufgabe",
+          "Eigene Assistenten: einen Spezialisten für Ihre Arbeit zusammenstellen",
+          "Spracheingabe: diktieren statt tippen",
+          "Sprachanruf: laut durchsprechen statt hin und her zu schreiben"
+        ]
+      },
+      {
+        "title": "Content",
+        "items": [
+          "Texte, Posts, Mails, Content-Pläne",
+          "Bilder nach Beschreibung oder nach Ihrem Foto",
+          "Video: Skript, Szenen und der fertige Clip",
+          "Social-Media-Konten verbinden und aus Linkeon posten",
+          "Kampagnen und Zeitpläne für regelmäßiges Posten"
+        ]
+      },
+      {
+        "title": "Menschen",
+        "items": [
+          "Einheitliches Profil: ein Kontext für alle Assistenten",
+          "Menschen nach Werten und Zielen finden",
+          "Einschätzung der Übereinstimmung vor dem Kennenlernen",
+          "Kontaktanfragen und Nachrichten innerhalb von Linkeon",
+          "Räume: ein Treffen per Link, mit einem Assistenten darin"
+        ]
+      },
+      {
+        "title": "Wo das läuft",
+        "items": [
+          "Website — am Rechner und am Telefon",
+          "Android-App",
+          "Telegram-Bot und Mini-App",
+          "Eigener Telegram-Bot mit Ihrem Assistenten darin",
+          "Gemeinsames Guthaben und gemeinsame Historie in allen Kanälen"
+        ]
+      }
+    ],
+    "matrix": {
+      "title": "Was wo läuft",
+      "columns": {
+        "feature": "Funktion",
+        "web": "Web",
+        "tg": "Telegram",
+        "android": "Android"
+      },
+      "rows": [
+        {
+          "label": "Gespräch mit den Assistenten",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Dateien und Dokumente",
+          "web": true,
+          "tg": true,
+          "android": true
+        },
+        {
+          "label": "Bilder und Video",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Sprachanruf",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Menschen finden und Übereinstimmung",
+          "web": true,
+          "tg": false,
+          "android": true
+        },
+        {
+          "label": "Tokens bezahlen",
+          "web": true,
+          "tg": false,
+          "android": true
+        }
+      ],
+      "yes": "Ja",
+      "no": "Nein"
+    }
+  },
   "testimonials": {
     "eyebrow": "Stimmen",
     "h2": "Was Nutzer sagen",
@@ -355,8 +443,8 @@
   },
   "pricing": {
     "eyebrow": "Preise",
-    "h2": "Du zahlst nur für Tokens. Ohne Abo.",
-    "sub": "Tokens verfallen nicht. Einmal ein Paket kaufen — nutzen, wann du willst.",
+    "h2": "Sie zahlen nur für Tokens. Ohne Abo.",
+    "sub": "Tokens verfallen nicht. Einmal ein Paket kaufen — nutzen, wann Sie wollen.",
     "plans": {
       "starter": "Start",
       "extended": "Erweitert",
@@ -368,7 +456,7 @@
     "messages": "Nachrichten",
     "per1000": "pro 1000 Tokens",
     "popular": "Beliebt",
-    "savings": "Spare {{value}}",
+    "savings": "Sparen Sie {{value}}",
     "cta": "Kaufen",
     "trust": {
       "yookassa": "Zahlung über YooKassa",
@@ -387,19 +475,19 @@
       },
       {
         "q": "Wie lange dauert der Einstieg?",
-        "a": "Login über Yandex, Google oder Telefonnummer — 2 Minuten. Zum Start schenken wir 25.000 Tokens: etwa 7 Antworten eines Assistenten oder 5 Bilder. Für Video reicht das nicht wirklich — dafür brauchst du ein Paket."
+        "a": "Login über Yandex, Google oder Telefonnummer — 2 Minuten. Zum Start schenken wir 25.000 Tokens: etwa 7 Antworten eines Assistenten oder 5 Bilder. Für Video reicht das nicht wirklich — dafür brauchen Sie ein Paket."
       },
       {
         "q": "Sind meine Dialoge privat?",
-        "a": "Ja. Zugriff auf dein Profil hast nur du. In den Einstellungen bestimmst du, was die Assistenten sich merken."
+        "a": "Ja. Zugriff auf Ihr Profil haben nur Sie. In den Einstellungen bestimmen Sie, was die Assistenten sich merken."
       },
       {
         "q": "Kann ich einen Token-Kauf stornieren?",
-        "a": "Tokens verfallen nicht, der Kauf gilt also unbegrenzt — ein ungenutztes Guthaben zahlen wir aber nicht zurück. Geld erstatten wir in zwei Fällen: Der Dienst war länger als 72 Stunden am Stück nicht erreichbar, oder der Betrag wurde doppelt abgebucht. Schreib an support@linkeon.io — wir prüfen das in 10 Werktagen."
+        "a": "Tokens verfallen nicht, der Kauf gilt also unbegrenzt — ein ungenutztes Guthaben zahlen wir aber nicht zurück. Geld erstatten wir in zwei Fällen: Der Dienst war länger als 72 Stunden am Stück nicht erreichbar, oder der Betrag wurde doppelt abgebucht. Schreiben Sie an support@linkeon.io — wir prüfen das in 10 Werktagen."
       },
       {
         "q": "Gibt es eine API?",
-        "a": "Noch nicht. Wir arbeiten daran — schreib dem Support bei Interesse, dann geht's schneller."
+        "a": "Noch nicht. Wir arbeiten daran — schreiben Sie dem Support bei Interesse, dann geht's schneller."
       },
       {
         "q": "Was ist der Unterschied zu ChatGPT?",
@@ -408,10 +496,10 @@
     ]
   },
   "finalCta": {
-    "h2": "Bau dir dein AI-Team in 2 Minuten",
-    "sub": "Login über Yandex oder Google, 25.000 Tokens geschenkt, ohne Karte",
+    "h2": "Probieren Sie es an etwas Echtem aus",
+    "sub": "Nicht an einer Testfrage — an der Sache, die wirklich liegen geblieben ist. Login über Yandex oder Google, 25.000 Tokens geschenkt, ohne Karte.",
     "ctaStart": "Gratis starten",
     "ctaLogin": "Login",
-    "trust": "Ohne Abo · ohne Kartendaten · Tokens verfallen nicht"
+    "trust": "Ohne Abo · Tokens verfallen nicht · Konto löschen geht mit einem Klick"
   }
 }
