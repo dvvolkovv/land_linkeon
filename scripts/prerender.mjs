@@ -19,32 +19,33 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 import { translatedCodes } from './translated-languages.js';
+import {
+  LEGAL_SLUGS,
+  sitemapUrls,
+  urlFor as siteUrlFor,
+  legalUrlFor as siteLegalUrlFor,
+  deleteUrlFor as siteDeleteUrlFor,
+} from './site-urls.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
 const dist = join(root, 'dist');
 
-const SITE = 'https://linkeon.io';
-
 const PUBLISHED_CODES = translatedCodes();
 
 const OG_LOCALES = Object.fromEntries(SUPPORTED_LANGUAGES.map((l) => [l.code, l.ogLocale]));
 
-const urlFor = (code) => (code === DEFAULT_LANGUAGE ? `${SITE}/` : `${SITE}/${code}/`);
+// Правила адресов — из общего модуля: их же читает тест на sitemap. Здесь
+// только связывание с DEFAULT_LANGUAGE, чтобы остальной файл звал их как
+// раньше, одним аргументом.
+const urlFor = (code) => siteUrlFor(code, DEFAULT_LANGUAGE);
+const legalUrlFor = (code, slug) => siteLegalUrlFor(code, slug, DEFAULT_LANGUAGE);
+const deleteUrlFor = (code) => siteDeleteUrlFor(code, DEFAULT_LANGUAGE);
 
-// Юридические документы отдельными страницами с собственными адресами.
-// Без них ссылка на политику указывает на `#privacy`, то есть на главную:
-// краулер и Play Console видят лендинг, а не документ.
-const LEGAL_SLUGS = ['offer', 'privacy', 'pdn'];
-const legalUrlFor = (code, slug) =>
-  code === DEFAULT_LANGUAGE ? `${SITE}/legal/${slug}` : `${SITE}/${code}/legal/${slug}`;
+// Каталоги в dist остаются здесь: они знают про сборку, а не про публичные
+// адреса, и тесту не нужны.
 const legalDirFor = (code, slug) =>
   code === DEFAULT_LANGUAGE ? join(dist, 'legal', slug) : join(dist, code, 'legal', slug);
-
-// Страница удаления аккаунта. Обязательный адрес для Play Console: порядок
-// удаления должен быть виден ДО установки и БЕЗ входа.
-const deleteUrlFor = (code) =>
-  code === DEFAULT_LANGUAGE ? `${SITE}/delete-account` : `${SITE}/${code}/delete-account`;
 const deleteDirFor = (code) =>
   code === DEFAULT_LANGUAGE ? join(dist, 'delete-account') : join(dist, code, 'delete-account');
 
@@ -232,11 +233,7 @@ for (const code of PUBLISHED_CODES) {
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...PUBLISHED_CODES.map((c) => `  <url><loc>${urlFor(c)}</loc></url>`),
-  ...PUBLISHED_CODES.flatMap((c) =>
-    LEGAL_SLUGS.map((slug) => `  <url><loc>${legalUrlFor(c, slug)}</loc></url>`),
-  ),
-  ...PUBLISHED_CODES.map((c) => `  <url><loc>${deleteUrlFor(c)}</loc></url>`),
+  ...sitemapUrls(PUBLISHED_CODES, DEFAULT_LANGUAGE).map((loc) => `  <url><loc>${loc}</loc></url>`),
   '</urlset>',
 ].join('\n');
 writeFileSync(join(dist, 'sitemap.xml'), sitemap + '\n', 'utf8');

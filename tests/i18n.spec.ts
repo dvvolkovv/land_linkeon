@@ -1,6 +1,7 @@
 import { test, expect, request } from '@playwright/test';
 import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 import { translatedCodes } from '../scripts/translated-languages.js';
+import { sitemapUrls } from '../scripts/site-urls.mjs';
 
 // Список берётся из того же источника, что и сборка: выпускаются только языки
 // с непустой локалью. Захардкоженный массив здесь означал бы тесты страниц,
@@ -85,15 +86,22 @@ test.describe('языковые версии', () => {
     await ctx.dispose();
   });
 
+  // Ожидание строится из того же модуля, из которого пререндер пишет sitemap,
+  // поэтому новый раздел сайта не роняет тест на ровном месте. Проверяется
+  // именно «ровно»: множества сравниваются целиком, так что и пропавший адрес,
+  // и лишний (например, версия невыпущенного языка) видны одинаково.
   test('sitemap перечисляет ровно выпущенные версии', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const res = await ctx.get('/sitemap.xml');
     expect(res.status()).toBe(200);
     const xml = await res.text();
-    for (const { code } of LANGUAGES) {
-      expect(xml).toContain(`<loc>https://linkeon.io${pathFor(code)}</loc>`);
-    }
-    expect((xml.match(/<loc>/g) ?? []).length, 'лишних URL в sitemap нет').toBe(LANGUAGES.length);
+
+    const actual = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    const expected = sitemapUrls(PUBLISHED, DEFAULT_LANGUAGE);
+
+    expect(new Set(actual).size, 'в sitemap есть дубли').toBe(actual.length);
+    expect([...actual].sort()).toEqual([...expected].sort());
+
     await ctx.dispose();
   });
 
