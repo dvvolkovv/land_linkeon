@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Linkeon — мультфильм</title>
+    <!-- Страница плеера живёт внутри лендинга (iframe), отдельной страницей в поиске ей быть незачем -->
+    <meta name="robots" content="noindex" />
+    <script>
+      // Без завершающего слэша относительные пути (./assets, ./clips) указывали бы мимо папки плеера
+      if (!location.pathname.endsWith('/') && !/\.[a-z0-9]+$/i.test(location.pathname)) {
+        location.replace(location.pathname + '/' + location.search + location.hash);
+      }
+    </script>
+    <style>html,body,#root{background:#0f1424;height:100%;margin:0}</style>
+    <script type="module" crossorigin src="./assets/index-CP8Nc-_W.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

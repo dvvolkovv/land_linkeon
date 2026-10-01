@@ -83,6 +83,12 @@
       "ctaStart": "Make a clip"
     }
   },
+  "cartoon": {
+    "eyebrow": "Cartoon · 1:42",
+    "h2": "How Linkeon differs from an ordinary chat",
+    "sub": "A minute and a half about Lena and her coffee shop: the assistants remember what she told them once, do the work, talk by voice, write first — and one day introduce her to the right person.",
+    "frameTitle": "Cartoon: how Linkeon differs from an ordinary chat"
+  },
   "footer": {
     "tagline": "Neural network for business growth",
     "sections": {

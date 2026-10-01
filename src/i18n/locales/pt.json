@@ -83,6 +83,12 @@
       "ctaStart": "Fazer um vídeo"
     }
   },
+  "cartoon": {
+    "eyebrow": "Animação · 1:42",
+    "h2": "O que distingue o Linkeon de um chat comum",
+    "sub": "Um minuto e meio sobre a Lena e o seu café: os assistentes lembram-se do que ela contou uma vez, fazem o trabalho, falam por voz, escrevem primeiro — e um dia apresentam-lhe a pessoa certa.",
+    "frameTitle": "Animação: o que distingue o Linkeon de um chat comum"
+  },
   "footer": {
     "tagline": "Inteligência artificial para fazer crescer o negócio",
     "sections": {

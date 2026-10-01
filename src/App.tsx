@@ -1,6 +1,7 @@
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
+import Cartoon from './components/sections/Cartoon';
 import PersonaCTA from './components/sections/PersonaCTA';
 import Problem from './components/sections/Problem';
 import Agentic from './components/sections/Agentic';
@@ -23,6 +24,7 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <Cartoon />
         <PersonaCTA />
         <Problem />
         <Agentic />

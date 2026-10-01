@@ -83,6 +83,12 @@
       "ctaStart": "Faire une vidéo"
     }
   },
+  "cartoon": {
+    "eyebrow": "Dessin animé · 1:42",
+    "h2": "Ce qui distingue Linkeon d’un chat ordinaire",
+    "sub": "Une minute et demie sur Lena et son café : les assistants se souviennent de ce qu’elle leur a dit une fois, font le travail, parlent de vive voix, écrivent les premiers — et un jour lui présentent la bonne personne.",
+    "frameTitle": "Dessin animé : ce qui distingue Linkeon d’un chat ordinaire"
+  },
   "footer": {
     "tagline": "L'IA pour la croissance de votre business",
     "sections": {
