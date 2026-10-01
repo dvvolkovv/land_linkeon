@@ -15,7 +15,10 @@ async function fetchOtpCode(page: Page): Promise<string | null> {
   for (let attempt = 0; attempt < 8; attempt++) {
     await page.waitForTimeout(1500);
     try {
-      const res = await page.request.get(`${BASE}/webhook/debug/sms-code/${TEST_PHONE}`);
+      const res = await page.request.get(`${BASE}/webhook/debug/sms-code/${TEST_PHONE}`, {
+        // С 01.10.2026 debug-ручки отвечают только с секретом из .env бэкенда.
+        headers: { "X-Debug-Secret": process.env.DEBUG_SECRET ?? "" },
+      });
       if (!res.ok()) continue;
       const body = await res.json().catch(() => ({}));
       const code = String(body.code ?? body.otp ?? '').trim();
