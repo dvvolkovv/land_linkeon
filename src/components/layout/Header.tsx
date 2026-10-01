@@ -13,10 +13,20 @@ const LINKS = [
 ] as const;
 
 
-export default function Header() {
+interface Props {
+  /**
+   * Главная своего языка — на подстраницах (ассистенты). Без него пункты меню —
+   * якоря текущей страницы, как на самой главной; на подстранице такие якоря
+   * никуда не ведут.
+   */
+  homeHref?: string;
+}
+
+export default function Header({ homeHref }: Props = {}) {
   const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navHref = (anchor: string) => (homeHref ? `${homeHref}${anchor}` : anchor);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -48,8 +58,8 @@ export default function Header() {
     <header className={`fixed top-0 inset-x-0 z-50 transition-all ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-200' : 'bg-transparent'}`}>
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a
-          href="#top"
-          onClick={scrollToTop}
+          href={homeHref ?? '#top'}
+          onClick={homeHref ? undefined : scrollToTop}
           className="flex items-center gap-2 font-semibold tracking-tight text-gray-900"
           aria-label={t('header.a11y.logo')}
         >
@@ -59,7 +69,7 @@ export default function Header() {
 
         <nav className="hidden lg:flex items-center gap-8">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <a key={l.href} href={navHref(l.href)} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
               {t(l.key)}
             </a>
           ))}
@@ -104,7 +114,7 @@ export default function Header() {
           </div>
           <div className="flex-1 flex flex-col gap-6 p-6 overflow-y-auto">
             {LINKS.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-xl font-semibold text-gray-900">
+              <a key={l.href} href={navHref(l.href)} onClick={() => setMobileOpen(false)} className="text-xl font-semibold text-gray-900">
                 {t(l.key)}
               </a>
             ))}

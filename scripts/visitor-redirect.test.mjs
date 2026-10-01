@@ -46,6 +46,23 @@ describe('pickRedirect', () => {
     expect(pick({ pathname: '/index.html', languages: ['de-DE'] })).toBe('/de/');
   });
 
+  // РЕГРЕССИЯ: человек с английским браузером читал русскую страницу
+  // ассистента, нажал «Главная» — и уезжал на /en/. Переход внутри сайта —
+  // не новый визит.
+  it('не уводит, если пришёл со своего же сайта', () => {
+    expect(pick({ languages: ['en-US'], referrer: 'https://linkeon.io/assistants/raya/', host: 'linkeon.io' })).toBeNull();
+    expect(pick({ languages: ['en-US'], referrer: 'http://localhost:4173/legal/offer/', host: 'localhost:4173' })).toBeNull();
+    expect(pick({ languages: ['en-US'], referrer: 'https://LINKEON.io/', host: 'linkeon.io' })).toBeNull();
+  });
+
+  it('с чужого сайта и без реферера уводит, как раньше', () => {
+    expect(pick({ languages: ['en-US'], referrer: 'https://www.google.com/', host: 'linkeon.io' })).toBe('/en/');
+    // Другой хост — другой сайт, даже если домен наш: приложение, www.
+    expect(pick({ languages: ['en-US'], referrer: 'https://my.linkeon.io/chat', host: 'linkeon.io' })).toBe('/en/');
+    expect(pick({ languages: ['en-US'], referrer: 'https://linkeon.io.evil.com/', host: 'linkeon.io' })).toBe('/en/');
+    expect(pick({ languages: ['en-US'], referrer: '', host: 'linkeon.io' })).toBe('/en/');
+  });
+
   it('уважает явный выбор языка', () => {
     expect(pick({ languages: ['en-US'], stored: 'ru' })).toBeNull();
   });
@@ -96,6 +113,29 @@ describe('snippetSource', () => {
     const run = new Function('location', 'localStorage', 'navigator', snippetSource(PUBLISHED, 'ru'));
     run(fakeLocation, { getItem: () => null }, { languages: ['de-DE'], userAgent: 'Mozilla/5.0' });
     expect(replaced).toEqual([]);
+  });
+
+  // Тот же реферер — но через настоящий инлайн: исходник обязан читать
+  // document.referrer и location.host сам.
+  it('исполняясь после перехода внутри сайта, никуда не уводит', () => {
+    const replaced = [];
+    const fakeLocation = { pathname: '/', host: 'linkeon.io', search: '', hash: '', replace: (u) => replaced.push(u) };
+    const run = new Function('location', 'localStorage', 'navigator', 'document', snippetSource(PUBLISHED, 'ru'));
+    run(
+      fakeLocation,
+      { getItem: () => null },
+      { languages: ['en-US'], userAgent: 'Mozilla/5.0' },
+      { referrer: 'https://linkeon.io/assistants/raya/' },
+    );
+    expect(replaced).toEqual([]);
+
+    run(
+      fakeLocation,
+      { getItem: () => null },
+      { languages: ['en-US'], userAgent: 'Mozilla/5.0' },
+      { referrer: 'https://www.google.com/' },
+    );
+    expect(replaced).toEqual(['/en/']);
   });
 
   it('переносит query и hash на языковую версию', () => {

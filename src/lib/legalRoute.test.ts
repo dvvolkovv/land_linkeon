@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { legalPath, parseLegalPath } from './legalRoute';
+import { legalPath, parseDeleteAccountPath, parseLegalPath } from './legalRoute';
 import { pathForLanguage } from '../i18n/urlLanguage';
 
 describe('parseLegalPath', () => {
@@ -20,6 +20,16 @@ describe('parseLegalPath', () => {
   it('хвостовой слэш не мешает', () => {
     expect(parseLegalPath('/legal/offer/')).toEqual({ language: 'ru', doc: 'offer' });
     expect(parseLegalPath('/de/legal/pdn/')).toEqual({ language: 'de', doc: 'pdn' });
+  });
+
+  // РЕГРЕССИЯ: документ лежит в dist/ каталогом с index.html, nginx отдаёт его
+  // и по явному адресу файла — а разбор показывал поверх лендинг.
+  it('явный index.html — тот же документ', () => {
+    expect(parseLegalPath('/legal/offer/index.html')).toEqual({ language: 'ru', doc: 'offer' });
+    expect(parseLegalPath('/en/legal/privacy/index.html')).toEqual({ language: 'en', doc: 'privacy' });
+    expect(parseLegalPath('/legal/index.html')).toBeNull();
+    expect(parseDeleteAccountPath('/delete-account/index.html')).toEqual({ language: 'ru' });
+    expect(parseDeleteAccountPath('/en/delete-account/index.html')).toEqual({ language: 'en' });
   });
 
   it('всё прочее — обычный лендинг', () => {

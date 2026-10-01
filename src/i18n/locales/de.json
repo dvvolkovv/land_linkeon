@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "LINKEON.IO — Ihr AI-Team fürs Wachstum",
-    "description": "AI-Assistenten (Marketing, Recht, Buchhaltung, HR, Coaching) plus ein gemeinsames Profil. Für kleine Unternehmen, Freelancer und Agenturen."
+    "description": "AI-Assistenten (Marketing, Recht, Buchhaltung, Karriereberatung, Coaching) plus ein gemeinsames Profil. Für kleine Unternehmen, Freelancer und Agenturen."
   },
   "personaCta": {
     "eyebrow": "Womit anfangen",
@@ -187,7 +187,7 @@
       {
         "name": "Roman",
         "role": "Allrounder",
-        "quote": "Bringen Sie es, wie es ist: Datei, Sprachnachricht, Chaos. Ich sortiere das. Ist es nicht mein Fach, hole ich jemanden, der es besser kann."
+        "quote": "Bringen Sie es, wie es ist: Datei, Sprachnachricht, Chaos. Ich sortiere das selbst. Wo es einen Anwalt, Buchhalter oder Marketer bräuchte, antworte ich mit deren Fachwissen."
       },
       {
         "name": "Alexandra",
@@ -206,8 +206,8 @@
       },
       {
         "name": "Irina",
-        "role": "HR",
-        "quote": "Was für einen Menschen brauchen Sie? Stellenanzeige und Fragen fürs Gespräch schreibe ich selbst."
+        "role": "Karriereberaterin",
+        "quote": "Erzählen Sie von Ihrer letzten Stelle: Was davon war wirklich Ihres und was nicht? Daraus ergibt sich, wohin es weitergeht."
       },
       {
         "name": "Mischa",
@@ -507,5 +507,54 @@
     "ctaStart": "Gratis starten",
     "ctaLogin": "Login",
     "trust": "Ohne Abo · Tokens verfallen nicht · Konto löschen geht mit einem Klick"
+  },
+  "assistantPages": {
+    "nav": "Assistenten",
+    "home": "Startseite",
+    "breadcrumbsLabel": "Brotkrümelnavigation",
+    "allCount": "Alle Assistenten ({{count}})",
+    "roles": {
+      "roman": "Allrounder",
+      "alexey": "Anwalt",
+      "anna": "Buchhalterin",
+      "andrey": "Unternehmensgründung",
+      "vitaly": "Finanzchef",
+      "alexandra": "Marketing",
+      "ekaterina": "Texterin",
+      "pavel": "Vertrieb",
+      "irina": "Karriereberaterin",
+      "dmitry": "Technischer Leiter",
+      "kira": "Designerin",
+      "misha": "Coach",
+      "olia": "Werte-Erkundung",
+      "masha": "Transformationsspiele",
+      "liana": "Numerologin",
+      "shankara": "Vedischer Astrologe",
+      "raya": "Human Design",
+      "polina": "Lifestyle-Coach"
+    },
+    "catalog": {
+      "title": "KI-Assistenten von Linkeon: Recht, Buchhaltung, Marketing, Coaching und mehr",
+      "description": "Jeder Assistent hat sein Fachgebiet, und alle teilen ein Profil: Was Sie einem erzählen, wissen alle. Recht, Steuern, Marketing, Vertrieb, Karriere und Selbsterkenntnis.",
+      "h1": "Mit wem Sie bei Linkeon sprechen können",
+      "lead": "Fachleute für die Arbeit und Gesprächspartner für persönliche Themen. Suchen Sie sich aus, wer am besten zu Ihrem Anliegen passt – oder beginnen Sie mit Roman: Er übernimmt Aufgaben jeder Art.",
+      "groups": {
+        "assistant": "Wenn Sie nicht wissen, mit wem Sie anfangen sollen",
+        "business": "Für die Arbeit",
+        "personal": "Für Sie persönlich"
+      }
+    },
+    "page": {
+      "situations": "Typische Anliegen",
+      "example": "So sieht es aus",
+      "exampleNote": "Echte Antwort des Assistenten, Oktober 2026, aus dem Russischen übersetzt. Kürzungen sind mit „…“ markiert.",
+      "exampleYou": "Sie",
+      "can": "Kompetenzen",
+      "cannot": "Grenzen",
+      "faq": "Fragen",
+      "related": "Arbeitet gut zusammen mit",
+      "finalTitle": "Probieren Sie es an Ihrer eigenen Aufgabe aus",
+      "trust": "Die ersten Gespräche gehen auf uns. Keine Bankkarte nötig."
+    }
   }
 }

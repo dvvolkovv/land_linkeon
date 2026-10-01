@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 
 import Footer from '../components/layout/Footer';
 import { DEFAULT_LANGUAGE } from '../i18n/languages';
+import { homePath } from '../lib/assistantRoute';
 
 /**
  * Как удалить аккаунт — публичная страница.
@@ -100,7 +101,7 @@ export default function DeleteAccountPage() {
   // Русская и английская редакции: страница нужна магазинам и поддержке,
   // а не для охвата — переводить её на семь языков смысла нет.
   const c = i18n.language === DEFAULT_LANGUAGE ? RU : EN;
-  const home = i18n.language === DEFAULT_LANGUAGE ? '/' : `/${i18n.language}/`;
+  const home = homePath(i18n.language);
 
   const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
     <section className="mt-8">
@@ -150,7 +151,8 @@ export default function DeleteAccountPage() {
         </Section>
       </main>
 
-      <Footer />
+      {/* homeHref: разделы «Продукт» — якоря главной, на этой странице их нет. */}
+      <Footer homeHref={home} />
     </div>
   );
 }

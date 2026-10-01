@@ -5,6 +5,10 @@ import Eyebrow from '../ui/Eyebrow';
 import ScreenshotFrame from '../ui/ScreenshotFrame';
 import FadeIn from '../ui/FadeIn';
 import { appUrl } from '../../lib/appUrl';
+import { CARD_SLUGS } from './assistantCards';
+import { hasAssistantPages } from '../../content/assistants/availability';
+import { ASSISTANTS } from '../../content/assistants/roster';
+import { assistantPath, assistantsCatalogPath } from '../../lib/assistantRoute';
 
 /**
  * ИСТОЧНИК ПРАВДЫ ДЛЯ ИМЁН — таблица `agent_translations` в базе приложения
@@ -23,11 +27,12 @@ import { appUrl } from '../../lib/appUrl';
 const ICONS = [Bot, Megaphone, Scale, Calculator, UserCheck, Compass];
 
 export default function Assistants() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const raw = t('assistants.list', { returnObjects: true }) as { name: string; role: string; quote: string }[];
   // Локаль — данные снаружи компонента: потерянный ключ здесь снимал бы всю
   // страницу, error boundary в App.tsx нет.
   const list = Array.isArray(raw) ? raw : [];
+  const linked = hasAssistantPages(i18n.language);
 
   return (
     <Section id="assistants" ariaLabelledby="assistants-heading" className="bg-paper-100">
@@ -60,15 +65,16 @@ export default function Assistants() {
         на реплику оставалось 226px (1152 − 48 паддинга → 1104, пополам с gap-12
         → 528, пополам с gap-3 → 258, минус p-4 → 226) — около 32 знаков в строке.
         Реплики в это не влезали: сокращать пришлось бы вторым предложением, а
-        именно там Роман передаёт задачу, Алексей предупреждает, Ирина забирает
-        работу на себя. Во всю ширину на карточку приходится 546px, текста — 514.
+        именно в нём у большинства реплик главное — что ассистент сделает с
+        вашей задачей. Во всю ширину на карточку приходится 546px, текста — 514.
       */}
       <FadeIn delay={80}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-10 md:mt-12 min-w-0">
           {list.map((a, i) => {
             const Icon = ICONS[i];
-            return (
-              <div key={a.name} className="min-w-0 flex flex-col gap-2 p-4 rounded-xl border border-paper-300 bg-paper-50">
+            const slug = CARD_SLUGS[i];
+            const body = (
+              <>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0">
                     <Icon aria-hidden="true" className="w-5 h-5 text-brand-700" />
@@ -79,14 +85,29 @@ export default function Assistants() {
                   </div>
                 </div>
                 <p className="text-sm text-paper-800 leading-relaxed">«{a.quote}»</p>
-              </div>
+              </>
+            );
+            const cls = 'min-w-0 flex flex-col gap-2 p-4 rounded-xl border border-paper-300 bg-paper-50';
+            return linked && slug ? (
+              <a key={a.name} href={assistantPath(i18n.language, slug)} className={`${cls} hover:border-brand-700 transition-colors`}>
+                {body}
+              </a>
+            ) : (
+              <div key={a.name} className={cls}>{body}</div>
             );
           })}
         </div>
 
-        <a href={appUrl()} data-cta="assistants-link" className="inline-flex items-center gap-1 py-2 min-h-11 mt-6 text-brand-800 hover:text-brand-900 font-semibold text-sm">
-          {t('assistants.cta')} <ArrowRight aria-hidden="true" className="w-4 h-4" />
-        </a>
+        <div className="flex flex-wrap items-center gap-x-6 mt-6">
+          <a href={appUrl()} data-cta="assistants-link" className="inline-flex items-center gap-1 py-2 min-h-11 text-brand-800 hover:text-brand-900 font-semibold text-sm">
+            {t('assistants.cta')} <ArrowRight aria-hidden="true" className="w-4 h-4" />
+          </a>
+          {linked && (
+            <a href={assistantsCatalogPath(i18n.language)} className="inline-flex items-center py-2 min-h-11 text-paper-800 hover:text-paper-900 font-semibold text-sm underline underline-offset-4">
+              {t('assistantPages.allCount', { count: ASSISTANTS.length })}
+            </a>
+          )}
+        </div>
       </FadeIn>
     </Section>
   );

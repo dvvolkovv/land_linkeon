@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "LINKEON.IO — l'équipe IA qui fait grandir votre business",
-    "description": "Des assistants IA (marketing, juridique, comptabilité, RH, coaching) + un profil unique. Pour les petites boîtes, les freelances et les agences."
+    "description": "Des assistants IA (marketing, juridique, comptabilité, carrière, coaching) + un profil unique. Pour les petites boîtes, les freelances et les agences."
   },
   "personaCta": {
     "eyebrow": "Par où commencer",
@@ -187,7 +187,7 @@
       {
         "name": "Roman",
         "role": "polyvalent",
-        "quote": "Apportez ça tel quel : un fichier, un vocal, un truc en vrac. Je démêle ça, et si ce n'est pas mon domaine, j'appelle quelqu'un de plus calé."
+        "quote": "Apportez ça tel quel : un fichier, un vocal, un truc en vrac. Je démêle ça moi-même, et là où il faudrait un juriste, un comptable ou un pro du marketing, je réponds avec leur savoir-faire."
       },
       {
         "name": "Alexandra",
@@ -206,8 +206,8 @@
       },
       {
         "name": "Irina",
-        "role": "RH",
-        "quote": "Quel profil vous manque ? L'annonce et les questions d'entretien, je m'en occupe."
+        "role": "conseillère en carrière",
+        "quote": "Parlez-moi de votre dernier poste : ce qui vous ressemblait et ce qui ne vous ressemblait pas. C'est de là que viendra la suite."
       },
       {
         "name": "Micha",
@@ -516,5 +516,54 @@
     "ctaStart": "Commencer gratuitement",
     "ctaLogin": "Connexion",
     "trust": "Sans abonnement · les jetons n'expirent pas · supprimer le compte prend un clic"
+  },
+  "assistantPages": {
+    "nav": "Assistants",
+    "home": "Accueil",
+    "breadcrumbsLabel": "Fil d'Ariane",
+    "allCount": "Tous les assistants ({{count}})",
+    "roles": {
+      "roman": "polyvalent",
+      "alexey": "juriste",
+      "anna": "comptable",
+      "andrey": "création d'entreprise",
+      "vitaly": "directeur financier",
+      "alexandra": "marketing",
+      "ekaterina": "rédactrice",
+      "pavel": "vente",
+      "irina": "conseillère en carrière",
+      "dmitry": "directeur technique",
+      "kira": "designer",
+      "misha": "coach",
+      "olia": "exploration des valeurs",
+      "masha": "jeux transformationnels",
+      "liana": "numérologue",
+      "shankara": "astrologue védique",
+      "raya": "Human Design",
+      "polina": "coach mode de vie"
+    },
+    "catalog": {
+      "title": "Assistants IA Linkeon : juriste, comptable, marketing, coach et bien d'autres",
+      "description": "Chaque assistant a sa spécialité, et tous partagent un même profil : ce que vous dites à l'un, tous le savent. Droit, impôts, marketing, vente, carrière et connaissance de soi.",
+      "h1": "À qui parler sur Linkeon",
+      "lead": "Des spécialistes pour votre travail et des interlocuteurs pour parler de vous. Choisissez celui qui correspond le mieux à votre besoin — ou commencez par Roman : il prend en charge tous types de tâches.",
+      "groups": {
+        "assistant": "Si vous ne savez pas par qui commencer",
+        "business": "Pour le travail",
+        "personal": "Pour vous"
+      }
+    },
+    "page": {
+      "situations": "Ce qui amène les gens ici",
+      "example": "À quoi ça ressemble",
+      "exampleNote": "Réponse authentique de l'assistant, octobre 2026, traduite du russe. Les passages coupés sont signalés par « … ».",
+      "exampleYou": "Vous",
+      "can": "Ses compétences",
+      "cannot": "Ses limites",
+      "faq": "Questions",
+      "related": "Fait équipe avec",
+      "finalTitle": "Essayez avec votre propre tâche",
+      "trust": "Les premières conversations sont offertes. Aucune carte bancaire demandée."
+    }
   }
 }

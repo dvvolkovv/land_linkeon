@@ -2,6 +2,8 @@ import { test, expect, request } from '@playwright/test';
 import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 import { translatedCodes } from '../scripts/translated-languages.js';
 import { sitemapUrls } from '../scripts/site-urls.mjs';
+import { assistantPageCodes } from '../scripts/assistant-page-languages.js';
+import { ASSISTANT_SLUGS } from '../src/content/assistants/roster.data.js';
 
 // Список берётся из того же источника, что и сборка: выпускаются только языки
 // с непустой локалью. Захардкоженный массив здесь означал бы тесты страниц,
@@ -97,7 +99,10 @@ test.describe('языковые версии', () => {
     const xml = await res.text();
 
     const actual = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-    const expected = sitemapUrls(PUBLISHED, DEFAULT_LANGUAGE);
+    const expected = sitemapUrls(PUBLISHED, DEFAULT_LANGUAGE, {
+      codes: assistantPageCodes(),
+      slugs: ASSISTANT_SLUGS,
+    });
 
     expect(new Set(actual).size, 'в sitemap есть дубли').toBe(actual.length);
     expect([...actual].sort()).toEqual([...expected].sort());

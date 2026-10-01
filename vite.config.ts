@@ -1,6 +1,7 @@
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { translatedCodes } from './scripts/translated-languages.js';
+import { assistantPageCodes } from './scripts/assistant-page-languages.js';
 import { snippetSource } from './scripts/visitor-redirect.js';
 import { DEFAULT_LANGUAGE } from './src/i18n/languages.data.js';
 
@@ -39,5 +40,7 @@ export default defineConfig({
     // Поэтому список считается на сборке и подставляется в бандл литералом.
     // См. scripts/translated-languages.js и src/i18n/translatedLanguages.ts.
     __TRANSLATED_LANGUAGES__: JSON.stringify(translatedCodes()),
+    // Языки страниц ассистентов — по тому же принципу, см. scripts/assistant-page-languages.js.
+    __ASSISTANT_PAGE_LANGUAGES__: JSON.stringify(assistantPageCodes()),
   },
 });

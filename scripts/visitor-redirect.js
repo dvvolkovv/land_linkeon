@@ -20,10 +20,19 @@ export function pickRedirect(input) {
   var userAgent = input.userAgent || '';
   var published = input.published || [];
   var canonical = input.canonical;
+  var referrer = input.referrer || '';
+  var host = input.host || '';
 
   // Только канонический корень. Тот же HTML лежит в /en/index.html и остальных
   // языковых каталогах — без этой проверки получилась бы петля.
   if (pathname !== '/' && pathname !== '/index.html') return null;
+
+  // Пришёл со своего же сайта — это не новый визит, а переход по ссылке:
+  // человек с английским браузером читал русскую страницу ассистента и нажал
+  // «Главная». Он ждёт русскую главную, а не /en/. Сравниваются хосты
+  // (с портом — как в location.host); пустой реферер ничего не решает.
+  var refHost = /^[a-z][a-z0-9+.-]*:\/\/([^\/?#]+)/i.exec(referrer);
+  if (refHost && host && refHost[1].toLowerCase() === host.toLowerCase()) return null;
 
   // Явный выбор языка уважаем: русскоязычный человек с английской системой
   // должен уметь остаться на русском.
@@ -58,8 +67,10 @@ export function snippetSource(published, canonical) {
     '(function(){try{' +
     'var pick=' + pickRedirect.toString() + ';' +
     'var stored=null;try{stored=localStorage.getItem("ll_lang_choice")}catch(e){}' +
+    'var referrer="";try{referrer=document.referrer||""}catch(e){}' +
     'var langs=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language];' +
     'var target=pick({pathname:location.pathname,languages:langs,stored:stored,' +
+    'referrer:referrer,host:location.host,' +
     'userAgent:navigator.userAgent,published:' + JSON.stringify(published) + ',' +
     'canonical:' + JSON.stringify(canonical) + '});' +
     'if(target)location.replace(target+location.search+location.hash);' +

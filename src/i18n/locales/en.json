@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "LINKEON.IO — an AI team for your business",
-    "description": "AI assistants (marketer, lawyer, accountant, HR, coach) plus one shared profile. For small businesses, freelancers and agencies."
+    "description": "AI assistants (marketer, lawyer, accountant, career counsellor, coach) plus one shared profile. For small businesses, freelancers and agencies."
   },
   "personaCta": {
     "eyebrow": "Where to start",
@@ -187,7 +187,7 @@
       {
         "name": "Roman",
         "role": "generalist",
-        "quote": "Bring it as it is — a file, a voice note, a jumble. I'll work it out, and if it's not my area, I'll call in someone better at it."
+        "quote": "Bring it as it is — a file, a voice note, a jumble. I'll work it out myself, and where it takes a lawyer, an accountant or a marketer, I'll answer with what they know."
       },
       {
         "name": "Alexandra",
@@ -206,8 +206,8 @@
       },
       {
         "name": "Irina",
-        "role": "HR",
-        "quote": "Tell me who you need on the team. The job post and interview questions I'll write myself."
+        "role": "career counsellor",
+        "quote": "Tell me about your last job — what felt like yours and what didn't. That's where the next direction comes from."
       },
       {
         "name": "Misha",
@@ -516,5 +516,54 @@
     "ctaStart": "Start free",
     "ctaLogin": "Log in",
     "trust": "No subscription · tokens don't expire · deleting your account takes one click"
+  },
+  "assistantPages": {
+    "nav": "Assistants",
+    "home": "Home",
+    "breadcrumbsLabel": "Breadcrumb",
+    "allCount": "All assistants ({{count}})",
+    "roles": {
+      "roman": "generalist",
+      "alexey": "lawyer",
+      "anna": "accountant",
+      "andrey": "starting a business",
+      "vitaly": "CFO",
+      "alexandra": "marketer",
+      "ekaterina": "copywriter",
+      "pavel": "sales",
+      "irina": "career counsellor",
+      "dmitry": "CTO",
+      "kira": "designer",
+      "misha": "coach",
+      "olia": "values exploration",
+      "masha": "transformational games",
+      "liana": "numerologist",
+      "shankara": "Vedic astrologer",
+      "raya": "Human Design",
+      "polina": "lifestyle coach"
+    },
+    "catalog": {
+      "title": "Linkeon AI assistants: lawyer, accountant, marketer, coach and more",
+      "description": "Each assistant has a specialty of their own, and they all share one profile: tell one, and they all know. Law, taxes, marketing, sales, career and self-discovery.",
+      "h1": "Who you can talk to on Linkeon",
+      "lead": "Specialists for your work, and someone to talk to about yourself. Pick whoever's closest to what you need — or start with Roman: he takes on any kind of task.",
+      "groups": {
+        "assistant": "If you're not sure who to start with",
+        "business": "For work",
+        "personal": "For yourself"
+      }
+    },
+    "page": {
+      "situations": "What brings people here",
+      "example": "What it looks like",
+      "exampleNote": "A real reply from the assistant, October 2026, translated from Russian. Cuts are marked with “…”.",
+      "exampleYou": "You",
+      "can": "What they do",
+      "cannot": "What they don't do",
+      "faq": "Questions",
+      "related": "Works well with",
+      "finalTitle": "Try it with a task of your own",
+      "trust": "Your first conversations are on us. No bank card required."
+    }
   }
 }

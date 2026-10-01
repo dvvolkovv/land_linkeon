@@ -5,6 +5,7 @@ import Footer from '../components/layout/Footer';
 import type { LegalType } from '../components/layout/LegalModal';
 import { legalFor } from '../content/legal';
 import { DEFAULT_LANGUAGE } from '../i18n/languages';
+import { homePath } from '../lib/assistantRoute';
 
 /**
  * Юридический документ отдельной страницей с собственным адресом.
@@ -23,7 +24,7 @@ export default function LegalPage({ doc }: { doc: LegalType }) {
   // для КАЖДОЙ локали витрины, и вести их все на английский документ
   // значит сымитировать требование, а не выполнить.
   const pack = legalFor(i18n.language);
-  const home = i18n.language === DEFAULT_LANGUAGE ? '/' : `/${i18n.language}/`;
+  const home = homePath(i18n.language);
   const back = i18n.language === DEFAULT_LANGUAGE ? 'На главную' : 'Back to home';
 
   return (
@@ -48,7 +49,8 @@ export default function LegalPage({ doc }: { doc: LegalType }) {
         </div>
       </main>
 
-      <Footer />
+      {/* homeHref: разделы «Продукт» — якоря главной, на этой странице их нет. */}
+      <Footer homeHref={home} />
     </div>
   );
 }

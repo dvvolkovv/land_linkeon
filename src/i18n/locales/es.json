@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "LINKEON.IO — su equipo de IA para crecer",
-    "description": "Asistentes de IA (marketing, legal, contabilidad, RR. HH., coaching) + un perfil único. Para pequeños negocios, freelancers y agencias."
+    "description": "Asistentes de IA (marketing, legal, contabilidad, orientación profesional, coaching) + un perfil único. Para pequeños negocios, freelancers y agencias."
   },
   "personaCta": {
     "eyebrow": "Por dónde empezar",
@@ -187,7 +187,7 @@
       {
         "name": "Román",
         "role": "todoterreno",
-        "quote": "Tráigalo como esté: un archivo, un audio, un lío. Yo lo desenredo, y si no es lo mío, llamo a quien sepa más."
+        "quote": "Tráigalo como esté: un archivo, un audio, un lío. Lo desenredo yo mismo, y donde haga falta un abogado, un contable o alguien de marketing, respondo con lo que ellos saben."
       },
       {
         "name": "Alexandra",
@@ -206,8 +206,8 @@
       },
       {
         "name": "Irina",
-        "role": "RR. HH.",
-        "quote": "¿Qué tipo de persona le hace falta? La oferta de empleo y las preguntas de la entrevista las preparo yo misma."
+        "role": "orientadora profesional",
+        "quote": "Cuénteme sobre su último trabajo: qué era realmente suyo y qué no. De ahí saldrá hacia dónde seguir."
       },
       {
         "name": "Misha",
@@ -507,5 +507,54 @@
     "ctaStart": "Empiece gratis",
     "ctaLogin": "Entrar",
     "trust": "Sin suscripción · los tokens no caducan · borrar la cuenta es un clic"
+  },
+  "assistantPages": {
+    "nav": "Asistentes",
+    "home": "Inicio",
+    "breadcrumbsLabel": "Ruta de navegación",
+    "allCount": "Todos los asistentes ({{count}})",
+    "roles": {
+      "roman": "todoterreno",
+      "alexey": "abogado",
+      "anna": "contable",
+      "andrey": "emprendimiento",
+      "vitaly": "director financiero",
+      "alexandra": "marketing",
+      "ekaterina": "redactora",
+      "pavel": "ventas",
+      "irina": "orientadora profesional",
+      "dmitry": "director técnico",
+      "kira": "diseñadora",
+      "misha": "coach",
+      "olia": "exploración de valores",
+      "masha": "juegos transformacionales",
+      "liana": "numeróloga",
+      "shankara": "astrólogo védico",
+      "raya": "Diseño Humano",
+      "polina": "coach de estilo de vida"
+    },
+    "catalog": {
+      "title": "Asistentes de IA de Linkeon: abogado, contable, marketing, coach y más",
+      "description": "Cada asistente tiene su especialidad y todos comparten un mismo perfil: lo que le cuenta a uno, lo saben todos. Derecho, impuestos, marketing, ventas, carrera y autoconocimiento.",
+      "h1": "Con quién puede hablar en Linkeon",
+      "lead": "Especialistas para su trabajo y alguien con quien hablar de lo personal. Elija a quien mejor encaje con lo que necesita, o empiece por Román: se encarga de tareas de cualquier tipo.",
+      "groups": {
+        "assistant": "Si no sabe con quién empezar",
+        "business": "Para el trabajo",
+        "personal": "Para usted"
+      }
+    },
+    "page": {
+      "situations": "Con qué acude la gente",
+      "example": "Cómo es en la práctica",
+      "exampleNote": "Respuesta real del asistente, octubre de 2026, traducida del ruso. Lo omitido se marca con «…».",
+      "exampleYou": "Usted",
+      "can": "Qué hace",
+      "cannot": "Qué no hace",
+      "faq": "Preguntas",
+      "related": "Trabaja en equipo con",
+      "finalTitle": "Pruébelo con su propia tarea",
+      "trust": "Las primeras conversaciones corren de nuestra cuenta. No pedimos tarjeta bancaria."
+    }
   }
 }

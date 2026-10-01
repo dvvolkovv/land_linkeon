@@ -1,5 +1,6 @@
 import type { LegalType } from '../components/layout/LegalModal';
 import { DEFAULT_LANGUAGE, SUPPORTED_CODES } from '../i18n/languages';
+import { pathSegments } from './pathSegments';
 
 /**
  * Адресуемые страницы юридических документов.
@@ -30,10 +31,11 @@ function isSlug(value: string): value is LegalType {
  *
  * Возвращает null для всего остального — вызывающая сторона показывает
  * обычный лендинг. Хвостовой слэш допускается: сервер статики часто
- * добавляет его сам, и `/legal/offer/` должен вести туда же.
+ * добавляет его сам, и `/legal/offer/` должен вести туда же. Явный
+ * `/legal/offer/index.html` — тоже (см. pathSegments).
  */
 export function parseLegalPath(pathname: string): LegalRoute | null {
-  const parts = pathname.split('/').filter(Boolean);
+  const parts = pathSegments(pathname);
   if (parts.length === 0) return null;
 
   const language =
@@ -52,7 +54,7 @@ export function parseLegalPath(pathname: string): LegalRoute | null {
  * входа и до установки.
  */
 export function parseDeleteAccountPath(pathname: string): { language: string } | null {
-  const parts = pathname.split('/').filter(Boolean);
+  const parts = pathSegments(pathname);
   const language = SUPPORTED_CODES.includes(parts[0]) ? parts[0] : DEFAULT_LANGUAGE;
   const rest = SUPPORTED_CODES.includes(parts[0]) ? parts.slice(1) : parts;
   if (rest.length !== 1 || rest[0] !== 'delete-account') return null;

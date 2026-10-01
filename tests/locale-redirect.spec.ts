@@ -45,6 +45,22 @@ test.describe('авторедирект по локали браузера', () 
     await ctx.close();
   });
 
+  // Переход внутри сайта — не новый визит: англичанин читал русскую страницу
+  // ассистента и нажал «Главная» в крошках — ждёт русскую главную, а не /en/.
+  // Реферер ставит сам браузер, как у живого посетителя.
+  test('переход на корень со своей же страницы не уводит', async ({ browser }) => {
+    const ctx = await browser.newContext({ locale: 'en-US' });
+    const page = await ctx.newPage();
+    await page.goto('/assistants/raya/');
+    await page.locator('nav[aria-label="Навигационная цепочка"] a[href="/"]').click();
+    // networkidle — чтобы редирект из <head>, если он есть, успел случиться:
+    // иначе проверка поймала бы промежуточный «/» и позеленела зря.
+    await page.waitForURL((url) => url.pathname !== '/assistants/raya/', { waitUntil: 'networkidle' });
+    expect(new URL(page.url()).pathname).toBe('/');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
+    await ctx.close();
+  });
+
   test('краулер видит канонический русский корень', async ({ browser }) => {
     const ctx = await browser.newContext({
       locale: 'en-US',

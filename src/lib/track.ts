@@ -48,7 +48,7 @@ export const trackLandingVisit = (): void => {
       name: 'landing_view',
       sessionId: sid,
       source: getSource(),
-      props: { site: 'landing', campaign: getCampaign(), referrer: document.referrer || null },
+      props: { site: 'landing', path: window.location.pathname, campaign: getCampaign(), referrer: document.referrer || null },
     });
     void fetch(`${BACKEND}/webhook/events/track`, {
       method: 'POST',
@@ -84,17 +84,53 @@ export const initLandingEngagement = (): void => {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // Увидел ли пользователь хоть одну CTA-кнопку (≥50% в вьюпорте). React рендерит
-    // не сразу — навешиваем наблюдатель после двух кадров, когда DOM готов.
+    // Увидел ли пользователь хоть одну CTA-кнопку (≥50% в вьюпорте). React
+    // рендерит не сразу — навешиваем наблюдатель после двух кадров, когда DOM
+    // готов.
     if ('IntersectionObserver' in window) {
+      let mo: MutationObserver | undefined;
       const io = new IntersectionObserver((entries) => {
         for (const en of entries) {
-          if (en.isIntersecting) { ctaSeen = true; io.disconnect(); return; }
+          if (en.isIntersecting) {
+            ctaSeen = true;
+            io.disconnect();
+            // Ответ получен — следить за DOM дальше незачем.
+            mo?.disconnect();
+            return;
+          }
         }
       }, { threshold: 0.5 });
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        document.querySelectorAll('[data-cta]').forEach((el) => io.observe(el));
-      }));
+      // Кнопки, уже отданные io: по ним отличаем кнопки новой отрисовки.
+      const known = new WeakSet<Element>();
+      /** Подписывает io на ещё не наблюдаемые кнопки; true — нашлась новая. */
+      const observeNew = (): boolean => {
+        let found = false;
+        // querySelectorAll по document отдаёт только подключённые к нему
+        // элементы: отцепленные кнопки пререндера сюда не попадут.
+        document.querySelectorAll('[data-cta]').forEach((el) => {
+          if (known.has(el)) return;
+          known.add(el);
+          io.observe(el);
+          found = true;
+        });
+        return found;
+      };
+      requestAnimationFrame(() => requestAnimationFrame(observeNew));
+      // Первая отрисовка React может прийти позже двух кадров: на страницах
+      // ассистентов сначала грузится чанк текстов, и createRoot заменяет
+      // пререндеренный DOM новым — кнопки, за которыми следили, отцеплены и с
+      // экраном уже не пересекутся. MutationObserver подхватывает кнопки ЭТОЙ
+      // отрисовки и отключается, как только нашёл новые: кнопки, появившиеся
+      // много позже (header-start в мобильном меню при открытии), в «увидел
+      // кнопку» не идут — иначе на телефоне метрика сменила бы смысл
+      // относительно истории. Наблюдаем #root — туда рисует React; посторонние
+      // вставки в body (пиксели, расширения) колбэк не будят.
+      if ('MutationObserver' in window) {
+        mo = new MutationObserver(() => {
+          if (ctaSeen || observeNew()) mo?.disconnect();
+        });
+        mo.observe(document.getElementById('root') ?? document.body, { childList: true, subtree: true });
+      }
     }
 
     document.addEventListener('click', (e) => {
@@ -112,6 +148,7 @@ export const initLandingEngagement = (): void => {
         source: getSource(),
         props: {
           site: 'landing',
+          path: window.location.pathname,
           dwellMs: Date.now() - startedAt,
           maxScrollPct,
           ctaSeen,
@@ -154,7 +191,7 @@ export const trackLandingCta = (cta: string): void => {
         name: 'landing_cta_click',
         sessionId: sid,
         source: getSource(),
-        props: { site: 'landing', cta, campaign: getCampaign() },
+        props: { site: 'landing', cta, path: window.location.pathname, campaign: getCampaign() },
       }),
       keepalive: true,
     }).catch(() => {});

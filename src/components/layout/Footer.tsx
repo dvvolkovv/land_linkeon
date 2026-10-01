@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Send, Youtube, MessageCircle } from 'lucide-react';
 import LangSwitcher from '../ui/LangSwitcher';
 import LegalModal, { type LegalType } from './LegalModal';
+import { hasAssistantPages } from '../../content/assistants/availability';
+import { ASSISTANTS, assistantName } from '../../content/assistants/roster';
+import { assistantPath, assistantsCatalogPath } from '../../lib/assistantRoute';
 
 interface LinkItem {
   label: string;
@@ -57,8 +60,17 @@ const SOCIALS = [
   { label: 'YouTube', href: '#', Icon: Youtube },
 ] as const;
 
-export default function Footer() {
-  const { t } = useTranslation();
+interface FooterProps {
+  /** Главная своего языка — на подстраницах: разделы продукта ведут туда. */
+  homeHref?: string;
+}
+
+export default function Footer({ homeHref }: FooterProps = {}) {
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
+  // Разделы продукта — якоря главной. Документы (#privacy и др.) остаются
+  // хешами: их открывает модалка на любой странице.
+  const section = (hash: string) => (homeHref ? `${homeHref}${hash}` : hash);
   const [legal, setLegal] = useState<LegalType | null>(null);
 
   const openLegal = useCallback((type: LegalType) => setLegal(type), []);
@@ -123,10 +135,10 @@ export default function Footer() {
         <div>
           <h3 className="text-xs font-semibold text-gray-100 uppercase tracking-wider mb-4">{t('footer.sections.product')}</h3>
           {col([
-            { label: t('footer.product.assistants'), href: '#assistants' },
-            { label: t('footer.product.profile'), href: '#profile' },
-            { label: t('footer.product.networking'), href: '#networking' },
-            { label: t('footer.product.pricing'), href: '#pricing' },
+            { label: t('footer.product.assistants'), href: section('#assistants') },
+            { label: t('footer.product.profile'), href: section('#profile') },
+            { label: t('footer.product.networking'), href: section('#networking') },
+            { label: t('footer.product.pricing'), href: section('#pricing') },
             // Приложение раздаётся файлом, а не через Google Play.
             //
             // Ссылка АБСОЛЮТНАЯ, и это важно: location /smm-media/ (публичный
@@ -165,6 +177,27 @@ export default function Footer() {
           ])}
         </div>
       </div>
+
+      {/* Каждая страница сайта ссылается на каждого ассистента: кроме sitemap,
+          это главный путь, которым поисковик находит их страницы. */}
+      {hasAssistantPages(language) && (
+        <nav aria-labelledby="footer-assistants" className="max-w-6xl mx-auto border-t border-gray-800 pt-8 mt-12">
+          <h3 id="footer-assistants" className="text-xs font-semibold text-gray-100 uppercase tracking-wider mb-4">
+            <a href={assistantsCatalogPath(language)} className="hover:text-white transition-colors">
+              {t('assistantPages.nav')}
+            </a>
+          </h3>
+          <ul className="flex flex-wrap gap-x-6 gap-y-3">
+            {ASSISTANTS.map((a) => (
+              <li key={a.slug}>
+                <a href={assistantPath(language, a.slug)} className="text-sm text-gray-400 hover:text-gray-200 transition-colors">
+                  {assistantName(a, language)} · {t(`assistantPages.roles.${a.slug}`)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
 
       <div className="max-w-6xl mx-auto border-t border-gray-800 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="text-sm text-gray-400">© {new Date().getFullYear()} LINKEON.IO · {t('footer.rights')}</span>

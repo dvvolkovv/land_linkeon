@@ -23,6 +23,10 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Неразрывные пробелы в текстах — типографика (французское « … », «25 000»),
+      // а не мусор. В обычных строках правило их и так пропускает; примеры
+      // разговоров на страницах ассистентов — шаблонные строки.
+      'no-irregular-whitespace': ['error', { skipStrings: true, skipTemplates: true }],
     },
   }
 );
