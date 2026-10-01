@@ -52,6 +52,15 @@ test.describe('мультфильм', () => {
           { timeout: 15_000 },
         )
         .toBeGreaterThanOrEqual(3);
+
+      // Одного «время идёт» мало: без клипа плеер едет дальше с пустым кадром,
+      // а SPA-фолбэк отдаёт на пропавший .mp4 HTML со статусом 200. Клип
+      // настоящий, только если <video> декодировал кадр и не словил ошибку.
+      const videoOk = await frame
+        .locator('video')
+        .first()
+        .evaluate((v: HTMLVideoElement) => v.videoWidth > 0 && !v.error);
+      expect(videoOk).toBe(true);
     });
   });
 });
