@@ -28,6 +28,7 @@
   "header": {
     "nav": {
       "features": "Fonctions",
+      "sites": "Sites et bots",
       "how": "Comment ça marche",
       "pricing": "Tarifs",
       "faq": "FAQ"
@@ -65,7 +66,7 @@
       "eyebrow": "Pour le contenu",
       "h1": "L'idée, vous l'avez déjà —",
       "h1Accent": "le reste, on l'assemble",
-      "sub": "Un texte, une image, une vidéo, un plan pour la semaine. Yulia demande de quoi il s'agit et pour qui, puis rapporte le résultat. On refait autant de fois qu'il le faut.",
+      "sub": "Un texte, une image, une vidéo, un plan pour la semaine. Roman demande de quoi il s'agit et pour qui, puis rapporte le résultat. On refait autant de fois qu'il le faut.",
       "ctaStart": "Montrer l'idée"
     },
     "assistant": {
@@ -79,7 +80,7 @@
       "eyebrow": "Vidéos courtes",
       "h1": "Une vidéo à partir d'une idée —",
       "h1Accent": "sans tournage ni montage",
-      "sub": "Yulia écrit le scénario, réunit les plans et monte la vidéo pour Reels, Shorts ou TikTok. Apportez une image que vous avez déjà, elle construira la vidéo autour.",
+      "sub": "Roman écrit le scénario, réunit les plans et monte la vidéo pour Reels, Shorts ou TikTok. Apportez une image que vous avez déjà, il construira la vidéo autour.",
       "ctaStart": "Faire une vidéo"
     }
   },
@@ -100,6 +101,7 @@
       "assistants": "Assistants IA",
       "profile": "Profil unique",
       "networking": "Networking",
+      "sites": "Sites et bots",
       "pricing": "Tarifs",
       "android_app": "Application Android"
     },
@@ -279,13 +281,72 @@
     "sub": "Votre assistant marketing a bouclé le plan ? Générez dans la foulée les couvertures, les carrousels et une vidéo courte. Sans jongler entre services et abonnements.",
     "images": {
       "h3": "Images",
-      "caption": "Imagen 4.0 Ultra — réaliste et rapide. Couvertures, carrousels, visuels pour les réseaux."
+      "caption": "Réaliste et rapide. Couvertures, carrousels, visuels pour les réseaux."
     },
     "video": {
       "h3": "Vidéo",
       "caption": "Kling et Veo. Des vidéos courtes à partir d'un texte ou d'une image — créas pub, aperçus, stories."
     },
     "footer": "Tout tourne sur les mêmes jetons que les assistants. Aucun abonnement à part."
+  },
+  "sites": {
+    "eyebrow": "Sites et bots",
+    "h2": "Un site ou un bot Telegram — aussi avec des mots",
+    "sub": "Décrivez avec vos mots ce qu'il vous faut. L'assistant monte le site ou le bot, le met en ligne, puis le retouche à chaque demande. Serveur, adresse et mises à jour : Linkeon s'en occupe.",
+    "site": {
+      "title": "Site web",
+      "kinds": "Carte de visite, landing page, menu, portfolio",
+      "mock": {
+        "url": "votre-domaine.fr",
+        "name": "Café Le Grain",
+        "lines": [
+          "Expresso · Cappuccino · Crème",
+          "Viennoiseries chaque matin"
+        ],
+        "hours": "Tous les jours, 8 h – 21 h"
+      },
+      "points": [
+        "L'adresse sur Linkeon est là tout de suite ; brancher votre propre domaine est gratuit",
+        "Des retouches avec des mots — « ajoute une page de tarifs » — dans le chat du site ou avec l'assistant avec qui vous travaillez",
+        "Le site ne s'ouvre plus après une retouche ? Linkeon remet tout seul la version précédente. Toute retouche s'annule d'un clic"
+      ]
+    },
+    "bot": {
+      "title": "Bot Telegram",
+      "kinds": "Rendez-vous, demandes, réponses aux questions fréquentes",
+      "mock": {
+        "ask": "Je voudrais réserver pour samedi",
+        "reply": "Libre samedi :",
+        "slots": [
+          "12 h",
+          "15 h"
+        ]
+      },
+      "points": [
+        "Il suffit du token fourni par @BotFather — l'assistant fait le reste",
+        "Ce que fait le bot, vous l'expliquez avec des mots — et vous le modifiez de la même façon",
+        "Il tourne jour et nuit sur le serveur de Linkeon, sans votre ordinateur"
+      ]
+    },
+    "terms": [
+      {
+        "title": "Premier mois offert",
+        "text": "Créer un site ou un bot ne coûte rien"
+      },
+      {
+        "title": "Ensuite, {{tokens}} jetons par mois",
+        "text": "Les retouches sont facturées selon le travail, comme les réponses de l'assistant"
+      },
+      {
+        "title": "Votre domaine — gratuit",
+        "text": "Inclus dans la location ; Linkeon émet le certificat lui-même"
+      },
+      {
+        "title": "Plus de jetons ? Il s'endort, il ne disparaît pas",
+        "text": "Le code et le domaine sont conservés, il se réveille tout seul après la recharge. Aucune dette ne s'accumule"
+      }
+    ],
+    "cta": "Créer un site ou un bot"
   },
   "how": {
     "eyebrow": "Comment ça marche",
@@ -358,13 +419,13 @@
         ]
       },
       {
-        "title": "Contenu",
+        "title": "Contenu, sites et bots",
         "items": [
           "Textes, posts, mails, plans de contenu",
           "Images à partir d'une description ou de votre photo",
           "Vidéo : scénario, plans et montage du clip",
-          "Connexion des réseaux sociaux et publication depuis Linkeon",
-          "Campagnes et calendriers pour publier régulièrement"
+          "Site ou bot Telegram : l'assistant le monte et le retouche selon vos mots",
+          "Hébergement et domaine à vous — sur le même solde"
         ]
       },
       {
@@ -507,6 +568,18 @@
       {
         "q": "En quoi c'est différent de ChatGPT ?",
         "a": "ChatGPT, c'est un seul assistant. Linkeon, c'est une équipe d'assistants avec un profil commun, plus la génération de visuels et de vidéos dans le même paiement."
+      },
+      {
+        "q": "Combien coûte un site ou un bot ?",
+        "a": "La création est gratuite, le premier mois aussi. Ensuite, {{tokens}} jetons par mois pour chacun. Les retouches sont facturées à part, selon le travail — comme les réponses d'un assistant. Si les jetons viennent à manquer, le site s'endort : le code, l'adresse et le domaine sont conservés, et il se réveille tout seul après la recharge. Aucune dette ne s'accumule. Jusqu'à deux sites ou bots par compte ; s'il vous en faut plus, écrivez au support."
+      },
+      {
+        "q": "Puis-je brancher mon propre domaine ?",
+        "a": "Oui, gratuitement — c'est inclus dans la location. Saisissez le domaine dans la fiche du site : Linkeon indique quels enregistrements créer chez votre registraire, les vérifie lui-même et émet le certificat. L'adresse sur Linkeon continue de fonctionner à côté. Seul un site peut avoir son propre domaine ; un bot n'a pas d'adresse."
+      },
+      {
+        "q": "Et si une retouche casse le site ?",
+        "a": "Après chaque retouche, Linkeon vérifie que le site s'ouvre. Sinon, il remet tout seul la version précédente, et aucun jeton n'est débité pour cette retouche. Toute retouche de l'historique peut aussi être annulée à la main — d'un clic."
       }
     ]
   },

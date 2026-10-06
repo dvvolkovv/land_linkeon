@@ -28,6 +28,7 @@
   "header": {
     "nav": {
       "features": "Funciones",
+      "sites": "Sitios y bots",
       "how": "Cómo funciona",
       "pricing": "Precios",
       "faq": "FAQ"
@@ -65,7 +66,7 @@
       "eyebrow": "Para contenido",
       "h1": "La idea ya la tiene —",
       "h1Accent": "el resto lo montamos",
-      "sub": "Un texto, una imagen, un vídeo, un plan para la semana. Yulia pregunta de qué va y para quién, y lo trae terminado. Puede pedir cambios las veces que quiera.",
+      "sub": "Un texto, una imagen, un vídeo, un plan para la semana. Román pregunta de qué va y para quién, y lo trae terminado. Puede pedir cambios las veces que quiera.",
       "ctaStart": "Mostrar la idea"
     },
     "assistant": {
@@ -79,7 +80,7 @@
       "eyebrow": "Vídeos cortos",
       "h1": "Un vídeo a partir de una idea —",
       "h1Accent": "sin rodar ni editar",
-      "sub": "Yulia escribe el guion, monta los planos y cierra el vídeo para Reels, Shorts o TikTok. Tráigale una imagen que ya tenga y ella monta el vídeo a partir de ahí.",
+      "sub": "Román escribe el guion, monta los planos y cierra el vídeo para Reels, Shorts o TikTok. Tráigale una imagen que ya tenga y él monta el vídeo a partir de ahí.",
       "ctaStart": "Hacer un vídeo"
     }
   },
@@ -100,6 +101,7 @@
       "assistants": "Asistentes de IA",
       "profile": "Perfil único",
       "networking": "Networking",
+      "sites": "Sitios web y bots",
       "pricing": "Precios",
       "android_app": "App para Android"
     },
@@ -279,13 +281,72 @@
     "sub": "¿Su asistente de marketing ya tiene el plan? Genere ahí mismo portadas, carruseles y un vídeo corto. Sin saltar entre servicios ni suscripciones.",
     "images": {
       "h3": "Imágenes",
-      "caption": "Imagen 4.0 Ultra: realista y rápido. Portadas, carruseles y visuales para redes."
+      "caption": "Realista y rápido. Portadas, carruseles y visuales para redes."
     },
     "video": {
       "h3": "Vídeo",
       "caption": "Kling y Veo. Vídeos cortos a partir de texto o imagen: creatividades, previews, stories."
     },
     "footer": "Funciona con los mismos tokens que los asistentes. Sin suscripciones aparte."
+  },
+  "sites": {
+    "eyebrow": "Sitios web y bots",
+    "h2": "Un sitio web o un bot de Telegram, también con palabras",
+    "sub": "Describa con sus propias palabras lo que necesita. El asistente monta el sitio o el bot y lo pone en marcha, y después lo va ajustando cada vez que usted se lo pida. Servidor, dirección y actualizaciones corren a cargo de Linkeon.",
+    "site": {
+      "title": "Sitio web",
+      "kinds": "Tarjeta de visita, landing, carta, portafolio",
+      "mock": {
+        "url": "su-dominio.es",
+        "name": "Cafetería Grano",
+        "lines": [
+          "Espresso · Capuchino · Cortado",
+          "Bollería recién hecha cada mañana"
+        ],
+        "hours": "Todos los días, 8:00–21:00"
+      },
+      "points": [
+        "La dirección en Linkeon aparece al momento; conectar su propio dominio es gratis",
+        "Cambios con palabras —«añade una página de precios»— en el chat del sitio o con el asistente con el que trabaja",
+        "Si el sitio no abre tras un cambio, Linkeon vuelve solo a la versión anterior. Cualquier cambio se deshace con un botón"
+      ]
+    },
+    "bot": {
+      "title": "Bot de Telegram",
+      "kinds": "Reservas, solicitudes, respuestas a preguntas frecuentes",
+      "mock": {
+        "ask": "Quiero reservar para el sábado",
+        "reply": "Libre el sábado:",
+        "slots": [
+          "12:00",
+          "15:00"
+        ]
+      },
+      "points": [
+        "Solo hace falta un token de @BotFather; el resto lo hace el asistente",
+        "Lo que hace el bot se lo explica con palabras, y del mismo modo lo cambia",
+        "Funciona en el servidor de Linkeon día y noche; su ordenador no hace falta"
+      ]
+    },
+    "terms": [
+      {
+        "title": "Primer mes gratis",
+        "text": "Crear un sitio o un bot no cuesta nada"
+      },
+      {
+        "title": "Después, {{tokens}} tokens al mes",
+        "text": "Los cambios se cobran según el trabajo, como las respuestas del asistente"
+      },
+      {
+        "title": "Dominio propio, gratis",
+        "text": "Incluido en el alquiler; Linkeon emite el certificado por su cuenta"
+      },
+      {
+        "title": "Sin tokens, se duerme, no se pierde",
+        "text": "El código y el dominio se conservan y, al recargar, se despierta solo. No se acumula deuda"
+      }
+    ],
+    "cta": "Crear un sitio o un bot"
   },
   "how": {
     "eyebrow": "Cómo funciona",
@@ -358,13 +419,13 @@
         ]
       },
       {
-        "title": "Contenido",
+        "title": "Contenido, sitios web y bots",
         "items": [
           "Textos, posts, correos, planes de contenido",
           "Imágenes a partir de una descripción o de su foto",
           "Vídeo: guion, planos y montaje del vídeo",
-          "Conexión de las redes sociales y publicación desde Linkeon",
-          "Campañas y calendarios para publicar con regularidad"
+          "Un sitio web o un bot de Telegram: el asistente lo monta y lo va ajustando según sus palabras",
+          "Alojamiento y dominio propio, con el mismo saldo"
         ]
       },
       {
@@ -442,9 +503,18 @@
     "eyebrow": "Opiniones",
     "h2": "Lo que dicen los usuarios",
     "items": [
-      { "quote": "La verdad, es una pasada. Ekaterina ayuda de verdad: soy técnico y no doy con las palabras bonitas, me sale todo seco, como en un documento. Ella amplía mi bagaje de conocimientos.", "author": "— especialista técnico" },
-      { "quote": "El producto está quedando muy bien. Generar vídeo aquí es más cómodo que en el Veo original: audio limpio, parecido a partir de la foto y el formato que necesito.", "author": "— creador de contenido" },
-      { "quote": "Antes tardaba varios días en cerrar el diseño y el texto de una presentación. Aquí la tuve lista en 5 minutos: encantado con la eficiencia.", "author": "— emprendedor" }
+      {
+        "quote": "La verdad, es una pasada. Ekaterina ayuda de verdad: soy técnico y no doy con las palabras bonitas, me sale todo seco, como en un documento. Ella amplía mi bagaje de conocimientos.",
+        "author": "— especialista técnico"
+      },
+      {
+        "quote": "El producto está quedando muy bien. Generar vídeo aquí es más cómodo que en el Veo original: audio limpio, parecido a partir de la foto y el formato que necesito.",
+        "author": "— creador de contenido"
+      },
+      {
+        "quote": "Antes tardaba varios días en cerrar el diseño y el texto de una presentación. Aquí la tuve lista en 5 minutos: encantado con la eficiencia.",
+        "author": "— emprendedor"
+      }
     ]
   },
   "pricing": {
@@ -498,6 +568,18 @@
       {
         "q": "¿En qué se diferencia de ChatGPT?",
         "a": "ChatGPT es un único ayudante. Linkeon es un equipo de asistentes con un perfil compartido, más generación de imágenes y vídeo en un mismo pago."
+      },
+      {
+        "q": "¿Cuánto cuesta un sitio web o un bot?",
+        "a": "Crearlo es gratis, y el primer mes también. Después, {{tokens}} tokens al mes por cada uno. Los cambios se cobran aparte, según el trabajo, como las respuestas de un asistente. Si no le alcanzan los tokens, el sitio se duerme: el código, la dirección y el dominio se conservan, y al recargar el saldo se despierta solo. No se acumula deuda. Cada cuenta puede tener hasta dos sitios o bots; si necesita más, escriba a soporte."
+      },
+      {
+        "q": "¿Puedo conectar mi propio dominio?",
+        "a": "Sí, gratis: está incluido en el alquiler. Escriba el dominio en la ficha del sitio: Linkeon le indica qué registros crear en su registrador, los comprueba por su cuenta y emite el certificado. La dirección en Linkeon sigue funcionando a la vez. Solo un sitio web puede tener dominio propio; un bot no tiene dirección."
+      },
+      {
+        "q": "¿Y si un cambio rompe el sitio?",
+        "a": "Después de cada cambio, Linkeon comprueba que el sitio abre. Si no abre, vuelve solo a la versión anterior y no cobra tokens por ese cambio. Cualquier cambio del historial también se puede deshacer a mano, con un botón."
       }
     ]
   },

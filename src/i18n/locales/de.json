@@ -28,6 +28,7 @@
   "header": {
     "nav": {
       "features": "Features",
+      "sites": "Websites & Bots",
       "how": "So geht's",
       "pricing": "Preise",
       "faq": "FAQ"
@@ -65,7 +66,7 @@
       "eyebrow": "Für Content",
       "h1": "Die Idee haben Sie schon —",
       "h1Accent": "den Rest bauen wir",
-      "sub": "Text, Bild, Clip, ein Plan für die kommende Woche. Yulia fragt, worum es geht und für wen, und bringt es fertig zurück. Ändern können Sie es, so oft Sie wollen.",
+      "sub": "Text, Bild, Clip, ein Plan für die kommende Woche. Roman fragt, worum es geht und für wen, und bringt es fertig zurück. Ändern können Sie es, so oft Sie wollen.",
       "ctaStart": "Idee zeigen"
     },
     "assistant": {
@@ -79,7 +80,7 @@
       "eyebrow": "Kurze Videos",
       "h1": "Ein Clip aus einer Idee —",
       "h1Accent": "ohne Dreh und Schnitt",
-      "sub": "Yulia schreibt das Skript, sucht die Szenen zusammen und schneidet den Clip für Reels, Shorts oder TikTok. Bringen Sie ein Bild mit, das Sie schon haben — daraus baut sie den Clip.",
+      "sub": "Roman schreibt das Skript, sucht die Szenen zusammen und schneidet den Clip für Reels, Shorts oder TikTok. Bringen Sie ein Bild mit, das Sie schon haben — daraus baut er den Clip.",
       "ctaStart": "Clip machen"
     }
   },
@@ -100,6 +101,7 @@
       "assistants": "AI-Assistenten",
       "profile": "Einheitliches Profil",
       "networking": "Networking",
+      "sites": "Websites und Bots",
       "pricing": "Preise",
       "android_app": "Android-App"
     },
@@ -279,13 +281,72 @@
     "sub": "Der Marketing-Assistent hat den Plan geschrieben? Generieren Sie direkt Cover, Karussells und ein kurzes Video. Ohne Wechsel zwischen Diensten und Abos.",
     "images": {
       "h3": "Bilder",
-      "caption": "Imagen 4.0 Ultra — realistisch und schnell. Cover, Karussells, Visuals für Social."
+      "caption": "Realistisch und schnell. Cover, Karussells, Visuals für Social."
     },
     "video": {
       "h3": "Videos",
       "caption": "Kling und Veo. Kurze Clips aus Text oder Bild — Werbekreative, Previews, Stories."
     },
     "footer": "Läuft mit denselben Tokens wie die Assistenten. Keine extra Abos."
+  },
+  "sites": {
+    "eyebrow": "Websites und Bots",
+    "h2": "Website oder Telegram-Bot — ebenfalls in Worten",
+    "sub": "Beschreiben Sie in eigenen Worten, was Sie brauchen. Der Assistent baut Website oder Bot, bringt alles online und passt es danach auf Zuruf an. Server, Adresse und Updates übernimmt Linkeon.",
+    "site": {
+      "title": "Website",
+      "kinds": "Visitenkarte, Landingpage, Speisekarte, Portfolio",
+      "mock": {
+        "url": "ihre-domain.de",
+        "name": "Café Korn",
+        "lines": [
+          "Espresso · Cappuccino · Flat White",
+          "Jeden Morgen frisches Gebäck"
+        ],
+        "hours": "Täglich 8–21 Uhr"
+      },
+      "points": [
+        "Eine Adresse bei Linkeon gibt es sofort, die eigene Domain verbinden Sie kostenlos",
+        "Änderungen in Worten — „füge eine Preisseite hinzu“ — im Chat der Website oder beim Assistenten, mit dem Sie arbeiten",
+        "Öffnet sich die Website nach einer Änderung nicht, stellt Linkeon die vorige Version selbst wieder her. Jede Änderung lässt sich per Klick zurücknehmen"
+      ]
+    },
+    "bot": {
+      "title": "Telegram-Bot",
+      "kinds": "Terminbuchung, Anfragen, Antworten auf häufige Fragen",
+      "mock": {
+        "ask": "Ich möchte einen Termin am Samstag",
+        "reply": "Am Samstag frei:",
+        "slots": [
+          "12:00",
+          "15:00"
+        ]
+      },
+      "points": [
+        "Sie brauchen nur einen Token von @BotFather — den Rest erledigt der Assistent",
+        "Was der Bot können soll, erklären Sie in Worten — und ändern es genauso",
+        "Läuft rund um die Uhr auf dem Linkeon-Server, Ihr Computer wird nicht gebraucht"
+      ]
+    },
+    "terms": [
+      {
+        "title": "Erster Monat kostenlos",
+        "text": "Eine Website oder einen Bot anzulegen kostet nichts"
+      },
+      {
+        "title": "Danach {{tokens}} Tokens im Monat",
+        "text": "Änderungen werden nach Aufwand abgerechnet, wie Antworten des Assistenten"
+      },
+      {
+        "title": "Eigene Domain — kostenlos",
+        "text": "In der Miete enthalten, das Zertifikat stellt Linkeon selbst aus"
+      },
+      {
+        "title": "Keine Tokens mehr — schläft, verschwindet nicht",
+        "text": "Code und Domain bleiben erhalten, nach dem Aufladen wacht alles von selbst auf. Schulden entstehen keine"
+      }
+    ],
+    "cta": "Website oder Bot erstellen"
   },
   "how": {
     "eyebrow": "So geht's",
@@ -358,13 +419,13 @@
         ]
       },
       {
-        "title": "Content",
+        "title": "Content, Websites und Bots",
         "items": [
           "Texte, Posts, Mails, Content-Pläne",
           "Bilder nach Beschreibung oder nach Ihrem Foto",
           "Video: Skript, Szenen und der fertige Clip",
-          "Social-Media-Konten verbinden und aus Linkeon posten",
-          "Kampagnen und Zeitpläne für regelmäßiges Posten"
+          "Website oder Telegram-Bot: Der Assistent baut und ändert alles auf Zuruf",
+          "Hosting und eigene Domain — aus demselben Guthaben"
         ]
       },
       {
@@ -442,9 +503,18 @@
     "eyebrow": "Stimmen",
     "h2": "Was Nutzer sagen",
     "items": [
-      { "quote": "Ehrlich, richtig stark. Ekaterina hilft mir wirklich — ich bin Techniker und finde selbst keine schönen Worte, bei mir klingt es oft trocken wie im Aktenvermerk. Sie erweitert meinen Wortschatz.", "author": "— technischer Spezialist" },
-      { "quote": "Das Produkt wird richtig gut. Videos zu generieren ist bei euch bequemer als im originalen Veo — sauberer Ton, Ähnlichkeit nach Foto, das passende Format.", "author": "— Content-Macher" },
-      { "quote": "Früher hat die Abstimmung von Design und Text einer Präsentation mehrere Tage gedauert. Hier hatte ich sie in 5 Minuten fertig — die Effizienz begeistert mich.", "author": "— Unternehmer" }
+      {
+        "quote": "Ehrlich, richtig stark. Ekaterina hilft mir wirklich — ich bin Techniker und finde selbst keine schönen Worte, bei mir klingt es oft trocken wie im Aktenvermerk. Sie erweitert meinen Wortschatz.",
+        "author": "— technischer Spezialist"
+      },
+      {
+        "quote": "Das Produkt wird richtig gut. Videos zu generieren ist bei euch bequemer als im originalen Veo — sauberer Ton, Ähnlichkeit nach Foto, das passende Format.",
+        "author": "— Content-Macher"
+      },
+      {
+        "quote": "Früher hat die Abstimmung von Design und Text einer Präsentation mehrere Tage gedauert. Hier hatte ich sie in 5 Minuten fertig — die Effizienz begeistert mich.",
+        "author": "— Unternehmer"
+      }
     ]
   },
   "pricing": {
@@ -498,6 +568,18 @@
       {
         "q": "Was ist der Unterschied zu ChatGPT?",
         "a": "ChatGPT ist ein einzelner Helfer. Linkeon ist ein Team von Assistenten mit gemeinsamem Profil + Bild- und Videogenerierung in einer Zahlung."
+      },
+      {
+        "q": "Was kostet eine Website oder ein Bot?",
+        "a": "Das Anlegen ist kostenlos, der erste Monat auch. Danach kostet jedes Projekt {{tokens}} Tokens im Monat. Änderungen werden extra nach Aufwand abgerechnet — wie Antworten eines Assistenten. Reichen die Tokens nicht, schläft die Website ein: Code, Adresse und Domain bleiben erhalten, und nach dem Aufladen wacht sie von selbst auf. Schulden entstehen keine. Pro Konto sind bis zu zwei Websites oder Bots möglich; brauchen Sie mehr, schreiben Sie dem Support."
+      },
+      {
+        "q": "Kann ich meine eigene Domain verbinden?",
+        "a": "Ja, kostenlos — das ist in der Miete enthalten. Tragen Sie die Domain in der Karte der Website ein: Linkeon zeigt, welche Einträge Sie beim Registrar anlegen müssen, prüft sie selbst und stellt das Zertifikat aus. Die Linkeon-Adresse funktioniert daneben weiter. Eine eigene Domain gibt es nur für Websites; ein Bot hat keine Adresse."
+      },
+      {
+        "q": "Was, wenn eine Änderung die Website kaputt macht?",
+        "a": "Nach jeder Änderung prüft Linkeon, ob sich die Website öffnet. Wenn nicht, stellt Linkeon selbst die vorige Version wieder her — und für diese Änderung werden keine Tokens abgebucht. Jede Änderung aus dem Verlauf lässt sich auch von Hand zurücknehmen — mit einem Klick."
       }
     ]
   },
