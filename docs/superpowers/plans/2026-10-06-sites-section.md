@@ -443,7 +443,7 @@ export function rememberLoginIntent(pathname: string, search: string, now = Date
 - [ ] **Step 5: Тест проходит**
 
 Run: `PATH=$HOME/.nvm/versions/node/v22.19.0/bin:$PATH ./node_modules/.bin/vitest run src/utils/loginIntent.test.ts src/utils/pendingAssistant.test.ts`
-Expected: PASS, 10 тестов (5 + 5).
+Expected: PASS, 11 тестов (5 новых + 6 прежних в `pendingAssistant.test.ts`).
 
 - [ ] **Step 6: Проверка на излом**
 
