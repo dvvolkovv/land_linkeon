@@ -4,7 +4,7 @@
  * Существует отдельно от `colors.js` сознательно: та шкала повторяет палитру
  * приложения и правится только вместе с ним, эта — собственность лендинга.
  * Бренд (кнопки, акценты) остаётся прежним; «бумага» заменяет белый и gray-50
- * в фонах Hero, PersonaCTA, Problem, Assistants и Features главной, а также
+ * в фонах Hero, Cartoon, PersonaCTA, Problem, Assistants, Sites и Features главной, а также
  * на страницах ассистентов и в их каталоге (src/pages/AssistantPage.tsx,
  * src/pages/AssistantsCatalogPage.tsx и их части из src/components/assistants/)
  * — это весь список, и он обязан совпадать с кодом. Testimonials, FinalCTA и
