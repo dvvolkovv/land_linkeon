@@ -72,7 +72,7 @@
       "eyebrow": "Assistant personnel",
       "h1": "Un mail, un texte, un plan —",
       "h1Accent": "pas besoin de l'écrire vous-même",
-      "sub": "Roman prend tout en charge : mails professionnels, documents, posts, textes, idées. Dites avec vos mots ce qu'il vous faut — il demandera le reste lui-même.",
+      "sub": "Roman prend tout en charge : mails professionnels, documents, posts, textes, idées. Dites avec vos mots ce qu'il vous faut — il demandera le reste lui-même.",
       "ctaStart": "Commencer, c'est gratuit"
     },
     "video": {
@@ -86,8 +86,8 @@
   "cartoon": {
     "eyebrow": "Dessin animé · 1:42",
     "h2": "Ce qui distingue Linkeon d’un chat ordinaire",
-    "sub": "Une minute et demie sur Lena et son café : les assistants se souviennent de ce qu’elle leur a dit une fois, font le travail, parlent de vive voix, écrivent les premiers — et un jour lui présentent la bonne personne.",
-    "frameTitle": "Dessin animé : ce qui distingue Linkeon d’un chat ordinaire"
+    "sub": "Une minute et demie sur Lena et son café : les assistants se souviennent de ce qu’elle leur a dit une fois, font le travail, parlent de vive voix, écrivent les premiers — et un jour lui présentent la bonne personne.",
+    "frameTitle": "Dessin animé : ce qui distingue Linkeon d’un chat ordinaire"
   },
   "footer": {
     "tagline": "L'IA pour la croissance de votre business",
@@ -158,7 +158,7 @@
         "file": "releve-bancaire.xlsx",
         "ask": "Ventile les dépenses par catégorie et montre où l'argent fuit",
         "steps": [
-          "lit les 2 300 lignes du relevé",
+          "lit les 2 300 lignes du relevé",
           "écrit et exécute du code pour les analyser",
           "regroupe les dépenses par catégorie",
           "trace le graphique mois par mois"
@@ -293,7 +293,7 @@
     "steps": [
       {
         "title": "Connexion en un clic",
-        "text": "Via Yandex ou Google, ou par téléphone. Pas de carte. +25 000 jetons offerts."
+        "text": "Via Yandex ou Google, ou par téléphone. Pas de carte. +25 000 jetons offerts."
       },
       {
         "title": "Discussion avec l'assistant",
@@ -350,11 +350,11 @@
         "title": "Conversation et travail sur les documents",
         "items": [
           "18 assistants, chacun avec sa spécialité",
-          "Fichiers : PDF, tableurs, documents — lus en entier, rendus en fichier fini",
+          "Fichiers : PDF, tableurs, documents — lus en entier, rendus en fichier fini",
           "Recherche sur le web et calculs à l'intérieur de la tâche",
-          "Vos propres assistants : composer un spécialiste pour votre travail",
-          "Saisie vocale : dicter au lieu de taper",
-          "Appel vocal : en parler à voix haute plutôt que par écrit"
+          "Vos propres assistants : composer un spécialiste pour votre travail",
+          "Saisie vocale : dicter au lieu de taper",
+          "Appel vocal : en parler à voix haute plutôt que par écrit"
         ]
       },
       {
@@ -362,7 +362,7 @@
         "items": [
           "Textes, posts, mails, plans de contenu",
           "Images à partir d'une description ou de votre photo",
-          "Vidéo : scénario, plans et montage du clip",
+          "Vidéo : scénario, plans et montage du clip",
           "Connexion des réseaux sociaux et publication depuis Linkeon",
           "Campagnes et calendriers pour publier régulièrement"
         ]
@@ -370,11 +370,11 @@
       {
         "title": "Les gens",
         "items": [
-          "Profil unique : un contexte commun à tous les assistants",
+          "Profil unique : un contexte commun à tous les assistants",
           "Recherche de personnes par valeurs et objectifs",
           "Évaluation de la compatibilité avant de se rencontrer",
           "Demandes de contact et messages à l'intérieur de Linkeon",
-          "Salles : une rencontre par lien, avec un assistant dedans"
+          "Salles : une rencontre par lien, avec un assistant dedans"
         ]
       },
       {
@@ -477,7 +477,7 @@
       "yookassa": "Paiement via YooKassa",
       "priem": "Paiement par carte ou crypto",
       "email": "Reçu par e-mail",
-      "gift": "25 000 jetons offerts aux nouveaux"
+      "gift": "25 000 jetons offerts aux nouveaux"
     }
   },
   "faq": {
@@ -490,7 +490,7 @@
       },
       {
         "q": "Combien de temps pour démarrer ?",
-        "a": "Connexion avec Yandex, Google ou votre numéro de téléphone : 2 minutes. On vous offre 25 000 jetons au départ, soit environ 7 réponses d'assistant ou 5 images. Pas de quoi tester la vidéo sérieusement — pour ça, il faut un pack."
+        "a": "Connexion avec Yandex, Google ou votre numéro de téléphone : 2 minutes. On vous offre 25 000 jetons au départ, soit environ 7 réponses d'assistant ou 5 images. Pas de quoi tester la vidéo sérieusement — pour ça, il faut un pack."
       },
       {
         "q": "Mes échanges sont-ils privés ?",
@@ -512,7 +512,7 @@
   },
   "finalCta": {
     "h2": "Essayez avec quelque chose de vrai",
-    "sub": "Pas avec une question test — avec ce qui traîne vraiment. Connexion avec Yandex ou Google, 25 000 jetons offerts, sans carte.",
+    "sub": "Pas avec une question test — avec ce qui traîne vraiment. Connexion avec Yandex ou Google, 25 000 jetons offerts, sans carte.",
     "ctaStart": "Commencer gratuitement",
     "ctaLogin": "Connexion",
     "trust": "Sans abonnement · les jetons n'expirent pas · supprimer le compte prend un clic"
