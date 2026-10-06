@@ -71,7 +71,7 @@
     "assistant": {
       "eyebrow": "Assistente pessoal",
       "h1": "E-mail, texto, plano —",
-      "h1Accent": "não tem de ser você a escrever",
+      "h1Accent": "não tem de os escrever",
       "sub": "O Roman trata de tudo: e-mails de trabalho, documentos, posts, textos, ideias. Diga pelas suas palavras o que precisa — o resto pergunta ele.",
       "ctaStart": "Começar é grátis"
     },
@@ -136,7 +136,7 @@
     "eyebrow": "Não é um chatbot",
     "h2": "O assistente não responde com texto — faz o trabalho",
     "sub": "Um bot vulgar só sabe responder por escrito. O assistente da Linkeon tem um espaço de trabalho próprio: abre os seus ficheiros, pesquisa na internet, escreve e corre código, monta o documento — e devolve-lhe o ficheiro pronto.",
-    "youLabel": "Você",
+    "youLabel": "O seu pedido",
     "assistantLabel": "Assistente",
     "note": "Os ficheiros são processados do lado da Linkeon — não há nada para instalar no seu computador. Funciona com os mesmos tokens da conversa.",
     "cta": "Dê uma tarefa ao assistente",
@@ -220,11 +220,11 @@
   "profile": {
     "eyebrow": "Perfil único",
     "h2": "Um só contexto — todos os assistentes se lembram",
-    "sub": "Ao longo das conversas, a Linkeon vai completando o seu perfil: valores, negócio, dores, estilo de comunicação. Nenhum assistente começa do zero — todos percebem quem você é desde a primeira mensagem.",
+    "sub": "Ao longo das conversas, a Linkeon vai completando o seu perfil: valores, negócio, dores, estilo de comunicação. Nenhum assistente começa do zero — todos sabem com quem estão a falar desde a primeira mensagem.",
     "bullets": [
       "Cresce com cada conversa",
       "Funciona em todos os assistentes",
-      "É você que decide o que fica memorizado",
+      "O que fica memorizado depende de si",
       "Serve para encontrar parceiros com os mesmos valores"
     ]
   },
@@ -260,7 +260,7 @@
     "cols": [
       {
         "title": "Parceiros",
-        "text": "Cofundadores e especialistas que veem o mundo como você."
+        "text": "Cofundadores e especialistas com uma visão do mundo próxima da sua."
       },
       {
         "title": "Clientes",
@@ -324,7 +324,7 @@
       },
       {
         "title": "Freelancers e especialistas a solo",
-        "text": "Você faz os projetos e à volta há 100 pequenas tarefas (contratos, redes sociais, leads). A IA tira-as de cima de si.",
+        "text": "Dedica-se aos projetos e à volta há 100 pequenas tarefas (contratos, redes sociais, leads). A IA tira-as de cima de si.",
         "benefits": [
           "Contratos num minuto",
           "Publicidade para si",
@@ -485,7 +485,7 @@
       },
       {
         "q": "As minhas conversas são privadas?",
-        "a": "Sim. Só você tem acesso ao seu perfil. Nas definições decide o que os assistentes memorizam."
+        "a": "Sim. Ninguém além de si tem acesso ao seu perfil. Nas definições decide o que os assistentes memorizam."
       },
       {
         "q": "É possível cancelar a compra de tokens?",
