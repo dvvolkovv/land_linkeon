@@ -7,29 +7,7 @@ import Button from '../ui/Button';
 import FadeIn from '../ui/FadeIn';
 import { appUrl } from '../../lib/appUrl';
 import { formattingLocale } from '../../i18n/languages';
-
-interface Pkg {
-  id: 'starter' | 'extended' | 'professional' | 'business' | 'maximum';
-  tokens: number;
-  price: number;
-  savings?: string;
-  popular?: boolean;
-}
-
-/**
- * Прайс продублирован из приложения (spirits_front, src/config/tokenPackages.ts):
- * лендинг — отдельный репозиторий, общего модуля у них нет. При изменении цен
- * править оба места, иначе витрина обещает не то, что покажет касса.
- *
- * Проценты экономии — ярлыки, округлённые вниз до пятёрки, как и в приложении.
- */
-const PACKAGES: Pkg[] = [
-  { id: 'starter', tokens: 50000, price: 149 },
-  { id: 'extended', tokens: 200000, price: 499, savings: '15%' },
-  { id: 'professional', tokens: 1000000, price: 1990, savings: '30%', popular: true },
-  { id: 'business', tokens: 3000000, price: 4990, savings: '40%' },
-  { id: 'maximum', tokens: 7000000, price: 9990, savings: '50%' },
-];
+import { PACKAGES, type Pkg } from '../../content/tokenPackages';
 
 /** Ответ /webhook/payments/methods — та же ручка, что у витрины в приложении. */
 interface PaymentMethod {
