@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "LINKEON.IO — Ihr AI-Team fürs Wachstum",
-    "description": "AI-Assistenten (Marketing, Recht, Buchhaltung, Karriereberatung, Coaching) plus ein gemeinsames Profil. Für kleine Unternehmen, Freelancer und Agenturen."
+    "title": "LINKEON.IO — Ihr KI-Team fürs Wachstum",
+    "description": "KI-Assistenten (Marketing, Recht, Buchhaltung, Karriereberatung, Coaching) plus ein gemeinsames Profil. Für kleine Unternehmen, Freelancer und Agenturen."
   },
   "personaCta": {
     "eyebrow": "Womit anfangen",
@@ -97,7 +97,7 @@
       "legal": "Rechtliches"
     },
     "product": {
-      "assistants": "AI-Assistenten",
+      "assistants": "KI-Assistenten",
       "profile": "Einheitliches Profil",
       "networking": "Networking",
       "pricing": "Preise",
@@ -324,7 +324,7 @@
       },
       {
         "title": "Freelancer und Solo-Experten",
-        "text": "Sie machen Projekte, drumherum 100 Kleinigkeiten (Verträge, Social, Leads). Die AI nimmt sie Ihnen ab.",
+        "text": "Sie machen Projekte, drumherum 100 Kleinigkeiten (Verträge, Social, Leads). Die KI nimmt sie Ihnen ab.",
         "benefits": [
           "Verträge in einer Minute",
           "Werbung für Sie",
@@ -333,7 +333,7 @@
       },
       {
         "title": "Marketing-Agenturen",
-        "text": "Viele Kunden, wenig Leute. Die AI schreibt Werbetexte und baut Kreative.",
+        "text": "Viele Kunden, wenig Leute. Die KI schreibt Werbetexte und baut Kreative.",
         "benefits": [
           "10× schnellere Kampagnen",
           "Video und Visuals an einem Ort"
