@@ -11,10 +11,11 @@ import type { AssistantPageText } from '../../types';
  * Картинка одна на все языки, и надпись на логотипе — по-русски («Тёплый хлеб»).
  * Поэтому в вопросе название — транслитерацией с переводом при первом
  * упоминании, как в английском тексте: «Tyoply Khleb» («Pão Quente»); alt
- * называет надпись так же и говорит, что она кириллицей. В «Чего не делает» к
- * совету взять текст у Екатерины добавлено «que escreve só em russo»: она пишет
- * только по-русски (бриф, п. 10), без оговорки страница отправляла бы к ней за
- * португальским текстом.
+ * называет надпись так же и говорит, что она кириллицей.
+ *
+ * В последнем пункте «Чего не делает» раньше стояла оговорка, что Екатерина
+ * пишет только по-русски. 06.10.2026 её инструкцию исправили — теперь она
+ * пишет на языке человека, — и оговорка снята.
  */
 const kira: AssistantPageText = {
   title: 'Designer com IA: logótipo e identidade visual — Kira | Linkeon',
@@ -62,7 +63,7 @@ Como próximo passo, posso fazer essa versão monocromática com fundo transpare
     'Não faz vetor: nada de SVG, AI, EPS ou CDR, só PNG e JPEG, incluindo com fundo transparente. A Kira avisa logo à partida.',
     'Não garante que o ficheiro está pronto para impressão: a prova de cor, o CMYK e a sangria são verificados pela gráfica. A Kira diz-lhe o que perguntar à gráfica.',
     'Não copia logótipos alheios nem usa fotos e tipos de letra sem direito a isso. Se a licença não for clara, avisa.',
-    'Não escreve o texto de venda para a maqueta: a formulação é melhor pedi-la à redatora Ekaterina, que escreve só em russo.',
+    'Não escreve o texto de venda para a maqueta: a formulação é melhor pedi-la à redatora Ekaterina.',
   ],
   faq: [
     {

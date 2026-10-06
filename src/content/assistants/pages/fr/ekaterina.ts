@@ -3,18 +3,20 @@ import type { AssistantPageText } from '../../types';
 /**
  * Екатерина — тексты и продвижение. Перевод pages/ru/ekaterina.ts.
  *
- * Тексты пишет только по-русски, на каком бы языке ей ни написали (так в её
- * инструкции; проверено вживую). Поэтому title, description, h1, card и lead —
- * про тексты на русском для русскоязычной аудитории, а в cannot первым идёт
- * пункт о языке — единственный пункт сверх русского текста.
+ * Раньше Екатерина по своей инструкции писала тексты только по-русски, и эта
+ * страница подавала её как копирайтера для русскоязычной аудитории, с лишним
+ * первым пунктом о языке в «Чего не делает». 06.10.2026 инструкцию исправили:
+ * теперь она пишет на языке человека (проверено на проде), оговорка снята.
+ * Пример разговора — настоящий, на русском, и показан в переводе; подпись об
+ * этом остаётся верной.
  */
 const ekaterina: AssistantPageText = {
-  title: "Rédactrice IA : textes de vente en russe — Ekaterina | Linkeon",
+  title: "Rédacteur IA : textes de vente et posts — Ekaterina | Linkeon",
   description:
-    "Ekaterina, rédactrice IA pour un public russophone : posts Telegram, newsletters, landing pages et slogans en russe. Elle peaufine vos brouillons et bâtit un plan de contenu.",
-  h1: "Ekaterina — rédactrice IA : textes de vente, posts et newsletters en russe",
-  lead: "Le lancement est lundi, et l'annonce n'est toujours pas écrite. Expliquez à Ekaterina, avec vos propres mots, ce que vous vendez et à qui : elle vous rendra un texte fini en russe, pour un public russophone, avec une version plus courte.",
-  card: "Posts, newsletters, landing pages, slogans en russe. Transforme une idée ou un brouillon en texte fini et propose plusieurs versions.",
+    "Ekaterina, rédactrice IA : posts Telegram, newsletters, landing pages et slogans. Elle peaufine vos brouillons et bâtit un plan de contenu.",
+  h1: "Ekaterina — rédactrice IA : textes de vente, posts et newsletters",
+  lead: "Le lancement est lundi, et l'annonce n'est toujours pas écrite. Expliquez à Ekaterina, avec vos propres mots, ce que vous vendez et à qui : elle vous rendra un texte fini, avec une version plus courte.",
+  card: "Posts, newsletters, landing pages, slogans. Transforme une idée ou un brouillon en texte fini et propose plusieurs versions.",
   cta: "Parler avec Ekaterina",
   situations: [
     "Il est temps d'annoncer vos nouveaux prix à vos clients, et vous ne voulez pas que le mail sonne comme une excuse.",
@@ -72,7 +74,6 @@ Si vous m'indiquez la ville, les prix, le nom de l'entreprise et votre public (f
     "Indique où et comment vous faire connaître, aide à trouver la voix de votre marque et explique les principes du marketing avec des mots simples.",
   ],
   cannot: [
-    "N'écrit pas dans d'autres langues : même si vous lui écrivez en français, le texte sera en russe. Ses textes s'adressent à des lecteurs russophones.",
     "Ne connaît pas votre activité de l'intérieur et peut ajouter un avantage que vous n'offrez pas. Avant de publier, vérifiez les prix, les délais et les promesses faites aux clients.",
     "Ne lance pas de publicité et n'achète pas d'espaces. Ekaterina vous indique les canaux et la marche à suivre, mais c'est vous qui passez à l'action.",
     "Ne promet ni portée ni ventes : le résultat dépend aussi du produit, du prix et de l'endroit où le texte sera lu.",

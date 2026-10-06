@@ -59,7 +59,7 @@ Ensuite, je peux faire cette version monochrome sur fond transparent, ou une ver
     "Ne fait pas de vectoriel : pas de SVG, AI, EPS ni CDR, seulement du PNG et du JPEG, y compris sur fond transparent. Kira vous le dit d'emblée.",
     "Ne garantit pas un fichier prêt à imprimer : l'épreuve couleur, le CMJN et les fonds perdus, c'est l'imprimeur qui les vérifie. Kira vous dit quoi lui demander.",
     "Ne copie pas les logos des autres et n'utilise ni photos ni polices sans en avoir les droits. Si la licence n'est pas claire, elle le signale.",
-    "N'écrit pas le texte de vente de la maquette : pour la formulation, mieux vaut passer par Ekaterina, la rédactrice (elle écrit en russe).",
+    "N'écrit pas le texte de vente de la maquette : pour la formulation, mieux vaut passer par Ekaterina, la rédactrice.",
   ],
   faq: [
     {

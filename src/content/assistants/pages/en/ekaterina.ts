@@ -3,18 +3,20 @@ import type { AssistantPageText } from '../../types';
 /**
  * Екатерина — тексты и продвижение. Перевод pages/ru/ekaterina.ts.
  *
- * Пишет тексты только по-русски, даже если написать ей на другом языке (так в
- * её инструкции; проверено вживую). Поэтому title, description, h1, card и
- * lead — про тексты для русскоязычной аудитории, а в «Чего не делает» —
- * лишний против русского текста первый пункт о языке (бриф переводчика, п. 10).
+ * Раньше Екатерина по своей инструкции писала тексты только по-русски, и эта
+ * страница подавала её как копирайтера для русскоязычной аудитории, с лишним
+ * первым пунктом о языке в «Чего не делает». 06.10.2026 инструкцию исправили:
+ * теперь она пишет на языке человека (проверено на проде), оговорка снята.
+ * Пример разговора — настоящий, на русском, и показан в переводе; подпись об
+ * этом остаётся верной.
  */
 const ekaterina: AssistantPageText = {
-  title: "AI copywriter for Russian-language sales copy — Ekaterina | Linkeon",
+  title: "AI copywriter: sales copy and posts — Ekaterina | Linkeon",
   description:
-    "Ekaterina is an AI copywriter who writes only in Russian: Telegram posts, newsletters, landing-page copy and slogans. She also polishes drafts and builds content plans.",
-  h1: "Ekaterina — AI copywriter for Russian-language posts, newsletters and landing pages",
-  lead: "The launch is on Monday and there's still no announcement. Tell Ekaterina in your own words what you're selling and to whom — she'll come back with finished copy in Russian, plus a shorter version.",
-  card: "Posts, newsletters, landing pages and slogans in Russian. Turns an idea or a draft into finished copy and offers several versions.",
+    "Ekaterina is an AI copywriter who writes Telegram posts, newsletters, landing-page copy and slogans. She also polishes drafts and builds content plans.",
+  h1: "Ekaterina — AI copywriter: sales copy, posts and newsletters",
+  lead: "The launch is on Monday and there's still no announcement. Tell Ekaterina in your own words what you're selling and to whom — she'll come back with finished copy, plus a shorter version.",
+  card: "Posts, newsletters, landing pages and slogans. Turns an idea or a draft into finished copy and offers several versions.",
   cta: "Talk to Ekaterina",
   situations: [
     "It's time to tell clients about new prices, and you don't want the email to sound like an excuse.",
@@ -72,7 +74,6 @@ If you tell me the city, your prices, the company name and your audience (famili
     "Advises on where and how to promote yourself, helps you find your brand voice and explains marketing principles in plain language.",
   ],
   cannot: [
-    "Doesn't write in any language other than Russian. Even if you write to her in English, the copy will come back in Russian: her texts are for Russian-speaking readers.",
     "Doesn't know your business from the inside and may add a benefit you don't actually offer. Before publishing, check prices, deadlines and promises to clients.",
     "Doesn't run ads or buy placements. Ekaterina will suggest channels and the steps to take, in order, but carrying them out is up to you.",
     "Doesn't promise reach or sales: the result also depends on the product, the price and where people see the copy.",

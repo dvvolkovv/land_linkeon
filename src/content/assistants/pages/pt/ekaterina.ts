@@ -3,18 +3,20 @@ import type { AssistantPageText } from '../../types';
 /**
  * Екатерина — тексты и продвижение. Перевод pages/ru/ekaterina.ts.
  *
- * Пишет тексты только по-русски, даже если написать ей по-португальски (так в
- * её инструкции; проверено вживую). Поэтому title, description, h1, card и lead
- * — про тексты на русском для русскоязычной аудитории, а в «Чего не делает»
- * первым пунктом добавлено, что на других языках она не пишет (бриф, п. 10).
+ * Раньше Екатерина по своей инструкции писала тексты только по-русски, и эта
+ * страница подавала её как копирайтера для русскоязычной аудитории, с лишним
+ * первым пунктом о языке в «Чего не делает». 06.10.2026 инструкцию исправили:
+ * теперь она пишет на языке человека (проверено на проде), оговорка снята.
+ * Пример разговора — настоящий, на русском, и показан в переводе; подпись об
+ * этом остаётся верной.
  */
 const ekaterina: AssistantPageText = {
-  title: 'Redatora com IA: textos e posts em russo — Ekaterina | Linkeon',
+  title: 'Redatora com IA: textos de venda e posts — Ekaterina | Linkeon',
   description:
-    'A Ekaterina é uma redatora com IA que escreve só em russo: posts para canais de Telegram, newsletters, landing pages e slogans. Afina rascunhos e monta o plano de conteúdos.',
-  h1: 'Ekaterina — redatora com IA que escreve em russo: textos de venda, posts e newsletters',
-  lead: 'O lançamento é na segunda-feira e o anúncio ainda não existe. Conte à Ekaterina por palavras suas o que vende e a quem — ela devolve um texto pronto em russo, para leitores de língua russa, e uma versão mais curta.',
-  card: 'Textos em russo: posts, newsletters, landing pages, slogans. Transforma uma ideia ou um rascunho num texto pronto, em várias versões.',
+    'A Ekaterina é uma redatora com IA que escreve posts para canais de Telegram, newsletters, landing pages e slogans. Afina rascunhos e monta o plano de conteúdos.',
+  h1: 'Ekaterina — redatora com IA: textos de venda, posts e newsletters',
+  lead: 'O lançamento é na segunda-feira e o anúncio ainda não existe. Conte à Ekaterina por palavras suas o que vende e a quem — ela devolve um texto pronto e uma versão mais curta.',
+  card: 'Posts, newsletters, textos de landing pages, slogans. Transforma uma ideia ou um rascunho num texto pronto, em várias versões.',
   cta: 'Falar com a Ekaterina',
   situations: [
     'Está na hora de avisar os clientes dos novos preços e não quer que o e-mail soe a desculpa.',
@@ -72,7 +74,6 @@ Se me disser a cidade, os preços, o nome da empresa e o seu público (famílias
     'Aconselha onde e como se promover, ajuda a encontrar a voz da marca e explica os princípios do marketing em linguagem simples.',
   ],
   cannot: [
-    'Não escreve noutras línguas: mesmo que lhe escreva em português, o texto sai em russo. Os textos dela são para leitores de língua russa.',
     'Não conhece o seu negócio por dentro e pode acrescentar uma vantagem que não oferece. Antes de publicar, confirme preços, prazos e promessas aos clientes.',
     'Não lança publicidade nem compra espaços publicitários. A Ekaterina sugere os canais e a ordem dos passos, mas a execução cabe-lhe a si.',
     'Não promete alcance nem vendas: o resultado depende também do produto, do preço e de onde o texto vai ser visto.',

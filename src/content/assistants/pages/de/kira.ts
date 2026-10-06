@@ -9,8 +9,9 @@ import type { AssistantPageText } from '../../types';
  * картинка — копия в public/examples/. Название пекарни на картинке кириллицей;
  * в переводе — немецкая транслитерация «Tjoply Chleb» с переводом в скобках.
  *
- * В «Чего не делает» к совету взять текст у Екатерины добавлено «(sie schreibt
- * auf Russisch)»: она пишет только по-русски (бриф переводчика, п. 10).
+ * В последнем пункте «Чего не делает» раньше стояла оговорка, что Екатерина
+ * пишет только по-русски. 06.10.2026 её инструкцию исправили — теперь она
+ * пишет на языке человека, — и оговорка снята.
  */
 const kira: AssistantPageText = {
   title: 'KI-Designer: Logo und Corporate Design erstellen – Kira | Linkeon',
@@ -58,7 +59,7 @@ Als Nächstes kann ich diese einfarbige Version auf transparentem Hintergrund ma
     'Erstellt keine Vektorgrafiken: SVG, AI, EPS und CDR gibt es nicht, nur PNG und JPEG, auch mit transparentem Hintergrund. Kira sagt das gleich zu Beginn.',
     'Verspricht keine Druckreife: Farbproof, CMYK und Beschnittzugabe prüft die Druckerei. Kira sagt Ihnen, was Sie dort klären sollten.',
     'Kopiert keine fremden Logos und verwendet keine Fotos und Schriften ohne Nutzungsrecht. Ist die Lizenz unklar, sagt sie das.',
-    'Schreibt keinen Verkaufstext für das Layout: Die Formulierung holen Sie sich besser bei Texterin Jekaterina (sie schreibt auf Russisch).',
+    'Schreibt keinen Verkaufstext für das Layout: Die Formulierung holen Sie sich besser bei Texterin Jekaterina.',
   ],
   faq: [
     {

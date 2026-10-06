@@ -56,7 +56,7 @@ As a next step, I can make that one-colour version on a transparent background, 
     "Doesn't do vector: no SVG, AI, EPS or CDR files, only PNG and JPEG, including with a transparent background. Kira will tell you this upfront.",
     "Doesn't promise print-ready files: colour proofs, CMYK and bleed are checked by the print shop. Kira will tell you what to ask them.",
     "Doesn't copy other people's logos or use photos and fonts without the rights to them. If a licence is unclear, she'll say so.",
-    "Doesn't write the sales copy for a layout: it's better to get the wording from Ekaterina, the copywriter (she writes in Russian).",
+    "Doesn't write the sales copy for a layout: it's better to get the wording from Ekaterina, the copywriter.",
   ],
   faq: [
     {

@@ -15,9 +15,9 @@ import type { AssistantPageText } from '../../types';
  * на кириллице. Переведи название в вопросе — и посетитель увидит, что
  * просили одно, а нарисовано другое.
  *
- * В «Чего не делает» к совету взять текст у Екатерины добавлено «escribe solo
- * en ruso»: она пишет только по-русски, без оговорки совет обещал бы текст на
- * испанском.
+ * В последнем пункте «Чего не делает» раньше стояла оговорка, что Екатерина
+ * пишет только по-русски. 06.10.2026 её инструкцию исправили — теперь она
+ * пишет на языке человека, — и оговорка снята.
  */
 const kira: AssistantPageText = {
   title: 'Diseñadora con IA: logotipos e identidad visual — Kira | Linkeon',
@@ -65,7 +65,7 @@ Como siguiente paso, puedo hacer esa versión en un solo color con fondo transpa
     'No hace vectores: nada de SVG, AI, EPS ni CDR, solo PNG y JPEG, también con fondo transparente. Kira se lo dirá desde el principio.',
     'No promete que el archivo esté listo para imprenta: la prueba de color, el CMYK y el sangrado los revisa la imprenta. Kira le dirá qué consultar allí.',
     'No copia logotipos ajenos ni usa fotos o tipografías sin derechos de uso. Si la licencia no está clara, se lo dirá.',
-    'No escribe el texto de venta del diseño: para eso, mejor Ekaterina, la redactora (escribe solo en ruso).',
+    'No escribe el texto de venta del diseño: para eso, mejor Ekaterina, la redactora.',
   ],
   faq: [
     {
