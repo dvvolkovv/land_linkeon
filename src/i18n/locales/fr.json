@@ -29,7 +29,7 @@
     "nav": {
       "features": "Fonctions",
       "sites": "Sites et bots",
-      "how": "Comment ça marche",
+      "how": "Fonctionnement",
       "pricing": "Tarifs",
       "faq": "FAQ"
     },
@@ -295,7 +295,7 @@
     "sub": "Décrivez avec vos mots ce qu'il vous faut. L'assistant monte le site ou le bot, le met en ligne, puis le retouche à chaque demande. Serveur, adresse et mises à jour : Linkeon s'en occupe.",
     "site": {
       "title": "Site web",
-      "kinds": "Carte de visite, landing page, menu, portfolio",
+      "kinds": "Site vitrine, landing page, menu, portfolio",
       "mock": {
         "url": "votre-domaine.fr",
         "name": "Café Le Grain",
@@ -307,7 +307,7 @@
       },
       "points": [
         "L'adresse sur Linkeon est là tout de suite ; brancher votre propre domaine est gratuit",
-        "Des retouches avec des mots — « ajoute une page de tarifs » — dans le chat du site ou avec l'assistant avec qui vous travaillez",
+        "Des retouches en quelques mots — « ajoute une page de tarifs » — dans le chat du site ou auprès de l'assistant avec qui vous travaillez",
         "Le site ne s'ouvre plus après une retouche ? Linkeon remet tout seul la version précédente. Toute retouche s'annule d'un clic"
       ]
     },
@@ -425,7 +425,7 @@
           "Images à partir d'une description ou de votre photo",
           "Vidéo : scénario, plans et montage du clip",
           "Site ou bot Telegram : l'assistant le monte et le retouche selon vos mots",
-          "Hébergement et domaine à vous — sur le même solde"
+          "Hébergement et domaine personnalisé — sur le même solde"
         ]
       },
       {
@@ -575,7 +575,7 @@
       },
       {
         "q": "Puis-je brancher mon propre domaine ?",
-        "a": "Oui, gratuitement — c'est inclus dans la location. Saisissez le domaine dans la fiche du site : Linkeon indique quels enregistrements créer chez votre registraire, les vérifie lui-même et émet le certificat. L'adresse sur Linkeon continue de fonctionner à côté. Seul un site peut avoir son propre domaine ; un bot n'a pas d'adresse."
+        "a": "Oui, gratuitement — c'est inclus dans la location. Saisissez le domaine dans la fiche du site : Linkeon indique quels enregistrements créer chez votre registrar, les vérifie lui-même et émet le certificat. L'adresse sur Linkeon continue de fonctionner en parallèle. Seul un site peut avoir son propre domaine ; un bot n'a pas d'adresse."
       },
       {
         "q": "Et si une retouche casse le site ?",

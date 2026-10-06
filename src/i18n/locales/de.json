@@ -291,7 +291,7 @@
   },
   "sites": {
     "eyebrow": "Websites und Bots",
-    "h2": "Website oder Telegram-Bot — ebenfalls in Worten",
+    "h2": "Website oder Telegram-Bot — auch das mit eigenen Worten",
     "sub": "Beschreiben Sie in eigenen Worten, was Sie brauchen. Der Assistent baut Website oder Bot, bringt alles online und passt es danach auf Zuruf an. Server, Adresse und Updates übernimmt Linkeon.",
     "site": {
       "title": "Website",
@@ -307,7 +307,7 @@
       },
       "points": [
         "Eine Adresse bei Linkeon gibt es sofort, die eigene Domain verbinden Sie kostenlos",
-        "Änderungen in Worten — „füge eine Preisseite hinzu“ — im Chat der Website oder beim Assistenten, mit dem Sie arbeiten",
+        "Änderungen mit eigenen Worten — „füge eine Preisseite hinzu“ — im Chat der Website oder beim Assistenten, mit dem Sie arbeiten",
         "Öffnet sich die Website nach einer Änderung nicht, stellt Linkeon die vorige Version selbst wieder her. Jede Änderung lässt sich per Klick zurücknehmen"
       ]
     },
@@ -324,7 +324,7 @@
       },
       "points": [
         "Sie brauchen nur einen Token von @BotFather — den Rest erledigt der Assistent",
-        "Was der Bot können soll, erklären Sie in Worten — und ändern es genauso",
+        "Was der Bot können soll, erklären Sie mit eigenen Worten — und ändern es genauso",
         "Läuft rund um die Uhr auf dem Linkeon-Server, Ihr Computer wird nicht gebraucht"
       ]
     },
@@ -342,7 +342,7 @@
         "text": "In der Miete enthalten, das Zertifikat stellt Linkeon selbst aus"
       },
       {
-        "title": "Keine Tokens mehr — schläft, verschwindet nicht",
+        "title": "Keine Tokens mehr — alles schläft, nichts geht verloren",
         "text": "Code und Domain bleiben erhalten, nach dem Aufladen wacht alles von selbst auf. Schulden entstehen keine"
       }
     ],

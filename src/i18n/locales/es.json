@@ -308,7 +308,7 @@
       "points": [
         "La dirección en Linkeon aparece al momento; conectar su propio dominio es gratis",
         "Cambios con palabras —«añade una página de precios»— en el chat del sitio o con el asistente con el que trabaja",
-        "Si el sitio no abre tras un cambio, Linkeon vuelve solo a la versión anterior. Cualquier cambio se deshace con un botón"
+        "Si el sitio no abre tras un cambio, Linkeon restaura por sí solo la versión anterior. Cualquier cambio se deshace con un botón"
       ]
     },
     "bot": {
@@ -579,7 +579,7 @@
       },
       {
         "q": "¿Y si un cambio rompe el sitio?",
-        "a": "Después de cada cambio, Linkeon comprueba que el sitio abre. Si no abre, vuelve solo a la versión anterior y no cobra tokens por ese cambio. Cualquier cambio del historial también se puede deshacer a mano, con un botón."
+        "a": "Después de cada cambio, Linkeon comprueba que el sitio abre. Si no abre, restaura por sí solo la versión anterior y no cobra tokens por ese cambio. Cualquier cambio del historial también se puede deshacer a mano, con un botón."
       }
     ]
   },

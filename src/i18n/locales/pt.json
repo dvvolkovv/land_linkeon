@@ -571,7 +571,7 @@
       },
       {
         "q": "Quanto custa um site ou um bot?",
-        "a": "Criar é gratuito, e o primeiro mês também. Depois, {{tokens}} tokens por mês por cada um. As alterações são cobradas à parte, consoante o trabalho — como as respostas de um assistente. Se os tokens não chegarem, o site adormece: o código, o endereço e o domínio ficam guardados, e depois de carregar o saldo ele acorda sozinho. Não se acumula dívida. Cada conta pode ter até dois sites ou bots; se precisar de mais, escreva ao suporte."
+        "a": "Criar é gratuito, e o primeiro mês também. Depois, {{tokens}} tokens por mês por cada um. As alterações são cobradas à parte, consoante o trabalho — como as respostas de um assistente. Se os tokens não chegarem, o site adormece: o código, o endereço e o domínio ficam guardados e, depois de carregar o saldo, o site acorda sozinho. Não se acumula dívida. Cada conta pode ter até dois sites ou bots; se precisar de mais, escreva ao apoio."
       },
       {
         "q": "Posso ligar o meu próprio domínio?",
