@@ -37,9 +37,10 @@ export default function Pricing() {
   const fmt = (n: number) => n.toLocaleString(formattingLocale(i18n.language));
 
   // Способ оплаты решает бэкенд по языку — ровно как в приложении: ru →
-  // YooKassa в рублях, остальные → «Приём» в долларах. Рублёвый прайс лежит
-  // здесь (бэкенд его не отдаёт), долларовый приезжает с той же ручки, что
-  // питает витрину приложения, — чтобы цены не разъезжались.
+  // YooKassa в рублях, остальные → «Приём» в долларах. Рублёвый прайс — в
+  // src/content/tokenPackages.ts (бэкенд его не отдаёт), долларовый
+  // приезжает с той же ручки, что питает витрину приложения, — чтобы цены
+  // не разъезжались.
   const isRu = (i18n.language || 'ru').toLowerCase().startsWith('ru');
   const [method, setMethod] = useState<PaymentMethod | null>(null);
   const [failed, setFailed] = useState(false);

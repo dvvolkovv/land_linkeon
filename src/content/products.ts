@@ -6,8 +6,9 @@ import { formattingLocale } from '../i18n/languages';
  *
  * Зеркало RENT_TOKENS из spirits_back/src/products/rent.service.ts; второе
  * зеркало — spirits_front/src/components/products/rent.ts. Бэкенд это число
- * наружу не отдаёт, поэтому копии и ссылки между ними. Поменяли аренду —
- * правьте все три.
+ * наружу не отдаёт, поэтому копии. Ссылки между ними не во все стороны —
+ * бэкенд о копиях не знает: поменяли аренду, ищите RENT_TOKENS во всех
+ * трёх репозиториях.
  *
  * Потолок «до двух продуктов на аккаунт» (DEFAULT_MAX_PRODUCTS в
  * spirits_back/src/products/limits.service.ts) числом не подставляется: он
@@ -27,7 +28,11 @@ export function rentRubles(): number {
   return Math.round((RENT_TOKENS * starter.price) / starter.tokens);
 }
 
-/** Переменные для текстов об аренде ({{tokens}}, {{price}}) — в формате языка страницы. */
+/**
+ * Переменные для текстов об аренде ({{tokens}}, {{price}}) — в формате
+ * языка страницы. price — рубли: подставлять только в русский текст, на
+ * других языках витрина валютная.
+ */
 export function rentInterpolation(language: string): { tokens: string; price: string } {
   const locale = formattingLocale(language);
   return {

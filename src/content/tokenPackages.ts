@@ -17,7 +17,7 @@ export interface Pkg {
  *
  * Проценты экономии — ярлыки, округлённые вниз до пятёрки, как и в приложении.
  */
-export const PACKAGES: Pkg[] = [
+export const PACKAGES: readonly Pkg[] = [
   { id: 'starter', tokens: 50000, price: 149 },
   { id: 'extended', tokens: 200000, price: 499, savings: '15%' },
   { id: 'professional', tokens: 1000000, price: 1990, savings: '30%', popular: true },
