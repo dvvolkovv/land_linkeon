@@ -158,7 +158,7 @@
         "file": "extrato-bancario.xlsx",
         "ask": "Distribui as despesas por categorias e mostra por onde foge o dinheiro",
         "steps": [
-          "lê 2 300 linhas do extrato",
+          "lê 2 300 linhas do extrato",
           "escreve e corre código para as processar",
           "agrupa as despesas por categoria",
           "traça o gráfico mês a mês"
@@ -293,7 +293,7 @@
     "steps": [
       {
         "title": "Entrar num clique",
-        "text": "Com a Yandex ou a Google, ou pelo número de telemóvel. Não é preciso cartão. +25 000 tokens de oferta."
+        "text": "Com a Yandex ou a Google, ou pelo número de telemóvel. Não é preciso cartão. +25 000 tokens de oferta."
       },
       {
         "title": "Conversa com um assistente",
@@ -468,7 +468,7 @@
       "yookassa": "Pagamento via YooKassa",
       "priem": "Pagamento com cartão ou cripto",
       "email": "Recibo por e-mail",
-      "gift": "25 000 tokens de oferta para novos utilizadores"
+      "gift": "25 000 tokens de oferta para novos utilizadores"
     }
   },
   "faq": {
@@ -481,7 +481,7 @@
       },
       {
         "q": "Quanto tempo demora a começar?",
-        "a": "Entrar com a Yandex, a Google ou o número de telemóvel demora 2 minutos. À partida oferecemos 25 000 tokens: dá para cerca de 7 respostas de assistente ou 5 imagens. Para testar vídeo a sério não chega — aí é preciso um pacote."
+        "a": "Entrar com a Yandex, a Google ou o número de telemóvel demora 2 minutos. À partida oferecemos 25 000 tokens: dá para cerca de 7 respostas de assistente ou 5 imagens. Para testar vídeo a sério não chega — aí é preciso um pacote."
       },
       {
         "q": "As minhas conversas são privadas?",
@@ -503,7 +503,7 @@
   },
   "finalCta": {
     "h2": "Experimente com uma coisa a sério",
-    "sub": "Não com uma pergunta de teste — com aquilo que anda mesmo pendente. Entre com a Yandex ou a Google, 25 000 tokens de oferta, sem cartão.",
+    "sub": "Não com uma pergunta de teste — com aquilo que anda mesmo pendente. Entre com a Yandex ou a Google, 25 000 tokens de oferta, sem cartão.",
     "ctaStart": "Começar grátis",
     "ctaLogin": "Entrar",
     "trust": "Sem subscrição · os tokens não expiram · apagar a conta é um clique"
