@@ -72,7 +72,7 @@ export default function Header({ homeHref }: Props = {}) {
             места под обычную полосу прокрутки, поэтому до xl — gap-6.
             whitespace-nowrap здесь и на кнопках превращает нехватку места в
             переполнение, а не в перенос строк; запас на 1024 px во всех
-            языках мерит tests/sites.spec.ts. */}
+            языках мерит tests/header.spec.ts. */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {LINKS.map((l) => (
             <a key={l.href} href={navHref(l.href)} className="text-sm text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">
