@@ -21,6 +21,11 @@ describe('шапка', () => {
     expect(html).toContain('href="/en/#pricing"');
     expect(html).not.toContain('href="#pricing"');
   });
+
+  it('пункт «Сайты и боты» ведёт к секции — на главной и с подстраницы', () => {
+    expect(render(<Header />)).toContain('href="#sites"');
+    expect(render(<Header homeHref="/en/" />, 'en')).toContain('href="/en/#sites"');
+  });
 });
 
 describe('подвал', () => {
@@ -34,5 +39,10 @@ describe('подвал', () => {
     const html = render(<Footer homeHref="/" />);
     expect(html).toContain('href="/#pricing"');
     expect(html).toContain('href="#privacy"');
+  });
+
+  it('в колонке «Продукт» есть «Сайты и боты»', () => {
+    expect(render(<Footer />)).toContain('href="#sites"');
+    expect(render(<Footer homeHref="/" />)).toContain('href="/#sites"');
   });
 });

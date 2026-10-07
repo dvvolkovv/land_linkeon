@@ -138,6 +138,7 @@ export default function Footer({ homeHref }: FooterProps = {}) {
             { label: t('footer.product.assistants'), href: section('#assistants') },
             { label: t('footer.product.profile'), href: section('#profile') },
             { label: t('footer.product.networking'), href: section('#networking') },
+            { label: t('footer.product.sites'), href: section('#sites') },
             { label: t('footer.product.pricing'), href: section('#pricing') },
             // Приложение раздаётся файлом, а не через Google Play.
             //
