@@ -3,10 +3,16 @@ import { ChevronDown } from 'lucide-react';
 import Section from '../ui/Section';
 import Eyebrow from '../ui/Eyebrow';
 import FadeIn from '../ui/FadeIn';
+import { rentInterpolation } from '../../content/products';
 
 export default function FAQ() {
-  const { t } = useTranslation();
-  const items = t('faq.items', { returnObjects: true }) as { q: string; a: string }[];
+  const { t, i18n } = useTranslation();
+  // Ответ о цене сайта несёт {{tokens}} и {{price}} — числа из того же места,
+  // что у секции «Сайты и боты» (src/content/products.ts).
+  const items = t('faq.items', {
+    returnObjects: true,
+    ...rentInterpolation(i18n.language),
+  }) as { q: string; a: string }[];
 
   return (
     <Section id="faq" ariaLabelledby="faq-heading">

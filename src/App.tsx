@@ -9,6 +9,7 @@ import Assistants from './components/sections/Assistants';
 import Profile from './components/sections/Profile';
 import Networking from './components/sections/Networking';
 import ContentEngine from './components/sections/ContentEngine';
+import Sites from './components/sections/Sites';
 import HowItWorks from './components/sections/HowItWorks';
 import UseCases from './components/sections/UseCases';
 import Features from './components/sections/Features';
@@ -32,6 +33,7 @@ function App() {
         <Profile />
         <Networking />
         <ContentEngine />
+        <Sites />
         <HowItWorks />
         <UseCases />
         <Features />

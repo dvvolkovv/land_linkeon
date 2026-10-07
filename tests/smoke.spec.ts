@@ -44,10 +44,10 @@ test.describe('landing smoke', () => {
     });
   });
 
-  test('FAQ has 6 questions', async ({ page }) => {
+  test('FAQ has 9 questions', async ({ page }) => {
     await page.goto('/#faq');
     const details = page.locator('#faq details');
-    await expect(details).toHaveCount(6);
+    await expect(details).toHaveCount(9);
   });
 
   // Переключатель предлагает ровно те языки, версии которых реально выпущены:

@@ -7,6 +7,7 @@ import { appUrl } from '../../lib/appUrl';
 
 const LINKS = [
   { href: '#features', key: 'header.nav.features' },
+  { href: '#sites', key: 'header.nav.sites' },
   { href: '#how', key: 'header.nav.how' },
   { href: '#pricing', key: 'header.nav.pricing' },
   { href: '#faq', key: 'header.nav.faq' },
@@ -67,9 +68,14 @@ export default function Header({ homeHref }: Props = {}) {
           <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
         </a>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        {/* Пять пунктов на 1024 px: с gap-8 французской строке не оставалось
+            места под обычную полосу прокрутки, поэтому до xl — gap-6.
+            whitespace-nowrap здесь и на кнопках превращает нехватку места в
+            переполнение, а не в перенос строк; запас на 1024 px во всех
+            языках мерит tests/header.spec.ts. */}
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {LINKS.map((l) => (
-            <a key={l.href} href={navHref(l.href)} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <a key={l.href} href={navHref(l.href)} className="text-sm text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">
               {t(l.key)}
             </a>
           ))}
@@ -77,8 +83,8 @@ export default function Header({ homeHref }: Props = {}) {
 
         <div className="hidden lg:flex items-center gap-3">
           <LangSwitcher />
-          <Button variant="ghost" size="md" href={appUrl()} dataCta="header-login">{t('header.cta.login')}</Button>
-          <Button variant="primary" size="md" href={appUrl()} dataCta="header-start">{t('header.cta.start')}</Button>
+          <Button variant="ghost" size="md" href={appUrl()} dataCta="header-login" className="whitespace-nowrap">{t('header.cta.login')}</Button>
+          <Button variant="primary" size="md" href={appUrl()} dataCta="header-start" className="whitespace-nowrap">{t('header.cta.start')}</Button>
         </div>
 
         <button

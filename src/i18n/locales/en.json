@@ -28,6 +28,7 @@
   "header": {
     "nav": {
       "features": "Features",
+      "sites": "Websites & bots",
       "how": "How it works",
       "pricing": "Pricing",
       "faq": "FAQ"
@@ -100,6 +101,7 @@
       "assistants": "AI assistants",
       "profile": "Unified profile",
       "networking": "Networking",
+      "sites": "Websites and bots",
       "pricing": "Pricing",
       "android_app": "Android app"
     },
@@ -279,13 +281,72 @@
     "sub": "Your AI marketer wrote the plan? Generate covers, carousels and short videos right there. No switching between services and subscriptions.",
     "images": {
       "h3": "Images",
-      "caption": "Imagen 4.0 Ultra — realistic and fast. Covers, carousels, social visuals."
+      "caption": "Realistic and fast. Covers, carousels, social visuals."
     },
     "video": {
       "h3": "Video",
       "caption": "Kling and Veo. Short clips from text or image — ad creatives, previews, stories."
     },
     "footer": "Runs on the same tokens as assistants. No separate subscriptions."
+  },
+  "sites": {
+    "eyebrow": "Websites and bots",
+    "h2": "A website or a Telegram bot — also in plain words",
+    "sub": "Describe what you need in your own words. The assistant builds the website or bot and launches it, then keeps making changes whenever you ask. Linkeon takes care of the server, the address and updates.",
+    "site": {
+      "title": "Website",
+      "kinds": "Simple business site, landing page, menu, portfolio",
+      "mock": {
+        "url": "your-domain.com",
+        "name": "Grain Coffee House",
+        "lines": [
+          "Espresso · Cappuccino · Flat white",
+          "Fresh pastries every morning"
+        ],
+        "hours": "Open daily, 8 am – 9 pm"
+      },
+      "points": [
+        "You get an address on Linkeon right away; connecting your own domain is free",
+        "Changes in plain words — “add a pricing page” — in the website's chat or with the assistant you work with",
+        "If the site doesn't open after a change, Linkeon rolls back to the previous version by itself. Any change can be undone with one click"
+      ]
+    },
+    "bot": {
+      "title": "Telegram bot",
+      "kinds": "Bookings, requests, answers to common questions",
+      "mock": {
+        "ask": "I'd like to book for Saturday",
+        "reply": "Free on Saturday:",
+        "slots": [
+          "12 pm",
+          "3 pm"
+        ]
+      },
+      "points": [
+        "All you need is a token from @BotFather — the assistant does the rest",
+        "You explain in words what the bot should do — and change it the same way",
+        "Runs on Linkeon's server around the clock; your computer isn't needed"
+      ]
+    },
+    "terms": [
+      {
+        "title": "First month free",
+        "text": "Creating a website or bot costs nothing"
+      },
+      {
+        "title": "Then {{tokens}} tokens a month",
+        "text": "Changes are charged by the amount of work, like assistant replies"
+      },
+      {
+        "title": "Your own domain — free",
+        "text": "Included in the rent; Linkeon issues the certificate itself"
+      },
+      {
+        "title": "Out of tokens — it sleeps, it isn't lost",
+        "text": "Code and domain are kept, and it wakes up by itself after you top up. No debt builds up"
+      }
+    ],
+    "cta": "Make a website or bot"
   },
   "how": {
     "eyebrow": "How it works",
@@ -358,13 +419,13 @@
         ]
       },
       {
-        "title": "Content",
+        "title": "Content, websites and bots",
         "items": [
           "Copy, posts, emails, content plans",
           "Images from a description or from your photo",
           "Video: script, shots and the finished clip",
-          "Connecting social accounts and publishing from Linkeon",
-          "Campaigns and schedules for posting regularly"
+          "A website or a Telegram bot: the assistant builds it and keeps updating it whenever you ask",
+          "Hosting and your own domain — from the same balance"
         ]
       },
       {
@@ -507,6 +568,18 @@
       {
         "q": "How is it different from ChatGPT?",
         "a": "ChatGPT is one helper. Linkeon is a team of assistants with a shared profile + image and video generation in one bill."
+      },
+      {
+        "q": "How much does a website or bot cost?",
+        "a": "Creating one is free, and so is the first month. After that it's {{tokens}} tokens a month for each. Changes are charged separately, by the amount of work — like assistant replies. If you run out of tokens, the site goes to sleep: code, address and domain are kept, and it wakes up by itself once you top up. No debt builds up. Each account can have up to two websites or bots; if you need more, write to support."
+      },
+      {
+        "q": "Can I connect my own domain?",
+        "a": "Yes, for free — it's included in the rent. Enter the domain on the website's card: Linkeon shows which records to create at your registrar, checks them itself and issues the certificate. The Linkeon address keeps working alongside. Only a website can have its own domain; a bot has no address."
+      },
+      {
+        "q": "What if a change breaks the site?",
+        "a": "After every change, Linkeon checks that the site opens. If it doesn't, Linkeon rolls back to the previous version by itself, and no tokens are charged for that change. Any change from the history can also be undone by hand — with one click."
       }
     ]
   },

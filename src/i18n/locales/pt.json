@@ -28,6 +28,7 @@
   "header": {
     "nav": {
       "features": "Funcionalidades",
+      "sites": "Sites e bots",
       "how": "Como funciona",
       "pricing": "Preços",
       "faq": "FAQ"
@@ -100,6 +101,7 @@
       "assistants": "Assistentes de IA",
       "profile": "Perfil único",
       "networking": "Networking",
+      "sites": "Sites e bots",
       "pricing": "Preços",
       "android_app": "App para Android"
     },
@@ -279,13 +281,72 @@
     "sub": "O assistente de marketing já fez o plano? Gere aí mesmo capas, carrosséis e um vídeo curto. Sem andar a saltar entre serviços e subscrições.",
     "images": {
       "h3": "Imagens",
-      "caption": "Imagen 4.0 Ultra — realista e rápido. Capas, carrosséis e visuais para as redes."
+      "caption": "Realista e rápido. Capas, carrosséis e visuais para as redes."
     },
     "video": {
       "h3": "Vídeo",
       "caption": "Kling e Veo. Vídeos curtos a partir de texto ou imagem — criativos publicitários, pré-visualizações, stories."
     },
     "footer": "Funciona com os mesmos tokens dos assistentes. Sem subscrições à parte."
+  },
+  "sites": {
+    "eyebrow": "Sites e bots",
+    "h2": "Um site ou um bot do Telegram — também por palavras",
+    "sub": "Descreva por palavras suas o que precisa. O assistente monta o site ou o bot e põe-no a funcionar, e depois vai ajustando sempre que pedir. Servidor, endereço e atualizações ficam a cargo da Linkeon.",
+    "site": {
+      "title": "Site",
+      "kinds": "Cartão de visita, landing page, menu, portefólio",
+      "mock": {
+        "url": "o-seu-dominio.pt",
+        "name": "Café Grão",
+        "lines": [
+          "Expresso · Cappuccino · Galão",
+          "Pastelaria fresca todas as manhãs"
+        ],
+        "hours": "Todos os dias, 8h–21h"
+      },
+      "points": [
+        "O endereço na Linkeon aparece de imediato; ligar o seu próprio domínio é gratuito",
+        "Alterações por palavras — «acrescenta uma página de preços» — no chat do site ou com o assistente com quem trabalha",
+        "Se o site não abrir depois de uma alteração, a Linkeon repõe sozinha a versão anterior. Qualquer alteração pode ser desfeita com um botão"
+      ]
+    },
+    "bot": {
+      "title": "Bot do Telegram",
+      "kinds": "Marcações, pedidos, respostas a perguntas frequentes",
+      "mock": {
+        "ask": "Queria marcar para sábado",
+        "reply": "Livre no sábado:",
+        "slots": [
+          "12:00",
+          "15:00"
+        ]
+      },
+      "points": [
+        "Só precisa de um token do @BotFather — o resto fica com o assistente",
+        "O que o bot faz, explica-o por palavras — e altera-o da mesma forma",
+        "Funciona dia e noite no servidor da Linkeon; o seu computador não é preciso"
+      ]
+    },
+    "terms": [
+      {
+        "title": "Primeiro mês grátis",
+        "text": "Criar um site ou um bot não custa nada"
+      },
+      {
+        "title": "Depois, {{tokens}} tokens por mês",
+        "text": "As alterações são cobradas consoante o trabalho, como as respostas do assistente"
+      },
+      {
+        "title": "Domínio próprio — grátis",
+        "text": "Incluído no aluguer; a Linkeon emite o certificado sozinha"
+      },
+      {
+        "title": "Sem tokens, adormece — não se perde",
+        "text": "O código e o domínio ficam guardados e, depois de carregar o saldo, acorda sozinho. Não se acumula dívida"
+      }
+    ],
+    "cta": "Criar um site ou um bot"
   },
   "how": {
     "eyebrow": "Como funciona",
@@ -358,13 +419,13 @@
         ]
       },
       {
-        "title": "Conteúdo",
+        "title": "Conteúdo, sites e bots",
         "items": [
           "Textos, posts, e-mails, planos de conteúdo",
           "Imagens a partir de uma descrição ou da sua fotografia",
           "Vídeo: guião, planos e montagem do vídeo",
-          "Ligação das redes sociais e publicação a partir da Linkeon",
-          "Campanhas e calendários para publicar com regularidade"
+          "Site ou bot do Telegram: o assistente monta-o e vai alterando-o conforme as suas palavras",
+          "Alojamento e domínio próprio — com o mesmo saldo"
         ]
       },
       {
@@ -442,9 +503,18 @@
     "eyebrow": "Opiniões",
     "h2": "O que dizem os utilizadores",
     "items": [
-      { "quote": "Sinceramente, é mesmo bom. A Ekaterina ajuda a sério — sou técnico e não consigo escolher as palavras certas, sai-me tudo seco, como num documento. Ela alarga a minha bagagem de conhecimentos.", "author": "— especialista técnico" },
-      { "quote": "O produto está a ficar muito bom. Gerar vídeo aqui é mais prático do que no Veo original — áudio limpo, parecença a partir da foto e o formato certo.", "author": "— criador de conteúdo" },
-      { "quote": "Antes, acertar o design e o texto de uma apresentação levava-me vários dias. Aqui recebi-a pronta em 5 minutos — muito satisfeito com a eficiência.", "author": "— empresário" }
+      {
+        "quote": "Sinceramente, é mesmo bom. A Ekaterina ajuda a sério — sou técnico e não consigo escolher as palavras certas, sai-me tudo seco, como num documento. Ela alarga a minha bagagem de conhecimentos.",
+        "author": "— especialista técnico"
+      },
+      {
+        "quote": "O produto está a ficar muito bom. Gerar vídeo aqui é mais prático do que no Veo original — áudio limpo, parecença a partir da foto e o formato certo.",
+        "author": "— criador de conteúdo"
+      },
+      {
+        "quote": "Antes, acertar o design e o texto de uma apresentação levava-me vários dias. Aqui recebi-a pronta em 5 minutos — muito satisfeito com a eficiência.",
+        "author": "— empresário"
+      }
     ]
   },
   "pricing": {
@@ -498,6 +568,18 @@
       {
         "q": "Em que é diferente do ChatGPT?",
         "a": "O ChatGPT é um único ajudante. A Linkeon é uma equipa de assistentes com um perfil partilhado, mais geração de imagens e vídeo num só pagamento."
+      },
+      {
+        "q": "Quanto custa um site ou um bot?",
+        "a": "Criar é gratuito, e o primeiro mês também. Depois, {{tokens}} tokens por mês por cada um. As alterações são cobradas à parte, consoante o trabalho — como as respostas de um assistente. Se os tokens não chegarem, o site adormece: o código, o endereço e o domínio ficam guardados e, depois de carregar o saldo, o site acorda sozinho. Não se acumula dívida. Cada conta pode ter até dois sites ou bots; se precisar de mais, escreva ao apoio."
+      },
+      {
+        "q": "Posso ligar o meu próprio domínio?",
+        "a": "Sim, gratuitamente — está incluído no aluguer. Escreva o domínio na ficha do site: a Linkeon mostra que registos criar no seu registador, verifica-os sozinha e emite o certificado. O endereço na Linkeon continua a funcionar ao lado. Só um site pode ter domínio próprio; um bot não tem endereço."
+      },
+      {
+        "q": "E se uma alteração estragar o site?",
+        "a": "Depois de cada alteração, a Linkeon verifica se o site abre. Se não abrir, repõe sozinha a versão anterior, e essa alteração não gasta tokens. Qualquer alteração do histórico também pode ser desfeita à mão — com um botão."
       }
     ]
   },
