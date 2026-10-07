@@ -68,11 +68,11 @@ export default function Header({ homeHref }: Props = {}) {
           <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
         </a>
 
-        {/* Пять пунктов на 1024 px: французской строке хватает места только
-            с gap-6 (замерено: с gap-8 при обычной полосе прокрутки −1 px,
-            и CTA переносится на две строки). whitespace-nowrap здесь и на
-            кнопках — чтобы нехватка места выглядела измеримым переполнением
-            (его ловит tests/sites.spec.ts), а не тихим переносом строк. */}
+        {/* Пять пунктов на 1024 px: с gap-8 французской строке не оставалось
+            места под обычную полосу прокрутки, поэтому до xl — gap-6.
+            whitespace-nowrap здесь и на кнопках превращает нехватку места в
+            переполнение, а не в перенос строк; запас на 1024 px во всех
+            языках мерит tests/sites.spec.ts. */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {LINKS.map((l) => (
             <a key={l.href} href={navHref(l.href)} className="text-sm text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">
