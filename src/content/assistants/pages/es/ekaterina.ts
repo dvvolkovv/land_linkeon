@@ -3,18 +3,20 @@ import type { AssistantPageText } from '../../types';
 /**
  * Екатерина — тексты и продвижение. Перевод pages/ru/ekaterina.ts.
  *
- * Екатерина пишет тексты только по-русски, даже если написать ей на другом
- * языке (так в её инструкции, проверено вживую). Поэтому title, description,
- * h1, card и lead — про тексты на русском для русскоязычной аудитории, а в
- * «Чего не делает» первым идёт пункт о языке: он лишний против русского текста.
+ * Раньше Екатерина по своей инструкции писала тексты только по-русски, и эта
+ * страница подавала её как копирайтера для русскоязычной аудитории, с лишним
+ * первым пунктом о языке в «Чего не делает». 06.10.2026 инструкцию исправили:
+ * теперь она пишет на языке человека (проверено на проде), оговорка снята.
+ * Пример разговора — настоящий, на русском, и показан в переводе; подпись об
+ * этом остаётся верной.
  */
 const ekaterina: AssistantPageText = {
-  title: 'Redactora publicitaria con IA: textos en ruso — Ekaterina | Linkeon',
+  title: 'Redactora publicitaria con IA: textos de venta — Ekaterina | Linkeon',
   description:
-    'Ekaterina, redactora con IA para público rusohablante: escribe en ruso posts de Telegram, newsletters, landing pages y eslóganes, pule borradores y prepara el plan de contenido.',
-  h1: 'Ekaterina — redactora publicitaria con IA para el público rusohablante: textos de venta, posts y newsletters en ruso',
-  lead: 'El lanzamiento es el lunes y todavía no tiene el anuncio. Cuéntele a Ekaterina con sus palabras qué vende y a quién: le devolverá un texto terminado, en ruso y pensado para un público rusohablante, y una versión más corta.',
-  card: 'Posts, newsletters, landing pages y eslóganes en ruso. Convierte una idea o un borrador en un texto terminado y propone varias versiones.',
+    'Ekaterina, redactora publicitaria con IA: escribe posts de Telegram, newsletters, landing pages y eslóganes, pule borradores y prepara el plan de contenido.',
+  h1: 'Ekaterina — redactora publicitaria con IA: textos de venta, posts y newsletters',
+  lead: 'El lanzamiento es el lunes y todavía no tiene el anuncio. Cuéntele a Ekaterina con sus palabras qué vende y a quién: le devolverá un texto terminado y una versión más corta.',
+  card: 'Posts, newsletters, landing pages y eslóganes. Convierte una idea o un borrador en un texto terminado y propone varias versiones.',
   cta: 'Hablar con Ekaterina',
   situations: [
     'Toca avisar a los clientes de los nuevos precios y no quiere que el mensaje suene a excusa.',
@@ -72,7 +74,6 @@ Si me dice la ciudad, los precios, el nombre de la empresa y su público (famili
     'Le aconseja dónde y cómo promocionarse, le ayuda a encontrar la voz de su marca y explica los principios del marketing con palabras sencillas.',
   ],
   cannot: [
-    'No escribe en otros idiomas: aunque le escriba en español, el texto saldrá en ruso. Sus textos son para lectores rusohablantes.',
     'No conoce su negocio por dentro y puede atribuirle una ventaja que no tiene. Antes de publicar, revise precios, plazos y promesas a los clientes.',
     'No lanza publicidad ni compra espacios. Ekaterina le sugiere canales y el orden de los pasos, pero darlos le toca a usted.',
     'No promete alcance ni ventas: en el resultado influyen también el producto, el precio y dónde se lea el texto.',

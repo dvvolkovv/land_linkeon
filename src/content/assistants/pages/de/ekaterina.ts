@@ -3,19 +3,20 @@ import type { AssistantPageText } from '../../types';
 /**
  * Екатерина — тексты и продвижение. Перевод pages/ru/ekaterina.ts.
  *
- * Тексты пишет только по-русски, даже если написать ей по-немецки (так в её
- * инструкции, проверено вживую). Поэтому здесь, в отличие от русской страницы,
- * title, description, h1, card и lead — про тексты на русском языке, а в
- * «Чего не делает» первым пунктом добавлено, что на других языках она не
- * пишет (бриф переводчика, п. 10).
+ * Раньше Екатерина по своей инструкции писала тексты только по-русски, и эта
+ * страница подавала её как копирайтера для русскоязычной аудитории, с лишним
+ * первым пунктом о языке в «Чего не делает». 06.10.2026 инструкцию исправили:
+ * теперь она пишет на языке человека (проверено на проде), оговорка снята.
+ * Пример разговора — настоящий, на русском, и показан в переводе; подпись об
+ * этом остаётся верной.
  */
 const ekaterina: AssistantPageText = {
-  title: 'KI-Texter für Werbetexte auf Russisch – Jekaterina | Linkeon',
+  title: 'KI-Texter: Werbetexte und Posts – Jekaterina | Linkeon',
   description:
-    'Jekaterina – KI-Texterin für russischsprachige Leser. Schreibt auf Russisch Telegram-Posts, Newsletter, Landingpage-Texte und Slogans, überarbeitet Entwürfe und plant Content.',
-  h1: 'Jekaterina – KI-Texterin für russischsprachige Posts, Newsletter und Landingpages',
-  lead: 'Der Launch ist am Montag, und die Ankündigung fehlt noch. Erzählen Sie Jekaterina in Ihren eigenen Worten, was Sie verkaufen und an wen – sie liefert einen fertigen Text auf Russisch und eine kürzere Variante.',
-  card: 'Posts, Newsletter, Landingpage-Texte und Slogans auf Russisch. Macht aus Idee oder Entwurf einen fertigen Text, in mehreren Varianten.',
+    'Jekaterina – KI-Texterin. Schreibt Telegram-Posts, Newsletter, Landingpage-Texte und Slogans, überarbeitet Entwürfe und plant Content.',
+  h1: 'Jekaterina – KI-Texterin: Werbetexte, Posts und Newsletter',
+  lead: 'Der Launch ist am Montag, und die Ankündigung fehlt noch. Erzählen Sie Jekaterina in Ihren eigenen Worten, was Sie verkaufen und an wen – sie liefert einen fertigen Text und eine kürzere Variante.',
+  card: 'Posts, Newsletter, Landingpage-Texte und Slogans. Macht aus Idee oder Entwurf einen fertigen Text, in mehreren Varianten.',
   cta: 'Mit Jekaterina sprechen',
   situations: [
     'Sie müssen Ihren Kunden die neuen Preise mitteilen und wollen nicht, dass die E-Mail wie eine Rechtfertigung klingt.',
@@ -73,7 +74,6 @@ Wenn Sie mir Stadt, Preise, Firmennamen und Ihre Zielgruppe nennen (Familien mit
     'Rät, wo und wie Sie werben, hilft, die Stimme Ihrer Marke zu finden, und erklärt Marketingprinzipien in einfacher Sprache.',
   ],
   cannot: [
-    'Schreibt nur auf Russisch: Auch wenn Sie ihr auf Deutsch schreiben, bekommen Sie den Text auf Russisch. Ihre Texte richten sich an russischsprachige Leser.',
     'Kennt Ihr Unternehmen nicht von innen und kann einen Vorteil hinzudichten, den Sie gar nicht bieten. Prüfen Sie vor der Veröffentlichung Preise, Fristen und Versprechen an Kunden.',
     'Schaltet keine Werbung und kauft keine Platzierungen. Jekaterina nennt Kanäle und Reihenfolge, umsetzen müssen Sie es selbst.',
     'Verspricht keine Reichweite und keine Verkäufe: Das Ergebnis hängt auch von Produkt, Preis und dem Ort ab, an dem der Text erscheint.',
