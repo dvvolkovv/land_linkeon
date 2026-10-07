@@ -12,8 +12,9 @@ interface Term {
   text: string;
 }
 
-// Переводчик может уронить ключ, и .map() по строке снял бы всю секцию —
-// как в Features, пустой список вместо падения.
+// Переводчик может уронить ключ, и .map() по строке уронил бы всю страницу и
+// пререндер (границы ошибок над секцией нет) — как в Features, пустой список
+// вместо падения.
 const asList = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : []);
 
 /**
@@ -28,7 +29,9 @@ const asList = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[
  * Иллюстрации нарисованы, а не сняты с настоящего продукта: их текст
  * переводится вместе с локалью. В адресной строке — заглушка своего домена, а
  * не адрес на c.linkeon.io: такой слаг мог бы занять кто угодно, и под нашим
- * примером открылся бы чужой сайт.
+ * примером на нашем же домене открылся бы чужой сайт. Заглушки вроде
+ * your-domain.com где-то существуют, но это не ссылка, и иллюстрация скрыта от
+ * скринридеров.
  *
  * Фон тёплый: соседи холодные — ContentEngine идёт по фону страницы,
  * HowItWorks белый, и серая или белая полоса слилась бы с одним из них.
@@ -43,7 +46,7 @@ export default function Sites() {
         <Eyebrow className="mb-4">{t('sites.eyebrow')}</Eyebrow>
         <h2
           id="sites-heading"
-          className="text-4xl md:text-5xl font-semibold tracking-tight text-paper-900 mb-4 text-balance"
+          className="text-4xl md:text-5xl font-medium tracking-tight text-paper-900 mb-4 text-balance"
         >
           {t('sites.h2')}
         </h2>
