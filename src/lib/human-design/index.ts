@@ -18,6 +18,8 @@
  */
 export { calculateChart, chartFromUtc } from './chart';
 export type { Activation, BirthInput, ChartResult, HdChart } from './chart';
+export { DEFAULT_COLORS, gateSources, renderBodygraphSvg } from './svg';
+export type { BodygraphColors, BodygraphSvgOptions, GateSource } from './svg';
 export { formatOffset, localToUtc } from './time';
 export type { Conversion, LocalDateTime, Moment } from './time';
 export { BODIES } from './ephemeris';
