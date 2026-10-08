@@ -60,8 +60,19 @@ export function gateSources(chart: HdChart): Map<number, GateSource> {
 const escape = (text: string) =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/**
+ * Цвета уходят в атрибуты fill/stroke без экранирования — на втором этапе их
+ * может подложить MCP-инструмент, то есть и prompt-injection. Строгий #hex не
+ * вырвется за пределы атрибута и не внедрит разметку, когда строку SVG
+ * вставят в DOM.
+ */
+const HEX_COLOR = /^#[0-9a-fA-F]{3,8}$/;
+
 export function renderBodygraphSvg(chart: HdChart, options: BodygraphSvgOptions = {}): string {
   const c = { ...DEFAULT_COLORS, ...options.colors };
+  for (const [key, value] of Object.entries(c)) {
+    if (!HEX_COLOR.test(value)) throw new RangeError(`цвет схемы должен быть #hex: ${key}`);
+  }
   const label = escape(options.label ?? 'Бодиграф');
   const sources = gateSources(chart);
   const defined = new Set(chart.definedCenters);

@@ -60,4 +60,14 @@ describe('бодиграф строкой SVG', () => {
   it('цвета можно заменить', () => {
     expect(renderBodygraphSvg(chart, { colors: { design: '#ff0000' } })).toContain('#ff0000');
   });
+
+  it('цвет не #hex — RangeError: строку вставляют в DOM, атрибут не должен ломаться', () => {
+    expect(() => renderBodygraphSvg(chart, { colors: { design: '" onmouseover="x' } })).toThrow(RangeError);
+    expect(() => renderBodygraphSvg(chart, { colors: { design: 'red' } })).toThrow(RangeError);
+    expect(() => renderBodygraphSvg(chart, { colors: { design: '#c0392b' } })).not.toThrow();
+  });
+
+  it('DEFAULT_COLORS сами проходят проверку', () => {
+    expect(() => renderBodygraphSvg(chart)).not.toThrow();
+  });
 });
