@@ -39,7 +39,7 @@
 | «Эталон: … тип, авторитет, профиль, определённость» | эталон проверяет **позиции**: долготы 26 активаций и ворота.линии (кроме ближе 1′ к границе линии) и перевод местного времени; правила и колесо — 10 карт ручной сверки | у эталона та же таблица и те же правила — общая ошибка обеих реализаций им не ловится |
 | «7 авторитетов» | эго-манифестированный и эго-проецированный — один `ego` | так в спеке выходит семь |
 | «ссылка содержит `assistant=14` и `#draft`» | в `href` — только `assistant=14&utm_content=hd-calc`; `#draft=` добавляется в момент клика; e2e проверяет адрес, куда ушёл переход | Вебвизор и `trackLinks` читают `href` (п. 6) |
-| `hd-calc-submit` «тем же механизмом data-cta» | та же функция `reachGoal()`, что у `data-cta`, но вызывается после **удачного** расчёта, а не по клику | клик по кнопке с пустой формой — не расчёт |
+| `hd-calc-submit` «тем же механизмом data-cta» | цель Метрики `reachGoal()` после **удачного** расчёта, а не по клику; в нашу таблицу событий (`landing_cta_click`) идут только клики `data-cta` — `reachCtaGoal()` | клик по кнопке с пустой формой — не расчёт; `landing_cta_click` — шаг «Нажал „Начать“» воронки в админке и пункт политики «нажатие кнопки перехода в Приложение» |
 | «определённые центры и каналы — по строке» | плюс открытые центры по строке | в текстах есть оба вида центров (18 описаний) |
 | черновик в кабинете | привязан к `?assistant=` из той же ссылки и подставляется только в чат с этим ассистентом | иначе данные рождения всплыли бы в чате Романа |
 | «Входной бандл лендинга не растёт» | растёт на ~1,3 КБ (разбор адреса, ссылка в подвале); код и тексты калькулятора — только в своих чанках, пререндер это проверяет | без разбора адреса страницу не открыть |
@@ -148,7 +148,7 @@ interface Activation { body: BodyId; longitude: number; gate: number; line: numb
 | `src/content/hd/cities.ru.json` | база городов (сгенерирована) | создать |
 | `src/lib/cities.ts`, `src/lib/cityLoader.ts` | поиск города, ленивая загрузка базы | создать |
 | `src/lib/hdDraft.ts` | черновик Райе, ссылка в кабинет | создать |
-| `src/lib/goal.ts` | цель Метрики + событие лендинга | создать |
+| `src/lib/goal.ts` | цель Метрики; клик перехода в приложение — ещё и событие лендинга | создать |
 | `src/lib/hdRoute.ts` | адрес калькулятора | создать |
 | `scripts/hd-calc-languages.js` + `.d.ts` | на каких языках выпущен калькулятор | создать |
 | `src/content/hd/{types,texts.server,load,availability}.ts`, `texts/ru.ts` | тексты и их загрузка | создать |
@@ -3299,7 +3299,7 @@ Expected: `TSC_OK`.
 
 Все пути — от корня воркдерева `~/Downloads/land_linkeon/.worktrees/hd-calc`.
 
-Черновик собирается только в момент клика и уходит во фрагменте `#draft=…`: браузер не отправляет фрагмент на сервер, а в `href` кнопки данных нет — его читают Вебвизор и `trackLinks` Метрики. Цели: `hd-calc-submit` — после удачного расчёта, `hd-calc-to-raya` — клик по кнопке (`data-cta`). Обе идут одной функцией `reachGoal()`.
+Черновик собирается только в момент клика и уходит во фрагменте `#draft=…`: браузер не отправляет фрагмент на сервер, а в `href` кнопки данных нет — его читают Вебвизор и `trackLinks` Метрики. Цели: `hd-calc-submit` — после удачного расчёта, только в Метрику (`reachGoal()`); `hd-calc-to-raya` — клик по кнопке (`data-cta`), в Метрику и в нашу таблицу событий (`reachCtaGoal()`). Расчёт в таблицу событий не пишется: `landing_cta_click` — шаг «Нажал „Начать“» воронки в админке (`spirits_back/src/monitoring/product/funnel.service.ts` считает любой такой клик) и пункт политики конфиденциальности «нажатие кнопки перехода в Приложение».
 
 - [ ] **Step 1: Написать тесты**
 
@@ -3374,8 +3374,9 @@ describe('ссылка к Райе', () => {
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 /**
- * Цель лендинга уходит и в Метрику, и в нашу таблицу событий — одним именем.
- * Окружение браузера подменяется: vitest здесь идёт в node (как в track.test.ts).
+ * Цель Метрики — только имя; в нашу таблицу событий идут только клики перехода
+ * в приложение. Окружение браузера подменяется: vitest здесь идёт в node (как в
+ * track.test.ts).
  */
 function stubBrowser() {
   const store = new Map<string, string>();
@@ -3400,22 +3401,31 @@ afterEach(() => {
 });
 
 describe('цель лендинга', () => {
-  it('Метрика и таблица событий получают только имя цели', async () => {
+  it('расчёт — только цель Метрики: в нашу таблицу событий не пишется', async () => {
     const { ym, fetch } = stubBrowser();
     const { METRIKA_ID, reachGoal } = await import('./goal');
     reachGoal('hd-calc-submit');
     expect(ym).toHaveBeenCalledWith(METRIKA_ID, 'reachGoal', 'hd-calc-submit');
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('клик перехода в приложение — в Метрику и в таблицу событий, только имя', async () => {
+    const { ym, fetch } = stubBrowser();
+    const { METRIKA_ID, reachCtaGoal } = await import('./goal');
+    reachCtaGoal('hd-calc-to-raya');
+    expect(ym).toHaveBeenCalledWith(METRIKA_ID, 'reachGoal', 'hd-calc-to-raya');
     const body = JSON.parse(fetch.mock.calls[0][1]!.body as string);
     expect(body.name).toBe('landing_cta_click');
-    expect(body.props.cta).toBe('hd-calc-submit');
+    expect(body.props.cta).toBe('hd-calc-to-raya');
     expect(body.props.path).toBe('/calculators/human-design/');
   });
 
   it('без Метрики (заблокирована) — не падает', async () => {
     stubBrowser();
     vi.stubGlobal('window', { location: { pathname: '/', search: '', hostname: 'linkeon.io' } });
-    const { reachGoal } = await import('./goal');
-    expect(() => reachGoal('hd-calc-to-raya')).not.toThrow();
+    const { reachCtaGoal, reachGoal } = await import('./goal');
+    expect(() => reachGoal('hd-calc-submit')).not.toThrow();
+    expect(() => reachCtaGoal('hd-calc-to-raya')).not.toThrow();
   });
 });
 ```
@@ -3502,17 +3512,24 @@ declare global {
   }
 }
 
-/**
- * Цель лендинга: в нашу таблицу событий (landing_cta_click) и в Метрику.
- * Уходит только имя цели — никаких данных со страницы.
- */
+/** Цель Метрики. Уходит только имя цели — никаких данных со страницы. */
 export function reachGoal(goal: string): void {
-  trackLandingCta(goal);
   if (window.ym) window.ym(METRIKA_ID, 'reachGoal', goal);
+}
+
+/**
+ * Клик по кнопке перехода в приложение (`data-cta`): в нашу таблицу событий и в
+ * Метрику. landing_cta_click — шаг «Нажал „Начать“» воронки в админке и пункт
+ * политики конфиденциальности («нажатие кнопки перехода в Приложение»), поэтому
+ * остальные цели, например «расчёт сделан», идут только в Метрику.
+ */
+export function reachCtaGoal(cta: string): void {
+  trackLandingCta(cta);
+  reachGoal(cta);
 }
 ```
 
-- [ ] **Step 5: main.tsx — тот же `reachGoal`**
+- [ ] **Step 5: main.tsx — `reachCtaGoal`**
 
 В `src/main.tsx` строку
 
@@ -3524,7 +3541,7 @@ import { trackLandingVisit, trackLandingCta, initLandingEngagement } from './lib
 
 ```tsx
 import { trackLandingVisit, initLandingEngagement } from './lib/track';
-import { reachGoal } from './lib/goal';
+import { reachCtaGoal } from './lib/goal';
 ```
 
 и блок
@@ -3558,7 +3575,7 @@ document.addEventListener('click', (e) => {
   const goal = el.dataset.cta;
   if (!goal) return;
   // Пишем клик и в нашу БД (видеть шаг лендинг→клик), и в Я.Метрику.
-  reachGoal(goal);
+  reachCtaGoal(goal);
 }, { capture: true });
 ```
 
@@ -3577,7 +3594,7 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 - [ ] **Step 7: Тесты и типы**
 
 Run: `bash ~/Downloads/land_linkeon/.superpowers/hd-calc/node-run.sh land '(./node_modules/.bin/vitest run src/lib/hdDraft.test.ts src/lib/goal.test.ts src/lib/track.test.ts > /tmp/hd-t13.log 2>&1 && echo OK || echo FAILED); grep -E "Test Files|Tests " /tmp/hd-t13.log; pnpm typecheck > /tmp/hd-tsc.log 2>&1 && echo TSC_OK || echo TSC_FAILED'`
-Expected: `OK` (hdDraft 6, goal 2, track — прежние), `TSC_OK`.
+Expected: `OK` (hdDraft 6, goal 3, track — прежние), `TSC_OK`.
 
 ---
 
@@ -6750,6 +6767,9 @@ test.describe('калькулятор в браузере', () => {
     expect(goals).toEqual(expect.arrayContaining(['hd-calc-submit', 'hd-calc-to-raya']));
     const sent = JSON.stringify(captured.ym) + captured.events.join('\n');
     for (const secret of ['1990', '14:25', 'Казань']) expect(sent, `«${secret}» ушло в аналитику`).not.toContain(secret);
+    // Расчёт — только цель Метрики: в нашей таблице событий landing_cta_click —
+    // шаг «Нажал „Начать“» воронки, а расчёт не переход в приложение.
+    expect(captured.events.join('\n')).not.toContain('hd-calc-submit');
   });
 
   test('час перевода стрелок: спрашиваем «до или после»', async ({ page, baseURL }) => {
@@ -6972,16 +6992,14 @@ curl -s -o /dev/null -D - -H 'Accept-Encoding: gzip' $SITE$CITIES | grep -i -E '
 
 - [ ] **Step 2: Как смотреть результат**
 
-Дописать в спеку (раздел «Аналитика») готовые запросы — успех по спеке: доля расчётов, дошедших до клика, и регистрации по метке. Выполнить их один раз сразу после выката (подключение к базе — вне репозитория): они должны вернуть хотя бы собственные проверочные расчёты.
+Дописать в спеку (раздел «Аналитика»), где смотреть успех по спеке. Доля расчётов, дошедших до клика, — в Метрике: конверсия цели `hd-calc-to-raya` к `hd-calc-submit` (расчёт в нашу таблицу событий не пишется, см. Task 13). Переходы к Райе и регистрации по метке — запросами ниже. Выполнить их один раз сразу после выката (подключение к базе — вне репозитория): они должны вернуть хотя бы собственные проверочные переходы.
 
 ```sql
--- расчёты и переходы к Райе по дням, 30 дней
-select date_trunc('day', ts) as day,
-       count(*) filter (where props->>'cta' = 'hd-calc-submit') as calculations,
-       count(*) filter (where props->>'cta' = 'hd-calc-to-raya') as to_raya
+-- переходы к Райе по дням, 30 дней
+select date_trunc('day', ts) as day, count(*) as to_raya
 from events
 where name = 'landing_cta_click'
-  and props->>'path' like '%/calculators/human-design/%'
+  and props->>'cta' = 'hd-calc-to-raya'
   and ts > now() - interval '30 days'
 group by 1 order by 1;
 
