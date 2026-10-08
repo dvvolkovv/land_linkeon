@@ -1,7 +1,8 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
-import { renderBodygraphSvg } from './svg';
+import { DEFAULT_COLORS, gateSources, renderBodygraphSvg } from './svg';
 import { chartFromUtc } from './chart';
+import { CHANNELS, channelKey } from './bodygraph';
 
 /**
  * Схема рисуется строкой без DOM — второй этап вызовет ту же функцию в Node
@@ -69,5 +70,57 @@ describe('бодиграф строкой SVG', () => {
 
   it('DEFAULT_COLORS сами проходят проверку', () => {
     expect(() => renderBodygraphSvg(chart)).not.toThrow();
+  });
+});
+
+describe('раскраска схемы', () => {
+  // Пример из шага 8: на этой карте каналы 11-56, 20-34 и 39-55 определены
+  // целиком, а личность и дизайн не совпадают — удобный фиксатор для мутаций.
+  const fixedChart = chartFromUtc('2001-11-23T22:50:00Z');
+  const fixedSvg = renderBodygraphSvg(fixedChart);
+  const fixedSources = gateSources(fixedChart);
+
+  /** Содержимое <g data-gate="N">…</g> или <g data-channel="K">…</g>. */
+  const groupBody = (svg: string, attr: string, value: string) =>
+    svg.match(new RegExp(`<g data-${attr}="${value}"[^>]*>([^]*?)</g>`))?.[1] ?? '';
+
+  it('кружок ворот окрашен по источнику активации: личность или дизайн', () => {
+    const personalityGate = [...fixedSources.entries()].find(([, s]) => s === 'personality')?.[0];
+    const designGate = [...fixedSources.entries()].find(([, s]) => s === 'design')?.[0];
+    expect(personalityGate, 'в примере нет ворот только личности').toBeDefined();
+    expect(designGate, 'в примере нет ворот только дизайна').toBeDefined();
+
+    const circleFill = (gate: number) =>
+      groupBody(fixedSvg, 'gate', String(gate)).match(/<circle[^>]*fill="(#[0-9a-fA-F]+)"/)?.[1];
+    expect(circleFill(personalityGate!)).toBe(DEFAULT_COLORS.personality);
+    expect(circleFill(designGate!)).toBe(DEFAULT_COLORS.design);
+  });
+
+  it('висячий канал — закрашена ровно одна половина, у активного конца', () => {
+    const hanging = CHANNELS.find(([a, b]) => {
+      const sa = fixedSources.get(a);
+      const sb = fixedSources.get(b);
+      return (sa !== undefined) !== (sb !== undefined) && (sa ?? sb) !== 'both';
+    });
+    expect(hanging, 'в примере нет подходящего висячего канала').toBeDefined();
+    const [a, b] = hanging!;
+    const activeColor = (fixedSources.get(a) ?? fixedSources.get(b)) === 'design' ? DEFAULT_COLORS.design : DEFAULT_COLORS.personality;
+    const body = groupBody(fixedSvg, 'channel', channelKey(hanging!));
+    const polylines = body.match(/<polyline /g) ?? [];
+    const colored = body.match(new RegExp(`stroke="${activeColor}"`, 'g')) ?? [];
+    // Фон (c.channel) плюс ровно одна цветная половина — вторая половина без polyline.
+    expect(polylines.length, channelKey(hanging!)).toBe(2);
+    expect(colored.length, channelKey(hanging!)).toBe(1);
+  });
+
+  it('канал 39-55: оба конца активны — закрашены обе половины', () => {
+    expect(fixedSources.get(39), 'пример завязан на конкретную карту: 39 должны быть активны').toBeDefined();
+    expect(fixedSources.get(55), 'пример завязан на конкретную карту: 55 должны быть активны').toBeDefined();
+    const body = groupBody(fixedSvg, 'channel', '39-55');
+    const polylines = body.match(/<polyline /g) ?? [];
+    const colored = body.match(new RegExp(`stroke="(?:${DEFAULT_COLORS.personality}|${DEFAULT_COLORS.design})"`, 'g')) ?? [];
+    // Фон (c.channel) плюс как минимум по одной цветной половине на каждый конец.
+    expect(polylines.length).toBeGreaterThanOrEqual(3);
+    expect(colored.length).toBeGreaterThanOrEqual(2);
   });
 });
