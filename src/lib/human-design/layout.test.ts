@@ -61,7 +61,8 @@ describe('геометрия схемы', () => {
   });
 
   /** Расстояние от точки до отрезка [a, b]. */
-  const distToSegment = ([px, py]: [number, number], [ax, ay]: [number, number], [bx, by]: [number, number]) => {
+  type Pt = readonly [number, number];
+  const distToSegment = ([px, py]: Pt, [ax, ay]: Pt, [bx, by]: Pt) => {
     const dx = bx - ax;
     const dy = by - ay;
     const len2 = dx * dx + dy * dy;
