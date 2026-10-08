@@ -51,4 +51,24 @@ describe('колесо ворот', () => {
     expect(minutesToLineBoundary(WHEEL_START + LINE_SPAN / 2)).toBeCloseTo(28.125, 6);
     expect(minutesToLineBoundary(WHEEL_START + LINE_SPAN - 1 / 60)).toBeCloseTo(1, 6);
   });
+
+  // Вся таблица целиком: ворота — это гексаграммы И-цзин (номер — по Вэнь-вану),
+  // а колесо от 41-х ворот идёт по кругу Шао Юна в двоичном коде гексаграмм:
+  // 49…32, 0…31, 63…50. Любая перестановка ворот этот тест роняет.
+  it('колесо — круг Шао Юна: от 41-х ворот 49…32, 0…31, 63…50', () => {
+    const TRI = { qian: 7, dui: 6, li: 5, zhen: 4, xun: 3, kan: 2, gen: 1, kun: 0 } as const; // линии снизу вверх
+    const UPPER = ['qian', 'zhen', 'kan', 'gen', 'kun', 'xun', 'li', 'dui'] as const;
+    const KING_WEN: Record<keyof typeof TRI, number[]> = { // строка — нижняя триграмма
+      qian: [1, 34, 5, 26, 11, 9, 14, 43],   zhen: [25, 51, 3, 27, 24, 42, 21, 17],
+      kan:  [6, 40, 29, 4, 7, 59, 64, 47],   gen:  [33, 62, 39, 52, 15, 53, 56, 31],
+      kun:  [12, 16, 8, 23, 2, 20, 35, 45],  xun:  [44, 32, 48, 18, 46, 57, 50, 28],
+      li:   [13, 55, 63, 22, 36, 37, 30, 49], dui: [10, 54, 60, 41, 19, 61, 38, 58],
+    };
+    const bits = new Map<number, number>();
+    for (const [lo, row] of Object.entries(KING_WEN)) {
+      row.forEach((n, j) => bits.set(n, (TRI[lo as keyof typeof TRI] << 3) | TRI[UPPER[j]]));
+    }
+    const want = Array.from({ length: 64 }, (_, i) => { const j = (i + 14) % 64; return j < 32 ? 63 - j : j - 32; });
+    expect(GATE_ORDER.map((g) => bits.get(g))).toEqual(want);
+  });
 });

@@ -7,7 +7,8 @@
  * barneyandflow.com/gate-zodiac-degrees и
  * bonniesorsby.com/human-design-gates-by-degree — совпал полностью.
  * Эталон Swiss Ephemeris колесо НЕ проверяет (он режет долготу той же
- * таблицей), его проверяют карты ручной сверки (manual.test.ts).
+ * таблицей), целиком его держит тест на круг Шао Юна в wheel.test.ts,
+ * косвенно — карты ручной сверки (manual.test.ts) через каналы и тип.
  */
 export const GATE_ORDER = [
   41, 19, 13, 49, 30, 55, 37, 63, 22, 36, 25, 17, 21, 51, 42, 3,
@@ -26,6 +27,7 @@ export interface GateLine {
   line: number;
 }
 
+/** Приводит угол к [0, 360]; ровно 360 бывает при крошечном отрицательном входе — gateLine это учитывает. */
 export function normalizeDegrees(degrees: number): number {
   const x = degrees % 360;
   return x < 0 ? x + 360 : x;
@@ -34,7 +36,7 @@ export function normalizeDegrees(degrees: number): number {
 /** Ворота и линия для эклиптической долготы в градусах. */
 export function gateLine(longitude: number): GateLine {
   const offset = normalizeDegrees(longitude - WHEEL_START);
-  // min: долгота на волосок меньше 302° даёт offset, округлённый до 360.
+  // Страховка: индекс не выйдет за 383, если normalizeDegrees вернёт ровно 360 (крошечный отрицательный вход).
   const index = Math.min(Math.floor(offset / LINE_SPAN), 64 * 6 - 1);
   return { gate: GATE_ORDER[Math.floor(index / 6)], line: (index % 6) + 1 };
 }
