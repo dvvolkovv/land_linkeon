@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { calculateChart, chartFromUtc, type Activation } from './chart';
+import { BODIES } from './ephemeris';
 
 const gl = (xs: Activation[]) => xs.map((a) => `${a.gate}.${a.line}`).join(' ');
 
@@ -34,6 +35,10 @@ describe('карта по моменту в UTC', () => {
   it('ворота без повторов и по возрастанию', () => {
     expect(c.gates).toEqual([...new Set(c.gates)].sort((a, b) => a - b));
   });
+
+  it('BODIES[0] — Солнце: порядок тел входит в контракт', () => {
+    expect(BODIES[0]).toBe('sun');
+  });
 });
 
 describe('карта по местному времени — публичный вход', () => {
@@ -62,5 +67,15 @@ describe('карта по местному времени — публичный
     expect(() => calculateChart({ date: '1990-02-30', time: '14:25', zone: 'Europe/Moscow' })).toThrow(RangeError);
     expect(() => calculateChart({ date: '1990-03-12', time: '24:10', zone: 'Europe/Moscow' })).toThrow(RangeError);
     expect(() => calculateChart({ date: '1990-03-12', time: '14:25', zone: 'Mars/Olympus' })).toThrow(RangeError);
+  });
+
+  it('високосные годы: 1900 — не високосный, 2000 — високосный', () => {
+    expect(() => calculateChart({ date: '1900-02-29', time: '14:25', zone: 'Europe/Moscow' })).toThrow(RangeError);
+    expect(calculateChart({ date: '2000-02-29', time: '14:25', zone: 'Europe/Moscow' }).kind).toBe('ok');
+  });
+
+  it('час перевода стрелок вперёд (gap) на публичном слое', () => {
+    const ask = calculateChart({ date: '2010-03-28', time: '02:30', zone: 'Europe/Moscow' });
+    expect(ask).toEqual({ kind: 'needsDstChoice', transition: 'gap', beforeOffsetSeconds: 10800, afterOffsetSeconds: 14400 });
   });
 });

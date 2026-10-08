@@ -51,6 +51,9 @@ function activations(date: Date): Activation[] {
   return BODIES.map((body) => ({ body, longitude: lon[body], ...gateLine(lon[body]) }));
 }
 
+/** Линия Солнца среди активаций. Не позиция 0: явный поиск по body, не по порядку BODIES. */
+const sunLine = (xs: Activation[]): number => xs.find((a) => a.body === 'sun')!.line;
+
 /** Карта по моменту рождения в UTC. Место рождения в формулы не входит. */
 export function chartFromUtc(birth: Date | string): HdChart {
   const birthDate = new Date(birth);
@@ -74,7 +77,7 @@ export function chartFromUtc(birth: Date | string): HdChart {
     type,
     strategy: STRATEGY_OF[type],
     authority: hdAuthority(channels),
-    profile: `${personality[0].line}/${designActs[0].line}`,
+    profile: `${sunLine(personality)}/${sunLine(designActs)}`,
     definition: hdDefinition(channels),
   };
 }
@@ -85,7 +88,10 @@ export interface BirthInput {
   date: string;
   /** 'HH:MM', 24 часа */
   time: string;
-  /** IANA: 'Europe/Moscow' */
+  /**
+   * IANA: 'Europe/Moscow'. Осторожно с Etc/GMT±N: знак по POSIX обратный,
+   * Etc/GMT+3 — это UTC−3.
+   */
   zone: string;
   /** Если время попало в час перевода стрелок: по часам до перевода или после. */
   dst?: 'before' | 'after';
