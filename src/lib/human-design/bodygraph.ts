@@ -1,6 +1,7 @@
 /**
  * Устройство бодиграфа: девять центров, их ворота и 36 каналов.
- * Списки сверены 08.10.2026 с gethumandesign.com/docs/channels (36 каналов).
+ * Списки сверены 08.10.2026 с карточками 36 каналов на gethumandesign.com/docs/channels
+ * и с github.com/schokee/Astrolo (Metadata/Gates.csv) — расхождений нет.
  */
 export type CenterId =
   | 'head' | 'ajna' | 'throat' | 'g' | 'heart' | 'spleen' | 'solarPlexus' | 'sacral' | 'root';
@@ -35,8 +36,10 @@ export const CHANNELS: readonly Channel[] = [
   [29, 46], [30, 41], [32, 54], [34, 57], [35, 36], [37, 40], [39, 55], [42, 53], [47, 64],
 ];
 
+/** Центр ворот. Только для ворот 1–64; для других номеров — undefined. */
 export const GATE_CENTER: Readonly<Record<number, CenterId>> = Object.fromEntries(
   CENTER_IDS.flatMap((center) => CENTER_GATES[center].map((gate) => [gate, center])),
 );
 
+/** Имя канала «20-34». Пару не упорядочивает — только для элементов CHANNELS, где меньшие ворота первыми. */
 export const channelKey = ([a, b]: Channel): string => `${a}-${b}`;
