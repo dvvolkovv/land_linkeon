@@ -52,6 +52,11 @@ describe('колесо ворот', () => {
     expect(minutesToLineBoundary(WHEEL_START + LINE_SPAN - 1 / 60)).toBeCloseTo(1, 6);
   });
 
+  it('не число — RangeError, а не молча undefined', () => {
+    expect(() => gateLine(Number.NaN)).toThrow(RangeError);
+    expect(() => gateLine(Number.POSITIVE_INFINITY)).toThrow(RangeError);
+  });
+
   // Вся таблица целиком: ворота — это гексаграммы И-цзин (номер — по Вэнь-вану),
   // а колесо от 41-х ворот идёт по кругу Шао Юна в двоичном коде гексаграмм:
   // 49…32, 0…31, 63…50. Любая перестановка ворот этот тест роняет.

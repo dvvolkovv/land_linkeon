@@ -35,6 +35,7 @@ export function normalizeDegrees(degrees: number): number {
 
 /** Ворота и линия для эклиптической долготы в градусах. */
 export function gateLine(longitude: number): GateLine {
+  if (!Number.isFinite(longitude)) throw new RangeError(`долгота должна быть числом: ${longitude}`);
   const offset = normalizeDegrees(longitude - WHEEL_START);
   // Страховка: индекс не выйдет за 383, если normalizeDegrees вернёт ровно 360 (крошечный отрицательный вход).
   const index = Math.min(Math.floor(offset / LINE_SPAN), 64 * 6 - 1);
