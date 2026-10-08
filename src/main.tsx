@@ -12,7 +12,7 @@ import { assistantBySlug } from './content/assistants/roster';
 import { hasAssistantPages } from './content/assistants/availability';
 import { persistAttribution } from './lib/attribution';
 import { trackLandingVisit, initLandingEngagement } from './lib/track';
-import { reachGoal } from './lib/goal';
+import { reachCtaGoal } from './lib/goal';
 import { initVkPixel } from './lib/vkPixel';
 import './i18n';
 import './index.css';
@@ -40,7 +40,7 @@ document.addEventListener('click', (e) => {
   const goal = el.dataset.cta;
   if (!goal) return;
   // Пишем клик и в нашу БД (видеть шаг лендинг→клик), и в Я.Метрику.
-  reachGoal(goal);
+  reachCtaGoal(goal);
 }, { capture: true });
 
 // Роутера в проекте нет и заводить его ради статических страниц не стоит:

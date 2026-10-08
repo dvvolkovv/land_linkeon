@@ -1,8 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 /**
- * Цель лендинга уходит и в Метрику, и в нашу таблицу событий — одним именем.
- * Окружение браузера подменяется: vitest здесь идёт в node (как в track.test.ts).
+ * Цель Метрики — только имя; в нашу таблицу событий идут только клики
+ * перехода в приложение. Окружение браузера подменяется: vitest здесь идёт в
+ * node (как в track.test.ts).
  */
 function stubBrowser() {
   const store = new Map<string, string>();
@@ -27,21 +28,30 @@ afterEach(() => {
 });
 
 describe('цель лендинга', () => {
-  it('Метрика и таблица событий получают только имя цели', async () => {
+  it('расчёт — только цель Метрики: в нашу таблицу событий не пишется', async () => {
     const { ym, fetch } = stubBrowser();
     const { METRIKA_ID, reachGoal } = await import('./goal');
     reachGoal('hd-calc-submit');
     expect(ym).toHaveBeenCalledWith(METRIKA_ID, 'reachGoal', 'hd-calc-submit');
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('клик перехода в приложение — в Метрику и в таблицу событий, только имя', async () => {
+    const { ym, fetch } = stubBrowser();
+    const { METRIKA_ID, reachCtaGoal } = await import('./goal');
+    reachCtaGoal('hd-calc-to-raya');
+    expect(ym).toHaveBeenCalledWith(METRIKA_ID, 'reachGoal', 'hd-calc-to-raya');
     const body = JSON.parse(fetch.mock.calls[0][1]!.body as string);
     expect(body.name).toBe('landing_cta_click');
-    expect(body.props.cta).toBe('hd-calc-submit');
+    expect(body.props.cta).toBe('hd-calc-to-raya');
     expect(body.props.path).toBe('/calculators/human-design/');
   });
 
   it('без Метрики (заблокирована) — не падает', async () => {
     stubBrowser();
     vi.stubGlobal('window', { location: { pathname: '/', search: '', hostname: 'linkeon.io' } });
-    const { reachGoal } = await import('./goal');
-    expect(() => reachGoal('hd-calc-to-raya')).not.toThrow();
+    const { reachCtaGoal, reachGoal } = await import('./goal');
+    expect(() => reachGoal('hd-calc-submit')).not.toThrow();
+    expect(() => reachCtaGoal('hd-calc-to-raya')).not.toThrow();
   });
 });

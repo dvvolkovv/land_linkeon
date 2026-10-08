@@ -9,11 +9,18 @@ declare global {
   }
 }
 
-/**
- * Цель лендинга: в нашу таблицу событий (landing_cta_click) и в Метрику.
- * Уходит только имя цели — никаких данных со страницы.
- */
+/** Цель Метрики. Уходит только имя цели — никаких данных со страницы. */
 export function reachGoal(goal: string): void {
-  trackLandingCta(goal);
   if (window.ym) window.ym(METRIKA_ID, 'reachGoal', goal);
+}
+
+/**
+ * Клик по кнопке перехода в приложение (`data-cta`): в нашу таблицу событий и в
+ * Метрику. landing_cta_click — шаг «Нажал „Начать“» воронки в админке и пункт
+ * политики конфиденциальности («нажатие кнопки перехода в Приложение»), поэтому
+ * остальные цели, например «расчёт сделан», идут только в Метрику.
+ */
+export function reachCtaGoal(cta: string): void {
+  trackLandingCta(cta);
+  reachGoal(cta);
 }
