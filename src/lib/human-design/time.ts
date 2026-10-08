@@ -45,15 +45,26 @@ function formatter(zone: string): Intl.DateTimeFormat {
   return f;
 }
 
+/**
+ * Части formatToParts → «стенное» время как UTC-миллисекунды. Учитывает два
+ * известных отклонения движков: полночь как «24» и 12-часовой формат с
+ * dayPeriod (старые WebKit игнорируют hourCycle: 'h23').
+ */
+export function wallFromParts(partsList: readonly Intl.DateTimeFormatPart[]): number {
+  const parts: Record<string, number> = {};
+  let dayPeriod = '';
+  for (const p of partsList) {
+    if (p.type === 'dayPeriod') dayPeriod = p.value.toUpperCase();
+    else if (p.type !== 'literal') parts[p.type] = Number(p.value);
+  }
+  let hour = parts.hour === 24 ? 0 : parts.hour;
+  if (dayPeriod) hour = (hour % 12) + (dayPeriod.startsWith('P') ? 12 : 0);
+  return Date.UTC(parts.year, parts.month - 1, parts.day, hour, parts.minute, parts.second);
+}
+
 /** Смещение пояса (секунды) в момент `ms` UTC. */
 export function zoneOffsetSeconds(zone: string, ms: number): number {
-  const parts: Record<string, number> = {};
-  for (const p of formatter(zone).formatToParts(new Date(ms))) {
-    if (p.type !== 'literal') parts[p.type] = Number(p.value);
-  }
-  // Старые движки отдают полночь как «24».
-  const hour = parts.hour === 24 ? 0 : parts.hour;
-  const asUtc = Date.UTC(parts.year, parts.month - 1, parts.day, hour, parts.minute, parts.second);
+  const asUtc = wallFromParts(formatter(zone).formatToParts(new Date(ms)));
   return Math.round((asUtc - Math.floor(ms / 1000) * 1000) / 1000);
 }
 
@@ -68,6 +79,15 @@ function parseLocal({ date, time }: LocalDateTime): number {
 /**
  * Перевод. Смещения берутся за сутки до и через сутки после: между ними
  * укладывается любой перевод стрелок. Каждое проверяется обратным ходом.
+ *
+ * Календарную правильность входа не проверяет: '2024-02-30' или '25:00'
+ * Date.UTC молча нормализует. Проверка — на вызывающей стороне
+ * (calculateChart, Task 8, бросает RangeError).
+ *
+ * Допущение: в пределах ±1 суток не больше одного перевода стрелок.
+ * Проверено 08.10.2026 сканированием всей истории IANA tzdb (zdump):
+ * самый короткий интервал между переходами — месяцы. Формат IANA этого
+ * не гарантирует.
  */
 export function localToUtc(local: LocalDateTime, zone: string): Conversion {
   const wall = parseLocal(local);

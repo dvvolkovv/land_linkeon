@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatOffset, localToUtc, type Conversion } from './time';
+import { formatOffset, localToUtc, wallFromParts, type Conversion } from './time';
 
 /**
  * Ожидания посчитаны независимо — Python zoneinfo с tzdata 2026e — и совпали
@@ -76,5 +76,19 @@ describe('подпись смещения', () => {
     expect(formatOffset(0)).toBe('UTC+0');
     // Местное среднее время 1920-х: секунды не показываем.
     expect(formatOffset(2 * 3600 + 31 * 60 + 19)).toBe('UTC+2:31');
+  });
+});
+
+describe('разбор частей Intl', () => {
+  const parts = (o: Record<string, string>): Intl.DateTimeFormatPart[] =>
+    Object.entries(o).map(([type, value]) => ({ type: type as Intl.DateTimeFormatPartTypes, value }));
+  it('24-часовой формат, полночь как «24» и 12-часовой с AM/PM дают одно и то же', () => {
+    const base = { year: '1990', month: '03', day: '12', minute: '25', second: '00' };
+    const at = (h: number) => Date.UTC(1990, 2, 12, h, 25, 0);
+    expect(wallFromParts(parts({ ...base, hour: '14' }))).toBe(at(14));
+    expect(wallFromParts(parts({ ...base, hour: '24' }))).toBe(at(0));
+    expect(wallFromParts(parts({ ...base, hour: '02', dayPeriod: 'PM' }))).toBe(at(14));
+    expect(wallFromParts(parts({ ...base, hour: '12', dayPeriod: 'AM' }))).toBe(at(0));
+    expect(wallFromParts(parts({ ...base, hour: '12', dayPeriod: 'PM' }))).toBe(at(12));
   });
 });
