@@ -59,4 +59,29 @@ describe('геометрия схемы', () => {
     const xs = [...first, ...second].map(([x]) => x);
     expect(Math.min(...xs)).toBeLessThan(136);
   });
+
+  /** Расстояние от точки до отрезка [a, b]. */
+  const distToSegment = ([px, py]: [number, number], [ax, ay]: [number, number], [bx, by]: [number, number]) => {
+    const dx = bx - ax;
+    const dy = by - ay;
+    const len2 = dx * dx + dy * dy;
+    const t = Math.max(0, Math.min(1, len2 === 0 ? 0 : ((px - ax) * dx + (py - ay) * dy) / len2));
+    return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+  };
+
+  it('линии каналов не задевают чужие ворота', () => {
+    for (const ch of CHANNELS) {
+      const [a, b] = ch;
+      const [first, second] = channelHalves(ch).map(pts);
+      const points = [...first, ...second.slice(1)];
+      for (const [gateStr, gatePoint] of Object.entries(GATE_POINTS)) {
+        const gate = Number(gateStr);
+        if (gate === a || gate === b) continue;
+        for (let i = 0; i < points.length - 1; i++) {
+          const d = distToSegment(gatePoint, points[i], points[i + 1]);
+          expect(d, `канал ${channelKey(ch)} у ворот ${gate}`).toBeGreaterThanOrEqual(GATE_RADIUS + 1);
+        }
+      }
+    }
+  });
 });
