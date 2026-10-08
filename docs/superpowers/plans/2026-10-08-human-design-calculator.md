@@ -2666,6 +2666,36 @@ for (const p of picked) {
 }
 ```
 
+**Дополнение по ревью Task 5 (08.10.2026).** Правило «любой мотор к горлу, в том числе цепочкой» нынешние 10 карт не сверяют: поломки «МГ, только если сакрал связан с горлом» и «Манифестор только при прямом канале» проходят их все. Поэтому в скрипт добавляется отдельная категория — МГ, у которого с горлом связан не сакрал, а другой мотор:
+
+```ts
+import { GATE_CENTER, type CenterId } from '../src/lib/human-design/bodygraph';
+
+/** Связаны ли два центра определёнными каналами карты — напрямую или цепочкой. */
+function connected(c: HdChart, from: CenterId, to: CenterId): boolean {
+  const seen = new Set<CenterId>([from]);
+  const queue: CenterId[] = [from];
+  while (queue.length > 0) {
+    const cur = queue.shift()!;
+    for (const key of c.channels) {
+      const [a, b] = key.split('-').map(Number);
+      const [ca, cb] = [GATE_CENTER[a], GATE_CENTER[b]];
+      const next = ca === cur ? cb : cb === cur ? ca : null;
+      if (next && !seen.has(next)) { seen.add(next); queue.push(next); }
+    }
+  }
+  return seen.has(to);
+}
+
+const categories = (c: HdChart) => {
+  const keys = [`type:${c.type}`, `authority:${c.authority}`, `definition:${c.definition}`];
+  if (c.type === 'manifestingGenerator' && !connected(c, 'sacral', 'throat')) keys.push('rule:mgOtherMotor');
+  return keys;
+};
+```
+
+и `'rule:mgOtherMotor'` — в `WANTED`. Вывод Step 6 после этого отличается от примера ниже: записать фактический.
+
 - [ ] **Step 5: Commit**
 
 ```bash
@@ -2762,6 +2792,7 @@ Expected (генератор детерминированный; на коде �
 
 Для каждой из 10 карт ввести город, дату и время из комментария «вводить» минимум в два калькулятора без регистрации — например `bodygraph.io`, `astrolium.com/tools/human-design-calculator`, `thehumandesignsystem.com/free-chart`, `datemyst.com/human-design` (браузерными инструментами; если их нет — отдать список владельцу). Записать: тип, авторитет, профиль, определённость, определённые каналы.
 
+- Названия у калькуляторов разные — сопоставлять так (дополнение по ревью Task 5): «Mental», «Environmental», «Outer», «None» (Проектор без внутреннего авторитета) → `mental`; «Ego Manifested», «Ego Projected», «Ego» → `ego`; «Self-Projected», «Self» → `selfProjected`; «Simple Split», «Wide Split», «Split» → `split`; «Triple Split» → `triple`; «Quadruple Split» → `quadruple`. Расхождение только в названии — не расхождение.
 - Всё совпало с выводом Step 6 — перенести запись в `MANUAL` как есть, в `checkedWith` — домены двух калькуляторов, `CHECKED_AT` — дата сверки.
 - Калькуляторы разошлись между собой только в каналах с воротами узлов — посмотреть, какой узел у калькулятора (средний или истинный); засчитывать тот, что с истинным, и взять третий калькулятор.
 - Сторонние калькуляторы сходятся между собой и расходятся с нами — **СТОП**: в `expect` пишется то, что показали калькуляторы, тест краснеет, причина ищется по superpowers:systematic-debugging (таблица ворот, каналы центров, правило мотора к горлу, иерархия авторитетов). Подгонять ожидания под наш вывод нельзя — это и есть то, что сверка должна поймать.
@@ -4435,7 +4466,7 @@ const ru: HdTexts = {
     dataLine: '{date}, {time}, {city} ({offset})',
     bodygraphLabel: 'Бодиграф: {type}. Определённые центры: {centers}',
     legendPersonality: 'Личность — момент рождения',
-    legendDesign: 'Дизайн — около 88 дней до рождения',
+    legendDesign: 'Дизайн — примерно за 88 дней до рождения',
     typeLabel: 'Тип',
     strategyLabel: 'Стратегия',
     authorityLabel: 'Авторитет',
@@ -4451,8 +4482,8 @@ const ru: HdTexts = {
   },
   types: {
     generator: { name: 'Генератор', strategy: 'Откликаться', text: '' },
-    manifestingGenerator: { name: 'Манифестирующий генератор', strategy: 'Откликаться, затем сообщать о действии', text: '' },
-    manifestor: { name: 'Манифестор', strategy: 'Сообщать о своих действиях заранее', text: '' },
+    manifestingGenerator: { name: 'Манифестирующий генератор', strategy: 'Откликаться, затем информировать', text: '' },
+    manifestor: { name: 'Манифестор', strategy: 'Информировать', text: '' },
     projector: { name: 'Проектор', strategy: 'Ждать приглашения', text: '' },
     reflector: { name: 'Рефлектор', strategy: 'Ждать лунный цикл — около 28 дней', text: '' },
   },
