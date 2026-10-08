@@ -11,7 +11,8 @@ import { loadPack } from './content/assistants/load';
 import { assistantBySlug } from './content/assistants/roster';
 import { hasAssistantPages } from './content/assistants/availability';
 import { persistAttribution } from './lib/attribution';
-import { trackLandingVisit, trackLandingCta, initLandingEngagement } from './lib/track';
+import { trackLandingVisit, initLandingEngagement } from './lib/track';
+import { reachGoal } from './lib/goal';
 import { initVkPixel } from './lib/vkPixel';
 import './i18n';
 import './index.css';
@@ -32,12 +33,6 @@ trackLandingVisit();
 // «пришёл, но не кликнул» на причины (внимание vs оффер vs не докрутил).
 initLandingEngagement();
 
-declare global {
-  interface Window {
-    ym?: (id: number, action: string, goal?: string) => void;
-  }
-}
-
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement | null;
   const el = target?.closest<HTMLElement>('[data-cta]');
@@ -45,8 +40,7 @@ document.addEventListener('click', (e) => {
   const goal = el.dataset.cta;
   if (!goal) return;
   // Пишем клик и в нашу БД (видеть шаг лендинг→клик), и в Я.Метрику.
-  trackLandingCta(goal);
-  if (window.ym) window.ym(105902201, 'reachGoal', goal);
+  reachGoal(goal);
 }, { capture: true });
 
 // Роутера в проекте нет и заводить его ради статических страниц не стоит:
