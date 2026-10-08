@@ -17,8 +17,10 @@ export const STRATEGY_OF: Readonly<Record<HdType, HdStrategy>> = {
 };
 
 /**
- * Иерархия авторитетов сверху вниз; лунный — у Рефлектора. Эго-манифестированный
- * и эго-проецированный — один авторитет «ego»: в спеке их семь.
+ * Авторитеты по старшинству; сама иерархия действует цепочкой условий в
+ * hdAuthority. Лунный — у Рефлектора. Эго-манифестированный и
+ * эго-проецированный — один авторитет «ego»: вид следует из типа (у
+ * Манифестора — манифестированный, у Проектора — проецированный).
  */
 export const HD_AUTHORITIES = ['emotional', 'sacral', 'splenic', 'ego', 'selfProjected', 'mental', 'lunar'] as const;
 export type HdAuthority = (typeof HD_AUTHORITIES)[number];
@@ -89,7 +91,11 @@ export function hdAuthority(channels: readonly Channel[]): HdAuthority {
   return 'mental';
 }
 
-/** Определённость — число связных групп определённых центров (больше четырёх не бывает). */
+/**
+ * Определённость — число связных групп определённых центров. Больше четырёх
+ * не бывает: канал соединяет два разных центра, значит, в группе не меньше
+ * двух центров, а центров девять.
+ */
 export function hdDefinition(channels: readonly Channel[]): HdDefinition {
   const remaining = new Set(definedCenters(channels));
   let groups = 0;

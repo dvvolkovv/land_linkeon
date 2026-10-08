@@ -39,8 +39,32 @@ describe('тип', () => {
     expect(hdType(ch(21, 45))).toBe('manifestor');
   });
 
-  it('корень к горлу через солнечное сплетение — Манифестор', () => {
-    expect(hdType(ch(19, 49, 12, 22))).toBe('manifestor');
+  it('сплетение напрямую к горлу — Манифестор', () => {
+    expect(hdType(ch(12, 22))).toBe('manifestor');
+  });
+
+  // Единственный мотор — корень, до горла он доходит через селезёнку (не мотор).
+  it('корень к горлу через селезёнку — Манифестор', () => {
+    expect(hdType(ch(18, 58, 16, 48))).toBe('manifestor');
+  });
+
+  it('сердце к горлу через G — Манифестор; без канала G–горло — Проектор', () => {
+    expect(hdType(ch(25, 51, 1, 8))).toBe('manifestor');
+    expect(hdType(ch(25, 51))).toBe('projector');
+  });
+
+  // Мотор у горла — любой из четырёх, не обязательно сам сакрал
+  // (gethumandesign.com/docs/types/manifesting-generator).
+  it('сакрал с горлом не связан, но другой мотор связан — Манифестирующий генератор', () => {
+    expect(hdType(ch(2, 14, 21, 45))).toBe('manifestingGenerator'); // сердце
+    expect(hdType(ch(2, 14, 12, 22))).toBe('manifestingGenerator'); // сплетение
+  });
+
+  // У «чистого» Генератора горло не определено или определено, но не связано
+  // с мотором (jovianarchive.com, Generator).
+  it('горло и мотор определены, но в разных группах — связи нет', () => {
+    expect(hdType(ch(1, 8, 3, 60))).toBe('generator');
+    expect(hdType(ch(17, 62, 19, 49))).toBe('projector');
   });
 
   it('без сакрала и без мотора к горлу — Проектор', () => {
@@ -63,6 +87,17 @@ describe('авторитет — первый сверху', () => {
   it('эго — и через горло, и через G', () => {
     expect(hdAuthority(ch(21, 45))).toBe('ego');
     expect(hdAuthority(ch(25, 51))).toBe('ego');
+  });
+  it('соседние ступени: сплетение > сердце, сакрал > селезёнка, селезёнка > сердце', () => {
+    expect(hdAuthority(ch(37, 40))).toBe('emotional');
+    expect(hdAuthority(ch(34, 57))).toBe('sacral');
+    expect(hdAuthority(ch(26, 44))).toBe('splenic');
+  });
+  it('G с горлом главнее аджны — самопроецированный', () => {
+    expect(hdAuthority(ch(1, 8, 17, 62))).toBe('selfProjected');
+  });
+  it('ментальный — и без горла: только голова–аджна', () => {
+    expect(hdAuthority(ch(47, 64))).toBe('mental');
   });
   it('самопроецированный — G к горлу', () => {
     expect(hdAuthority(ch(1, 8))).toBe('selfProjected');
@@ -96,6 +131,13 @@ describe('определённость — число связных групп 
 
 describe('стратегия', () => {
   it('у каждого типа своя', () => {
+    expect(STRATEGY_OF).toEqual({
+      generator: 'respond',
+      manifestingGenerator: 'respondThenInform',
+      manifestor: 'inform',
+      projector: 'waitForInvitation',
+      reflector: 'waitLunarCycle',
+    });
     expect(HD_TYPES.map((t) => STRATEGY_OF[t])).toEqual([...HD_STRATEGIES]);
   });
 });
