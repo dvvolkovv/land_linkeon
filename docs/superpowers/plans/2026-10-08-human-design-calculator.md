@@ -6731,7 +6731,7 @@ test.describe('калькулятор в браузере', () => {
     await page.locator('#hd-city').focus();
     await pickCity(page, 'Каза', 'Казань');
     expect(captured.cityRequests).toBe(1);
-    await expect(page.getByTestId('hd-zone-line')).toHaveText('Казань, UTC+3 на дату рождения');
+    await expect(page.getByTestId('hd-zone-line')).toHaveText('Казань (Республика Татарстан, Россия), UTC+3 на дату рождения');
 
     // Поля и строки с данными спрятаны от Вебвизора.
     for (const id of ['#hd-date', '#hd-time', '#hd-city']) {
