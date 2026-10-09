@@ -1,11 +1,12 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import Button from '../ui/Button';
 import CityInput, { FIELD_CLASS } from './CityInput';
+import { DATE_RE, convert, localToday } from './hdFormLogic';
 import type { HdTexts } from '../../content/hd/types';
 import { cityPlace, type City } from '../../lib/cities';
 import { fillTemplate } from '../../lib/hdDraft';
 import { reachGoal } from '../../lib/goal';
-import { calculateChart, formatOffset, localToUtc, type Conversion, type HdChart } from '../../lib/human-design';
+import { formatOffset, calculateChart, type HdChart } from '../../lib/human-design';
 
 export interface HdResultData {
   chart: HdChart;
@@ -17,30 +18,6 @@ export interface HdResultData {
 }
 
 type DstChoice = 'before' | 'after';
-
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-const TIME_RE = /^\d{2}:\d{2}$/;
-
-/** Сегодня по часам посетителя: toISOString() дал бы дату по UTC. */
-export function localToday(): string {
-  const d = new Date();
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-}
-
-/**
- * null — формат не похож на дату/время или город не выбран; 'unknownZone' —
- * формат в порядке, но браузер не знает часовой пояс города.
- */
-export function convert(date: string, time: string, city: City | null): Conversion | 'unknownZone' | null {
-  if (!city || !DATE_RE.test(date) || !TIME_RE.test(time)) return null;
-  try {
-    new Intl.DateTimeFormat('en-US', { timeZone: city.zone });
-  } catch {
-    return 'unknownZone';
-  }
-  return localToUtc({ date, time }, city.zone);
-}
 
 /**
  * Форма: дата, время, город. Считает на устройстве — по кнопке, мгновенно.

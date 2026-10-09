@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { convert, localToday } from './HdForm';
+import { convert, localToday } from './hdFormLogic';
 
 const KAZAN = { name: 'Казань', region: 'Республика Татарстан', country: 'Россия', zone: 'Europe/Moscow' };
 
