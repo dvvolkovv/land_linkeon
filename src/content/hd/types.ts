@@ -59,9 +59,9 @@ export interface HdTexts {
     heading: string;
     /** «{date}, {time}, {city} ({offset})» — скрыта от Вебвизора. */
     dataLine: string;
-    /** aria-label схемы: «Бодиграф: {type}. Определённые центры: {centers}». */
+    /** Подпись схемы (figcaption): «Бодиграф: {type}. Определённые центры: {centers}». */
     bodygraphLabel: string;
-    /** aria-label схемы, когда определённых центров нет (Рефлектор): «Бодиграф: {type}. Определённых центров нет». */
+    /** Подпись схемы (figcaption), когда определённых центров нет (Рефлектор): «Бодиграф: {type}. Определённые центры: нет». */
     bodygraphLabelEmpty: string;
     legendPersonality: string;
     legendDesign: string;
@@ -73,6 +73,7 @@ export interface HdTexts {
     definedCenters: string;
     noDefinedCenters: string;
     openCenters: string;
+    noOpenCenters: string;
     channels: string;
     noChannels: string;
     /** «Разобрать с Райей» */

@@ -39,9 +39,12 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
   const offset = formatOffset(result.offsetSeconds);
   const [y, m, d] = result.date.split('-');
   const dataLine = fillTemplate(r.dataLine, { date: `${d}.${m}.${y}`, time: result.time, city: result.city.name, offset });
-  // Рефлектор: определённых центров нет. bodygraphLabel с пустой строкой
-  // центров дал бы «Определённые центры: Определённых центров нет» — вместо
-  // этого отдельный шаблон bodygraphLabelEmpty без списка центров вовсе.
+  // У Рефлектора определённых центров нет. Запасной вариант из плана —
+  // `chart.definedCenters.map(...).join(', ') || r.noDefinedCenters` — при
+  // пустом списке подставил бы в {centers} шаблона bodygraphLabel саму
+  // строку r.noDefinedCenters («Определённых центров нет»), и вышло бы
+  // «Определённые центры: Определённых центров нет». Вместо фолбэка —
+  // отдельный шаблон bodygraphLabelEmpty («Определённые центры: нет»).
   const centerNames = chart.definedCenters.map((c) => texts.centers[c].name);
   const label = centerNames.length
     ? fillTemplate(r.bodygraphLabel, { type: type.name, centers: centerNames.join(', ') })
@@ -49,6 +52,9 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
 
   // Черновик Райе собирается только здесь, в момент клика: в href кнопки
   // данных рождения нет — его читают Вебвизор и отслеживание ссылок Метрики.
+  // Средний клик и «открыть в новой вкладке» контекстного меню до этого
+  // обработчика не доходят — браузер идёт по чистому href без черновика и
+  // без цели Метрики; это осознанно, а не упущение.
   const toRaya = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const url = rayaChatUrlWithDraft(
@@ -73,7 +79,11 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
       data-testid="hd-result"
       className="ym-hide-content max-w-4xl mx-auto px-6 pb-12 scroll-mt-20"
     >
-      <h2 id="hd-result-heading" className="text-2xl md:text-3xl font-semibold tracking-tight text-paper-900">
+      <h2
+        id="hd-result-heading"
+        tabIndex={-1}
+        className="text-2xl md:text-3xl font-semibold tracking-tight text-paper-900 focus:outline-none"
+      >
         {r.heading}
       </h2>
       <p className="ym-hide-content mt-2 text-sm text-paper-600" data-testid="hd-data-line">
@@ -120,13 +130,17 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
         </div>
         <div>
           <h3 className="text-xl font-semibold text-paper-900">{r.openCenters}</h3>
-          <ul className="mt-3 space-y-2">
-            {chart.openCenters.map((c) => (
-              <li key={c} className="text-paper-800 leading-relaxed">
-                <strong className="text-paper-900">{texts.centers[c].name}</strong> — {texts.centers[c].open}
-              </li>
-            ))}
-          </ul>
+          {chart.openCenters.length > 0 ? (
+            <ul className="mt-3 space-y-2">
+              {chart.openCenters.map((c) => (
+                <li key={c} className="text-paper-800 leading-relaxed">
+                  <strong className="text-paper-900">{texts.centers[c].name}</strong> — {texts.centers[c].open}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-paper-800">{r.noOpenCenters}</p>
+          )}
         </div>
       </div>
 

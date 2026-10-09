@@ -22,6 +22,9 @@ interface Props {
  * Калькулятор Human Design — вход из поиска. В пререндере: вводный текст,
  * пустая форма, пять типов и вопросы; форма и расчёт оживают в браузере.
  * FadeIn нет сознательно: в пререндере он отдаёт opacity-0.
+ *
+ * Без LanguageBanner сознательно: калькулятор пока только по-русски, а
+ * баннер предложил бы чужую (не русскую) главную.
  */
 export default function HumanDesignPage({ texts, language }: Props) {
   const { t } = useTranslation();
@@ -33,7 +36,12 @@ export default function HumanDesignPage({ texts, language }: Props) {
   ];
 
   useEffect(() => {
-    if (result) document.getElementById('hd-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!result) return;
+    // Скролла одного недостаточно: без программного фокуса скринридер не
+    // объявляет появление результата, а Tab после кнопки «Рассчитать» ведёт
+    // мимо него. tabIndex={-1} у заголовка — в HdResult.
+    document.getElementById('hd-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('hd-result-heading')?.focus({ preventScroll: true });
   }, [result]);
 
   return (

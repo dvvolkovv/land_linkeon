@@ -40,11 +40,51 @@ describe('результат расчёта', () => {
     expect(classes).toContain('ym-hide-content');
   });
 
+  // Весь результат — одна секция: ym-hide-content на корне прячет всё
+  // содержимое; вложенный ym-show-content снова включил бы запись внутри
+  // спрятанного блока.
+  it('весь результат — одна секция, без ym-show-content', () => {
+    expect(html.startsWith('<section')).toBe(true);
+    expect(html.match(/<section[\s>]/g)).toHaveLength(1);
+    expect(html).not.toContain('ym-show-content');
+  });
+
   it('по строке на каждый определённый центр и канал', () => {
     for (const c of chart.definedCenters) expect(html).toContain(texts.centers[c].defined);
     for (const c of chart.openCenters) expect(html).toContain(texts.centers[c].open);
     expect(html).toContain(`7-31 · ${texts.channels['7-31'].name}`);
     expect(html).toContain(`12-22 · ${texts.channels['12-22'].name}`);
+  });
+
+  // Подпись схемы перечисляет определённые центры текстом (figcaption) — не
+  // только у Рефлектора (см. тест ниже), но и в обычном случае.
+  it('подпись схемы перечисляет определённые центры', () => {
+    expect(chart.definedCenters.length).toBeGreaterThan(0);
+    const centers = chart.definedCenters.map((c) => texts.centers[c].name).join(', ');
+    expect(html).toContain(`Бодиграф: ${texts.types[chart.type].name}. Определённые центры: ${centers}`);
+  });
+
+  // Критично (ревью): внутри ym-hide-content Вебвизор подменяет текстовые
+  // узлы и src картинок, но пишет как есть атрибуты SVG — data-gate,
+  // data-source, data-center, fill. По набору ворот дата рождения
+  // восстанавливается почти до дня. Схема обязана быть картинкой (img),
+  // а не вставленной разметкой <svg>.
+  //
+  // Проверку <svg> ограничиваем фигурой схемы: у кнопки «Разобрать с Райей»
+  // свой инлайновый <svg> — иконка ArrowRight из lucide-react, не связанная
+  // с картой; глобальный not.toContain('<svg') ловил бы и её.
+  it('схема — картинкой, в атрибутах нет ворот и центров', () => {
+    const figure = html.match(/<figure[^>]*data-testid="hd-bodygraph"[\s\S]*?<\/figure>/)?.[0] ?? '';
+    expect(figure).not.toBe('');
+    expect(figure).not.toContain('<svg');
+    expect(html).not.toMatch(/data-(gate|source|center|defined)=/);
+  });
+
+  // Заголовок результата — цель программного фокуса: после расчёта его
+  // фокусирует HumanDesignPage (вместо одного только scrollIntoView), чтобы
+  // скринридер объявил появление блока и Tab не уводил мимо.
+  it('заголовок результата — цель фокуса после расчёта', () => {
+    expect(html).toContain('id="hd-result-heading" tabindex="-1"');
   });
 
   // Черновик собирается в момент клика: в разметке, которую читает Вебвизор,
@@ -55,6 +95,12 @@ describe('результат расчёта', () => {
     expect(tag).not.toContain('#');
     expect(tag).not.toContain('1990');
     expect(html).toContain(texts.result.ctaNote);
+
+    // Строго: href — только assistant/utm_content (+ опциональный lang от
+    // appUrl), без фрагмента черновика и без посторонних параметров.
+    const url = new URL((tag.match(/href="([^"]*)"/)?.[1] ?? '').replace(/&amp;/g, '&'));
+    expect(url.hash).toBe('');
+    expect([...url.searchParams.keys()].filter((k) => k !== 'lang')).toEqual(['assistant', 'utm_content']);
   });
 
   // У Рефлектора открыты все девять центров, определённых нет. Подпись схемы
@@ -62,6 +108,7 @@ describe('результат расчёта', () => {
   // bodygraphLabel с пустой строкой центров вышло бы «Определённые центры:
   // Определённых центров нет». Момент — настоящий из эталона Swiss Ephemeris
   // (src/lib/human-design/__fixtures__/reference.json), а не придуманный.
+  // Подпись теперь не в aria-label, а в figcaption картинки (см. Bodygraph).
   it('подпись схемы у Рефлектора — без списка центров', () => {
     const reflectorChart = chartFromUtc('1941-09-12T04:08:00.000Z');
     expect(reflectorChart.type).toBe('reflector');
@@ -78,6 +125,6 @@ describe('результат расчёта', () => {
         }}
       />,
     );
-    expect(reflectorHtml).toContain('aria-label="Бодиграф: Рефлектор. Определённых центров нет"');
+    expect(reflectorHtml).toContain('>Бодиграф: Рефлектор. Определённые центры: нет</figcaption>');
   });
 });
