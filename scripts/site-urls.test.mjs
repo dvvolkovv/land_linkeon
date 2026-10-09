@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assistantUrlFor, assistantsCatalogUrlFor, sitemapUrls } from './site-urls.mjs';
+import { assistantUrlFor, assistantsCatalogUrlFor, hdCalcUrlFor, sitemapUrls } from './site-urls.mjs';
 
 describe('адреса раздела ассистентов', () => {
   it('русский в корне, остальные под префиксом', () => {
@@ -19,5 +19,18 @@ describe('адреса раздела ассистентов', () => {
 
   it('без раздела ассистентов sitemap прежний', () => {
     expect(sitemapUrls(['ru'], 'ru')).toEqual(sitemapUrls(['ru'], 'ru', { codes: [], slugs: [] }));
+  });
+});
+
+describe('адрес калькулятора Human Design', () => {
+  it('со слэшем, русский в корне', () => {
+    expect(hdCalcUrlFor('ru', 'ru')).toBe('https://linkeon.io/calculators/human-design/');
+    expect(hdCalcUrlFor('en', 'ru')).toBe('https://linkeon.io/en/calculators/human-design/');
+  });
+
+  it('в sitemap — только на языках калькулятора', () => {
+    const urls = sitemapUrls(['ru', 'en'], 'ru', { codes: [], slugs: [] }, { codes: ['ru'] });
+    expect(urls).toContain('https://linkeon.io/calculators/human-design/');
+    expect(urls.some((u) => u.includes('/en/calculators/'))).toBe(false);
   });
 });
