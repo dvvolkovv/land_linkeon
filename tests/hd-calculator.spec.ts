@@ -180,6 +180,9 @@ test.describe('калькулятор в браузере', () => {
     expect(goals).toEqual(expect.arrayContaining(['hd-calc-submit', 'hd-calc-to-raya']));
     const sent = JSON.stringify(captured.ym) + captured.events.join('\n');
     for (const secret of ['1990', '14:25', 'Казань']) expect(sent, `«${secret}» ушло в аналитику`).not.toContain(secret);
+    // Канал событий жив: клик к Райе дошёл как landing_cta_click — иначе
+    // «расчёт не попал в таблицу» проверял бы пустой массив.
+    expect(captured.events.some((e) => e.includes('landing_cta_click') && e.includes('hd-calc-to-raya'))).toBe(true);
     // Расчёт — только цель Метрики: в нашей таблице событий landing_cta_click —
     // шаг «Нажал „Начать“» воронки, а расчёт не переход в приложение.
     expect(captured.events.join('\n')).not.toContain('hd-calc-submit');
