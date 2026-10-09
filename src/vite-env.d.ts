@@ -11,3 +11,9 @@ declare const __TRANSLATED_LANGUAGES__: string[];
  * `define` — см. scripts/assistant-page-languages.js.
  */
 declare const __ASSISTANT_PAGE_LANGUAGES__: string[];
+
+/**
+ * Коды языков, на которых выпущен калькулятор Human Design. Подставляется
+ * через `define` — см. scripts/hd-calc-languages.js.
+ */
+declare const __HD_CALC_LANGUAGES__: string[];

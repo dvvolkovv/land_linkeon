@@ -21,6 +21,10 @@ export const LEGAL_SLUGS = ['offer', 'privacy', 'pdn'];
 /** Раздел ассистентов. Тот же литерал — в src/lib/assistantRoute.ts. */
 export const ASSISTANTS_SEGMENT = 'assistants';
 
+/** Калькуляторы. Те же литералы — в src/lib/hdRoute.ts. */
+export const CALCULATORS_SEGMENT = 'calculators';
+export const HD_CALC_SLUG = 'human-design';
+
 /** Языковой корень. У канонического языка он же корень сайта. */
 export const urlFor = (code, defaultLanguage) =>
   code === defaultLanguage ? `${SITE}/` : `${SITE}/${code}/`;
@@ -51,14 +55,26 @@ export const assistantUrlFor = (code, slug, defaultLanguage) =>
     ? `${SITE}/${ASSISTANTS_SEGMENT}/${slug}/`
     : `${SITE}/${code}/${ASSISTANTS_SEGMENT}/${slug}/`;
 
+/** Калькулятор Human Design — со слэшем, как страницы ассистентов. */
+export const hdCalcUrlFor = (code, defaultLanguage) =>
+  code === defaultLanguage
+    ? `${SITE}/${CALCULATORS_SEGMENT}/${HD_CALC_SLUG}/`
+    : `${SITE}/${code}/${CALCULATORS_SEGMENT}/${HD_CALC_SLUG}/`;
+
 /**
  * Полный список адресов в sitemap — в том же порядке, в каком его пишет
  * пререндер. Источник ожиданий и для генерации, и для проверки.
  *
  * `assistants.codes` — языки, на которых выпущены страницы ассистентов
  * (scripts/assistant-page-languages.js), `assistants.slugs` — реестр.
+ * `hdCalc.codes` — языки калькулятора Human Design (scripts/hd-calc-languages.js).
  */
-export function sitemapUrls(publishedCodes, defaultLanguage, assistants = { codes: [], slugs: [] }) {
+export function sitemapUrls(
+  publishedCodes,
+  defaultLanguage,
+  assistants = { codes: [], slugs: [] },
+  hdCalc = { codes: [] },
+) {
   return [
     ...publishedCodes.map((c) => urlFor(c, defaultLanguage)),
     ...publishedCodes.flatMap((c) =>
@@ -69,5 +85,6 @@ export function sitemapUrls(publishedCodes, defaultLanguage, assistants = { code
     ...assistants.codes.flatMap((c) =>
       assistants.slugs.map((slug) => assistantUrlFor(c, slug, defaultLanguage)),
     ),
+    ...hdCalc.codes.map((c) => hdCalcUrlFor(c, defaultLanguage)),
   ];
 }
