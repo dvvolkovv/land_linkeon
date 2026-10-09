@@ -10,6 +10,9 @@ import { parseAssistantPath } from './lib/assistantRoute';
 import { loadPack } from './content/assistants/load';
 import { assistantBySlug } from './content/assistants/roster';
 import { hasAssistantPages } from './content/assistants/availability';
+import { parseHdCalcPath } from './lib/hdRoute';
+import { hasHdCalculator } from './content/hd/availability';
+import { loadHdTexts } from './content/hd/load';
 import { persistAttribution } from './lib/attribution';
 import { trackLandingVisit, initLandingEngagement } from './lib/track';
 import { reachCtaGoal } from './lib/goal';
@@ -54,6 +57,9 @@ const parsedAssistant = parseAssistantPath(window.location.pathname);
 // главная: loadPack вернул бы null, и render не случился бы вовсе.
 const assistantRoute =
   parsedAssistant && hasAssistantPages(parsedAssistant.language) ? parsedAssistant : null;
+// Калькулятор на языке, где он не выпущен, — тоже SPA-фолбэк: рисуем главную.
+const parsedHd = parseHdCalcPath(window.location.pathname);
+const hdRoute = parsedHd && hasHdCalculator(parsedHd.language) ? parsedHd : null;
 const root = createRoot(document.getElementById('root')!);
 
 if (assistantRoute) {
@@ -81,6 +87,21 @@ if (assistantRoute) {
       );
     })
     .catch((error) => console.error('страницы ассистентов: тексты не загрузились, остаётся пререндер', error));
+} else if (hdRoute) {
+  // Калькулятор — отдельные чанки: страница с кодом расчёта (astronomy-engine)
+  // и тексты языка. Главная их не грузит; пререндер проверяет это по dist/.
+  // Рисуем, когда пришли оба: createRoot не гидратирует, и ранний render
+  // заменил бы пререндер пустым кадром.
+  Promise.all([import('./pages/HumanDesignPage'), loadHdTexts(hdRoute.language)])
+    .then(([{ default: HumanDesignPage }, texts]) => {
+      if (!texts) return;
+      root.render(
+        <StrictMode>
+          <HumanDesignPage texts={texts} language={hdRoute.language} />
+        </StrictMode>,
+      );
+    })
+    .catch((error) => console.error('калькулятор: чанк не загрузился, остаётся пререндер', error));
 } else {
   root.render(
     <StrictMode>

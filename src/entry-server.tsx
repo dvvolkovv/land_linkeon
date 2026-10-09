@@ -5,11 +5,13 @@ import LegalPage from './pages/LegalPage';
 import DeleteAccountPage from './pages/DeleteAccountPage';
 import AssistantPage from './pages/AssistantPage';
 import AssistantsCatalogPage from './pages/AssistantsCatalogPage';
+import HumanDesignPage from './pages/HumanDesignPage';
 import type { LegalType } from './components/layout/LegalModal';
 import { createServerI18n } from './i18n/server';
 import { legalFor } from './content/legal';
 import { PACKS } from './content/assistants/packs.server';
 import { assistantBySlug } from './content/assistants/roster';
+import { HD_TEXTS } from './content/hd/texts.server';
 
 /**
  * Вызывается scripts/prerender.mjs на сборке. Возвращает разметку и
@@ -91,4 +93,17 @@ export function renderAssistantsCatalog(language: string): { html: string; title
     title: i18n.t('assistantPages.catalog.title'),
     description: i18n.t('assistantPages.catalog.description'),
   };
+}
+
+/** Калькулятор Human Design для пререндера: пустая форма, без результата. */
+export function renderHdCalculator(language: string): { html: string; title: string; description: string } {
+  const texts = HD_TEXTS[language];
+  if (!texts) throw new Error(`нет текстов калькулятора на ${language}`);
+  const i18n = createServerI18n(language);
+  const html = renderToString(
+    <I18nextProvider i18n={i18n}>
+      <HumanDesignPage texts={texts} language={language} />
+    </I18nextProvider>,
+  );
+  return { html, title: texts.title, description: texts.description };
 }

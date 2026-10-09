@@ -19,8 +19,11 @@
  * sitemap: язык, выпущенный у главной, но ещё без переведённых страниц, в
  * раздел ассистентов не попадает.
  *
- * Последним блоком скрипт проверяет, что тексты страниц ассистентов не
- * попали во входной бандл клиента: их место — в чанке своего языка.
+ * Калькулятор Human Design (/calculators/human-design/) — по своему списку
+ * языков, hdCalcCodes() из hd-calc-languages.js, тем же способом.
+ *
+ * Последним блоком скрипт проверяет, что тексты страниц ассистентов и код
+ * калькулятора не попали во входной бандл клиента: их место — в своих чанках.
  *
  * Запускается из pnpm build ПОСЛЕ обеих сборок vite.
  */
@@ -31,6 +34,7 @@ import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '../src/i18n/languages.dat
 import { ASSISTANTS, ASSISTANT_SLUGS } from '../src/content/assistants/roster.data.js';
 import { translatedCodes } from './translated-languages.js';
 import { assistantPageCodes } from './assistant-page-languages.js';
+import { hdCalcCodes } from './hd-calc-languages.js';
 import {
   LEGAL_SLUGS,
   sitemapUrls,
@@ -39,6 +43,7 @@ import {
   deleteUrlFor as siteDeleteUrlFor,
   assistantsCatalogUrlFor as siteAssistantsCatalogUrlFor,
   assistantUrlFor as siteAssistantUrlFor,
+  hdCalcUrlFor as siteHdCalcUrlFor,
 } from './site-urls.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -51,6 +56,9 @@ const PUBLISHED_CODES = translatedCodes();
 // этих страниц перечисляет только их — ссылка на несуществующую версию была
 // бы ложным hreflang.
 const ASSISTANT_CODES = assistantPageCodes();
+
+// Языки калькулятора Human Design — так же: выпущенные у сайта И с текстами.
+const HD_CALC_CODES = hdCalcCodes();
 
 const OG_LOCALES = Object.fromEntries(SUPPORTED_LANGUAGES.map((l) => [l.code, l.ogLocale]));
 
@@ -71,8 +79,15 @@ const assistantsCatalogUrlFor = (code) => siteAssistantsCatalogUrlFor(code, DEFA
 const assistantUrlFor = (code, slug) => siteAssistantUrlFor(code, slug, DEFAULT_LANGUAGE);
 const assistantsDirFor = (code) =>
   code === DEFAULT_LANGUAGE ? join(dist, 'assistants') : join(dist, code, 'assistants');
+const hdCalcUrlFor = (code) => siteHdCalcUrlFor(code, DEFAULT_LANGUAGE);
+const hdCalcDirFor = (code) =>
+  code === DEFAULT_LANGUAGE
+    ? join(dist, 'calculators', 'human-design')
+    : join(dist, code, 'calculators', 'human-design');
 
-const { render, renderAssistant, renderAssistantsCatalog } = await import(join(root, 'dist-ssr', 'entry-server.js'));
+const { render, renderAssistant, renderAssistantsCatalog, renderHdCalculator } = await import(
+  join(root, 'dist-ssr', 'entry-server.js')
+);
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
 
 // Скрипт перезаписывает dist/index.html (итерация DEFAULT_LANGUAGE), а шаблон
@@ -376,18 +391,59 @@ for (const code of ASSISTANT_CODES) {
   console.log(`✅ ${code}/assistants: каталог и ${ASSISTANTS.length} страниц`);
 }
 
+// Калькулятор Human Design. Форма и расчёт работают только в браузере; в
+// пререндере — вводный текст, пять типов и вопросы. Проверяется содержимое:
+// FAQPage ровно о видимых вопросах, пять описаний типов, крошки до canonical.
+for (const code of HD_CALC_CODES) {
+  const where = `${code}/calculators/human-design`;
+  const rendered = renderHdCalculator(code);
+  if (!h1Of(rendered.html)) throw new Error(`${where}: нет <h1>`);
+  let page = template;
+  page = mustReplace(page, '<html lang="ru">', () => `<html lang="${code}">`, '<html lang>');
+  page = localizeMeta(page, rendered.title, rendered.description);
+  page = mustReplace(
+    page,
+    '</head>',
+    () => `${headFor(code, rendered.title, rendered.description, null, hdCalcUrlFor, HD_CALC_CODES)}\n  </head>`,
+    '</head>',
+  );
+  page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${rendered.html}</div>`, '<div id="root">');
+
+  const ld = jsonLdOf(rendered.html, where);
+  const faqSection = rendered.html.match(/<section[^>]*data-testid="hd-faq"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+  if (faqSection === undefined) throw new Error(`${where}: нет блока вопросов — текст не отрендерился`);
+  const shown = (faqSection.match(/<details[\s>]/g) ?? []).length;
+  const listed = oneOfType(ld, 'FAQPage', where).mainEntity?.length ?? 0;
+  if (listed !== shown) {
+    throw new Error(`${where}: в FAQPage ${listed} вопросов, а на странице ${shown} <details>`);
+  }
+  if (shown < 4) throw new Error(`${where}: вопросов ${shown}, нужно не меньше 4`);
+  const types = rendered.html.match(/<section[^>]*data-testid="hd-types"[^>]*>([\s\S]*?)<\/section>/)?.[1] ?? '';
+  const typeCount = (types.match(/<li[\s>]/g) ?? []).length;
+  if (typeCount !== 5) throw new Error(`${where}: описаний типов ${typeCount}, нужно 5`);
+  checkBreadcrumbs(ld, page, 2, where);
+
+  writePage(hdCalcDirFor(code), page);
+  console.log(`✅ ${where}`);
+}
+
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...sitemapUrls(PUBLISHED_CODES, DEFAULT_LANGUAGE, { codes: ASSISTANT_CODES, slugs: ASSISTANT_SLUGS })
-    .map((loc) => `  <url><loc>${loc}</loc></url>`),
+  ...sitemapUrls(
+    PUBLISHED_CODES,
+    DEFAULT_LANGUAGE,
+    { codes: ASSISTANT_CODES, slugs: ASSISTANT_SLUGS },
+    { codes: HD_CALC_CODES },
+  ).map((loc) => `  <url><loc>${loc}</loc></url>`),
   '</urlset>',
 ].join('\n');
 writeFileSync(join(dist, 'sitemap.xml'), sitemap + '\n', 'utf8');
 console.log('✅ sitemap.xml');
 
-// Тексты страниц ассистентов — во входном бандле? Им положено жить в чанке
-// своего языка (src/content/assistants/load.ts): главная их не грузит вовсе.
+// Тексты страниц ассистентов и код калькулятора — во входном бандле? Им
+// положено жить в своих чанках (src/content/assistants/load.ts, динамический
+// импорт HumanDesignPage в main.tsx): главная их не грузит вовсе.
 // Один статический импорт pages/<код>.ts где-нибудь в клиентском коде — и
 // каждый посетитель главной качает тексты всех страниц, а сборка, типы и тесты
 // молчат. Ловится только здесь, по готовому dist/.
@@ -416,13 +472,18 @@ console.log('✅ sitemap.xml');
       .replace(/\\(['"`])/g, '$1')
       .replace(SPACES, ' ');
 
+  const textOf = (html) => decodeHtml(h1Of(html).replace(/<[^>]+>/g, '')).replace(SPACES, ' ').trim();
   const needles = ['roman', 'raya'].map((slug) => {
-    const h1 = decodeHtml(h1Of(renderAssistant(DEFAULT_LANGUAGE, slug).html).replace(/<[^>]+>/g, ''))
-      .replace(SPACES, ' ')
-      .trim();
+    const h1 = textOf(renderAssistant(DEFAULT_LANGUAGE, slug).html);
     if (h1.length < 15) throw new Error(`${DEFAULT_LANGUAGE}/assistants/${slug}: H1 «${h1}» слишком короткий для проверки бандла`);
     return { slug, h1 };
   });
+  // Калькулятор: H1 — из чанка текстов, начало таблицы ворот (литерал массива
+  // GATE_ORDER, минификатор пишет его без пробелов) — из чанка расчёта.
+  if (HD_CALC_CODES.includes(DEFAULT_LANGUAGE)) {
+    needles.push({ slug: 'калькулятор (H1)', h1: textOf(renderHdCalculator(DEFAULT_LANGUAGE).html) });
+    needles.push({ slug: 'калькулятор (таблица ворот)', h1: '41,19,13,49,30,55,37,63,22,36' });
+  }
 
   const entryFiles = [
     ...template.matchAll(/<script type="module"[^>]*\ssrc="([^"]+\.js)"/g),
@@ -436,9 +497,9 @@ console.log('✅ sitemap.xml');
     for (const { slug, h1 } of needles) {
       if (js.includes(h1)) {
         throw new Error(
-          `тексты страниц ассистентов попали во входной бандл — где-то статический импорт pages/<код>.ts ` +
-            `(в ${file} нашёлся H1 страницы ${slug}: «${h1}»). Тексты грузятся только через ` +
-            'src/content/assistants/load.ts (браузер) и packs.server.ts (пререндер).',
+          `во входной бандл попало то, что должно жить в своём чанке (в ${file} нашлось «${h1}» — ${slug}). ` +
+            'Тексты ассистентов грузятся через src/content/assistants/load.ts, калькулятор — ' +
+            'динамическим импортом HumanDesignPage в src/main.tsx; статический импорт их в клиентский код недопустим.',
         );
       }
     }
@@ -459,5 +520,5 @@ console.log('✅ sitemap.xml');
       );
     }
   }
-  console.log(`✅ тексты ассистентов не во входном бандле (${entryFiles.join(', ')})`);
+  console.log(`✅ тексты ассистентов и калькулятор не во входном бандле (${entryFiles.join(', ')})`);
 }
