@@ -6747,9 +6747,10 @@ test.describe('калькулятор в браузере', () => {
 
     // Весь блок результата скрыт от Вебвизора, а схема — картинкой: атрибуты
     // разметки (data-gate, fill) Вебвизор пишет даже внутри ym-hide-content.
+    // svg ищем только в схеме: стрелка на кнопке к Райе — тоже svg, но без данных.
     const resultBlock = page.getByTestId('hd-result');
     await expect(resultBlock).toHaveClass(/\bym-hide-content\b/);
-    expect(await resultBlock.locator('svg, [data-gate], [data-source], [data-center]').count()).toBe(0);
+    expect(await resultBlock.locator('[data-testid="hd-bodygraph"] svg, [data-gate], [data-source], [data-center]').count()).toBe(0);
     await expect(resultBlock.locator('[data-testid="hd-bodygraph"] img')).toHaveCount(1);
     // После расчёта фокус — на заголовке результата: скринридер его объявит.
     await expect(page.locator('#hd-result-heading')).toBeFocused();
