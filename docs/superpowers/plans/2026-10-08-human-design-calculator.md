@@ -6745,6 +6745,15 @@ test.describe('калькулятор в браузере', () => {
     await expect(page.getByTestId('hd-data-line')).toHaveClass(/\bym-hide-content\b/);
     await expect(page.getByTestId('hd-data-line')).toHaveText('12.03.1990, 14:25, Казань (UTC+3)');
 
+    // Весь блок результата скрыт от Вебвизора, а схема — картинкой: атрибуты
+    // разметки (data-gate, fill) Вебвизор пишет даже внутри ym-hide-content.
+    const resultBlock = page.getByTestId('hd-result');
+    await expect(resultBlock).toHaveClass(/\bym-hide-content\b/);
+    expect(await resultBlock.locator('svg, [data-gate], [data-source], [data-center]').count()).toBe(0);
+    await expect(resultBlock.locator('[data-testid="hd-bodygraph"] img')).toHaveCount(1);
+    // После расчёта фокус — на заголовке результата: скринридер его объявит.
+    await expect(page.locator('#hd-result-heading')).toBeFocused();
+
     const cta = page.locator('[data-cta="hd-calc-to-raya"]');
     const href = (await cta.getAttribute('href')) ?? '';
     expect(href, 'в href не должно быть черновика').not.toContain('#');
