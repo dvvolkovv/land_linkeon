@@ -6,6 +6,8 @@ import LegalModal, { type LegalType } from './LegalModal';
 import { hasAssistantPages } from '../../content/assistants/availability';
 import { ASSISTANTS, assistantName } from '../../content/assistants/roster';
 import { assistantPath, assistantsCatalogPath } from '../../lib/assistantRoute';
+import { hasHdCalculator } from '../../content/hd/availability';
+import { hdCalcPath } from '../../lib/hdRoute';
 
 interface LinkItem {
   label: string;
@@ -139,6 +141,9 @@ export default function Footer({ homeHref }: FooterProps = {}) {
             { label: t('footer.product.profile'), href: section('#profile') },
             { label: t('footer.product.networking'), href: section('#networking') },
             { label: t('footer.product.sites'), href: section('#sites') },
+            // Калькулятор есть не на всех языках: ссылка на невыпущенную
+            // версию вела бы в SPA-фолбэк.
+            ...(hasHdCalculator(language) ? [{ label: t('footer.product.hdCalc'), href: hdCalcPath(language) }] : []),
             { label: t('footer.product.pricing'), href: section('#pricing') },
             // Приложение раздаётся файлом, а не через Google Play.
             //
