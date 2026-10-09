@@ -90,6 +90,7 @@ describe('тексты калькулятора', () => {
         expect(placeholders(t.form.dstBefore)).toEqual(['offset']);
         expect(placeholders(t.form.dstAfter)).toEqual(['offset']);
         expect(placeholders(t.result.bodygraphLabel)).toEqual(['centers', 'type']);
+        expect(placeholders(t.result.bodygraphLabelEmpty)).toEqual(['type']);
       });
 
       it('сообщение Райе укладывается в лимит кабинета при любом сочетании', () => {
