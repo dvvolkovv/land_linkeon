@@ -6809,7 +6809,7 @@ Expected: `E2E_OK` (на прототипе: 56 passed, 2 skipped). Красно
 
 - [ ] **Step 3: Проверка проверки**
 
-Временно убрать `ym-disable-keys` из `FIELD_CLASS` в `src/components/hd/HdForm.tsx`, закоммитить (`git commit -am "tmp: проверка e2e"`), прогнать Step 2: Expected — `E2E_FAILED` на «известное рождение…» (`toHaveClass`). Затем `git reset --hard HEAD~1`. Без этого зелёный прогон ничего не доказывает.
+Временно убрать `ym-disable-keys` из `FIELD_CLASS` в `src/components/hd/CityInput.tsx` (общая константа всех трёх полей), закоммитить (`git commit -am "tmp: проверка e2e"`), прогнать Step 2: Expected — `E2E_FAILED` на «известное рождение…» (`toHaveClass`). Затем `git reset --hard HEAD~1`. Без этого зелёный прогон ничего не доказывает.
 
 - [ ] **Step 4: Commit**
 
