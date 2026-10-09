@@ -42,6 +42,16 @@ describe('страница калькулятора (пререндер)', () =>
     expect(html).not.toContain('data-testid="hd-result"');
   });
 
+  // Пререндер не гидратируется (см. main.tsx): без disabled человек успел бы
+  // ввести дату в «живую» статическую разметку раньше, чем смонтируется
+  // React, — и потерял бы её при замене DOM. max — дата сборки, а не
+  // посетителя; в статике её быть не должно, иначе HTML менялся бы каждый день.
+  it('форма неактивна до монтирования: disabled есть, max нет', () => {
+    const form = pick(/<form[^>]*data-testid="hd-form"[\s\S]*?<\/form>/);
+    expect(form, 'поля формы не отключены в статическом HTML').toContain('<fieldset disabled');
+    expect(pick(/<input[^>]*id="hd-date"[^>]*>/), 'max в статике — дата сборки, устареет').not.toContain('max=');
+  });
+
   it('оговорка и подпись GeoNames', () => {
     expect(html).toContain(texts.disclaimer);
     expect(html).toContain('href="https://www.geonames.org/"');

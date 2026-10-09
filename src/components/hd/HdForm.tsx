@@ -1,4 +1,4 @@
-import { useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import Button from '../ui/Button';
 import CityInput, { FIELD_CLASS } from './CityInput';
 import { DATE_RE, convert, localToday } from './hdFormLogic';
@@ -31,6 +31,12 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
   const [city, setCity] = useState<City | null>(null);
   const [choice, setChoice] = useState<DstChoice | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // До монтирования поля должны быть неактивны: пререндер отдаёт разметку как
+  // рабочую форму, но createRoot не гидратирует и просто подменит DOM — дата,
+  // введённая на медленном мобильном раньше, чем сработает этот эффект,
+  // иначе пропадёт при замене.
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   // Перевод — заранее, до кнопки: показать пояс на дату рождения и, если
   // время попало в час перевода стрелок, спросить «до или после».
   const conversion = useMemo(() => convert(date, time, city), [date, time, city]);
@@ -68,90 +74,97 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
   // в адрес страницы. С адресом она ушла бы и в Метрику, и в пиксель VK —
   // сам пиксель формы не сканирует, читает только name и type полей.
   return (
-    <form onSubmit={submit} autoComplete="off" noValidate className="space-y-5" data-testid="hd-form">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="hd-date" className="block text-sm font-semibold text-paper-900">
-            {f.date}
-          </label>
-          <input
-            id="hd-date"
-            type="date"
-            min="1900-01-01"
-            max={today}
-            value={date}
-            aria-required="true"
-            onChange={(e) => edit(setDate)(e.target.value)}
-            className={FIELD_CLASS}
-          />
-        </div>
-        <div>
-          <label htmlFor="hd-time" className="block text-sm font-semibold text-paper-900">
-            {f.time}
-          </label>
-          <input
-            id="hd-time"
-            type="time"
-            value={time}
-            aria-describedby="hd-time-hint"
-            aria-required="true"
-            // slice: часть браузеров отдаёт HH:MM:SS, а не HH:MM.
-            onChange={(e) => edit(setTime)(e.target.value.slice(0, 5))}
-            className={FIELD_CLASS}
-          />
-          <p id="hd-time-hint" className="mt-1 text-xs text-paper-600">
-            {f.timeHint}
-          </p>
-        </div>
-      </div>
-
-      <CityInput texts={texts} value={city} onChange={edit(setCity)} />
-
-      {city && conversion && conversion !== 'unknownZone' && conversion.kind === 'ok' && (
-        <p className="ym-hide-content text-sm text-paper-800" data-testid="hd-zone-line">
-          {fillTemplate(f.zoneLine, {
-            city: `${city.name} (${cityPlace(city)})`,
-            offset: formatOffset(conversion.offsetSeconds),
-          })}
-        </p>
-      )}
-
-      {transition && (
-        <fieldset className="ym-hide-content rounded-xl border border-amber-300 bg-amber-50 p-4" data-testid="hd-dst">
-          <legend className="float-left w-full px-1 text-sm font-semibold text-paper-900">
-            {fillTemplate(transition.kind === 'gap' ? f.dstGap : f.dstAmbiguous, { time })}
-          </legend>
-          <div className="clear-left pt-1">
-            {(['before', 'after'] as const).map((key) => (
-              <label key={key} className="mt-2 flex items-center gap-2 text-sm text-paper-800">
-                <input
-                  type="radio"
-                  name="hd-dst"
-                  value={key}
-                  checked={choice === key}
-                  onChange={() => {
-                    setChoice(key);
-                    setError(null);
-                  }}
-                />
-                {fillTemplate(key === 'before' ? f.dstBefore : f.dstAfter, {
-                  offset: formatOffset(transition[key].offsetSeconds),
-                })}
-              </label>
-            ))}
+    <form onSubmit={submit} autoComplete="off" noValidate data-testid="hd-form">
+      {/* contents — fieldset не должен занимать место в вёрстке, поэтому
+          space-y-5 переехал сюда с <form>: иначе межстрочные отступы пропали
+          бы (form.space-y-5 целился в прямых детей form, а не fieldset). */}
+      <fieldset disabled={!ready} className="contents space-y-5">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="hd-date" className="block text-sm font-semibold text-paper-900">
+              {f.date}
+            </label>
+            <input
+              id="hd-date"
+              type="date"
+              min="1900-01-01"
+              // max — только когда смонтировались: в пререндере иначе легла бы
+              // дата сборки, и статический HTML менялся бы каждый день.
+              max={ready ? today : undefined}
+              value={date}
+              aria-required="true"
+              onChange={(e) => edit(setDate)(e.target.value)}
+              className={FIELD_CLASS}
+            />
           </div>
-        </fieldset>
-      )}
+          <div>
+            <label htmlFor="hd-time" className="block text-sm font-semibold text-paper-900">
+              {f.time}
+            </label>
+            <input
+              id="hd-time"
+              type="time"
+              value={time}
+              aria-describedby="hd-time-hint"
+              aria-required="true"
+              // slice: часть браузеров отдаёт HH:MM:SS, а не HH:MM.
+              onChange={(e) => edit(setTime)(e.target.value.slice(0, 5))}
+              className={FIELD_CLASS}
+            />
+            <p id="hd-time-hint" className="mt-1 text-xs text-paper-600">
+              {f.timeHint}
+            </p>
+          </div>
+        </div>
 
-      {error && (
-        <p role="alert" className="text-sm font-medium text-rose-700">
-          {error}
-        </p>
-      )}
+        <CityInput texts={texts} value={city} onChange={edit(setCity)} />
 
-      <Button type="submit" size="lg">
-        {f.submit}
-      </Button>
+        {city && conversion && conversion !== 'unknownZone' && conversion.kind === 'ok' && (
+          <p className="ym-hide-content text-sm text-paper-800" data-testid="hd-zone-line">
+            {fillTemplate(f.zoneLine, {
+              city: `${city.name} (${cityPlace(city)})`,
+              offset: formatOffset(conversion.offsetSeconds),
+            })}
+          </p>
+        )}
+
+        {transition && (
+          <fieldset className="ym-hide-content rounded-xl border border-amber-300 bg-amber-50 p-4" data-testid="hd-dst">
+            <legend className="float-left w-full px-1 text-sm font-semibold text-paper-900">
+              {fillTemplate(transition.kind === 'gap' ? f.dstGap : f.dstAmbiguous, { time })}
+            </legend>
+            <div className="clear-left pt-1">
+              {(['before', 'after'] as const).map((key) => (
+                <label key={key} className="mt-2 flex items-center gap-2 text-sm text-paper-800">
+                  <input
+                    type="radio"
+                    name="hd-dst"
+                    value={key}
+                    checked={choice === key}
+                    onChange={() => {
+                      setChoice(key);
+                      setError(null);
+                    }}
+                  />
+                  {fillTemplate(key === 'before' ? f.dstBefore : f.dstAfter, {
+                    offset: formatOffset(transition[key].offsetSeconds),
+                  })}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        )}
+
+        {error && (
+          <p role="alert" className="text-sm font-medium text-rose-700">
+            {error}
+          </p>
+        )}
+
+        <Button type="submit" size="lg">
+          {f.submit}
+        </Button>
+      </fieldset>
     </form>
   );
 }
