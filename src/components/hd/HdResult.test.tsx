@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import HdResult from './HdResult';
-import { chartFromUtc } from '../../lib/human-design';
+import { CENTER_IDS, chartFromUtc, type HdChart } from '../../lib/human-design';
 import { HD_TEXTS } from '../../content/hd/texts.server';
 
 const texts = HD_TEXTS.ru;
@@ -78,6 +78,11 @@ describe('результат расчёта', () => {
     expect(figure).not.toBe('');
     expect(figure).not.toContain('<svg');
     expect(html).not.toMatch(/data-(gate|source|center|defined)=/);
+
+    // Подпись — только текстом в figcaption: Вебвизор внутри ym-hide-content
+    // подменяет текстовые узлы, но не alt/aria-label/title.
+    expect(figure).toContain('alt=""');
+    expect(html).not.toMatch(/(?:alt|aria-label|title)="[^"]*Бодиграф/);
   });
 
   // Заголовок результата — цель программного фокуса: после расчёта его
@@ -103,10 +108,32 @@ describe('результат расчёта', () => {
     expect([...url.searchParams.keys()].filter((k) => k !== 'lang')).toEqual(['assistant', 'utm_content']);
   });
 
+  // Обратный случай: все девять центров определены, открытых нет — ветка
+  // noOpenCenters (синтетическая карта: таких рождений среди 300 карт
+  // эталона не нашлось, но ветка в коде есть и должна быть проверена).
+  it('ветка «открытых центров нет», когда определены все центры', () => {
+    const allDefinedChart: HdChart = { ...chart, definedCenters: [...CENTER_IDS], openCenters: [] };
+    const allDefinedHtml = renderToStaticMarkup(
+      <HdResult
+        texts={texts}
+        result={{
+          chart: allDefinedChart,
+          date: '1990-03-12',
+          time: '14:25',
+          city: { name: 'Казань', region: 'Татарстан', country: 'Россия', zone: 'Europe/Moscow' },
+          offsetSeconds: 3 * 3600,
+        }}
+      />,
+    );
+    expect(allDefinedHtml).toContain(texts.result.noOpenCenters);
+  });
+
   // У Рефлектора открыты все девять центров, определённых нет. Подпись схемы
   // обязана переключиться на отдельный шаблон bodygraphLabelEmpty — иначе из
-  // bodygraphLabel с пустой строкой центров вышло бы «Определённые центры:
-  // Определённых центров нет». Момент — настоящий из эталона Swiss Ephemeris
+  // bodygraphLabel с фолбэком `|| r.noDefinedCenters` в {centers} вышло бы
+  // «Определённые центры: Определённых центров нет». У bodygraphLabelEmpty
+  // своя короткая формулировка — «Определённые центры: нет». Момент —
+  // настоящий из эталона Swiss Ephemeris
   // (src/lib/human-design/__fixtures__/reference.json), а не придуманный.
   // Подпись теперь не в aria-label, а в figcaption картинки (см. Bodygraph).
   it('подпись схемы у Рефлектора — без списка центров', () => {
