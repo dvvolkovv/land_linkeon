@@ -61,6 +61,8 @@ export interface HdTexts {
     dataLine: string;
     /** aria-label схемы: «Бодиграф: {type}. Определённые центры: {centers}». */
     bodygraphLabel: string;
+    /** aria-label схемы, когда определённых центров нет (Рефлектор): «Бодиграф: {type}. Определённых центров нет». */
+    bodygraphLabelEmpty: string;
     legendPersonality: string;
     legendDesign: string;
     typeLabel: string;

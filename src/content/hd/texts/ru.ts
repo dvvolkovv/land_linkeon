@@ -42,6 +42,7 @@ const ru: HdTexts = {
     heading: 'Ваш бодиграф',
     dataLine: '{date}, {time}, {city} ({offset})',
     bodygraphLabel: 'Бодиграф: {type}. Определённые центры: {centers}',
+    bodygraphLabelEmpty: 'Бодиграф: {type}. Определённых центров нет',
     legendPersonality: 'Личность — момент рождения',
     legendDesign: 'Дизайн — примерно за 88 дней до рождения',
     typeLabel: 'Тип',
