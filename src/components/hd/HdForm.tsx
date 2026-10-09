@@ -75,10 +75,10 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
   // сам пиксель формы не сканирует, читает только name и type полей.
   return (
     <form onSubmit={submit} autoComplete="off" noValidate data-testid="hd-form">
-      {/* contents — fieldset не должен занимать место в вёрстке, поэтому
-          space-y-5 переехал сюда с <form>: иначе межстрочные отступы пропали
-          бы (form.space-y-5 целился в прямых детей form, а не fieldset). */}
-      <fieldset disabled={!ready} className="contents space-y-5">
+      {/* fieldset — единственный прямой ребёнок формы, поэтому отступы между
+          блоками (space-y-5) задаёт он. Рамку, поля и отступы fieldset обнуляет
+          preflight, min-w-0 снимает его min-inline-size: min-content. */}
+      <fieldset disabled={!ready} className="min-w-0 space-y-5">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="hd-date" className="block text-sm font-semibold text-paper-900">
