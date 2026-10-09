@@ -1,8 +1,8 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import Button from '../ui/Button';
-import CityInput from './CityInput';
+import CityInput, { FIELD_CLASS } from './CityInput';
 import type { HdTexts } from '../../content/hd/types';
-import type { City } from '../../lib/cities';
+import { cityPlace, type City } from '../../lib/cities';
 import { fillTemplate } from '../../lib/hdDraft';
 import { reachGoal } from '../../lib/goal';
 import { calculateChart, formatOffset, localToUtc, type Conversion, type HdChart } from '../../lib/human-design';
@@ -18,18 +18,29 @@ export interface HdResultData {
 
 type DstChoice = 'before' | 'after';
 
-/** null — данных не хватает; 'unknownZone' — браузер не знает пояс города. */
-function convert(date: string, time: string, city: City | null): Conversion | 'unknownZone' | null {
-  if (!date || !time || !city) return null;
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const TIME_RE = /^\d{2}:\d{2}$/;
+
+/** Сегодня по часам посетителя: toISOString() дал бы дату по UTC. */
+export function localToday(): string {
+  const d = new Date();
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+/**
+ * null — формат не похож на дату/время или город не выбран; 'unknownZone' —
+ * формат в порядке, но браузер не знает часовой пояс города.
+ */
+export function convert(date: string, time: string, city: City | null): Conversion | 'unknownZone' | null {
+  if (!city || !DATE_RE.test(date) || !TIME_RE.test(time)) return null;
   try {
-    return localToUtc({ date, time }, city.zone);
+    new Intl.DateTimeFormat('en-US', { timeZone: city.zone });
   } catch {
     return 'unknownZone';
   }
+  return localToUtc({ date, time }, city.zone);
 }
-
-const FIELD_CLASS =
-  'ym-disable-keys mt-1 w-full rounded-lg border border-paper-400 bg-white px-3 py-2.5 text-paper-900 focus:outline-none focus:ring-2 focus:ring-brand-800';
 
 /**
  * Форма: дата, время, город. Считает на устройстве — по кнопке, мгновенно.
@@ -47,7 +58,7 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
   // время попало в час перевода стрелок, спросить «до или после».
   const conversion = useMemo(() => convert(date, time, city), [date, time, city]);
   const transition = conversion && conversion !== 'unknownZone' && conversion.kind !== 'ok' ? conversion : null;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localToday();
 
   // Любая правка ввода сбрасывает ответ на вопрос о переводе стрелок и ошибку.
   const edit = <T,>(set: (v: T) => void) => (v: T) => {
@@ -59,8 +70,9 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (!date || !time || !city) return setError(f.missing);
-    if (date > today || date < '1900-01-01') return setError(f.futureDate);
+    if (!DATE_RE.test(date) || date > today || date < '1900-01-01') return setError(f.futureDate);
     if (conversion === 'unknownZone') return setError(f.zoneUnknown);
+    if (!conversion) return setError(f.missing);
     let result;
     try {
       result = calculateChart({ date, time, zone: city.zone, dst: choice ?? undefined });
@@ -74,6 +86,9 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
     reachGoal('hd-calc-submit');
   };
 
+  // У полей даты, времени и города сознательно нет name: уйди форма
+  // GET-запросом до того, как заработает JS, дата рождения попала бы в
+  // адресную строку, а дальше — в пиксель VK, который её сканирует.
   return (
     <form onSubmit={submit} autoComplete="off" noValidate className="space-y-5" data-testid="hd-form">
       <div className="grid gap-4 sm:grid-cols-2">
@@ -87,6 +102,7 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
             min="1900-01-01"
             max={today}
             value={date}
+            aria-required="true"
             onChange={(e) => edit(setDate)(e.target.value)}
             className={FIELD_CLASS}
           />
@@ -100,7 +116,9 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
             type="time"
             value={time}
             aria-describedby="hd-time-hint"
-            onChange={(e) => edit(setTime)(e.target.value)}
+            aria-required="true"
+            // slice: часть браузеров отдаёт HH:MM:SS, а не HH:MM.
+            onChange={(e) => edit(setTime)(e.target.value.slice(0, 5))}
             className={FIELD_CLASS}
           />
           <p id="hd-time-hint" className="mt-1 text-xs text-paper-600">
@@ -113,32 +131,37 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
 
       {city && conversion && conversion !== 'unknownZone' && conversion.kind === 'ok' && (
         <p className="ym-hide-content text-sm text-paper-800" data-testid="hd-zone-line">
-          {fillTemplate(f.zoneLine, { city: city.name, offset: formatOffset(conversion.offsetSeconds) })}
+          {fillTemplate(f.zoneLine, {
+            city: `${city.name} (${cityPlace(city)})`,
+            offset: formatOffset(conversion.offsetSeconds),
+          })}
         </p>
       )}
 
       {transition && (
         <fieldset className="ym-hide-content rounded-xl border border-amber-300 bg-amber-50 p-4" data-testid="hd-dst">
-          <legend className="px-1 text-sm font-semibold text-paper-900">
+          <legend className="float-left w-full px-1 text-sm font-semibold text-paper-900">
             {fillTemplate(transition.kind === 'gap' ? f.dstGap : f.dstAmbiguous, { time })}
           </legend>
-          {(['before', 'after'] as const).map((key) => (
-            <label key={key} className="mt-2 flex items-center gap-2 text-sm text-paper-800">
-              <input
-                type="radio"
-                name="hd-dst"
-                value={key}
-                checked={choice === key}
-                onChange={() => {
-                  setChoice(key);
-                  setError(null);
-                }}
-              />
-              {fillTemplate(key === 'before' ? f.dstBefore : f.dstAfter, {
-                offset: formatOffset(transition[key].offsetSeconds),
-              })}
-            </label>
-          ))}
+          <div className="clear-left pt-1">
+            {(['before', 'after'] as const).map((key) => (
+              <label key={key} className="mt-2 flex items-center gap-2 text-sm text-paper-800">
+                <input
+                  type="radio"
+                  name="hd-dst"
+                  value={key}
+                  checked={choice === key}
+                  onChange={() => {
+                    setChoice(key);
+                    setError(null);
+                  }}
+                />
+                {fillTemplate(key === 'before' ? f.dstBefore : f.dstAfter, {
+                  offset: formatOffset(transition[key].offsetSeconds),
+                })}
+              </label>
+            ))}
+          </div>
         </fieldset>
       )}
 
