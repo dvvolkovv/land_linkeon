@@ -57,4 +57,17 @@ describe('ссылка к Райе', () => {
     const url = new URL(rayaChatUrlWithDraft('я'.repeat(DRAFT_MAX_LENGTH + 50)));
     expect(decodeURIComponent(url.hash.slice('#draft='.length))).toHaveLength(DRAFT_MAX_LENGTH);
   });
+
+  // new URL сам кодирует кириллицу и пробелы во фрагменте, а «%» — нет: без
+  // encodeURIComponent кабинет споткнулся бы на decodeURIComponent.
+  it('знак % доходит до кабинета целым', () => {
+    const url = new URL(rayaChatUrlWithDraft('100% готово'));
+    expect(decodeURIComponent(url.hash.slice('#draft='.length))).toBe('100% готово');
+  });
+
+  it('обрезка не режет символ пополам', () => {
+    const text = 'я'.repeat(DRAFT_MAX_LENGTH - 1) + String.fromCodePoint(0x1f600);
+    const url = new URL(rayaChatUrlWithDraft(text));
+    expect(decodeURIComponent(url.hash.slice('#draft='.length))).toBe('я'.repeat(DRAFT_MAX_LENGTH - 1));
+  });
 });

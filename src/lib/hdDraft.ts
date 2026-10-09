@@ -37,10 +37,20 @@ export function rayaChatHref(): string {
 }
 
 /**
+ * Обрезка по границе символа: срез посреди суррогатной пары (эмодзи, редкий
+ * иероглиф) оставил бы половинку, и encodeURIComponent бросил бы URIError.
+ */
+function cut(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const last = text.charCodeAt(max - 1);
+  return text.slice(0, last >= 0xd800 && last <= 0xdbff ? max - 1 : max);
+}
+
+/**
  * Полная ссылка с черновиком во фрагменте (#draft=…): браузер не отправляет
  * фрагмент на сервер. Строится только в момент клика — в разметке (href)
  * данных рождения нет: её читают Вебвизор и отслеживание ссылок Метрики.
  */
 export function rayaChatUrlWithDraft(message: string): string {
-  return `${rayaChatHref()}#draft=${encodeURIComponent(message.slice(0, DRAFT_MAX_LENGTH))}`;
+  return `${rayaChatHref()}#draft=${encodeURIComponent(cut(message, DRAFT_MAX_LENGTH))}`;
 }

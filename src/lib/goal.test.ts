@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 /**
@@ -53,5 +54,12 @@ describe('цель лендинга', () => {
     const { reachCtaGoal, reachGoal } = await import('./goal');
     expect(() => reachGoal('hd-calc-submit')).not.toThrow();
     expect(() => reachCtaGoal('hd-calc-to-raya')).not.toThrow();
+  });
+
+  // Номер записан дважды — здесь и в index.html; разойдутся — цели уйдут в чужой счётчик.
+  it('номер счётчика — тот же, что в index.html', async () => {
+    const { METRIKA_ID } = await import('./goal');
+    const html = readFileSync(new URL('../../index.html', import.meta.url), 'utf8');
+    expect(html).toContain(`ym(${METRIKA_ID}, 'init'`);
   });
 });
