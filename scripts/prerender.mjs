@@ -448,9 +448,12 @@ console.log('✅ sitemap.xml');
 // каждый посетитель главной качает тексты всех страниц, а сборка, типы и тесты
 // молчат. Ловится только здесь, по готовому dist/.
 //
-// Признак — H1 русских страниц Романа и Райи, отрендеренный тем же
-// renderAssistant, что и сами страницы. Ищется во всём, что браузер грузит до
-// первого кадра: входной <script type="module"> и его modulepreload.
+// Признак — характерная строка, которой положено жить в другом чанке: H1
+// страниц ассистентов (здесь — Роман и Райя, просто пример, не единственные
+// выпущенные), отрендеренный тем же renderAssistant, что и сами страницы; для
+// калькулятора — его H1, начало таблицы ворот и строка из самой
+// astronomy-engine. Ищется во всём, что браузер грузит до первого кадра:
+// входной <script type="module"> и его modulepreload.
 {
   const decodeHtml = (s) =>
     s
@@ -476,13 +479,19 @@ console.log('✅ sitemap.xml');
   const needles = ['roman', 'raya'].map((slug) => {
     const h1 = textOf(renderAssistant(DEFAULT_LANGUAGE, slug).html);
     if (h1.length < 15) throw new Error(`${DEFAULT_LANGUAGE}/assistants/${slug}: H1 «${h1}» слишком короткий для проверки бандла`);
-    return { slug, h1 };
+    return { slug, needle: h1 };
   });
-  // Калькулятор: H1 — из чанка текстов, начало таблицы ворот (литерал массива
-  // GATE_ORDER, минификатор пишет его без пробелов) — из чанка расчёта.
+  // Калькулятор: H1 — из чанка текстов; начало таблицы ворот (литерал массива
+  // GATE_ORDER, минификатор пишет его без пробелов) и строка самой
+  // astronomy-engine (её точно не перепутать с чужим источником текста) —
+  // из чанка расчёта.
   if (HD_CALC_CODES.includes(DEFAULT_LANGUAGE)) {
-    needles.push({ slug: 'калькулятор (H1)', h1: textOf(renderHdCalculator(DEFAULT_LANGUAGE).html) });
-    needles.push({ slug: 'калькулятор (таблица ворот)', h1: '41,19,13,49,30,55,37,63,22,36' });
+    needles.push({ slug: 'калькулятор (H1)', needle: textOf(renderHdCalculator(DEFAULT_LANGUAGE).html) });
+    needles.push({ slug: 'калькулятор (таблица ворот)', needle: '41,19,13,49,30,55,37,63,22,36' });
+    needles.push({
+      slug: 'калькулятор (astronomy-engine)',
+      needle: 'Argument must be a Date object, an AstroTime object, or a numeric UTC Julian date.',
+    });
   }
 
   const entryFiles = [
@@ -494,10 +503,10 @@ console.log('✅ sitemap.xml');
   }
   for (const file of entryFiles) {
     const js = normalizeJs(readFileSync(join(dist, file), 'utf8'));
-    for (const { slug, h1 } of needles) {
-      if (js.includes(h1)) {
+    for (const { slug, needle } of needles) {
+      if (js.includes(needle)) {
         throw new Error(
-          `во входной бандл попало то, что должно жить в своём чанке (в ${file} нашлось «${h1}» — ${slug}). ` +
+          `во входной бандл попало то, что должно жить в своём чанке (в ${file} нашлось «${needle}» — ${slug}). ` +
             'Тексты ассистентов грузятся через src/content/assistants/load.ts, калькулятор — ' +
             'динамическим импортом HumanDesignPage в src/main.tsx; статический импорт их в клиентский код недопустим.',
         );
@@ -505,17 +514,17 @@ console.log('✅ sitemap.xml');
     }
   }
 
-  // Проверка сама себя: H1 обязан найтись в каком-то другом чанке. Не нашёлся
-  // нигде — значит, поиск слеп (иначе записанная строка, другой источник
-  // текстов), и «во входном бандле нет» ничего не доказывает.
+  // Проверка сама себя: игла обязана найтись в каком-то другом чанке. Не
+  // нашлась нигде — значит, поиск слеп (иначе записанная строка, другой
+  // источник текста), и «во входном бандле нет» ничего не доказывает.
   const assets = join(dist, 'assets');
   const chunks = readdirSync(assets)
     .filter((f) => f.endsWith('.js') && !entryFiles.includes(`assets/${f}`))
     .map((f) => normalizeJs(readFileSync(join(assets, f), 'utf8')));
-  for (const { slug, h1 } of needles) {
-    if (!chunks.some((js) => js.includes(h1))) {
+  for (const { slug, needle } of needles) {
+    if (!chunks.some((js) => js.includes(needle))) {
       throw new Error(
-        `пререндер: H1 страницы ${slug} («${h1}») не нашёлся ни в одном чанке dist/assets — ` +
+        `пререндер: игла «${slug}» (${needle}) не нашлась ни в одном чанке dist/assets — ` +
           'проверка входного бандла ослепла, её нужно поправить вместе со сборкой.',
       );
     }

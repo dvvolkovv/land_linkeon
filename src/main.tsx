@@ -94,6 +94,9 @@ if (assistantRoute) {
   // заменил бы пререндер пустым кадром.
   Promise.all([import('./pages/HumanDesignPage'), loadHdTexts(hdRoute.language)])
     .then(([{ default: HumanDesignPage }, texts]) => {
+      // Не бывает: язык попадает в HD_CALC_CODES, только если есть его модуль
+      // текстов (scripts/hd-calc-languages.js), а loadHdTexts берёт модули из
+      // того же каталога texts/.
       if (!texts) return;
       root.render(
         <StrictMode>
