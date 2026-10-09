@@ -1,1 +1,1 @@
-export declare function hdCalcCodes(): string[];
+export declare function hdCalcCodes(dir?: string): string[];
