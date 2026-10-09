@@ -63,9 +63,10 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
     reachGoal('hd-calc-submit');
   };
 
-  // У полей даты, времени и города сознательно нет name: уйди форма
-  // GET-запросом до того, как заработает JS, дата рождения попала бы в
-  // адресную строку, а дальше — в пиксель VK, который её сканирует.
+  // У полей даты, времени и города сознательно нет name: без него форма,
+  // уйдя GET-запросом до того, как заработает JS, не положит дату рождения
+  // в адрес страницы. С адресом она ушла бы и в Метрику, и в пиксель VK —
+  // сам пиксель формы не сканирует, читает только name и type полей.
   return (
     <form onSubmit={submit} autoComplete="off" noValidate className="space-y-5" data-testid="hd-form">
       <div className="grid gap-4 sm:grid-cols-2">
