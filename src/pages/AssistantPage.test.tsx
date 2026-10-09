@@ -47,6 +47,12 @@ describe('страница ассистента', () => {
     expect(html).toContain('data-testid="assistant-faq"');
   });
 
+  // FAQ Райи противопоставляет её калькулятору — там ссылка на наш.
+  it('FAQ Райи ведёт на калькулятор Human Design', () => {
+    const faq = pick(html, /<section[^>]*data-testid="assistant-faq"[\s\S]*?<\/section>/);
+    expect(faq).toContain('href="/calculators/human-design/"');
+  });
+
   it('«Работает в паре с» ведёт ровно на страницы соседей', () => {
     const related = pick(html, /<section[^>]*aria-labelledby="related-heading"[\s\S]*?<\/section>/);
     expect(linkedSlugs(related)).toEqual([...entry.related].sort());
