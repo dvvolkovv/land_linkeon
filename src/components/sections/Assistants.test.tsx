@@ -48,4 +48,24 @@ describe('карточки ассистентов на главной', () => {
     expect(html).toContain('href="/assistants/"');
     expect(html).toContain('data-cta="assistants-link"');
   });
+
+  // Решение владельца: рядом со ссылкой на каталог — ссылка на калькулятор
+  // Human Design, но только там, где он выпущен (сейчас — только ru): на
+  // невыпущенном языке ссылка вела бы в SPA-фолбэк.
+  it('ссылка на калькулятор — на ru есть, на en её нет', () => {
+    const htmlRu = renderToStaticMarkup(
+      <I18nextProvider i18n={createServerI18n('ru')}>
+        <Assistants />
+      </I18nextProvider>,
+    );
+    expect(htmlRu).toContain('href="/calculators/human-design/"');
+    expect(htmlRu).toContain('Рассчитать бодиграф бесплатно');
+
+    const htmlEn = renderToStaticMarkup(
+      <I18nextProvider i18n={createServerI18n('en')}>
+        <Assistants />
+      </I18nextProvider>,
+    );
+    expect(htmlEn).not.toContain('/calculators/human-design/');
+  });
 });

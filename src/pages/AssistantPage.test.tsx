@@ -97,6 +97,34 @@ describe('страница ассистента', () => {
   it('у Райи в примере нет картинки', () => {
     expect(html).not.toContain('/examples/');
   });
+
+  // Решение владельца: у Райи калькулятор Human Design — вторая кнопка в
+  // шапке, рядом с главной. Это переход внутри сайта, а не в приложение,
+  // поэтому без data-cta. Берём блок до situations-heading: тот же адрес и
+  // текст есть ещё и в FAQ (там — проверка отдельным тестом), и это не он.
+  it('вторая кнопка наверху — калькулятор, без data-cta', () => {
+    const situationsAt = html.indexOf('id="situations-heading"');
+    expect(situationsAt).toBeGreaterThan(-1);
+    const hero = html.slice(0, situationsAt);
+    const tag = hero.match(/<a[^>]*href="\/calculators\/human-design\/"[^>]*>/);
+    expect(tag, 'нет ссылки на калькулятор в верхнем блоке страницы').not.toBeNull();
+    expect(tag![0]).not.toContain('data-cta');
+    expect(hero).toContain('Рассчитать бодиграф бесплатно');
+  });
+});
+
+describe('страница ассистента — без второй кнопки наверху (Роман)', () => {
+  const html = render(<AssistantPage entry={assistantBySlug('roman')!} pack={PACKS.ru} language="ru" />);
+
+  // У остальных ассистентов heroLink не задан — второй кнопки в шапке нет.
+  // Подвал на ru ссылается на калькулятор у ЛЮБОГО ассистента (пункт меню
+  // продукта), поэтому проверяем только верхний блок, а не всю страницу.
+  it('у Романа второй кнопки наверху нет', () => {
+    const situationsAt = html.indexOf('id="situations-heading"');
+    expect(situationsAt).toBeGreaterThan(-1);
+    const hero = html.slice(0, situationsAt);
+    expect(hero).not.toContain('/calculators/human-design/');
+  });
 });
 
 describe('страница ассистента — картинка в примере (Кира)', () => {
