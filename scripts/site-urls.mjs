@@ -25,6 +25,10 @@ export const ASSISTANTS_SEGMENT = 'assistants';
 export const CALCULATORS_SEGMENT = 'calculators';
 export const HD_CALC_SLUG = 'human-design';
 
+/** Тесты. Те же литералы — в src/lib/valuesRoute.ts. */
+export const TESTS_SEGMENT = 'tests';
+export const VALUES_TEST_SLUG = 'values';
+
 /** Языковой корень. У канонического языка он же корень сайта. */
 export const urlFor = (code, defaultLanguage) =>
   code === defaultLanguage ? `${SITE}/` : `${SITE}/${code}/`;
@@ -61,6 +65,12 @@ export const hdCalcUrlFor = (code, defaultLanguage) =>
     ? `${SITE}/${CALCULATORS_SEGMENT}/${HD_CALC_SLUG}/`
     : `${SITE}/${code}/${CALCULATORS_SEGMENT}/${HD_CALC_SLUG}/`;
 
+/** Тест ценностей — со слэшем, как калькулятор. */
+export const valuesTestUrlFor = (code, defaultLanguage) =>
+  code === defaultLanguage
+    ? `${SITE}/${TESTS_SEGMENT}/${VALUES_TEST_SLUG}/`
+    : `${SITE}/${code}/${TESTS_SEGMENT}/${VALUES_TEST_SLUG}/`;
+
 /**
  * Полный список адресов в sitemap — в том же порядке, в каком его пишет
  * пререндер. Источник ожиданий и для генерации, и для проверки.
@@ -68,12 +78,14 @@ export const hdCalcUrlFor = (code, defaultLanguage) =>
  * `assistants.codes` — языки, на которых выпущены страницы ассистентов
  * (scripts/assistant-page-languages.js), `assistants.slugs` — реестр.
  * `hdCalc.codes` — языки калькулятора Human Design (scripts/hd-calc-languages.js).
+ * `valuesTest.codes` — языки теста ценностей (scripts/values-test-languages.js).
  */
 export function sitemapUrls(
   publishedCodes,
   defaultLanguage,
   assistants = { codes: [], slugs: [] },
   hdCalc = { codes: [] },
+  valuesTest = { codes: [] },
 ) {
   return [
     ...publishedCodes.map((c) => urlFor(c, defaultLanguage)),
@@ -86,5 +98,6 @@ export function sitemapUrls(
       assistants.slugs.map((slug) => assistantUrlFor(c, slug, defaultLanguage)),
     ),
     ...hdCalc.codes.map((c) => hdCalcUrlFor(c, defaultLanguage)),
+    ...valuesTest.codes.map((c) => valuesTestUrlFor(c, defaultLanguage)),
   ];
 }
