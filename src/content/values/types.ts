@@ -67,15 +67,27 @@ export interface ValuesTexts {
     ctaNote: string;
     allHeading: string;
     restart: string;
+    /** Под карточкой третьей ведущей или наименее важной при полной ничьей: «Вровень с ней: {names}». */
+    tiedWith: string;
+    /** Заголовок, когда выделилась одна ценность: «Ведущая ценность». */
+    topHeadingOne: string;
+    /** Вместо наименее важной, когда остальные набрали поровну (restEqual). */
+    restEqual: string;
   };
   modelSection: { heading: string; lead: string };
   faqHeading: string;
   /** 4–6 вопросов — их же видит поисковик в FAQPage. */
   faq: { q: string; a: string }[];
   disclaimer: string;
-  /** Союз перед последней ведущей ценностью в сообщении: «и». */
+  /** Союз перед последним названием в перечне сообщения: «и». */
   and: string;
-  /** Первое сообщение Оле: {top} {bottom} {axes}. */
+  /** В сообщении Оле после ценности при полной ничьей: «(вровень с ней — {names})». */
+  tiedInMessage: string;
+  /** Часть сообщения про наименее важную: «на последнем — {bottom}». */
+  bottomInMessage: string;
+  /** Та же часть, когда остальные набрали поровну: «остальные — поровну». */
+  restEqualInMessage: string;
+  /** Первое сообщение Оле: {top} {rest} {axes}; {rest} — bottomInMessage или restEqualInMessage. */
   message: string;
   /** Сообщение, когда приоритеты не выделились. */
   messageFlat: string;
