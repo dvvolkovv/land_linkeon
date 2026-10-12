@@ -27,7 +27,9 @@ describe('расчёт теста ценностей', () => {
     expect(r.scores.power).toBeCloseTo(-2.7, 10);
     expect(r.scores.security).toBeCloseTo(-0.7, 10);
     expect(r.top).toEqual(['selfDirection', 'stimulation', 'benevolence']);
+    expect(r.topTies).toEqual([]);
     expect(r.bottom).toBe('power');
+    expect(r.bottomTies).toEqual([]);
     expect(r.flat).toBe(false);
     // открытость (6+6)/2 против сохранения (3+3+3)/3; забота (6+3)/2 против самоутверждения (3+1)/2
     expect(r.axes.change).toEqual({ lean: 'left', diff: 3 });
@@ -67,10 +69,30 @@ describe('расчёт теста ценностей', () => {
     expect(r.top).toEqual(['universalism', 'selfDirection', 'stimulation']);
   });
 
+  it('ничья, решённая ответами, — не помечается', () => {
+    const r = scoreAnswers(
+      withItems(by({ selfDirection: 5, stimulation: 5 }), { universalism1: 6, universalism2: 5, universalism3: 4 }),
+    );
+    // у остальных ответы {3,3,3}, а не {5,5,5}, как у «стимуляции» (третьей ведущей)
+    expect(r.topTies).toEqual([]);
+
+    const bottomR = scoreAnswers(withItems(by({ power: 2 }, 4), { achievement1: 1, achievement2: 2, achievement3: 3 }));
+    // у власти ответы {2,2,2}, а не {1,2,3}, как у наименее важного «достижения»
+    expect(bottomR.bottomTies).toEqual([]);
+  });
+
   it('ничья внизу — ниже та, где сильнее «совсем не похож»', () => {
     const r = scoreAnswers(withItems(by({ power: 2 }, 4), { achievement1: 1, achievement2: 2, achievement3: 3 }));
     expect(r.bottom).toBe('achievement');
     expect(r.ranking[r.ranking.length - 1]).toBe('achievement');
+  });
+
+  it('полная ничья на срезе тройки и внизу — помечена', () => {
+    const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 }));
+    expect(r.top).toEqual(['selfDirection', 'stimulation', 'benevolence']);
+    expect(r.topTies).toEqual(['universalism']);
+    expect(r.bottom).toBe('tradition');
+    expect(r.bottomTies).toEqual(['hedonism', 'achievement', 'power', 'security', 'conformity']);
   });
 
   it('ведущая не бывает наименее важной', () => {
@@ -86,7 +108,9 @@ describe('расчёт теста ценностей', () => {
     const r = scoreAnswers(by({}, 4));
     expect(r.flat).toBe(true);
     expect(r.top).toEqual([]);
+    expect(r.topTies).toEqual([]);
     expect(r.bottom).toBeNull();
+    expect(r.bottomTies).toEqual([]);
     expect(r.axes.change.lean).toBe('balance');
     expect(r.axes.focus.lean).toBe('balance');
     expect(r.ranking).toEqual([...VALUE_KEYS]);

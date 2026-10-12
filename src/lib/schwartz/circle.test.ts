@@ -82,9 +82,24 @@ describe('круг ценностей', () => {
     expect(sectorPaths(flatSvg).some((p) => p.includes('stroke-dasharray'))).toBe(false);
   });
 
-  it('один путь обода на группу, не на ценность', () => {
+  it('один путь обода на группу, не на ценность, и дуга — на весь её слот', () => {
     const svg = renderValuesCircleSvg(result, LABELS);
-    expect([...svg.matchAll(/stroke-width="6"/g)]).toHaveLength(4);
+    const rims = [
+      ...svg.matchAll(
+        /<path d="M ([\d.-]+) ([\d.-]+) A ([\d.-]+) [\d.-]+ 0 0 1 ([\d.-]+) ([\d.-]+)" fill="none" stroke="[^"]+" stroke-width="6"\/>/g,
+      ),
+    ];
+    expect(rims).toHaveLength(4);
+    // порядок дуг — порядок HIGHER_ORDER_KEYS: openness, selfEnhancement, conservation, selfTranscendence;
+    // у сохранения три ценности — слот 108°, дуга короче на зазоры по краям — 107°, у остальных 71°.
+    const expectedSpan = [71, 71, 107, 71];
+    rims.forEach((m, i) => {
+      const [x0, y0, , x1, y1] = m.slice(1).map(Number);
+      const deg = (x: number, y: number) => (Math.atan2(y - CIRCLE.cy, x - CIRCLE.cx) * 180) / Math.PI;
+      let span = deg(x1, y1) - deg(x0, y0);
+      if (span < 0) span += 360;
+      expect(Math.abs(span - expectedSpan[i]), `дуга №${i}`).toBeLessThanOrEqual(0.1);
+    });
   });
 
   it('геометрия секторов: флаги дуги 0 0 1, радиус у обеих точек, угол раствора 35°', () => {
