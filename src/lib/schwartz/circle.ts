@@ -1,12 +1,15 @@
 import type { ValuesResult } from './score';
-import { VALUE_GROUP, VALUE_KEYS, type HigherOrderKey, type ValueKey } from './values';
+import { HIGHER_ORDER_KEYS, VALUE_GROUP, VALUE_KEYS, valuesOf, type HigherOrderKey, type ValueKey } from './values';
 
 /**
- * Геометрия рисунка. Ширина с запасом под подписи слева и справа: самая
- * длинная («Самостоятельность») стоит справа вверху; проверка, что русские
- * подписи помещаются, — в src/content/values/texts.test.ts.
+ * Геометрия рисунка. Высота — под сам круг и подписи (labelRadius 133 от
+ * центра на высоте 150): рисунок укладывается в y от 17 до 283, без пустых
+ * полос по бокам на телефоне (420 было с большим запасом). Ширина с запасом
+ * под подписи слева и справа: самая длинная («Самостоятельность») стоит
+ * справа вверху; проверка, что русские подписи помещаются, — в
+ * src/content/values/texts.test.ts.
  */
-export const CIRCLE = { width: 520, height: 420, cx: 260, cy: 210, radius: 115, labelRadius: 133, fontSize: 16 } as const;
+export const CIRCLE = { width: 520, height: 300, cx: 260, cy: 150, radius: 115, labelRadius: 133, fontSize: 16 } as const;
 
 /** Балл зажимается в ±CIRCLE_CLAMP: шкала постоянная, ровный профиль выглядит ровным. */
 export const CIRCLE_CLAMP = 2.5;
@@ -54,8 +57,13 @@ const escapeXml = (s: string) =>
  * Круг ценностей строкой SVG — для <img src="data:…">: Вебвизор пишет
  * атрибуты разметки даже внутри ym-hide-content, а src картинки маскирует
  * целиком. Длина сектора — балл ценности на постоянной шкале; пунктир —
- * личное среднее. Ведущие — ярче и жирной подписью, наименее важная —
- * серым. По краю — дуги групп высшего порядка (у гедонизма дуги нет).
+ * личное среднее. Ведущие — ярче и жирной подписью; наименее важная —
+ * бледная и со своей штриховой обводкой (иначе не отличить от гедонизма и
+ * обычных секторов с нулевым баллом). По краю — одна дуга на группу высшего
+ * порядка целиком (от начала её первого сектора до конца последнего, а не
+ * по дуге на каждую входящую в неё ценность); у гедонизма дуги нет. Самая
+ * длинная группа (сохранение, три ценности) занимает 108° — меньше 180°,
+ * поэтому у одной такой дуги флаг large-arc 0 остаётся верным.
  */
 export function renderValuesCircleSvg(result: ValuesResult, labels: Record<ValueKey, string>): string {
   const { cx, cy, radius, width, height, fontSize } = CIRCLE;
@@ -63,22 +71,29 @@ export function renderValuesCircleSvg(result: ValuesResult, labels: Record<Value
   const parts = [
     `<circle cx="${cx}" cy="${cy}" r="${r2(sectorRadius(0))}" fill="none" stroke="#d6d3d1" stroke-dasharray="4 4"/>`,
   ];
+  const rim = radius + 7;
+  for (const group of HIGHER_ORDER_KEYS) {
+    const members = valuesOf(group);
+    const first = VALUE_KEYS.indexOf(members[0]);
+    const last = VALUE_KEYS.indexOf(members[members.length - 1]);
+    const a0 = startAngle(first) + GAP / 2;
+    const a1 = startAngle(last + 1) - GAP / 2;
+    parts.push(
+      `<path d="M ${point(rim, a0)} A ${rim} ${rim} 0 0 1 ${point(rim, a1)}" fill="none" stroke="${GROUP_COLORS[group]}" stroke-width="6"/>`,
+    );
+  }
   VALUE_KEYS.forEach((key, i) => {
     const a0 = startAngle(i) + GAP / 2;
     const a1 = startAngle(i + 1) - GAP / 2;
     const r = sectorRadius(result.scores[key]);
     const group = VALUE_GROUP[key];
-    const color = key === result.bottom ? MUTED : group ? GROUP_COLORS[group] : NEUTRAL;
-    const opacity = top.has(key) ? 0.9 : 0.45;
+    const isBottom = key === result.bottom;
+    const color = isBottom ? MUTED : group ? GROUP_COLORS[group] : NEUTRAL;
+    const opacity = isBottom ? 0.25 : top.has(key) ? 0.9 : 0.45;
+    const outline = isBottom ? ` stroke="${NEUTRAL}" stroke-dasharray="3 3"` : '';
     parts.push(
-      `<path d="M ${cx} ${cy} L ${point(r, a0)} A ${r2(r)} ${r2(r)} 0 0 1 ${point(r, a1)} Z" fill="${color}" fill-opacity="${opacity}"/>`,
+      `<path d="M ${cx} ${cy} L ${point(r, a0)} A ${r2(r)} ${r2(r)} 0 0 1 ${point(r, a1)} Z" fill="${color}" fill-opacity="${opacity}"${outline}/>`,
     );
-    if (group) {
-      const rim = radius + 7;
-      parts.push(
-        `<path d="M ${point(rim, a0)} A ${rim} ${rim} 0 0 1 ${point(rim, a1)}" fill="none" stroke="${GROUP_COLORS[group]}" stroke-width="6"/>`,
-      );
-    }
     const { x, y, anchor } = labelLayout(i);
     const strong = top.has(key);
     parts.push(
