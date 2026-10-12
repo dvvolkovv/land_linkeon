@@ -3,7 +3,8 @@ import { DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 import { valuesTestCodes } from '../scripts/values-test-languages.js';
 import { valuesTestUrlFor } from '../scripts/site-urls.mjs';
 import ru from '../src/content/values/texts/ru';
-import { ITEMS, type ValueKey } from '../src/lib/schwartz';
+import { ITEMS, VALUE_KEYS, type ValueKey } from '../src/lib/schwartz';
+import { fillTemplate } from '../src/lib/chatDraft';
 
 const PATH = '/tests/values/';
 const count = (html: string, re: RegExp) => (html.match(re) ?? []).length;
@@ -22,6 +23,8 @@ test.describe('тест ценностей в сыром HTML', () => {
     expect(count(html, /rel="canonical"/g)).toBe(1);
     expect(html).toContain(`<link rel="canonical" href="${valuesTestUrlFor('ru', DEFAULT_LANGUAGE)}"`);
     expect(count(html, /hreflang="/g), 'hreflang: языки теста + x-default').toBe(codes.length + 1);
+    expect(html).toContain('hreflang="ru"');
+    expect(html).toContain('hreflang="x-default"');
     expect(html).toContain('"@type":"FAQPage"');
     expect(html).toContain('"@type":"BreadcrumbList"');
     expect(html, 'описания ценностей — в пререндере').toContain(ru.values.universalism.text);
@@ -74,6 +77,8 @@ async function clientRendered(page: Page) {
 interface Captured {
   ym: unknown[][];
   events: string[];
+  /** Пути всех не-GET запросов (любой метод, любое происхождение) — чтобы поймать лишний канал. */
+  posts: string[];
 }
 
 /**
@@ -82,9 +87,12 @@ interface Captured {
  * страница: нужен лишь адрес, на который ушёл переход.
  */
 async function stubNetwork(page: Page, baseURL: string): Promise<Captured> {
-  const captured: Captured = { ym: [], events: [] };
+  const captured: Captured = { ym: [], events: [], posts: [] };
   const own = new URL(baseURL).origin;
   await page.exposeFunction('__captureYm', (args: unknown[]) => void captured.ym.push(args));
+  page.on('request', (req) => {
+    if (req.method() !== 'GET') captured.posts.push(new URL(req.url()).pathname);
+  });
   await page.addInitScript(() => {
     const w = window as unknown as { ym: (...a: unknown[]) => void; __captureYm: (a: unknown[]) => void };
     w.ym = (...args: unknown[]) => w.__captureYm(args);
@@ -113,10 +121,13 @@ async function stubNetwork(page: Page, baseURL: string): Promise<Captured> {
 const answerButton = (page: Page, value: number) =>
   page.getByTestId('values-question').getByRole('button', { name: ru.question.scale[value - 1], exact: true });
 
+/** Подпись прогресса из шаблона текстов, а не захардкоженная строка. */
+const progressLabel = (n: number): string => fillTemplate(ru.question.progress, { n: String(n), total: String(ITEMS.length) });
+
 /** Ответить на утверждения с from-го по to-е (с нуля), дожидаясь каждого. */
 async function answerRange(page: Page, from: number, to: number, pick: (value: ValueKey, i: number) => number) {
   for (let i = from; i < to; i += 1) {
-    await expect(page.getByTestId('values-progress-label')).toHaveText(`${i + 1} из ${ITEMS.length}`);
+    await expect(page.getByTestId('values-progress-label')).toHaveText(progressLabel(i + 1));
     await answerButton(page, pick(ITEMS[i].value, i)).click();
   }
 }
@@ -138,7 +149,7 @@ test.describe('тест в браузере', () => {
   test.describe.configure({ timeout: 60_000 });
 
   test('на чужом HTML тест не запускается: /ru/tests/values/ уводит на канонический адрес', async ({ page, baseURL }) => {
-    await stubNetwork(page, baseURL!);
+    const captured = await stubNetwork(page, baseURL!);
     // dist/ru/tests/values/ нет — сервер отдаёт главную с Вебвизором; тест на ней запускаться не должен.
     await page.goto('/ru/tests/values/');
     await page.waitForURL((url) => url.pathname === PATH);
@@ -146,6 +157,12 @@ test.describe('тест в браузере', () => {
     await expect(page.getByTestId('values-start')).toBeVisible();
     const html = await page.content();
     expect(html).toContain('webvisor:false');
+
+    // На каноническом адресе страница переинициализирует Метрику своим снипетом —
+    // последний вызов init должен нести выключенные Вебвизор и карту кликов.
+    const last = captured.ym[captured.ym.length - 1];
+    expect(last[1]).toBe('init');
+    expect(last[2]).toMatchObject({ webvisor: false, clickmap: false });
   });
 
   test('прохождение: ведущие ценности, ссылка к Оле с черновиком, в аналитику — только имена целей', async ({ page, baseURL }) => {
@@ -168,9 +185,17 @@ test.describe('тест в браузере', () => {
     await expect(page.getByTestId('values-circle')).toHaveAttribute('src', /^data:image\/svg\+xml/);
     await expect(page.getByTestId('values-circle')).toHaveAttribute('alt', ru.result.circleAlt);
 
+    // Прохождение не меняет адрес лендинга: без #draft и без лишних параметров —
+    // черновик собирается только в момент клика, не раньше.
+    const landingUrl = new URL(page.url());
+    expect(landingUrl.pathname).toBe(PATH);
+    expect(landingUrl.hash).toBe('');
+    expect(landingUrl.search).toBe('');
+
     const cta = page.locator('[data-cta="values-test-to-olia"]');
     const href = (await cta.getAttribute('href')) ?? '';
     expect(href, 'в href не должно быть черновика').not.toContain('#');
+    expect(href, 'в href не должно быть черновика').not.toContain('draft');
     expect(new URL(href).searchParams.get('assistant')).toBe('2');
 
     await cta.click();
@@ -180,16 +205,27 @@ test.describe('тест в браузере', () => {
     expect(url.searchParams.get('utm_content')).toBe('values-test');
     expect(url.hash.startsWith('#draft=')).toBe(true);
     const draft = decodeURIComponent(url.hash.slice('#draft='.length));
-    for (const k of ['selfDirection', 'stimulation', 'benevolence', 'power'] as const) {
-      expect(draft).toContain(ru.values[k].inMessage);
-    }
-    expect(draft).toContain(ru.axesInMessage.change.left);
+    // Точный черновик для этой персоны, а не фрагменты через toContain —
+    // собран из тех же текстов ru.ts, что и valuesDraft.ts.
+    expect(draft).toBe(
+      fillTemplate(ru.message, {
+        top: `${ru.values.selfDirection.inMessage}, ${ru.values.stimulation.inMessage} ${ru.and} ${ru.values.benevolence.inMessage}`,
+        rest: fillTemplate(ru.bottomInMessage, { bottom: ru.values.power.inMessage }),
+        axes: `${ru.axesInMessage.change.left}; ${ru.axesInMessage.focus.left}`,
+      }),
+    );
 
+    // Форма каждого не-init вызова Метрики: только имя цели, никаких данных со страницы.
+    for (const call of captured.ym) {
+      if (call[1] === 'init') continue;
+      expect(call).toEqual([expect.any(Number), 'reachGoal', expect.any(String)]);
+    }
     const goals = goalsOf(captured);
-    expect(goals).toEqual(expect.arrayContaining(['values-test-start', 'values-test-complete', 'values-test-to-olia']));
-    expect(goals.filter((g) => g === 'values-test-complete')).toHaveLength(1);
+    expect(goals).toEqual(['values-test-start', 'values-test-complete', 'values-test-to-olia']);
     const sent = JSON.stringify(captured.ym) + captured.events.join('\n');
-    for (const k of ['selfDirection', 'power'] as const) {
+    for (const k of VALUE_KEYS) {
+      expect(sent, `ключ «${k}» ушёл в аналитику`).not.toContain(`"${k}"`);
+      expect(sent, `«${ru.values[k].name}» ушло в аналитику`).not.toContain(ru.values[k].name);
       expect(sent, `«${ru.values[k].inMessage}» ушло в аналитику`).not.toContain(ru.values[k].inMessage);
     }
     // Канал событий жив: клик к Оле дошёл как landing_cta_click — иначе проверка
@@ -197,22 +233,24 @@ test.describe('тест в браузере', () => {
     expect(captured.events.some((e) => e.includes('landing_cta_click') && e.includes('values-test-to-olia'))).toBe(true);
     expect(captured.events.join('\n')).not.toContain('values-test-start');
     expect(captured.events.join('\n')).not.toContain('values-test-complete');
+    // Единственный не-GET адрес за весь проход — канал событий; лишних путей нет.
+    expect([...new Set(captured.posts)]).toEqual(['/webhook/events/track']);
   });
 
   test('«Назад» показывает прежний ответ; перезагрузка — «Продолжить» с того же места', async ({ page, baseURL }) => {
     await stubNetwork(page, baseURL!);
     await begin(page);
     await answerRange(page, 0, 5, (_, i) => 6 - i);
-    await expect(page.getByTestId('values-progress-label')).toHaveText(`6 из ${ITEMS.length}`);
+    await expect(page.getByTestId('values-progress-label')).toHaveText(progressLabel(6));
     await page.getByRole('button', { name: ru.question.back }).click();
-    await expect(page.getByTestId('values-progress-label')).toHaveText(`5 из ${ITEMS.length}`);
+    await expect(page.getByTestId('values-progress-label')).toHaveText(progressLabel(5));
     await expect(answerButton(page, 2)).toHaveAttribute('aria-pressed', 'true');
 
     await page.reload();
     await clientRendered(page);
-    const resume = ru.start.resume.replace('{done}', '5').replace('{total}', String(ITEMS.length));
+    const resume = fillTemplate(ru.start.resume, { done: '5', total: String(ITEMS.length) });
     await page.getByRole('button', { name: resume }).click();
-    await expect(page.getByTestId('values-progress-label')).toHaveText(`5 из ${ITEMS.length}`);
+    await expect(page.getByTestId('values-progress-label')).toHaveText(progressLabel(5));
     await expect(answerButton(page, 2)).toHaveAttribute('aria-pressed', 'true');
   });
 
@@ -225,6 +263,21 @@ test.describe('тест в браузере', () => {
     await page.locator('[data-cta="values-test-to-olia"]').click();
     await page.waitForURL(/^https:\/\/my\.linkeon\.io\/chat/);
     expect(decodeURIComponent(new URL(page.url()).hash.slice('#draft='.length))).toBe(ru.messageFlat);
+  });
+
+  test('остальные ценности набрали поровну — ведущих без наименее важной, своё сообщение Оле', async ({ page, baseURL }) => {
+    await stubNetwork(page, baseURL!);
+    await begin(page);
+    const restEqual: Partial<Record<ValueKey, number>> = { selfDirection: 5, stimulation: 5 };
+    await answerRange(page, 0, ITEMS.length, (v) => restEqual[v] ?? 4);
+    await expect(page.getByTestId('values-top').locator('li')).toHaveCount(2);
+    await expect(page.getByRole('heading', { name: ru.result.topHeading, exact: true })).toBeVisible();
+    await expect(page.getByTestId('values-rest-equal')).toHaveText(ru.result.restEqual);
+    await expect(page.getByTestId('values-bottom')).toHaveCount(0);
+    await page.locator('[data-cta="values-test-to-olia"]').click();
+    await page.waitForURL(/^https:\/\/my\.linkeon\.io\/chat/);
+    const draft = decodeURIComponent(new URL(page.url()).hash.slice('#draft='.length));
+    expect(draft).toContain(ru.restEqualInMessage);
   });
 
   test('полная ничья — помечена под карточками и в сообщении Оле', async ({ page, baseURL }) => {
@@ -254,7 +307,10 @@ test.describe('тест в браузере', () => {
     expect(goalsOf(captured).filter((g) => g === 'values-test-complete')).toHaveLength(1);
 
     await page.getByRole('button', { name: ru.result.restart }).click();
-    await expect(page.getByTestId('values-progress-label')).toHaveText(`1 из ${ITEMS.length}`);
+    await expect(page.getByTestId('values-progress-label')).toHaveText(progressLabel(1));
     expect(goalsOf(captured).filter((g) => g === 'values-test-start')).toHaveLength(2);
+    // «Пройти заново» не трогает счётчик завершений — цель поднята из старого
+    // прогресса при перезагрузке, новый проход ещё не окончен.
+    expect(goalsOf(captured).filter((g) => g === 'values-test-complete')).toHaveLength(1);
   });
 });
