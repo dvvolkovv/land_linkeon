@@ -11,6 +11,8 @@ import { ASSISTANTS } from '../../content/assistants/roster';
 import { assistantPath, assistantsCatalogPath } from '../../lib/assistantRoute';
 import { hasHdCalculator } from '../../content/hd/availability';
 import { hdCalcPath } from '../../lib/hdRoute';
+import { hasValuesTest } from '../../content/values/availability';
+import { valuesTestPath } from '../../lib/valuesRoute';
 
 /**
  * ИСТОЧНИК ПРАВДЫ ДЛЯ ИМЁН — таблица `agent_translations` в базе приложения
@@ -114,6 +116,11 @@ export default function Assistants() {
           {hasHdCalculator(i18n.language) && (
             <a href={hdCalcPath(i18n.language)} className="inline-flex items-center py-2 min-h-11 text-paper-800 hover:text-paper-900 font-semibold text-sm underline underline-offset-4">
               {t('assistants.hdCalc')}
+            </a>
+          )}
+          {hasValuesTest(i18n.language) && (
+            <a href={valuesTestPath(i18n.language)} className="inline-flex items-center py-2 min-h-11 text-paper-800 hover:text-paper-900 font-semibold text-sm underline underline-offset-4">
+              {t('assistants.valuesTest')}
             </a>
           )}
         </div>
