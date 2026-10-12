@@ -103,6 +103,7 @@
       "networking": "人脉拓展",
       "sites": "网站和机器人",
       "hdCalc": "人类图计算",
+      "valuesTest": "价值观测试",
       "pricing": "价格",
       "android_app": "Android 应用"
     },
@@ -219,7 +220,8 @@
       }
     ],
     "cta": "认识所有人",
-    "hdCalc": "免费计算人类图"
+    "hdCalc": "免费计算人类图",
+    "valuesTest": "免费进行价值观测试"
   },
   "profile": {
     "eyebrow": "统一档案",

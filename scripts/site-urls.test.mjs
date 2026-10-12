@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assistantUrlFor, assistantsCatalogUrlFor, hdCalcUrlFor, sitemapUrls } from './site-urls.mjs';
+import { assistantUrlFor, assistantsCatalogUrlFor, hdCalcUrlFor, sitemapUrls, valuesTestUrlFor } from './site-urls.mjs';
 
 describe('адреса раздела ассистентов', () => {
   it('русский в корне, остальные под префиксом', () => {
@@ -32,5 +32,24 @@ describe('адрес калькулятора Human Design', () => {
     const urls = sitemapUrls(['ru', 'en'], 'ru', { codes: [], slugs: [] }, { codes: ['ru'] });
     expect(urls).toContain('https://linkeon.io/calculators/human-design/');
     expect(urls.some((u) => u.includes('/en/calculators/'))).toBe(false);
+  });
+});
+
+describe('адрес теста ценностей', () => {
+  it('со слэшем, русский в корне', () => {
+    expect(valuesTestUrlFor('ru', 'ru')).toBe('https://linkeon.io/tests/values/');
+    expect(valuesTestUrlFor('en', 'ru')).toBe('https://linkeon.io/en/tests/values/');
+  });
+
+  it('в sitemap — только на языках теста', () => {
+    const urls = sitemapUrls(['ru', 'en'], 'ru', { codes: [], slugs: [] }, { codes: [] }, { codes: ['ru'] });
+    expect(urls).toContain('https://linkeon.io/tests/values/');
+    expect(urls.some((u) => u.includes('/en/tests/'))).toBe(false);
+  });
+
+  it('без теста sitemap прежний', () => {
+    expect(sitemapUrls(['ru'], 'ru', { codes: [], slugs: [] }, { codes: ['ru'] })).toEqual(
+      sitemapUrls(['ru'], 'ru', { codes: [], slugs: [] }, { codes: ['ru'] }, { codes: [] }),
+    );
   });
 });

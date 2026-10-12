@@ -103,6 +103,7 @@
       "networking": "Networking",
       "sites": "Sites et bots",
       "hdCalc": "Calcul du Human Design",
+      "valuesTest": "Test des valeurs",
       "pricing": "Tarifs",
       "android_app": "Application Android"
     },
@@ -219,7 +220,8 @@
       }
     ],
     "cta": "Les rencontrer tous",
-    "hdCalc": "Calculer votre bodygraph gratuitement"
+    "hdCalc": "Calculer votre bodygraph gratuitement",
+    "valuesTest": "Faire le test des valeurs gratuitement"
   },
   "profile": {
     "eyebrow": "Profil unique",

@@ -17,3 +17,9 @@ declare const __ASSISTANT_PAGE_LANGUAGES__: string[];
  * через `define` — см. scripts/hd-calc-languages.js.
  */
 declare const __HD_CALC_LANGUAGES__: string[];
+
+/**
+ * Коды языков, на которых выпущен тест ценностей. Подставляется через
+ * `define` — см. scripts/values-test-languages.js.
+ */
+declare const __VALUES_TEST_LANGUAGES__: string[];

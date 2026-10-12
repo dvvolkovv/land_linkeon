@@ -13,6 +13,9 @@ import { hasAssistantPages } from './content/assistants/availability';
 import { parseHdCalcPath } from './lib/hdRoute';
 import { hasHdCalculator } from './content/hd/availability';
 import { loadHdTexts } from './content/hd/load';
+import { parseValuesTestPath, valuesTestPath } from './lib/valuesRoute';
+import { hasValuesTest } from './content/values/availability';
+import { loadValuesTexts } from './content/values/load';
 import { persistAttribution } from './lib/attribution';
 import { trackLandingVisit, initLandingEngagement } from './lib/track';
 import { reachCtaGoal } from './lib/goal';
@@ -25,9 +28,17 @@ import './index.css';
 // приложение читают метку отсюда (не теряется на стыке лендинг→app).
 persistAttribution();
 
+// Адрес теста ценностей разбирается один раз: он нужен и пикселю, и выбору
+// страницы ниже.
+const parsedValues = parseValuesTestPath(window.location.pathname);
+
 // VK-пиксель: pageView для связки клик по рекламе → визит (цель «registration»
-// срабатывает в приложении).
-initVkPixel();
+// срабатывает в приложении). На адресе теста ценностей пиксель не грузим
+// (на любом, и на невыпущенном языке тоже, где по нему рисуется главная):
+// счётчик Top.Mail.Ru по своим настройкам может собирать клики, а клики на
+// тесте выдают ответы — по той же причине там выключены Вебвизор и карта
+// кликов Метрики (scripts/prerender.mjs).
+if (!parsedValues) initVkPixel();
 
 // Зафиксировать заход на лендинг с источником (VK/utm и пр.) — верх воронки.
 trackLandingVisit();
@@ -60,6 +71,8 @@ const assistantRoute =
 // Калькулятор на языке, где он не выпущен, — тоже SPA-фолбэк: рисуем главную.
 const parsedHd = parseHdCalcPath(window.location.pathname);
 const hdRoute = parsedHd && hasHdCalculator(parsedHd.language) ? parsedHd : null;
+// Тест ценностей — так же: на невыпущенном языке рисуем главную.
+const valuesRoute = parsedValues && hasValuesTest(parsedValues.language) ? parsedValues : null;
 const root = createRoot(document.getElementById('root')!);
 
 if (assistantRoute) {
@@ -105,6 +118,31 @@ if (assistantRoute) {
       );
     })
     .catch((error) => console.error('калькулятор: чанк не загрузился, остаётся пререндер', error));
+} else if (valuesRoute) {
+  const canonical = valuesTestPath(valuesRoute.language);
+  if (!document.querySelector('#root [data-testid="values-test"]')) {
+    // Отдан не пререндер теста, а чужой HTML (SPA-фолбэк nginx: /ru/tests/values/,
+    // сироты выкатов) — в нём Метрика с Вебвизором и картой кликов. Тест здесь не
+    // запускаем: уводим на канонический адрес, где они выключены. Уже на нём —
+    // оставляем отданную страницу как есть, без петли переадресаций.
+    if (window.location.pathname !== canonical) window.location.replace(canonical + window.location.search);
+  } else {
+    // Тест — отдельные чанки: страница с расчётом и тексты языка. Рисуем, когда
+    // пришли оба: createRoot не гидратирует, ранний render заменил бы
+    // пререндер пустым кадром.
+    Promise.all([import('./pages/ValuesTestPage'), loadValuesTexts(valuesRoute.language)])
+      .then(([{ default: ValuesTestPage }, texts]) => {
+        // Не бывает: язык попадает в VALUES_TEST_CODES, только если есть его
+        // модуль текстов (scripts/values-test-languages.js).
+        if (!texts) return;
+        root.render(
+          <StrictMode>
+            <ValuesTestPage texts={texts} language={valuesRoute.language} />
+          </StrictMode>,
+        );
+      })
+      .catch((error) => console.error('тест ценностей: чанк не загрузился, остаётся пререндер', error));
+  }
 } else {
   root.render(
     <StrictMode>

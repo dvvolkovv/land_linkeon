@@ -15,9 +15,9 @@
 ## Что выяснено при подготовке плана (12.10.2026)
 
 1. **Кабинет готов.** На `origin/main` кабинета (`45e3301`) скрипт `data-draft-capture` в `index.html` кладёт черновик в `pending_draft` для любого `?assistant=` — не только для Райи; автоприветствие при ждущем черновике не шлётся. Оля — `assistant=2` (`src/content/assistants/roster.data.js`, `slug: 'olia', id: 2`). Правок кабинета нет.
-2. **Метрика лендинга** инициализируется одной строкой в `index.html`: `ym(105902201, 'init', {webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});`. Каждая страница лендинга — свой пререндеренный HTML из этого шаблона, переходы между страницами — с перезагрузкой. Поэтому `webvisor:false` для одной страницы — замена подстроки в её HTML при пререндере; остальные страницы не меняются.
+2. **Метрика лендинга** инициализируется одной строкой в `index.html`: `ym(105902201, 'init', {webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});`. Каждая страница лендинга — свой пререндеренный HTML из этого шаблона, переходы между страницами — с перезагрузкой. Поэтому `webvisor:false` (и `clickmap:false`) для одной страницы — замена подстроки в её HTML при пререндере; остальные страницы не меняются.
 3. **В основном чекауте лендинга на маке нет `node_modules`.** Ни один тест на маке не запускается — всё через `node-run.sh` на ноде (Task 1). На ноду попадает только закоммиченное, поэтому красный тест коммитится отдельным коммитом `test(…): … (красный)` — так уже принято в репозитории.
-4. **Порядок ценностей на круге** — по Шварцу: самостоятельность, стимуляция, гедонизм, достижение, власть, безопасность, конформность, традиция, доброта, универсализм. Сектор 0 начинается сверху, дальше по часовой стрелке. Подписи с таким порядком помещаются в рисунок 520×420 при шрифте 16 (проверяет `texts.test.ts`, Task 5).
+4. **Порядок ценностей на круге** — по Шварцу: самостоятельность, стимуляция, гедонизм, достижение, власть, безопасность, конформность, традиция, доброта, универсализм. Сектор 0 начинается сверху, дальше по часовой стрелке. Подписи с таким порядком помещаются в рисунок 520×300 при шрифте 16 (проверяет `texts.test.ts`, Task 5).
 5. **Пороги в целых числах.** Балл ценности — сумма трёх ответов / 3 минус личное среднее. Разница осей и разброс баллов от личного среднего не зависят, поэтому сравниваются суммы: «приоритеты не выделились» ⇔ разброс сумм ценностей ≤ 1; ось «в равновесии» ⇔ `|сумма_левых·n_прав − сумма_правых·n_лев| < 0,5·3·n_лев·n_прав`. Ответ ровно на пороге (разница 0,5) — уже не равновесие. Из «не выделились» следует равновесие обеих осей (разброс ≤ 1 даёт разницу осей не больше 1/3).
 6. **Утверждения сверены с опубликованными формулировками PVQ-40** по памяти при написании: близкие пересказы («даже когда никто не следит», «равные возможности для всех», «быть богатым… дорогие вещи», «скромным… не привлекать внимания», «понимать несогласных») переписаны своими образами. Независимая сверка — в Task 6.
 7. **Локали лендинга** форматированы ровно как `JSON.stringify(…, null, 2) + "\n"` (проверено на всех семи) — ключи добавляются node-скриптом без ручной правки JSON.
@@ -32,6 +32,12 @@
 | цель `values-test-start` — «нажал „Начать“» | и «Начать заново», и «Пройти заново»: каждое начало с первого утверждения по клику; «Продолжить» — не цель | доля «закончили / начали» считается по прохождениям |
 | «Продолжить (12 из 30)» | число — сколько утверждений отвечено, продолжение — с того места, где человек был | после «Назад» текущее утверждение может быть раньше последнего отвеченного |
 | результат в `sessionStorage` | запись хранит `{answers, index}`; `index = 30` — тест пройден, при загрузке сразу результат без цели `values-test-complete` | цель — только факт прохождения, не перезагрузка |
+| ничьи «по порядку круга» | по ответам человека: при равной сумме выше сильнее «похож», ниже — сильнее «не похож»; наименее важная — среди не вошедших в три ведущие; круг — только при полном совпадении ответов (решение владельца 12.10, после ревью Task 2–4). Код модуля в ветке уточнён по ревью: круг 520×300, одна дуга обода на группу, наименее важная — пунктирной обводкой | ничьи у третьего места — около 41% прохождений, порядок круга перекашивал результат к концу круга |
+| над минимальной суммой не больше трёх ценностей (по финальному ревью 12.10; сначала было «у третьей та же сумма, что у последней») | ведущие — только набравшие больше минимума (1–3), наименее важной нет, `restEqual: true`, на странице — «Остальные ценности набрали поровну…», в сообщении — «остальные — поровну» (по ревью 12.10: иначе пометки ничьих перечисляли одно и то же) | случается, когда 8 ценностей из 10 набрали одинаковую сумму |
+| полные ничьи (те же три ответа) | помечаются честно: `topTies`/`bottomTies` в результате, строка «С тем же результатом: …» под карточкой третьей ведущей и наименее важной, «(с тем же результатом — …)» в сообщении Оле (решение владельца 12.10; «вровень с ней» не годилось по роду) | полная ничья у третьего места — до 18–41% прохождений |
+| проверки пререндера по ревью Task 11 | гейт Метрики — по объекту `ym(…,'init',{…})`, плюс отрицательная проверка `<head>`; контейнер `data-testid="values-test"` обязателен; `main.tsx` запускает тест только на его пререндере, иначе уводит на канонический адрес (`/ru/tests/values/` отдавал главную с Вебвизором) | код блока пререндера в Task 11 ниже — исходный, в ветке он уточнён |
+| пиксель VK на странице теста | не загружается (`main.tsx`), по финальному ревью: счётчик Top.Mail.Ru может собирать клики | клики выдают ответы |
+| карта кликов на странице теста | выключена вместе с Вебвизором (`clickmap:false`) | по ревью Task 5: последовательность кликов по шести кнопкам при общем порядке утверждений восстанавливает ответы так же, как Вебвизор; без этого фраза «ответы не попадают в аналитику» неверна |
 | сообщение Оле | `{axes}` — две короткие фразы из `axesInMessage` через «; » (первая с заглавной, вторая со строчной) | одна фраза на обе оси читается естественно |
 
 ## Порядок и зависимости
@@ -81,10 +87,13 @@ ANSWER_MIN = 1; ANSWER_MAX = 6; BALANCE_THRESHOLD = 0.5; FLAT_THRESHOLD = 0.5
 scoreAnswers(answers: readonly number[]): ValuesResult   // 30 целых 1–6, иначе RangeError
 interface ValuesResult {
   scores: Record<ValueKey, number>;   // среднее ценности минус личное среднее
-  ranking: ValueKey[];                // по убыванию, равные — в порядке круга
+  ranking: ValueKey[];                // по убыванию; ничьи — по ответам человека, наименее важная последней
   flat: boolean;                      // приоритеты не выделились
-  top: ValueKey[];                    // 3 или [] при flat
-  bottom: ValueKey | null;            // null при flat
+  top: ValueKey[];                    // 3; 1–3 при restEqual; [] при flat
+  topTies: ValueKey[];                // вне тройки, но ответы те же, что у третьей (полная ничья)
+  bottom: ValueKey | null;            // null при flat и restEqual
+  bottomTies: ValueKey[];             // вне тройки, ответы те же, что у наименее важной
+  restEqual: boolean;                 // выделились 1–3, остальные набрали поровну: top — они, bottom null
   axes: Record<AxisKey, { lean: AxisLean; diff: number }>;
 }
 
@@ -1018,8 +1027,12 @@ describe('тексты теста ценностей', () => {
       it('шаблоны: ключи на месте', () => {
         expect(placeholders(t.start.resume)).toEqual(['done', 'total']);
         expect(placeholders(t.question.progress)).toEqual(['n', 'total']);
-        expect(placeholders(t.message)).toEqual(['axes', 'bottom', 'top']);
+        expect(placeholders(t.message)).toEqual(['axes', 'rest', 'top']);
+        expect(placeholders(t.bottomInMessage)).toEqual(['bottom']);
+        expect(placeholders(t.restEqualInMessage)).toEqual([]);
         expect(placeholders(t.messageFlat)).toEqual([]);
+        expect(placeholders(t.result.tiedWith)).toEqual(['names']);
+        expect(placeholders(t.tiedInMessage)).toEqual(['names']);
       });
 
       it('ценности: строка до 60 знаков со строчной, описание 150–420 с названием в начале', () => {
@@ -1309,15 +1322,27 @@ export interface ValuesTexts {
     ctaNote: string;
     allHeading: string;
     restart: string;
+    /** Под карточкой третьей ведущей или наименее важной при полной ничьей: «С тем же результатом: {names}». */
+    tiedWith: string;
+    /** Заголовок, когда выделилась одна ценность: «Ведущая ценность». */
+    topHeadingOne: string;
+    /** Вместо наименее важной, когда остальные набрали поровну (restEqual). */
+    restEqual: string;
   };
   modelSection: { heading: string; lead: string };
   faqHeading: string;
   /** 4–6 вопросов — их же видит поисковик в FAQPage. */
   faq: { q: string; a: string }[];
   disclaimer: string;
-  /** Союз перед последней ведущей ценностью в сообщении: «и». */
+  /** Союз перед последним названием в перечне сообщения: «и». */
   and: string;
-  /** Первое сообщение Оле: {top} {bottom} {axes}. */
+  /** В сообщении Оле после ценности при полной ничьей: «(с тем же результатом — {names})». */
+  tiedInMessage: string;
+  /** Часть сообщения про наименее важную: «на последнем — {bottom}». */
+  bottomInMessage: string;
+  /** Та же часть, когда остальные набрали поровну: «остальные — поровну». */
+  restEqualInMessage: string;
+  /** Первое сообщение Оле: {top} {rest} {axes}; {rest} — bottomInMessage или restEqualInMessage. */
   message: string;
   /** Сообщение, когда приоритеты не выделились. */
   messageFlat: string;
@@ -1435,7 +1460,7 @@ const ru: ValuesTexts = {
     conformity3: 'Этот человек следит, чтобы поведение не выходило за рамки принятого.',
     tradition1: 'Этому человеку важно отмечать праздники и соблюдать обычаи так, как это поколениями делали в семье.',
     tradition2: 'Для этого человека вера и её предписания — опора в повседневной жизни.',
-    tradition3: 'Этот человек считает, что большие запросы ни к чему: лучше принимать жизнь такой, какая она есть.',
+    tradition3: 'Этот человек считает, что большие запросы ни к чему: лучше принимать жизнь такой, какая есть.',
     benevolence1: 'Этот человек сразу приходит на помощь, когда у близких что-то случилось.',
     benevolence2: 'Для этого человека верность друзьям и семье — то, чем не поступаются.',
     benevolence3: 'Этому человеку важно, чтобы в кругу близких было тепло и доверие, и ради этого можно уступить.',
@@ -1549,6 +1574,9 @@ const ru: ValuesTexts = {
     ctaNote: 'Личный разбор ценностей — у Оли, при регистрации 25 000 токенов в подарок',
     allHeading: 'Все 10 ценностей — в вашем порядке',
     restart: 'Пройти заново',
+    tiedWith: 'С тем же результатом: {names}',
+    topHeadingOne: 'Ведущая ценность',
+    restEqual: 'Остальные ценности набрали поровну, поэтому наименее важную назвать нельзя.',
   },
   modelSection: {
     heading: 'Десять ценностей по Шварцу',
@@ -1562,11 +1590,11 @@ const ru: ValuesTexts = {
     },
     {
       q: 'Это научный тест?',
-      a: 'В основе — теория базовых ценностей Шалома Шварца, одна из самых изученных моделей ценностей в психологии. Утверждения мы написали сами по мотивам этой теории: это не официальный опросник PVQ и не клиническая методика, а инструмент для самопознания.',
+      a: 'В основе — теория базовых ценностей Шалома Шварца, одна из широко изученных моделей ценностей в психологии. Утверждения мы написали сами по мотивам этой теории: это не официальный опросник PVQ и не клиническая методика, а инструмент для самопознания.',
     },
     {
       q: 'Сохраняются ли мои ответы?',
-      a: 'Нет. Расчёт идёт в браузере, ответы не уходят на сервер и не попадают в аналитику. Пока вкладка открыта, они хранятся в ней; закроете вкладку — всё сотрётся.',
+      a: 'Нет. Расчёт идёт в браузере, ответы не уходят на сервер и не попадают в аналитику. Хранятся они только в этой вкладке — чтобы не пропасть при случайной перезагрузке.',
     },
     {
       q: 'Почему результат — порядок ценностей, а не баллы?',
@@ -1580,8 +1608,11 @@ const ru: ValuesTexts = {
   disclaimer:
     'Тест для самопознания по мотивам теории базовых ценностей Шалома Шварца. Не клиническая и не официальная методика.',
   and: 'и',
+  tiedInMessage: '(с тем же результатом — {names})',
+  bottomInMessage: 'на последнем — {bottom}',
+  restEqualInMessage: 'остальные — поровну',
   message:
-    'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — {top}, на последнем — {bottom}. {axes}. Помоги разобраться, что это значит для меня',
+    'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — {top}, {rest}. {axes}. Помоги разобраться, что это значит для меня',
   messageFlat:
     'Оля, привет! В тесте ценностей по Шварцу у меня не выделились приоритеты: всё оценено почти одинаково. Помоги разобраться, что для меня по-настоящему важно',
 };
@@ -1669,7 +1700,7 @@ md.push('', `## ${ru.modelSection.heading}`, '', ru.modelSection.lead);
 md.push('', `## ${ru.faqHeading}`);
 for (const f of ru.faq) md.push('', `**${f.q}**`, '', f.a);
 md.push('', '## Оговорка', '', ru.disclaimer);
-md.push('', '## Сообщения Оле', '', `- шаблон: ${ru.message}`, `- приоритеты не выделились: ${ru.messageFlat}`);
+md.push('', '## Сообщения Оле', '', `- шаблон: ${ru.message}`, `- полная ничья: ${ru.tiedInMessage}`, `- наименее важная: ${ru.bottomInMessage}`, `- остальные поровну: ${ru.restEqualInMessage}`, `- приоритеты не выделились: ${ru.messageFlat}`);
 writeFileSync('/tmp/values-texts-ru.md', md.join('\n') + '\n');
 console.log('выгружено: /tmp/values-blind.txt, /tmp/values-key.json, /tmp/values-texts-ru.md');
 ```
@@ -1842,6 +1873,20 @@ describe('сообщение Оле', () => {
     );
   });
 
+  it('полная ничья — в скобках после третьей ведущей и после наименее важной', () => {
+    const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 }));
+    expect(valuesMessage(ru, r)).toBe(
+      'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность, стимуляция и доброта (с тем же результатом — универсализм), на последнем — традиция (с тем же результатом — гедонизм, достижение, власть, безопасность и конформность). Мне ближе перемены, чем сохранение привычного; забота о других для меня важнее личного успеха. Помоги разобраться, что это значит для меня',
+    );
+  });
+
+  it('остальные набрали поровну — без наименее важной', () => {
+    const r = scoreAnswers(by({ selfDirection: 5, stimulation: 5 }, 4));
+    expect(valuesMessage(ru, r)).toBe(
+      'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность и стимуляция, остальные — поровну. Мне ближе перемены, чем сохранение привычного; забота о других и личный успех у меня в равновесии. Помоги разобраться, что это значит для меня',
+    );
+  });
+
   it('приоритеты не выделились — своё сообщение', () => {
     expect(valuesMessage(ru, scoreAnswers(by({}, 4)))).toBe(ru.messageFlat);
   });
@@ -1857,8 +1902,11 @@ describe('сообщение Оле', () => {
         scores: Object.fromEntries(VALUE_KEYS.map((k) => [k, 0])) as Record<ValueKey, number>,
         ranking: longest,
         flat: false,
+        restEqual: false,
         top: longest.slice(0, 3),
+        topTies: longest.slice(4, 7),
         bottom: longest[3],
+        bottomTies: longest.slice(7),
         axes: { change: { lean: longestLean('change'), diff: 0 }, focus: { lean: longestLean('focus'), diff: 0 } },
       };
       expect(valuesMessage(t, worst).length, code).toBeLessThanOrEqual(DRAFT_MAX_LENGTH);
@@ -1984,7 +2032,7 @@ export const rayaChatUrlWithDraft = (message: string): string => chatUrlWithDraf
 
 ```ts
 import { chatHref, chatUrlWithDraft, fillTemplate } from './chatDraft';
-import { AXIS_KEYS, type ValuesResult } from './schwartz';
+import { AXIS_KEYS, type ValueKey, type ValuesResult } from './schwartz';
 import type { ValuesTexts } from '../content/values/types';
 
 /** id Оли в приложении (таблица agents; тот же — в src/content/assistants/roster.data.js). */
@@ -1994,19 +2042,32 @@ const UTM_CONTENT = 'values-test';
 export const oliaChatHref = (): string => chatHref(OLIA_ID, UTM_CONTENT);
 export const oliaChatUrlWithDraft = (message: string): string => chatUrlWithDraft(OLIA_ID, UTM_CONTENT, message);
 
-type MessageTexts = Pick<ValuesTexts, 'values' | 'axesInMessage' | 'and' | 'message' | 'messageFlat'>;
+type MessageTexts = Pick<
+  ValuesTexts,
+  'values' | 'axesInMessage' | 'and' | 'tiedInMessage' | 'bottomInMessage' | 'restEqualInMessage' | 'message' | 'messageFlat'
+>;
+
+/** «а, б и в»; одно название — как есть. */
+const list = (names: string[], and: string): string =>
+  names.length > 1 ? `${names.slice(0, -1).join(', ')} ${and} ${names[names.length - 1]}` : names.join('');
 
 /**
- * Первое сообщение Оле: три ведущие, наименее важная и обе оси. Приоритеты
- * не выделились — своё сообщение без ценностей. Ответов в нём нет — только
- * итог, который человек и так видит на экране.
+ * Первое сообщение Оле: ведущие, наименее важная и обе оси; полная ничья —
+ * в скобках после ценности («с тем же результатом — …»); остальные набрали поровну —
+ * «остальные — поровну» вместо наименее важной. Приоритеты не выделились —
+ * своё сообщение без ценностей. Ответов в нём нет — только итог, который
+ * человек и так видит на экране.
  */
 export function valuesMessage(texts: MessageTexts, result: ValuesResult): string {
-  if (result.flat || !result.bottom) return texts.messageFlat;
-  const top = result.top.map((k) => texts.values[k].inMessage);
+  if (result.flat) return texts.messageFlat;
+  const name = (k: ValueKey) => texts.values[k].inMessage;
+  const tied = (ties: ValueKey[]) =>
+    ties.length ? ` ${fillTemplate(texts.tiedInMessage, { names: list(ties.map(name), texts.and) })}` : '';
   return fillTemplate(texts.message, {
-    top: `${top.slice(0, -1).join(', ')} ${texts.and} ${top[top.length - 1]}`,
-    bottom: texts.values[result.bottom].inMessage,
+    top: list(result.top.map(name), texts.and) + tied(result.topTies),
+    rest: result.bottom
+      ? fillTemplate(texts.bottomInMessage, { bottom: name(result.bottom) + tied(result.bottomTies) })
+      : texts.restEqualInMessage,
     axes: AXIS_KEYS.map((k) => texts.axesInMessage[k][result.axes[k].lean]).join('; '),
   });
 }
@@ -2584,7 +2645,7 @@ export default function ValuesCircle({ result, labels, alt }: Props) {
       src={src}
       alt={alt}
       width={520}
-      height={420}
+      height={300}
       className="mx-auto h-auto w-full max-w-[520px]"
     />
   );
@@ -2609,6 +2670,7 @@ import {
   type ValuesResult as Result,
 } from '../../lib/schwartz';
 import { oliaChatHref, oliaChatUrlWithDraft, valuesMessage } from '../../lib/valuesDraft';
+import { fillTemplate } from '../../lib/chatDraft';
 import type { ValuesTexts } from '../../content/values/types';
 
 interface Props {
@@ -2617,13 +2679,19 @@ interface Props {
   onRestart: () => void;
 }
 
-function ValueCard({ texts, value }: { texts: ValuesTexts; value: ValueKey }) {
+/** Карточка ценности; tiedWith — полная ничья на срезе (те же три ответа), помечается честно. */
+function ValueCard({ texts, value, tiedWith = [] }: { texts: ValuesTexts; value: ValueKey; tiedWith?: ValueKey[] }) {
   const v = texts.values[value];
   return (
     <li className="rounded-xl border border-paper-300 bg-paper-50 p-4">
       <p className="font-semibold text-paper-900">{v.name}</p>
       <p className="mt-1 text-sm text-paper-700">{v.line}</p>
       <p className="mt-2 leading-relaxed text-paper-800">{v.text}</p>
+      {tiedWith.length > 0 && (
+        <p data-testid="values-tie" className="mt-2 text-sm text-paper-700">
+          {fillTemplate(texts.result.tiedWith, { names: tiedWith.map((k) => texts.values[k].name).join(', ') })}
+        </p>
+      )}
     </li>
   );
 }
@@ -2676,23 +2744,34 @@ export default function ValuesResult({ texts, result, onRestart }: Props) {
         </ul>
       </div>
 
-      {result.flat || !result.bottom ? (
+      {result.flat ? (
         <div data-testid="values-flat" className="mt-8 max-w-2xl">
           <h3 className="text-xl font-semibold text-paper-900">{r.flatHeading}</h3>
           <p className="mt-2 leading-relaxed text-paper-800">{r.flatText}</p>
         </div>
       ) : (
         <>
-          <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.topHeading}</h3>
+          <h3 className="mt-8 text-xl font-semibold text-paper-900">
+            {result.top.length === 1 ? r.topHeadingOne : r.topHeading}
+          </h3>
           <ol data-testid="values-top" className="mt-3 grid gap-3 md:grid-cols-3">
-            {result.top.map((k) => (
-              <ValueCard key={k} texts={texts} value={k} />
+            {result.top.map((k, i) => (
+              <ValueCard key={k} texts={texts} value={k} tiedWith={i === result.top.length - 1 ? result.topTies : []} />
             ))}
           </ol>
-          <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.bottomHeading}</h3>
-          <ul data-testid="values-bottom" className="mt-3 grid gap-3 md:grid-cols-3">
-            <ValueCard texts={texts} value={result.bottom} />
-          </ul>
+          {result.bottom ? (
+            <>
+              <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.bottomHeading}</h3>
+              <ul data-testid="values-bottom" className="mt-3 grid gap-3 md:grid-cols-3">
+                <ValueCard texts={texts} value={result.bottom} tiedWith={result.bottomTies} />
+              </ul>
+            </>
+          ) : (
+            // Выделились одна-две ценности, остальные набрали поровну (restEqual).
+            <p data-testid="values-rest-equal" className="mt-6 max-w-2xl leading-relaxed text-paper-800">
+              {r.restEqual}
+            </p>
+          )}
           <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.axesHeading}</h3>
           <p data-testid="values-axes" className="mt-3 max-w-2xl leading-relaxed text-paper-800">
             {AXIS_KEYS.map((k) => texts.axes[k][result.axes[k].lean]).join(' ')}
@@ -3053,8 +3132,9 @@ export function renderValuesTest(language: string): { html: string; title: strin
 
 ```js
  * Тест ценностей (/tests/values/) — по своему списку языков,
- * valuesTestCodes() из values-test-languages.js. На его странице Вебвизор
- * выключен: подстановка webvisor:true → webvisor:false только в её HTML.
+ * valuesTestCodes() из values-test-languages.js. На его странице Вебвизор и
+ * карта кликов выключены: подстановки webvisor:true → webvisor:false и
+ * clickmap:true → clickmap:false только в её HTML.
  *
 ```
 
@@ -3098,9 +3178,10 @@ const { render, renderAssistant, renderAssistantsCatalog, renderHdCalculator, re
 
 ```js
 // Тест ценностей. Тест работает только в браузере; в пререндере — вступление,
-// карточка старта, десять ценностей и вопросы. Вебвизор на странице выключен
-// (спека 2026-10-12, «Приватность»): по кликам и ширине полосы прогресса
-// восстанавливаются ответы, среди них — о вере. Цели и карта кликов остаются.
+// карточка старта, десять ценностей и вопросы. Вебвизор и карта кликов на
+// странице выключены (спека 2026-10-12, «Приватность»): порядок утверждений
+// общий для всех, и по последовательности кликов по шести кнопкам
+// восстанавливаются ответы, среди них — о вере. Цели и посещаемость остаются.
 for (const code of VALUES_TEST_CODES) {
   const where = `${code}/tests/values`;
   const rendered = renderValuesTest(code);
@@ -3116,8 +3197,12 @@ for (const code of VALUES_TEST_CODES) {
   );
   page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${rendered.html}</div>`, '<div id="root">');
   page = mustReplace(page, 'webvisor:true', () => 'webvisor:false', 'webvisor (тест ценностей)');
+  page = mustReplace(page, 'clickmap:true', () => 'clickmap:false', 'clickmap (тест ценностей)');
   if (!page.includes('webvisor:false') || page.includes('webvisor:true')) {
     throw new Error(`${where}: Вебвизор на странице теста не выключен`);
+  }
+  if (!page.includes('clickmap:false') || page.includes('clickmap:true')) {
+    throw new Error(`${where}: карта кликов на странице теста не выключена`);
   }
 
   const ld = jsonLdOf(rendered.html, where);
@@ -3136,7 +3221,7 @@ for (const code of VALUES_TEST_CODES) {
   checkBreadcrumbs(ld, page, 2, where);
 
   writePage(valuesTestDirFor(code), page);
-  console.log(`✅ ${where} (Вебвизор выключен)`);
+  console.log(`✅ ${where} (Вебвизор и карта кликов выключены)`);
 }
 ```
 
@@ -3228,10 +3313,10 @@ git add src/pages/ValuesTestPage.tsx src/entry-server.tsx scripts/prerender.mjs 
 git commit -q -m "feat(values): страница /tests/values/ — пререндер с выключенным Вебвизором, sitemap, вход в браузере
 
 Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
-bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(pnpm build > /tmp/values-build.log 2>&1 && echo BUILD_OK || (echo BUILD_FAILED; tail -20 /tmp/values-build.log)); grep -E "tests/values|входном" /tmp/values-build.log; grep -o "webvisor:[a-z]*" dist/tests/values/index.html; grep -o "webvisor:[a-z]*" dist/index.html; grep -o "<loc>[^<]*tests[^<]*</loc>" dist/sitemap.xml; ls -l dist/assets/index-*.js; (pnpm typecheck > /tmp/values-tsc.log 2>&1 && echo TSC_OK || echo TSC_FAILED)'
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(pnpm build > /tmp/values-build.log 2>&1 && echo BUILD_OK || (echo BUILD_FAILED; tail -20 /tmp/values-build.log)); grep -E "tests/values|входном" /tmp/values-build.log; grep -o -E "(webvisor|clickmap):[a-z]*" dist/tests/values/index.html; grep -o -E "(webvisor|clickmap):[a-z]*" dist/index.html; grep -o "<loc>[^<]*tests[^<]*</loc>" dist/sitemap.xml; ls -l dist/assets/index-*.js; (pnpm typecheck > /tmp/values-tsc.log 2>&1 && echo TSC_OK || echo TSC_FAILED)'
 ```
 
-Expected: `BUILD_OK`; строки `✅ ru/tests/values (Вебвизор выключен)` и `✅ тексты ассистентов, калькулятор и тест ценностей не во входном бандле`; `webvisor:false` у теста и `webvisor:true` у главной; в sitemap одна строка `https://linkeon.io/tests/values/`; входной бандл — не больше точки отсчёта Task 1 + 2 КБ; `TSC_OK`.
+Expected: `BUILD_OK`; строки `✅ ru/tests/values (Вебвизор и карта кликов выключены)` и `✅ тексты ассистентов, калькулятор и тест ценностей не во входном бандле`; `webvisor:false` и `clickmap:false` у теста, `webvisor:true` и `clickmap:true` у главной; в sitemap одна строка `https://linkeon.io/tests/values/`; входной бандл — не больше точки отсчёта Task 1 + 2 КБ; `TSC_OK`.
 
 ---
 
@@ -3355,7 +3440,7 @@ const h1Of = (html: string) => html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '
 // Сырой HTTP — так страницу видит краулер. Код ответа ничего не доказывает:
 // SPA-фолбэк отдаёт 200 на любой путь, поэтому смотрим на содержимое.
 test.describe('тест ценностей в сыром HTML', () => {
-  test('страница, метатеги, hreflang, ценности в пререндере, Вебвизор выключен', async ({ baseURL }) => {
+  test('страница, метатеги, hreflang, ценности в пререндере, Вебвизор и карта кликов выключены', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const html = await (await ctx.get(PATH)).text();
     const codes = valuesTestCodes();
@@ -3371,9 +3456,12 @@ test.describe('тест ценностей в сыром HTML', () => {
     expect(html, 'карточка старта — в пререндере').toContain('data-testid="values-start"');
     expect(html).toContain('webvisor:false');
     expect(html).not.toContain('webvisor:true');
+    expect(html).toContain('clickmap:false');
+    expect(html).not.toContain('clickmap:true');
 
     const home = await (await ctx.get('/')).text();
     expect(home, 'на главной Вебвизор должен остаться').toContain('webvisor:true');
+    expect(home, 'на главной карта кликов должна остаться').toContain('clickmap:true');
     await ctx.dispose();
   });
 
@@ -3473,6 +3561,20 @@ async function begin(page: Page) {
 
 test.describe('тест в браузере', () => {
   test.use({ viewport: { width: 390, height: 844 } });
+  // Кнопки ответа заблокированы 250 мс после смены утверждения (защита от
+  // двойного тапа): полный проход — не меньше 30 × 250 мс, с перезагрузкой дольше.
+  test.describe.configure({ timeout: 60_000 });
+
+  test('на чужом HTML тест не запускается: /ru/tests/values/ уводит на канонический адрес', async ({ page, baseURL }) => {
+    await stubNetwork(page, baseURL!);
+    // dist/ru/tests/values/ нет — сервер отдаёт главную с Вебвизором; тест на ней запускаться не должен.
+    await page.goto('/ru/tests/values/');
+    await page.waitForURL((url) => url.pathname === PATH);
+    await clientRendered(page);
+    await expect(page.getByTestId('values-start')).toBeVisible();
+    const html = await page.content();
+    expect(html).toContain('webvisor:false');
+  });
 
   test('прохождение: ведущие ценности, ссылка к Оле с черновиком, в аналитику — только имена целей', async ({ page, baseURL }) => {
     const captured = await stubNetwork(page, baseURL!);
@@ -3553,6 +3655,21 @@ test.describe('тест в браузере', () => {
     expect(decodeURIComponent(new URL(page.url()).hash.slice('#draft='.length))).toBe(ru.messageFlat);
   });
 
+  test('полная ничья — помечена под карточками и в сообщении Оле', async ({ page, baseURL }) => {
+    await stubNetwork(page, baseURL!);
+    await begin(page);
+    const tie: Partial<Record<ValueKey, number>> = { selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 };
+    await answerRange(page, 0, ITEMS.length, (v) => tie[v] ?? 3);
+    await expect(page.getByTestId('values-top').getByTestId('values-tie')).toHaveText(
+      ru.result.tiedWith.replace('{names}', ru.values.universalism.name),
+    );
+    await expect(page.getByTestId('values-bottom').getByTestId('values-tie')).toContainText(ru.values.hedonism.name);
+    await page.locator('[data-cta="values-test-to-olia"]').click();
+    await page.waitForURL(/^https:\/\/my\.linkeon\.io\/chat/);
+    const draft = decodeURIComponent(new URL(page.url()).hash.slice('#draft='.length));
+    expect(draft).toContain(ru.tiedInMessage.replace('{names}', ru.values.universalism.inMessage));
+  });
+
   test('пройденный тест после перезагрузки — сразу результат, цель не повторяется; «Пройти заново»', async ({ page, baseURL }) => {
     const captured = await stubNetwork(page, baseURL!);
     await begin(page);
@@ -3586,21 +3703,47 @@ Expected: `E2E_OK`, все тесты обоих файлов прошли.
 
 - [ ] **Step 3: Проверка не слепая**
 
-Зелёный прогон ничего не доказывает, пока проверку не сломали нарочно. Временные коммиты — только на ноду, в `origin` не уходят, после прогона снимаются `reset`.
+Зелёный прогон ничего не доказывает, пока проверку не сломали нарочно. Каждая поломка — отдельный временный коммит и отдельный прогон; свой `git reset --hard HEAD~1` сразу после прогона, до следующей поломки. Временные коммиты — только на ноду, в `origin` не уходят.
 
-Сначала — поломки, которые должен поймать браузерный тест: оси в черновике через пробел вместо «; » и цель `values-test-complete` на каждом ответе.
+Поломка A — разделитель осей в черновике Оле через пробел вместо «; » (черновик персоны теперь сравнивается целиком, Step 1):
 
 ```bash
 cd ~/Downloads/land_linkeon/.worktrees/values-test
 sed -i '' "s/.join('; '),/.join(' '),/" src/lib/valuesDraft.ts
-sed -i '' "s/if (isComplete(next)) reachGoal('values-test-complete');/reachGoal('values-test-complete');/" src/components/values/ValuesTest.tsx
 git diff --stat
-git commit -q -am "tmp: нарочная поломка — e2e должен её увидеть"
-bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken.log | head'
+git commit -q -am "tmp: нарочная поломка A — разделитель осей в черновике"
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken-a.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken-a.log | head'
 git reset -q --hard HEAD~1
 ```
 
-Expected: `git diff --stat` — два файла; `E2E_FAILED`, красные — «прохождение…» и «пройденный тест после перезагрузки…».
+Expected: `git diff --stat` — один файл; `E2E_FAILED`, красная только «прохождение…» (там — точный черновик `toBe`; у ничьей — `toContain`, разделитель не ловит).
+
+Поломка B — цель `values-test-complete` уходит на каждый ответ, а не только на завершающий:
+
+```bash
+cd ~/Downloads/land_linkeon/.worktrees/values-test
+sed -i '' "s/if (isComplete(next)) reachGoal('values-test-complete');/reachGoal('values-test-complete');/" src/components/values/ValuesTest.tsx
+git diff --stat
+git commit -q -am "tmp: нарочная поломка B — повторная цель values-test-complete"
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken-b.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken-b.log | head'
+git reset -q --hard HEAD~1
+```
+
+Expected: `git diff --stat` — один файл; `E2E_FAILED`, красные — «прохождение…» (список целей не совпадёт с эталоном) и «пройденный тест после перезагрузки…» (счётчик `values-test-complete` после перезагрузки и после «Пройти заново»).
+
+Поломка C — `data-testid="values-rest-equal"` переименован, блок больше не найти:
+
+```bash
+cd ~/Downloads/land_linkeon/.worktrees/values-test
+sed -i '' 's/data-testid="values-rest-equal"/data-testid="values-rest-equal-x"/' src/components/values/ValuesResult.tsx
+git diff --stat
+git commit -q -am "tmp: нарочная поломка C — переименован data-testid restEqual"
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken-c.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken-c.log | head'
+git reset -q --hard HEAD~1
+git log --oneline -1
+```
+
+Expected: `git diff --stat` — один файл; `E2E_FAILED`, красная только «остальные ценности набрали поровну…» (Task 13 Step 4 по ревью). После `reset` последний коммит — Step 2.
 
 Потом — Вебвизор: подстановка, которая ничего не выключает, должна остановить сборку.
 
@@ -3609,12 +3752,12 @@ cd ~/Downloads/land_linkeon/.worktrees/values-test
 sed -i '' "s/() => 'webvisor:false', 'webvisor (тест ценностей)'/() => 'webvisor:true', 'webvisor (тест ценностей)'/" scripts/prerender.mjs
 git diff --stat
 git commit -q -am "tmp: нарочная поломка — сборка должна остановиться"
-bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(pnpm build > /tmp/values-build-broken.log 2>&1 && echo BUILD_OK || echo BUILD_FAILED); grep -o "Вебвизор на странице теста не выключен" /tmp/values-build-broken.log'
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(pnpm build > /tmp/values-build-broken.log 2>&1 && echo BUILD_OK || echo BUILD_FAILED); grep -o "в инициализации Метрики Вебвизор или карта кликов не выключены" /tmp/values-build-broken.log'
 git reset -q --hard HEAD~1
 git log --oneline -1
 ```
 
-Expected: `BUILD_FAILED` и строка «Вебвизор на странице теста не выключен». После `reset` последний коммит — Step 2. Если какую-то поломку проверка не заметила — дописать проверку, а не идти дальше.
+Expected: `BUILD_FAILED` и строка «в инициализации Метрики Вебвизор или карта кликов не выключены». После `reset` последний коммит — Step 2. Если какую-то поломку проверка не заметила — дописать проверку, а не идти дальше.
 
 ---
 
@@ -3765,14 +3908,16 @@ Expected: если первая команда показала чужой `depl
 
 ```bash
 bash ~/Downloads/land_linkeon/.superpowers/values-test/node-ssh.sh 'SITE=https://linkeon.io
-curl -s $SITE/tests/values/ | grep -o -E "<html lang=\"[a-z]+\"|<h1[^>]*>[^<]{0,80}|rel=\"canonical\" href=\"[^\"]+\"|hreflang=\"[a-z-]+\"|webvisor:[a-z]+" | sort -u
+curl -s $SITE/tests/values/ | grep -o -E "<html lang=\"[a-z]+\"|<h1[^>]*>[^<]{0,80}|rel=\"canonical\" href=\"[^\"]+\"|hreflang=\"[a-z-]+\"|(webvisor|clickmap):[a-z]+" | sort -u
 curl -s -o /dev/null -w "%{http_code} → %{redirect_url}\n" $SITE/tests/values
 curl -s $SITE/sitemap.xml | grep -o "<loc>[^<]*tests[^<]*</loc>"
-curl -s $SITE/ | grep -o -E "href=\"/tests/values/\"|webvisor:[a-z]+" | sort | uniq -c
+curl -s $SITE/ | grep -o -E "href=\"/tests/values/\"|(webvisor|clickmap):[a-z]+" | sort | uniq -c
 curl -s $SITE/assistants/olia/ | grep -o "href=\"/tests/values/\"" | sort | uniq -c'
 ```
 
-`grep -c` по HTML не годится: пререндер — одна длинная строка. Expected: `<html lang="ru"`, H1 теста, `canonical` — `https://linkeon.io/tests/values/`, hreflang только `ru` и `x-default`, `webvisor:false`; адрес без слэша — `301 → https://linkeon.io/tests/values/`; в sitemap одна строка теста; на главной ссылка дважды и `webvisor:true`; на странице Оли — ссылка (кнопка наверху и подвал).
+Плюс проверка по сети в обе стороны (браузерными инструментами с ноды): на `https://linkeon.io/tests/values/` после «Начать» и пяти-шести ответов — ни одного запроса к `mc.yandex.ru/webvisor/105902201` и `mc.yandex.ru/clmap/105902201` и никаких целей на каждый клик; на главной те же запросы есть (фильтр не слепой). Нашлись запросы на странице теста — выкат откатить и разбираться: параметров `init` недостаточно.
+
+`grep -c` по HTML не годится: пререндер — одна длинная строка. Expected: `<html lang="ru"`, H1 теста, `canonical` — `https://linkeon.io/tests/values/`, hreflang только `ru` и `x-default`, `webvisor:false` и `clickmap:false`; адрес без слэша — `301 → https://linkeon.io/tests/values/`; в sitemap одна строка теста; на главной ссылка дважды, `webvisor:true` и `clickmap:true`; на странице Оли — ссылка (кнопка наверху и подвал).
 
 ---
 

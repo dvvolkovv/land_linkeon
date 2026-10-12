@@ -22,6 +22,11 @@
  * Калькулятор Human Design (/calculators/human-design/) — по своему списку
  * языков, hdCalcCodes() из hd-calc-languages.js, тем же способом.
  *
+ * Тест ценностей (/tests/values/) — по своему списку языков,
+ * valuesTestCodes() из values-test-languages.js. На его странице Вебвизор и
+ * карта кликов выключены: подстановки webvisor:true → webvisor:false и
+ * clickmap:true → clickmap:false только в её HTML.
+ *
  * Последним блоком скрипт проверяет, что тексты страниц ассистентов и код
  * калькулятора не попали во входной бандл клиента: их место — в своих чанках.
  *
@@ -35,6 +40,7 @@ import { ASSISTANTS, ASSISTANT_SLUGS } from '../src/content/assistants/roster.da
 import { translatedCodes } from './translated-languages.js';
 import { assistantPageCodes } from './assistant-page-languages.js';
 import { hdCalcCodes } from './hd-calc-languages.js';
+import { valuesTestCodes } from './values-test-languages.js';
 import {
   LEGAL_SLUGS,
   sitemapUrls,
@@ -44,6 +50,7 @@ import {
   assistantsCatalogUrlFor as siteAssistantsCatalogUrlFor,
   assistantUrlFor as siteAssistantUrlFor,
   hdCalcUrlFor as siteHdCalcUrlFor,
+  valuesTestUrlFor as siteValuesTestUrlFor,
 } from './site-urls.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -59,6 +66,9 @@ const ASSISTANT_CODES = assistantPageCodes();
 
 // Языки калькулятора Human Design — так же: выпущенные у сайта И с текстами.
 const HD_CALC_CODES = hdCalcCodes();
+
+// Языки теста ценностей — так же.
+const VALUES_TEST_CODES = valuesTestCodes();
 
 const OG_LOCALES = Object.fromEntries(SUPPORTED_LANGUAGES.map((l) => [l.code, l.ogLocale]));
 
@@ -84,8 +94,11 @@ const hdCalcDirFor = (code) =>
   code === DEFAULT_LANGUAGE
     ? join(dist, 'calculators', 'human-design')
     : join(dist, code, 'calculators', 'human-design');
+const valuesTestUrlFor = (code) => siteValuesTestUrlFor(code, DEFAULT_LANGUAGE);
+const valuesTestDirFor = (code) =>
+  code === DEFAULT_LANGUAGE ? join(dist, 'tests', 'values') : join(dist, code, 'tests', 'values');
 
-const { render, renderAssistant, renderAssistantsCatalog, renderHdCalculator } = await import(
+const { render, renderAssistant, renderAssistantsCatalog, renderHdCalculator, renderValuesTest } = await import(
   join(root, 'dist-ssr', 'entry-server.js')
 );
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
@@ -427,6 +440,58 @@ for (const code of HD_CALC_CODES) {
   console.log(`✅ ${where}`);
 }
 
+// Тест ценностей. Тест работает только в браузере; в пререндере — вступление,
+// карточка старта, десять ценностей и вопросы. Вебвизор и карта кликов на
+// странице выключены (спека 2026-10-12, «Приватность»): порядок утверждений
+// общий для всех, и по последовательности кликов по шести кнопкам
+// восстанавливаются ответы, среди них — о вере. Цели и посещаемость остаются.
+for (const code of VALUES_TEST_CODES) {
+  const where = `${code}/tests/values`;
+  const rendered = renderValuesTest(code);
+  if (!h1Of(rendered.html)) throw new Error(`${where}: нет <h1>`);
+  let page = template;
+  page = mustReplace(page, '<html lang="ru">', () => `<html lang="${code}">`, '<html lang>');
+  page = localizeMeta(page, rendered.title, rendered.description);
+  page = mustReplace(
+    page,
+    '</head>',
+    () => `${headFor(code, rendered.title, rendered.description, null, valuesTestUrlFor, VALUES_TEST_CODES)}\n  </head>`,
+    '</head>',
+  );
+  page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${rendered.html}</div>`, '<div id="root">');
+  page = mustReplace(page, 'webvisor:true', () => 'webvisor:false', 'webvisor (тест ценностей)');
+  page = mustReplace(page, 'clickmap:true', () => 'clickmap:false', 'clickmap (тест ценностей)');
+  const init = page.match(/ym\(105902201,\s*'init',\s*\{([^}]*)\}/)?.[1] ?? '';
+  if (!/\bwebvisor:false\b/.test(init) || !/\bclickmap:false\b/.test(init)) {
+    throw new Error(`${where}: в инициализации Метрики Вебвизор или карта кликов не выключены`);
+  }
+  const head = page.slice(0, page.indexOf('</head>'));
+  if (/(webvisor|clickmap):\s*(true|!0)/.test(head)) {
+    throw new Error(`${where}: в <head> осталось включённое webvisor/clickmap — второй счётчик или повторный init`);
+  }
+
+  const ld = jsonLdOf(rendered.html, where);
+  const faqSection = rendered.html.match(/<section[^>]*data-testid="values-faq"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+  if (faqSection === undefined) throw new Error(`${where}: нет блока вопросов — текст не отрендерился`);
+  const shown = (faqSection.match(/<details[\s>]/g) ?? []).length;
+  const listed = oneOfType(ld, 'FAQPage', where).mainEntity?.length ?? 0;
+  if (listed !== shown) {
+    throw new Error(`${where}: в FAQPage ${listed} вопросов, а на странице ${shown} <details>`);
+  }
+  if (shown < 4) throw new Error(`${where}: вопросов ${shown}, нужно не меньше 4`);
+  const model = rendered.html.match(/<section[^>]*data-testid="values-model"[^>]*>([\s\S]*?)<\/section>/)?.[1] ?? '';
+  const valueCount = (model.match(/<li[\s>]/g) ?? []).length;
+  if (valueCount !== 10) throw new Error(`${where}: описаний ценностей ${valueCount}, нужно 10`);
+  if (!rendered.html.includes('data-testid="values-start"')) throw new Error(`${where}: нет карточки старта`);
+  if (!rendered.html.includes('data-testid="values-test"')) {
+    throw new Error(`${where}: нет контейнера теста (data-testid="values-test") — main.tsx не запустит тест`);
+  }
+  checkBreadcrumbs(ld, page, 2, where);
+
+  writePage(valuesTestDirFor(code), page);
+  console.log(`✅ ${where} (Вебвизор и карта кликов выключены)`);
+}
+
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -435,6 +500,7 @@ const sitemap = [
     DEFAULT_LANGUAGE,
     { codes: ASSISTANT_CODES, slugs: ASSISTANT_SLUGS },
     { codes: HD_CALC_CODES },
+    { codes: VALUES_TEST_CODES },
   ).map((loc) => `  <url><loc>${loc}</loc></url>`),
   '</urlset>',
 ].join('\n');
@@ -494,6 +560,17 @@ console.log('✅ sitemap.xml');
     });
   }
 
+  // Тест ценностей: H1 — из чанка текстов, сообщение об ошибке расчёта —
+  // из чанка страницы (src/lib/schwartz/score.ts).
+  if (VALUES_TEST_CODES.includes(DEFAULT_LANGUAGE)) {
+    const valuesH1 = textOf(renderValuesTest(DEFAULT_LANGUAGE).html);
+    if (valuesH1.length < 15) {
+      throw new Error(`${DEFAULT_LANGUAGE}/tests/values: H1 «${valuesH1}» слишком короткий для проверки бандла`);
+    }
+    needles.push({ slug: 'тест ценностей (H1)', needle: valuesH1 });
+    needles.push({ slug: 'тест ценностей (расчёт)', needle: 'тест ценностей: нужно' });
+  }
+
   const entryFiles = [
     ...template.matchAll(/<script type="module"[^>]*\ssrc="([^"]+\.js)"/g),
     ...template.matchAll(/<link rel="modulepreload"[^>]*\shref="([^"]+\.js)"/g),
@@ -508,7 +585,7 @@ console.log('✅ sitemap.xml');
         throw new Error(
           `во входной бандл попало то, что должно жить в своём чанке (в ${file} нашлось «${needle}» — ${slug}). ` +
             'Тексты ассистентов грузятся через src/content/assistants/load.ts, калькулятор — ' +
-            'динамическим импортом HumanDesignPage в src/main.tsx; статический импорт их в клиентский код недопустим.',
+            'динамическим импортом HumanDesignPage и ValuesTestPage в src/main.tsx; статический импорт их в клиентский код недопустим.',
         );
       }
     }
@@ -529,5 +606,5 @@ console.log('✅ sitemap.xml');
       );
     }
   }
-  console.log(`✅ тексты ассистентов и калькулятор не во входном бандле (${entryFiles.join(', ')})`);
+  console.log(`✅ тексты ассистентов, калькулятор и тест ценностей не во входном бандле (${entryFiles.join(', ')})`);
 }

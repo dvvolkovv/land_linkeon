@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config';
 import { translatedCodes } from './scripts/translated-languages.js';
 import { assistantPageCodes } from './scripts/assistant-page-languages.js';
 import { hdCalcCodes } from './scripts/hd-calc-languages.js';
+import { valuesTestCodes } from './scripts/values-test-languages.js';
 
 export default defineConfig({
   test: {
@@ -14,5 +15,6 @@ export default defineConfig({
     __TRANSLATED_LANGUAGES__: JSON.stringify(translatedCodes()),
     __ASSISTANT_PAGE_LANGUAGES__: JSON.stringify(assistantPageCodes()),
     __HD_CALC_LANGUAGES__: JSON.stringify(hdCalcCodes()),
+    __VALUES_TEST_LANGUAGES__: JSON.stringify(valuesTestCodes()),
   },
 });
