@@ -246,6 +246,40 @@
 - Успех: доля завершивших среди начавших, доля перешедших к Оле среди
   завершивших, регистрации по метке. Цели в Метрике заводит владелец.
 
+### Как смотреть результат (после выката 12.10.2026)
+
+- Доля завершивших — в Метрике лендинга (счётчик 105902201): конверсия цели
+  `values-test-complete` к `values-test-start`. Доля перешедших к Оле —
+  `values-test-to-olia` к `values-test-complete`. Начало и завершение в нашу
+  таблицу событий не пишутся.
+- Переходы к Оле по дням — наша таблица событий:
+
+  ```sql
+  select date_trunc('day', ts) as day, count(*) as to_olia
+  from events
+  where name = 'landing_cta_click'
+    and props->>'cta' = 'values-test-to-olia'
+    and ts > now() - interval '30 days'
+  group by 1 order by 1;
+  ```
+
+- Регистрации по метке теста (с оговоркой про рекламную метку выше; тестовые
+  аккаунты исключить предикатом `excludeTestUsersSql('user_id')` из
+  `spirits_back/src/admin/admin.service.ts`):
+
+  ```sql
+  select count(*)
+  from ai_profiles_consolidated
+  where signup_campaign like '%values-test%';
+  ```
+
+- Живой проход 12.10.2026 (служебный аккаунт, с ноды): тест → кабинет →
+  черновик в поле Оли без автоприветствия → ответ Оли опирается на результат
+  (ведущие, наименее важная, обе оси). Инструкцию Оли менять не нужно.
+- По сети на проде 12.10.2026: на странице теста нет запросов
+  `mc.yandex.ru/webvisor/…`, `mc.yandex.ru/clmap/…` и `top-fwz1.mail.ru`; на
+  главной клики и пиксель есть.
+
 ## Входы
 
 - Страница Оли: вторая кнопка наверху (`heroLink` в `pages/ru/olia.ts`,
