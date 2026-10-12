@@ -24,7 +24,16 @@ describe('ссылка в чат с черновиком', () => {
     expect(draftOf(chatUrlWithDraft(2, 'values-test', text))).toBe('я'.repeat(DRAFT_MAX_LENGTH - 1));
   });
 
+  it('# & + доходят до кабинета целыми', () => {
+    const text = 'a#b&c=d+e';
+    expect(draftOf(chatUrlWithDraft(2, 'values-test', text))).toBe(text);
+  });
+
   it('шаблон: незнакомый ключ остаётся как есть — опечатку видно', () => {
     expect(fillTemplate('{a} {b}', { a: '1' })).toBe('1 {b}');
+  });
+
+  it('шаблон: ключи берутся только из своих свойств, не из прототипа', () => {
+    expect(fillTemplate('{constructor} {__proto__}', {})).toBe('{constructor} {__proto__}');
   });
 });

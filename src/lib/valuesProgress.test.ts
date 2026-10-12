@@ -50,6 +50,12 @@ describe('ход теста', () => {
     expect(isComplete(p)).toBe(true);
     expect(answer(p, 6)).toBe(p);
   });
+
+  it('EMPTY_PROGRESS — неизменяемый, но answer от него копирует', () => {
+    expect(Object.isFrozen(EMPTY_PROGRESS)).toBe(true);
+    expect(Object.isFrozen(EMPTY_PROGRESS.answers)).toBe(true);
+    expect(answer(EMPTY_PROGRESS, 5)).toEqual({ answers: [5], index: 1 });
+  });
 });
 
 describe('прогресс во вкладке', () => {
@@ -70,6 +76,14 @@ describe('прогресс во вкладке', () => {
     expect(loadProgress()).toBeNull();
   });
 
+  it('пройденный тест поднимается из вкладки целиком', () => {
+    const full = { answers: Array(30).fill(3), index: 30 };
+    stubStorage({ [PROGRESS_KEY]: JSON.stringify(full) });
+    const loaded = loadProgress();
+    expect(loaded).toEqual(full);
+    expect(isComplete(loaded!)).toBe(true);
+  });
+
   it('битая или чужая запись отбрасывается и стирается', () => {
     for (const raw of [
       '{oops',
@@ -77,6 +91,8 @@ describe('прогресс во вкладке', () => {
       JSON.stringify({ answers: [3], index: 2 }),
       JSON.stringify({ answers: Array(31).fill(3), index: 30 }),
       JSON.stringify({ answers: [3.5], index: 1 }),
+      JSON.stringify({ answers: [3], index: -1 }),
+      JSON.stringify({ answers: '333', index: 1 }),
     ]) {
       const store = stubStorage({ [PROGRESS_KEY]: raw });
       expect(loadProgress(), raw).toBeNull();

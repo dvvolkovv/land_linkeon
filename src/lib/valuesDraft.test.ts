@@ -35,6 +35,18 @@ describe('сообщение Оле', () => {
     expect(valuesMessage(ru, scoreAnswers(by({}, 4)))).toBe(ru.messageFlat);
   });
 
+  it('остальные набрали поровну, ведущая — одна', () => {
+    const r = scoreAnswers(by({ selfDirection: 5 }, 4));
+    expect(valuesMessage(ru, r)).toContain('на первом месте — самостоятельность, остальные — поровну.');
+  });
+
+  it('полная ничья в top — обе ценности названы', () => {
+    const r = scoreAnswers(
+      by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5, security: 5 }),
+    );
+    expect(valuesMessage(ru, r)).toContain('(с тем же результатом — доброта и универсализм)');
+  });
+
   it('самый длинный возможный случай — в лимите кабинета', () => {
     for (const [code, t] of Object.entries(VALUES_TEXTS)) {
       const longest = [...VALUE_KEYS].sort((a, b) => t.values[b].inMessage.length - t.values[a].inMessage.length);
