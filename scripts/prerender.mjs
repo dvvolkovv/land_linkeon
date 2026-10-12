@@ -461,11 +461,9 @@ for (const code of VALUES_TEST_CODES) {
   page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${rendered.html}</div>`, '<div id="root">');
   page = mustReplace(page, 'webvisor:true', () => 'webvisor:false', 'webvisor (тест ценностей)');
   page = mustReplace(page, 'clickmap:true', () => 'clickmap:false', 'clickmap (тест ценностей)');
-  if (!page.includes('webvisor:false') || page.includes('webvisor:true')) {
-    throw new Error(`${where}: Вебвизор на странице теста не выключен`);
-  }
-  if (!page.includes('clickmap:false') || page.includes('clickmap:true')) {
-    throw new Error(`${where}: карта кликов на странице теста не выключена`);
+  const init = page.match(/ym\(105902201,\s*'init',\s*\{([^}]*)\}/)?.[1] ?? '';
+  if (!/\bwebvisor:false\b/.test(init) || !/\bclickmap:false\b/.test(init)) {
+    throw new Error(`${where}: в инициализации Метрики Вебвизор или карта кликов не выключены`);
   }
 
   const ld = jsonLdOf(rendered.html, where);
@@ -558,7 +556,11 @@ console.log('✅ sitemap.xml');
   // Тест ценностей: H1 — из чанка текстов, сообщение об ошибке расчёта —
   // из чанка страницы (src/lib/schwartz/score.ts).
   if (VALUES_TEST_CODES.includes(DEFAULT_LANGUAGE)) {
-    needles.push({ slug: 'тест ценностей (H1)', needle: textOf(renderValuesTest(DEFAULT_LANGUAGE).html) });
+    const valuesH1 = textOf(renderValuesTest(DEFAULT_LANGUAGE).html);
+    if (valuesH1.length < 15) {
+      throw new Error(`${DEFAULT_LANGUAGE}/tests/values: H1 «${valuesH1}» слишком короткий для проверки бандла`);
+    }
+    needles.push({ slug: 'тест ценностей (H1)', needle: valuesH1 });
     needles.push({ slug: 'тест ценностей (расчёт)', needle: 'тест ценностей: нужно' });
   }
 
