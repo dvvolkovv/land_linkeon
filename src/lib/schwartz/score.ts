@@ -25,36 +25,50 @@ export interface ValuesResult {
    * одном утверждении), затем минимум, — и только если три ответа совпадают
    * как мультисет, порядком круга. Наименее важная (bottom) стоит последней
    * записью — решение владельца о порядке ничьей снизу (byDisinterest) может
-   * передвинуть её внутри «хвоста» с равной минимальной суммой.
+   * передвинуть её внутри «хвоста» с равной минимальной суммой. При
+   * restEqual bottom не выбирается, и порядок остаётся как от исходного
+   * сравнения — переставлять нечего.
    */
   ranking: ValueKey[];
   /** Приоритеты не выделились: ответы почти одинаковые. */
   flat: boolean;
-  /** Три ведущие; пусто, если приоритеты не выделились. */
+  /** Три ведущие; одна-две при restEqual; пусто, если приоритеты не выделились. */
   top: ValueKey[];
   /**
    * Полная ничья на срезе тройки: ценности вне top, у которых все три ответа
    * совпадают (сумма, максимум и минимум) с третьей ведущей (top[2]) — то
    * есть ничья решилась только порядком круга, а не ответами, и это стоит
-   * показать как есть. Совпадение именно с top[2] достаточно: совпади такая
-   * ценность с top[0] или top[1], она совпала бы и с top[2] (иначе ранние две
-   * были бы тоже разными), и сама вошла бы в тройку. В порядке ranking;
-   * пусто, если приоритеты не выделились.
+   * показать как есть. Ранжирование отсортировано по (сумма, наибольший,
+   * наименьший), поэтому совпадение с top[0] или top[1] вне тройки влечёт
+   * совпадение с top[2]. Сумма top[2] здесь всегда строго больше минимальной
+   * — той же, что у bottom (иначе сработал бы restEqual, см. ниже), —
+   * поэтому top[2] не может совпасть с bottom: topTies и bottomTies не
+   * пересекаются и не содержат bottom. В порядке ranking; пусто при flat и
+   * при restEqual.
    */
   topTies: ValueKey[];
   /**
    * Наименее важная среди тех, что не вошли в top: ничья решается в обратную
    * сторону, чем наверху — ниже та, где сильнее минимум («совсем не похож на
    * меня»), затем максимум, и только при полном совпадении ответов — дальняя
-   * по кругу ценность. null, если приоритеты не выделились.
+   * по кругу ценность. null при flat и при restEqual.
    */
   bottom: ValueKey | null;
   /**
    * Полная ничья у наименее важной: ценности вне top (и кроме самой bottom),
    * чьи три ответа совпадают (сумма, максимум и минимум) с bottom. В порядке
-   * ranking; пусто, если приоритеты не выделились.
+   * ranking; пусто при flat и при restEqual.
    */
   bottomTies: ValueKey[];
+  /**
+   * Выделились всего одна-две ценности, а остальные набрали одну и ту же
+   * (минимальную) сумму — назвать среди них «наименее важную» было бы
+   * произволом круга. Срабатывает, когда у третьей по рангу (top[2] в обычном
+   * случае) сумма совпадает с минимальной суммой по всем десяти: это значит,
+   * что с третьего места и до конца все ценности делят одну сумму. false при
+   * flat.
+   */
+  restEqual: boolean;
   axes: Record<AxisKey, AxisResult>;
 }
 
@@ -110,7 +124,18 @@ export function scoreAnswers(answers: readonly number[]): ValuesResult {
   const axes = Object.fromEntries(AXIS_KEYS.map((key) => [key, axis(key, sums)])) as Record<AxisKey, AxisResult>;
 
   if (flat) {
-    return { scores, ranking, flat: true, top: [], topTies: [], bottom: null, bottomTies: [], axes };
+    return { scores, ranking, flat: true, top: [], topTies: [], bottom: null, bottomTies: [], restEqual: false, axes };
+  }
+
+  // Сумма третьей по рангу совпадает с минимальной — значит, с третьего места
+  // и до конца все ценности делят одну сумму: выделилась только одна-две,
+  // а «наименее важную» среди равных не назвать (решение владельца).
+  const minSum = stats[ranking[ranking.length - 1]].sum;
+  const restEqual = stats[ranking[2]].sum === minSum;
+
+  if (restEqual) {
+    const top = ranking.filter((k) => stats[k].sum > minSum);
+    return { scores, ranking, flat: false, top, topTies: [], bottom: null, bottomTies: [], restEqual: true, axes };
   }
 
   const top = ranking.slice(0, 3);
@@ -135,7 +160,7 @@ export function scoreAnswers(answers: readonly number[]): ValuesResult {
   const topTies = orderedRanking.filter((k) => !topSet.has(k) && sameStats(k, third));
   const bottomTies = orderedRanking.filter((k) => !topSet.has(k) && k !== bottom && sameStats(k, bottom));
 
-  return { scores, ranking: orderedRanking, flat: false, top, topTies, bottom, bottomTies, axes };
+  return { scores, ranking: orderedRanking, flat: false, top, topTies, bottom, bottomTies, restEqual: false, axes };
 }
 
 /**
