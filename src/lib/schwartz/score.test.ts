@@ -116,11 +116,16 @@ describe('расчёт теста ценностей', () => {
 
   it('ведущая не бывает наименее важной', () => {
     const r = scoreAnswers(
-      withItems(by({ selfDirection: 5 }, 4), { selfDirection3: 4, stimulation1: 6, stimulation2: 4, stimulation3: 2 }),
+      withItems(by({ selfDirection: 5 }, 4), {
+        selfDirection3: 4,
+        stimulation1: 6, stimulation2: 4, stimulation3: 3,
+        hedonism1: 5,
+      }),
     );
     expect(r.top).toEqual(['selfDirection', 'stimulation', 'hedonism']);
     expect(r.bottom).toBe('universalism');
     expect(r.flat).toBe(false);
+    expect(r.restEqual).toBe(false);
   });
 
   it('одинаковые ответы — приоритеты не выделились', () => {
