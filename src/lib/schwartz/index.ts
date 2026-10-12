@@ -9,3 +9,4 @@ export { ITEMS, ITEM_IDS } from './items';
 export type { Item, ItemId } from './items';
 export { ANSWER_MAX, ANSWER_MIN, BALANCE_THRESHOLD, FLAT_THRESHOLD, scoreAnswers } from './score';
 export type { AxisResult, ValuesResult } from './score';
+export { CIRCLE_CLAMP, GROUP_COLORS, renderValuesCircleSvg } from './circle';
