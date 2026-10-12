@@ -44,8 +44,11 @@ export interface AssistantPageText {
   can: string[];
   /** «Чего не делает»: 2–4 пункта. */
   cannot: string[];
-  /** Вопросы и ответы: 4–5. */
-  faq: { q: string; a: string }[];
+  /**
+   * Вопросы и ответы: 4–5. `link` — ссылка после ответа (FAQ Райи ведёт на
+   * калькулятор Human Design). В FAQPage уходит только текст ответа.
+   */
+  faq: { q: string; a: string; link?: { text: string; href: string } }[];
 }
 
 export type AssistantPagesPack = Record<AssistantSlug, AssistantPageText>;

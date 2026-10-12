@@ -188,7 +188,17 @@ export default function AssistantPage({ entry, pack, language }: Props) {
                   <span className="text-paper-900 font-semibold pr-4">{f.q}</span>
                   <ChevronDown aria-hidden="true" className="w-5 h-5 text-paper-600 group-open:rotate-180 transition-transform flex-shrink-0" />
                 </summary>
-                <p className="pb-5 text-paper-800 leading-relaxed">{f.a}</p>
+                <p className="pb-5 text-paper-800 leading-relaxed">
+                  {f.a}
+                  {f.link && (
+                    <>
+                      {' '}
+                      <a href={f.link.href} className="font-semibold text-brand-800 underline hover:text-brand-900">
+                        {f.link.text}
+                      </a>
+                    </>
+                  )}
+                </p>
               </details>
             ))}
           </div>

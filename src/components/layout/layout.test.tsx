@@ -45,4 +45,14 @@ describe('подвал', () => {
     expect(render(<Footer />)).toContain('href="#sites"');
     expect(render(<Footer homeHref="/" />)).toContain('href="/#sites"');
   });
+
+  it('ru: пункт «Расчёт Human Design» ведёт на калькулятор', () => {
+    expect(render(<Footer />)).toMatch(/href="\/calculators\/human-design\/"[^>]*>Расчёт Human Design<\/a>/);
+  });
+
+  // Калькулятор пока только на русском: ссылка на /en/calculators/… вела бы
+  // в SPA-фолбэк.
+  it('на языке без калькулятора пункта нет', () => {
+    expect(render(<Footer />, 'en')).not.toContain('/calculators/');
+  });
 });

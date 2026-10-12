@@ -47,6 +47,18 @@ describe('страница ассистента', () => {
     expect(html).toContain('data-testid="assistant-faq"');
   });
 
+  // FAQ Райи противопоставляет её калькулятору — там ссылка на наш, именно в
+  // ответе на вопрос про отличие от калькулятора: проверка по всей секции
+  // зеленела бы, даже если ссылка утекла в другой <details>.
+  it('FAQ Райи ведёт на калькулятор Human Design — в ответе про отличие от него', () => {
+    const faq = pick(html, /<section[^>]*data-testid="assistant-faq"[\s\S]*?<\/section>/);
+    const question = PACKS.ru.raya.faq.find((f) => f.link)!.q;
+    const details = [...faq.matchAll(/<details[\s\S]*?<\/details>/g)].map((m) => m[0]);
+    const target = details.find((d) => d.includes(question));
+    expect(target, `не нашёлся <details> с вопросом «${question}»`).toBeDefined();
+    expect(target).toContain('href="/calculators/human-design/"');
+  });
+
   it('«Работает в паре с» ведёт ровно на страницы соседей', () => {
     const related = pick(html, /<section[^>]*aria-labelledby="related-heading"[\s\S]*?<\/section>/);
     expect(linkedSlugs(related)).toEqual([...entry.related].sort());

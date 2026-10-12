@@ -39,7 +39,7 @@
 | «Эталон: … тип, авторитет, профиль, определённость» | эталон проверяет **позиции**: долготы 26 активаций и ворота.линии (кроме ближе 1′ к границе линии) и перевод местного времени; правила и колесо — 10 карт ручной сверки | у эталона та же таблица и те же правила — общая ошибка обеих реализаций им не ловится |
 | «7 авторитетов» | эго-манифестированный и эго-проецированный — один `ego` | так в спеке выходит семь |
 | «ссылка содержит `assistant=14` и `#draft`» | в `href` — только `assistant=14&utm_content=hd-calc`; `#draft=` добавляется в момент клика; e2e проверяет адрес, куда ушёл переход | Вебвизор и `trackLinks` читают `href` (п. 6) |
-| `hd-calc-submit` «тем же механизмом data-cta» | та же функция `reachGoal()`, что у `data-cta`, но вызывается после **удачного** расчёта, а не по клику | клик по кнопке с пустой формой — не расчёт |
+| `hd-calc-submit` «тем же механизмом data-cta» | цель Метрики `reachGoal()` после **удачного** расчёта, а не по клику; в нашу таблицу событий (`landing_cta_click`) идут только клики `data-cta` — `reachCtaGoal()` | клик по кнопке с пустой формой — не расчёт; `landing_cta_click` — шаг «Нажал „Начать“» воронки в админке и пункт политики «нажатие кнопки перехода в Приложение» |
 | «определённые центры и каналы — по строке» | плюс открытые центры по строке | в текстах есть оба вида центров (18 описаний) |
 | черновик в кабинете | привязан к `?assistant=` из той же ссылки и подставляется только в чат с этим ассистентом | иначе данные рождения всплыли бы в чате Романа |
 | «Входной бандл лендинга не растёт» | растёт на ~1,3 КБ (разбор адреса, ссылка в подвале); код и тексты калькулятора — только в своих чанках, пререндер это проверяет | без разбора адреса страницу не открыть |
@@ -148,7 +148,7 @@ interface Activation { body: BodyId; longitude: number; gate: number; line: numb
 | `src/content/hd/cities.ru.json` | база городов (сгенерирована) | создать |
 | `src/lib/cities.ts`, `src/lib/cityLoader.ts` | поиск города, ленивая загрузка базы | создать |
 | `src/lib/hdDraft.ts` | черновик Райе, ссылка в кабинет | создать |
-| `src/lib/goal.ts` | цель Метрики + событие лендинга | создать |
+| `src/lib/goal.ts` | цель Метрики; клик перехода в приложение — ещё и событие лендинга | создать |
 | `src/lib/hdRoute.ts` | адрес калькулятора | создать |
 | `scripts/hd-calc-languages.js` + `.d.ts` | на каких языках выпущен калькулятор | создать |
 | `src/content/hd/{types,texts.server,load,availability}.ts`, `texts/ru.ts` | тексты и их загрузка | создать |
@@ -181,10 +181,18 @@ interface Activation { body: BodyId; longitude: number; gate: number; line: numb
 7. **FAQ** обязательно отвечает: зачем точное время; что делать, если своего города нет (и почему важен пояс); сохраняются ли данные (нет: расчёт на устройстве, ничего не уходит на сервер); чем калькулятор отличается от разбора у Райи; почему другой сайт может показать иначе (пояс и летнее время в год рождения, истинный узел).
 8. **Оговорка** — «Human Design — инструмент самопознания, не прогноз и не замена врачу, юристу или финансисту.» (тест проверяет «самопознани», «не прогноз», «врач»).
 9. **Названия** — как в таблице; меняются только вместе с образцами на СТОП 1.
+10. **По ревью образцов (СТОП 1, 08.10.2026, владелец).** Образцы `docs/hd-calculator/samples-ru.md` приняты как образец тона и длины. Решения:
+    - стратегии Манифестора и Манифестирующего генератора — «Информировать» и «Откликаться, затем информировать» (как говорит Райя); что значит «информировать» — коротко сказать тем, кого затронет решение, до того как действовать, — объясняет абзац о типе;
+    - основателя метода не называть нигде;
+    - термины — «определённость» (одинарная, расщеплённая, тройная, четверная) и «инкарнационный крест»;
+    - `legendDesign` — «Дизайн — примерно за 88 дней до рождения»;
+    - в подписи схемы (`bodygraphLabel`) при пустом списке центров — «нет», а не строка `noDefinedCenters` (Task 21);
+    - от Вебвизора скрыт ВЕСЬ блок результата (`ym-hide-content` на его контейнере: схема, строки, списки), а не только поля и строка с данными (Task 21) — по набору ворот дату рождения можно восстановить примерно до дня;
+    - описания каналов и центров начинаются со строчной буквы: на странице они идут после «Название —».
 
 | Что | Названия (код → по-русски) |
 |---|---|
-| Типы и стратегии | generator — Генератор, «Откликаться»; manifestingGenerator — Манифестирующий генератор, «Откликаться, затем сообщать о действии»; manifestor — Манифестор, «Сообщать о своих действиях заранее»; projector — Проектор, «Ждать приглашения»; reflector — Рефлектор, «Ждать лунный цикл — около 28 дней» |
+| Типы и стратегии | generator — Генератор, «Откликаться»; manifestingGenerator — Манифестирующий генератор, «Откликаться, затем информировать»; manifestor — Манифестор, «Информировать»; projector — Проектор, «Ждать приглашения»; reflector — Рефлектор, «Ждать лунный цикл — около 28 дней» |
 | Авторитеты (`name` / `inMessage`) | emotional — Эмоциональный (солнечное сплетение) / эмоциональный авторитет; sacral — Сакральный / сакральный авторитет; splenic — Селезёночный / селезёночный авторитет; ego — Эго (сердечный центр) / авторитет эго; selfProjected — Самопроецированный / самопроецированный авторитет; mental — Ментальный (через окружение) / ментальный авторитет; lunar — Лунный / лунный авторитет |
 | Линии профиля | 1 Исследователь, 2 Отшельник, 3 Мученик, 4 Оппортунист, 5 Еретик, 6 Ролевая модель → «1/3 · Исследователь / Мученик» |
 | Определённость | none — Нет определённости; single — Одинарная; split — Расщеплённая (двойная); triple — Тройная; quadruple — Четверная |
@@ -2658,6 +2666,36 @@ for (const p of picked) {
 }
 ```
 
+**Дополнение по ревью Task 5 (08.10.2026).** Правило «любой мотор к горлу, в том числе цепочкой» нынешние 10 карт не сверяют: поломки «МГ, только если сакрал связан с горлом» и «Манифестор только при прямом канале» проходят их все. Поэтому в скрипт добавляется отдельная категория — МГ, у которого с горлом связан не сакрал, а другой мотор:
+
+```ts
+import { GATE_CENTER, type CenterId } from '../src/lib/human-design/bodygraph';
+
+/** Связаны ли два центра определёнными каналами карты — напрямую или цепочкой. */
+function connected(c: HdChart, from: CenterId, to: CenterId): boolean {
+  const seen = new Set<CenterId>([from]);
+  const queue: CenterId[] = [from];
+  while (queue.length > 0) {
+    const cur = queue.shift()!;
+    for (const key of c.channels) {
+      const [a, b] = key.split('-').map(Number);
+      const [ca, cb] = [GATE_CENTER[a], GATE_CENTER[b]];
+      const next = ca === cur ? cb : cb === cur ? ca : null;
+      if (next && !seen.has(next)) { seen.add(next); queue.push(next); }
+    }
+  }
+  return seen.has(to);
+}
+
+const categories = (c: HdChart) => {
+  const keys = [`type:${c.type}`, `authority:${c.authority}`, `definition:${c.definition}`];
+  if (c.type === 'manifestingGenerator' && !connected(c, 'sacral', 'throat')) keys.push('rule:mgOtherMotor');
+  return keys;
+};
+```
+
+и `'rule:mgOtherMotor'` — в `WANTED`. Вывод Step 6 после этого отличается от примера ниже: записать фактический.
+
 - [ ] **Step 5: Commit**
 
 ```bash
@@ -2754,6 +2792,7 @@ Expected (генератор детерминированный; на коде �
 
 Для каждой из 10 карт ввести город, дату и время из комментария «вводить» минимум в два калькулятора без регистрации — например `bodygraph.io`, `astrolium.com/tools/human-design-calculator`, `thehumandesignsystem.com/free-chart`, `datemyst.com/human-design` (браузерными инструментами; если их нет — отдать список владельцу). Записать: тип, авторитет, профиль, определённость, определённые каналы.
 
+- Названия у калькуляторов разные — сопоставлять так (дополнение по ревью Task 5): «Mental», «Environmental», «Outer», «None» (Проектор без внутреннего авторитета) → `mental`; «Ego Manifested», «Ego Projected», «Ego» → `ego`; «Self-Projected», «Self» → `selfProjected`; «Simple Split», «Wide Split», «Split» → `split`; «Triple Split» → `triple`; «Quadruple Split» → `quadruple`. Расхождение только в названии — не расхождение.
 - Всё совпало с выводом Step 6 — перенести запись в `MANUAL` как есть, в `checkedWith` — домены двух калькуляторов, `CHECKED_AT` — дата сверки.
 - Калькуляторы разошлись между собой только в каналах с воротами узлов — посмотреть, какой узел у калькулятора (средний или истинный); засчитывать тот, что с истинным, и взять третий калькулятор.
 - Сторонние калькуляторы сходятся между собой и расходятся с нами — **СТОП**: в `expect` пишется то, что показали калькуляторы, тест краснеет, причина ищется по superpowers:systematic-debugging (таблица ворот, каналы центров, правило мотора к горлу, иерархия авторитетов). Подгонять ожидания под наш вывод нельзя — это и есть то, что сверка должна поймать.
@@ -3260,7 +3299,7 @@ Expected: `TSC_OK`.
 
 Все пути — от корня воркдерева `~/Downloads/land_linkeon/.worktrees/hd-calc`.
 
-Черновик собирается только в момент клика и уходит во фрагменте `#draft=…`: браузер не отправляет фрагмент на сервер, а в `href` кнопки данных нет — его читают Вебвизор и `trackLinks` Метрики. Цели: `hd-calc-submit` — после удачного расчёта, `hd-calc-to-raya` — клик по кнопке (`data-cta`). Обе идут одной функцией `reachGoal()`.
+Черновик собирается только в момент клика и уходит во фрагменте `#draft=…`: браузер не отправляет фрагмент на сервер, а в `href` кнопки данных нет — его читают Вебвизор и `trackLinks` Метрики. Цели: `hd-calc-submit` — после удачного расчёта, только в Метрику (`reachGoal()`); `hd-calc-to-raya` — клик по кнопке (`data-cta`), в Метрику и в нашу таблицу событий (`reachCtaGoal()`). Расчёт в таблицу событий не пишется: `landing_cta_click` — шаг «Нажал „Начать“» воронки в админке (`spirits_back/src/monitoring/product/funnel.service.ts` считает любой такой клик) и пункт политики конфиденциальности «нажатие кнопки перехода в Приложение».
 
 - [ ] **Step 1: Написать тесты**
 
@@ -3335,8 +3374,9 @@ describe('ссылка к Райе', () => {
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 /**
- * Цель лендинга уходит и в Метрику, и в нашу таблицу событий — одним именем.
- * Окружение браузера подменяется: vitest здесь идёт в node (как в track.test.ts).
+ * Цель Метрики — только имя; в нашу таблицу событий идут только клики перехода
+ * в приложение. Окружение браузера подменяется: vitest здесь идёт в node (как в
+ * track.test.ts).
  */
 function stubBrowser() {
   const store = new Map<string, string>();
@@ -3361,22 +3401,31 @@ afterEach(() => {
 });
 
 describe('цель лендинга', () => {
-  it('Метрика и таблица событий получают только имя цели', async () => {
+  it('расчёт — только цель Метрики: в нашу таблицу событий не пишется', async () => {
     const { ym, fetch } = stubBrowser();
     const { METRIKA_ID, reachGoal } = await import('./goal');
     reachGoal('hd-calc-submit');
     expect(ym).toHaveBeenCalledWith(METRIKA_ID, 'reachGoal', 'hd-calc-submit');
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('клик перехода в приложение — в Метрику и в таблицу событий, только имя', async () => {
+    const { ym, fetch } = stubBrowser();
+    const { METRIKA_ID, reachCtaGoal } = await import('./goal');
+    reachCtaGoal('hd-calc-to-raya');
+    expect(ym).toHaveBeenCalledWith(METRIKA_ID, 'reachGoal', 'hd-calc-to-raya');
     const body = JSON.parse(fetch.mock.calls[0][1]!.body as string);
     expect(body.name).toBe('landing_cta_click');
-    expect(body.props.cta).toBe('hd-calc-submit');
+    expect(body.props.cta).toBe('hd-calc-to-raya');
     expect(body.props.path).toBe('/calculators/human-design/');
   });
 
   it('без Метрики (заблокирована) — не падает', async () => {
     stubBrowser();
     vi.stubGlobal('window', { location: { pathname: '/', search: '', hostname: 'linkeon.io' } });
-    const { reachGoal } = await import('./goal');
-    expect(() => reachGoal('hd-calc-to-raya')).not.toThrow();
+    const { reachCtaGoal, reachGoal } = await import('./goal');
+    expect(() => reachGoal('hd-calc-submit')).not.toThrow();
+    expect(() => reachCtaGoal('hd-calc-to-raya')).not.toThrow();
   });
 });
 ```
@@ -3463,17 +3512,24 @@ declare global {
   }
 }
 
-/**
- * Цель лендинга: в нашу таблицу событий (landing_cta_click) и в Метрику.
- * Уходит только имя цели — никаких данных со страницы.
- */
+/** Цель Метрики. Уходит только имя цели — никаких данных со страницы. */
 export function reachGoal(goal: string): void {
-  trackLandingCta(goal);
   if (window.ym) window.ym(METRIKA_ID, 'reachGoal', goal);
+}
+
+/**
+ * Клик по кнопке перехода в приложение (`data-cta`): в нашу таблицу событий и в
+ * Метрику. landing_cta_click — шаг «Нажал „Начать“» воронки в админке и пункт
+ * политики конфиденциальности («нажатие кнопки перехода в Приложение»), поэтому
+ * остальные цели, например «расчёт сделан», идут только в Метрику.
+ */
+export function reachCtaGoal(cta: string): void {
+  trackLandingCta(cta);
+  reachGoal(cta);
 }
 ```
 
-- [ ] **Step 5: main.tsx — тот же `reachGoal`**
+- [ ] **Step 5: main.tsx — `reachCtaGoal`**
 
 В `src/main.tsx` строку
 
@@ -3485,7 +3541,7 @@ import { trackLandingVisit, trackLandingCta, initLandingEngagement } from './lib
 
 ```tsx
 import { trackLandingVisit, initLandingEngagement } from './lib/track';
-import { reachGoal } from './lib/goal';
+import { reachCtaGoal } from './lib/goal';
 ```
 
 и блок
@@ -3519,7 +3575,7 @@ document.addEventListener('click', (e) => {
   const goal = el.dataset.cta;
   if (!goal) return;
   // Пишем клик и в нашу БД (видеть шаг лендинг→клик), и в Я.Метрику.
-  reachGoal(goal);
+  reachCtaGoal(goal);
 }, { capture: true });
 ```
 
@@ -3538,7 +3594,7 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 - [ ] **Step 7: Тесты и типы**
 
 Run: `bash ~/Downloads/land_linkeon/.superpowers/hd-calc/node-run.sh land '(./node_modules/.bin/vitest run src/lib/hdDraft.test.ts src/lib/goal.test.ts src/lib/track.test.ts > /tmp/hd-t13.log 2>&1 && echo OK || echo FAILED); grep -E "Test Files|Tests " /tmp/hd-t13.log; pnpm typecheck > /tmp/hd-tsc.log 2>&1 && echo TSC_OK || echo TSC_FAILED'`
-Expected: `OK` (hdDraft 6, goal 2, track — прежние), `TSC_OK`.
+Expected: `OK` (hdDraft 6, goal 3, track — прежние), `TSC_OK`.
 
 ---
 
@@ -4427,7 +4483,7 @@ const ru: HdTexts = {
     dataLine: '{date}, {time}, {city} ({offset})',
     bodygraphLabel: 'Бодиграф: {type}. Определённые центры: {centers}',
     legendPersonality: 'Личность — момент рождения',
-    legendDesign: 'Дизайн — около 88 дней до рождения',
+    legendDesign: 'Дизайн — примерно за 88 дней до рождения',
     typeLabel: 'Тип',
     strategyLabel: 'Стратегия',
     authorityLabel: 'Авторитет',
@@ -4443,8 +4499,8 @@ const ru: HdTexts = {
   },
   types: {
     generator: { name: 'Генератор', strategy: 'Откликаться', text: '' },
-    manifestingGenerator: { name: 'Манифестирующий генератор', strategy: 'Откликаться, затем сообщать о действии', text: '' },
-    manifestor: { name: 'Манифестор', strategy: 'Сообщать о своих действиях заранее', text: '' },
+    manifestingGenerator: { name: 'Манифестирующий генератор', strategy: 'Откликаться, затем информировать', text: '' },
+    manifestor: { name: 'Манифестор', strategy: 'Информировать', text: '' },
     projector: { name: 'Проектор', strategy: 'Ждать приглашения', text: '' },
     reflector: { name: 'Рефлектор', strategy: 'Ждать лунный цикл — около 28 дней', text: '' },
   },
@@ -6675,7 +6731,7 @@ test.describe('калькулятор в браузере', () => {
     await page.locator('#hd-city').focus();
     await pickCity(page, 'Каза', 'Казань');
     expect(captured.cityRequests).toBe(1);
-    await expect(page.getByTestId('hd-zone-line')).toHaveText('Казань, UTC+3 на дату рождения');
+    await expect(page.getByTestId('hd-zone-line')).toHaveText('Казань (Республика Татарстан, Россия), UTC+3 на дату рождения');
 
     // Поля и строки с данными спрятаны от Вебвизора.
     for (const id of ['#hd-date', '#hd-time', '#hd-city']) {
@@ -6688,6 +6744,16 @@ test.describe('калькулятор в браузере', () => {
     await expect(page.getByTestId('hd-profile')).toContainText('5/2');
     await expect(page.getByTestId('hd-data-line')).toHaveClass(/\bym-hide-content\b/);
     await expect(page.getByTestId('hd-data-line')).toHaveText('12.03.1990, 14:25, Казань (UTC+3)');
+
+    // Весь блок результата скрыт от Вебвизора, а схема — картинкой: атрибуты
+    // разметки (data-gate, fill) Вебвизор пишет даже внутри ym-hide-content.
+    // svg ищем только в схеме: стрелка на кнопке к Райе — тоже svg, но без данных.
+    const resultBlock = page.getByTestId('hd-result');
+    await expect(resultBlock).toHaveClass(/\bym-hide-content\b/);
+    expect(await resultBlock.locator('[data-testid="hd-bodygraph"] svg, [data-gate], [data-source], [data-center]').count()).toBe(0);
+    await expect(resultBlock.locator('[data-testid="hd-bodygraph"] img')).toHaveCount(1);
+    // После расчёта фокус — на заголовке результата: скринридер его объявит.
+    await expect(page.locator('#hd-result-heading')).toBeFocused();
 
     const cta = page.locator('[data-cta="hd-calc-to-raya"]');
     const href = (await cta.getAttribute('href')) ?? '';
@@ -6711,6 +6777,9 @@ test.describe('калькулятор в браузере', () => {
     expect(goals).toEqual(expect.arrayContaining(['hd-calc-submit', 'hd-calc-to-raya']));
     const sent = JSON.stringify(captured.ym) + captured.events.join('\n');
     for (const secret of ['1990', '14:25', 'Казань']) expect(sent, `«${secret}» ушло в аналитику`).not.toContain(secret);
+    // Расчёт — только цель Метрики: в нашей таблице событий landing_cta_click —
+    // шаг «Нажал „Начать“» воронки, а расчёт не переход в приложение.
+    expect(captured.events.join('\n')).not.toContain('hd-calc-submit');
   });
 
   test('час перевода стрелок: спрашиваем «до или после»', async ({ page, baseURL }) => {
@@ -6750,7 +6819,7 @@ Expected: `E2E_OK` (на прототипе: 56 passed, 2 skipped). Красно
 
 - [ ] **Step 3: Проверка проверки**
 
-Временно убрать `ym-disable-keys` из `FIELD_CLASS` в `src/components/hd/HdForm.tsx`, закоммитить (`git commit -am "tmp: проверка e2e"`), прогнать Step 2: Expected — `E2E_FAILED` на «известное рождение…» (`toHaveClass`). Затем `git reset --hard HEAD~1`. Без этого зелёный прогон ничего не доказывает.
+Временно убрать `ym-disable-keys` из `FIELD_CLASS` в `src/components/hd/CityInput.tsx` (общая константа всех трёх полей), закоммитить (`git commit -am "tmp: проверка e2e"`), прогнать Step 2: Expected — `E2E_FAILED` на «известное рождение…» (`toHaveClass`). Затем `git reset --hard HEAD~1`. Без этого зелёный прогон ничего не доказывает.
 
 - [ ] **Step 4: Commit**
 
@@ -6933,16 +7002,14 @@ curl -s -o /dev/null -D - -H 'Accept-Encoding: gzip' $SITE$CITIES | grep -i -E '
 
 - [ ] **Step 2: Как смотреть результат**
 
-Дописать в спеку (раздел «Аналитика») готовые запросы — успех по спеке: доля расчётов, дошедших до клика, и регистрации по метке. Выполнить их один раз сразу после выката (подключение к базе — вне репозитория): они должны вернуть хотя бы собственные проверочные расчёты.
+Дописать в спеку (раздел «Аналитика»), где смотреть успех по спеке. Доля расчётов, дошедших до клика, — в Метрике: конверсия цели `hd-calc-to-raya` к `hd-calc-submit` (расчёт в нашу таблицу событий не пишется, см. Task 13). Переходы к Райе и регистрации по метке — запросами ниже. Выполнить их один раз сразу после выката (подключение к базе — вне репозитория): они должны вернуть хотя бы собственные проверочные переходы.
 
 ```sql
--- расчёты и переходы к Райе по дням, 30 дней
-select date_trunc('day', ts) as day,
-       count(*) filter (where props->>'cta' = 'hd-calc-submit') as calculations,
-       count(*) filter (where props->>'cta' = 'hd-calc-to-raya') as to_raya
+-- переходы к Райе по дням, 30 дней
+select date_trunc('day', ts) as day, count(*) as to_raya
 from events
 where name = 'landing_cta_click'
-  and props->>'path' like '%/calculators/human-design/%'
+  and props->>'cta' = 'hd-calc-to-raya'
   and ts > now() - interval '30 days'
 group by 1 order by 1;
 

@@ -10,8 +10,12 @@ import { parseAssistantPath } from './lib/assistantRoute';
 import { loadPack } from './content/assistants/load';
 import { assistantBySlug } from './content/assistants/roster';
 import { hasAssistantPages } from './content/assistants/availability';
+import { parseHdCalcPath } from './lib/hdRoute';
+import { hasHdCalculator } from './content/hd/availability';
+import { loadHdTexts } from './content/hd/load';
 import { persistAttribution } from './lib/attribution';
-import { trackLandingVisit, trackLandingCta, initLandingEngagement } from './lib/track';
+import { trackLandingVisit, initLandingEngagement } from './lib/track';
+import { reachCtaGoal } from './lib/goal';
 import { initVkPixel } from './lib/vkPixel';
 import './i18n';
 import './index.css';
@@ -32,12 +36,6 @@ trackLandingVisit();
 // «пришёл, но не кликнул» на причины (внимание vs оффер vs не докрутил).
 initLandingEngagement();
 
-declare global {
-  interface Window {
-    ym?: (id: number, action: string, goal?: string) => void;
-  }
-}
-
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement | null;
   const el = target?.closest<HTMLElement>('[data-cta]');
@@ -45,8 +43,7 @@ document.addEventListener('click', (e) => {
   const goal = el.dataset.cta;
   if (!goal) return;
   // Пишем клик и в нашу БД (видеть шаг лендинг→клик), и в Я.Метрику.
-  trackLandingCta(goal);
-  if (window.ym) window.ym(105902201, 'reachGoal', goal);
+  reachCtaGoal(goal);
 }, { capture: true });
 
 // Роутера в проекте нет и заводить его ради статических страниц не стоит:
@@ -60,6 +57,9 @@ const parsedAssistant = parseAssistantPath(window.location.pathname);
 // главная: loadPack вернул бы null, и render не случился бы вовсе.
 const assistantRoute =
   parsedAssistant && hasAssistantPages(parsedAssistant.language) ? parsedAssistant : null;
+// Калькулятор на языке, где он не выпущен, — тоже SPA-фолбэк: рисуем главную.
+const parsedHd = parseHdCalcPath(window.location.pathname);
+const hdRoute = parsedHd && hasHdCalculator(parsedHd.language) ? parsedHd : null;
 const root = createRoot(document.getElementById('root')!);
 
 if (assistantRoute) {
@@ -87,6 +87,24 @@ if (assistantRoute) {
       );
     })
     .catch((error) => console.error('страницы ассистентов: тексты не загрузились, остаётся пререндер', error));
+} else if (hdRoute) {
+  // Калькулятор — отдельные чанки: страница с кодом расчёта (astronomy-engine)
+  // и тексты языка. Главная их не грузит; пререндер проверяет это по dist/.
+  // Рисуем, когда пришли оба: createRoot не гидратирует, и ранний render
+  // заменил бы пререндер пустым кадром.
+  Promise.all([import('./pages/HumanDesignPage'), loadHdTexts(hdRoute.language)])
+    .then(([{ default: HumanDesignPage }, texts]) => {
+      // Не бывает: язык попадает в HD_CALC_CODES, только если есть его модуль
+      // текстов (scripts/hd-calc-languages.js), а loadHdTexts берёт модули из
+      // того же каталога texts/.
+      if (!texts) return;
+      root.render(
+        <StrictMode>
+          <HumanDesignPage texts={texts} language={hdRoute.language} />
+        </StrictMode>,
+      );
+    })
+    .catch((error) => console.error('калькулятор: чанк не загрузился, остаётся пререндер', error));
 } else {
   root.render(
     <StrictMode>

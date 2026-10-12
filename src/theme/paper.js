@@ -6,8 +6,9 @@
  * Бренд (кнопки, акценты) остаётся прежним; «бумага» заменяет белый и gray-50
  * в фонах Hero, Cartoon, PersonaCTA, Problem, Assistants, Sites и Features главной, а также
  * на страницах ассистентов и в их каталоге (src/pages/AssistantPage.tsx,
- * src/pages/AssistantsCatalogPage.tsx и их части из src/components/assistants/)
- * — это весь список, и он обязан совпадать с кодом. Testimonials, FinalCTA и
+ * src/pages/AssistantsCatalogPage.tsx и их части из src/components/assistants/),
+ * а также на странице калькулятора Human Design (src/pages/HumanDesignPage.tsx
+ * и src/components/hd/) — это весь список, и он обязан совпадать с кодом. Testimonials, FinalCTA и
  * остальные секции главной этой веткой не тронуты и остаются на холодном
  * gray-50; добавляя сюда секцию или страницу, дописывай её в этот перечень,
  * иначе файл начнёт описывать несуществующее.

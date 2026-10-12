@@ -2,6 +2,7 @@ import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { translatedCodes } from './scripts/translated-languages.js';
 import { assistantPageCodes } from './scripts/assistant-page-languages.js';
+import { hdCalcCodes } from './scripts/hd-calc-languages.js';
 import { snippetSource } from './scripts/visitor-redirect.js';
 import { DEFAULT_LANGUAGE } from './src/i18n/languages.data.js';
 
@@ -42,5 +43,7 @@ export default defineConfig({
     __TRANSLATED_LANGUAGES__: JSON.stringify(translatedCodes()),
     // Языки страниц ассистентов — по тому же принципу, см. scripts/assistant-page-languages.js.
     __ASSISTANT_PAGE_LANGUAGES__: JSON.stringify(assistantPageCodes()),
+    // Языки калькулятора Human Design — так же, см. scripts/hd-calc-languages.js.
+    __HD_CALC_LANGUAGES__: JSON.stringify(hdCalcCodes()),
   },
 });
