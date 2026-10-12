@@ -33,6 +33,7 @@
 | «Продолжить (12 из 30)» | число — сколько утверждений отвечено, продолжение — с того места, где человек был | после «Назад» текущее утверждение может быть раньше последнего отвеченного |
 | результат в `sessionStorage` | запись хранит `{answers, index}`; `index = 30` — тест пройден, при загрузке сразу результат без цели `values-test-complete` | цель — только факт прохождения, не перезагрузка |
 | ничьи «по порядку круга» | по ответам человека: при равной сумме выше сильнее «похож», ниже — сильнее «не похож»; наименее важная — среди не вошедших в три ведущие; круг — только при полном совпадении ответов (решение владельца 12.10, после ревью Task 2–4). Код модуля в ветке уточнён по ревью: круг 520×300, одна дуга обода на группу, наименее важная — пунктирной обводкой | ничьи у третьего места — около 41% прохождений, порядок круга перекашивал результат к концу круга |
+| у третьей по порядку та же сумма, что у последней | ведущих 1–2 (только набравшие больше остальных), наименее важной нет, `restEqual: true`, на странице — «Остальные ценности набрали поровну…», в сообщении — «остальные — поровну» (по ревью 12.10: иначе пометки ничьих перечисляли одно и то же) | случается, когда 8 ценностей из 10 набрали одинаковую сумму |
 | полные ничьи (те же три ответа) | помечаются честно: `topTies`/`bottomTies` в результате, строка «Вровень с ней: …» под карточкой третьей ведущей и наименее важной, «(вровень с ней — …)» в сообщении Оле (решение владельца 12.10) | полная ничья у третьего места — до 18–41% прохождений |
 | сообщение Оле | `{axes}` — две короткие фразы из `axesInMessage` через «; » (первая с заглавной, вторая со строчной) | одна фраза на обе оси читается естественно |
 
@@ -85,10 +86,11 @@ interface ValuesResult {
   scores: Record<ValueKey, number>;   // среднее ценности минус личное среднее
   ranking: ValueKey[];                // по убыванию; ничьи — по ответам человека, наименее важная последней
   flat: boolean;                      // приоритеты не выделились
-  top: ValueKey[];                    // 3 или [] при flat
+  top: ValueKey[];                    // 3; 1–2 при restEqual; [] при flat
   topTies: ValueKey[];                // вне тройки, но ответы те же, что у третьей (полная ничья)
-  bottom: ValueKey | null;            // null при flat
+  bottom: ValueKey | null;            // null при flat и restEqual
   bottomTies: ValueKey[];             // вне тройки, ответы те же, что у наименее важной
+  restEqual: boolean;                 // выделились 1–2, остальные набрали поровну: top короче, bottom null
   axes: Record<AxisKey, { lean: AxisLean; diff: number }>;
 }
 
@@ -1022,7 +1024,9 @@ describe('тексты теста ценностей', () => {
       it('шаблоны: ключи на месте', () => {
         expect(placeholders(t.start.resume)).toEqual(['done', 'total']);
         expect(placeholders(t.question.progress)).toEqual(['n', 'total']);
-        expect(placeholders(t.message)).toEqual(['axes', 'bottom', 'top']);
+        expect(placeholders(t.message)).toEqual(['axes', 'rest', 'top']);
+        expect(placeholders(t.bottomInMessage)).toEqual(['bottom']);
+        expect(placeholders(t.restEqualInMessage)).toEqual([]);
         expect(placeholders(t.messageFlat)).toEqual([]);
         expect(placeholders(t.result.tiedWith)).toEqual(['names']);
         expect(placeholders(t.tiedInMessage)).toEqual(['names']);
@@ -1317,6 +1321,10 @@ export interface ValuesTexts {
     restart: string;
     /** Под карточкой третьей ведущей или наименее важной при полной ничьей: «Вровень с ней: {names}». */
     tiedWith: string;
+    /** Заголовок, когда выделилась одна ценность: «Ведущая ценность». */
+    topHeadingOne: string;
+    /** Вместо наименее важной, когда остальные набрали поровну (restEqual). */
+    restEqual: string;
   };
   modelSection: { heading: string; lead: string };
   faqHeading: string;
@@ -1327,7 +1335,11 @@ export interface ValuesTexts {
   and: string;
   /** В сообщении Оле после ценности при полной ничьей: «(вровень с ней — {names})». */
   tiedInMessage: string;
-  /** Первое сообщение Оле: {top} {bottom} {axes}. */
+  /** Часть сообщения про наименее важную: «на последнем — {bottom}». */
+  bottomInMessage: string;
+  /** Та же часть, когда остальные набрали поровну: «остальные — поровну». */
+  restEqualInMessage: string;
+  /** Первое сообщение Оле: {top} {rest} {axes}; {rest} — bottomInMessage или restEqualInMessage. */
   message: string;
   /** Сообщение, когда приоритеты не выделились. */
   messageFlat: string;
@@ -1560,6 +1572,8 @@ const ru: ValuesTexts = {
     allHeading: 'Все 10 ценностей — в вашем порядке',
     restart: 'Пройти заново',
     tiedWith: 'Вровень с ней: {names}',
+    topHeadingOne: 'Ведущая ценность',
+    restEqual: 'Остальные ценности набрали поровну, поэтому наименее важную назвать нельзя.',
   },
   modelSection: {
     heading: 'Десять ценностей по Шварцу',
@@ -1592,8 +1606,10 @@ const ru: ValuesTexts = {
     'Тест для самопознания по мотивам теории базовых ценностей Шалома Шварца. Не клиническая и не официальная методика.',
   and: 'и',
   tiedInMessage: '(вровень с ней — {names})',
+  bottomInMessage: 'на последнем — {bottom}',
+  restEqualInMessage: 'остальные — поровну',
   message:
-    'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — {top}, на последнем — {bottom}. {axes}. Помоги разобраться, что это значит для меня',
+    'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — {top}, {rest}. {axes}. Помоги разобраться, что это значит для меня',
   messageFlat:
     'Оля, привет! В тесте ценностей по Шварцу у меня не выделились приоритеты: всё оценено почти одинаково. Помоги разобраться, что для меня по-настоящему важно',
 };
@@ -1681,7 +1697,7 @@ md.push('', `## ${ru.modelSection.heading}`, '', ru.modelSection.lead);
 md.push('', `## ${ru.faqHeading}`);
 for (const f of ru.faq) md.push('', `**${f.q}**`, '', f.a);
 md.push('', '## Оговорка', '', ru.disclaimer);
-md.push('', '## Сообщения Оле', '', `- шаблон: ${ru.message}`, `- полная ничья: ${ru.tiedInMessage}`, `- приоритеты не выделились: ${ru.messageFlat}`);
+md.push('', '## Сообщения Оле', '', `- шаблон: ${ru.message}`, `- полная ничья: ${ru.tiedInMessage}`, `- наименее важная: ${ru.bottomInMessage}`, `- остальные поровну: ${ru.restEqualInMessage}`, `- приоритеты не выделились: ${ru.messageFlat}`);
 writeFileSync('/tmp/values-texts-ru.md', md.join('\n') + '\n');
 console.log('выгружено: /tmp/values-blind.txt, /tmp/values-key.json, /tmp/values-texts-ru.md');
 ```
@@ -1861,6 +1877,13 @@ describe('сообщение Оле', () => {
     );
   });
 
+  it('остальные набрали поровну — без наименее важной', () => {
+    const r = scoreAnswers(by({ selfDirection: 5, stimulation: 5 }, 4));
+    expect(valuesMessage(ru, r)).toBe(
+      'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность и стимуляция, остальные — поровну. Мне ближе перемены, чем сохранение привычного; забота о других и личный успех у меня в равновесии. Помоги разобраться, что это значит для меня',
+    );
+  });
+
   it('приоритеты не выделились — своё сообщение', () => {
     expect(valuesMessage(ru, scoreAnswers(by({}, 4)))).toBe(ru.messageFlat);
   });
@@ -1876,6 +1899,7 @@ describe('сообщение Оле', () => {
         scores: Object.fromEntries(VALUE_KEYS.map((k) => [k, 0])) as Record<ValueKey, number>,
         ranking: longest,
         flat: false,
+        restEqual: false,
         top: longest.slice(0, 3),
         topTies: longest.slice(4, 7),
         bottom: longest[3],
@@ -2017,7 +2041,7 @@ export const oliaChatUrlWithDraft = (message: string): string => chatUrlWithDraf
 
 type MessageTexts = Pick<
   ValuesTexts,
-  'values' | 'axesInMessage' | 'and' | 'tiedInMessage' | 'message' | 'messageFlat'
+  'values' | 'axesInMessage' | 'and' | 'tiedInMessage' | 'bottomInMessage' | 'restEqualInMessage' | 'message' | 'messageFlat'
 >;
 
 /** «а, б и в»; одно название — как есть. */
@@ -2025,19 +2049,22 @@ const list = (names: string[], and: string): string =>
   names.length > 1 ? `${names.slice(0, -1).join(', ')} ${and} ${names[names.length - 1]}` : names.join('');
 
 /**
- * Первое сообщение Оле: три ведущие, наименее важная и обе оси; полная
- * ничья — в скобках после ценности («вровень с ней — …»). Приоритеты не
- * выделились — своё сообщение без ценностей. Ответов в нём нет — только
- * итог, который человек и так видит на экране.
+ * Первое сообщение Оле: ведущие, наименее важная и обе оси; полная ничья —
+ * в скобках после ценности («вровень с ней — …»); остальные набрали поровну —
+ * «остальные — поровну» вместо наименее важной. Приоритеты не выделились —
+ * своё сообщение без ценностей. Ответов в нём нет — только итог, который
+ * человек и так видит на экране.
  */
 export function valuesMessage(texts: MessageTexts, result: ValuesResult): string {
-  if (result.flat || !result.bottom) return texts.messageFlat;
+  if (result.flat) return texts.messageFlat;
   const name = (k: ValueKey) => texts.values[k].inMessage;
   const tied = (ties: ValueKey[]) =>
     ties.length ? ` ${fillTemplate(texts.tiedInMessage, { names: list(ties.map(name), texts.and) })}` : '';
   return fillTemplate(texts.message, {
     top: list(result.top.map(name), texts.and) + tied(result.topTies),
-    bottom: name(result.bottom) + tied(result.bottomTies),
+    rest: result.bottom
+      ? fillTemplate(texts.bottomInMessage, { bottom: name(result.bottom) + tied(result.bottomTies) })
+      : texts.restEqualInMessage,
     axes: AXIS_KEYS.map((k) => texts.axesInMessage[k][result.axes[k].lean]).join('; '),
   });
 }
@@ -2714,23 +2741,34 @@ export default function ValuesResult({ texts, result, onRestart }: Props) {
         </ul>
       </div>
 
-      {result.flat || !result.bottom ? (
+      {result.flat ? (
         <div data-testid="values-flat" className="mt-8 max-w-2xl">
           <h3 className="text-xl font-semibold text-paper-900">{r.flatHeading}</h3>
           <p className="mt-2 leading-relaxed text-paper-800">{r.flatText}</p>
         </div>
       ) : (
         <>
-          <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.topHeading}</h3>
+          <h3 className="mt-8 text-xl font-semibold text-paper-900">
+            {result.top.length === 1 ? r.topHeadingOne : r.topHeading}
+          </h3>
           <ol data-testid="values-top" className="mt-3 grid gap-3 md:grid-cols-3">
             {result.top.map((k, i) => (
               <ValueCard key={k} texts={texts} value={k} tiedWith={i === result.top.length - 1 ? result.topTies : []} />
             ))}
           </ol>
-          <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.bottomHeading}</h3>
-          <ul data-testid="values-bottom" className="mt-3 grid gap-3 md:grid-cols-3">
-            <ValueCard texts={texts} value={result.bottom} tiedWith={result.bottomTies} />
-          </ul>
+          {result.bottom ? (
+            <>
+              <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.bottomHeading}</h3>
+              <ul data-testid="values-bottom" className="mt-3 grid gap-3 md:grid-cols-3">
+                <ValueCard texts={texts} value={result.bottom} tiedWith={result.bottomTies} />
+              </ul>
+            </>
+          ) : (
+            // Выделились одна-две ценности, остальные набрали поровну (restEqual).
+            <p data-testid="values-rest-equal" className="mt-6 max-w-2xl leading-relaxed text-paper-800">
+              {r.restEqual}
+            </p>
+          )}
           <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.axesHeading}</h3>
           <p data-testid="values-axes" className="mt-3 max-w-2xl leading-relaxed text-paper-800">
             {AXIS_KEYS.map((k) => texts.axes[k][result.axes[k].lean]).join(' ')}
