@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { translatedCodes } from './scripts/translated-languages.js';
 import { assistantPageCodes } from './scripts/assistant-page-languages.js';
 import { hdCalcCodes } from './scripts/hd-calc-languages.js';
+import { valuesTestCodes } from './scripts/values-test-languages.js';
 import { snippetSource } from './scripts/visitor-redirect.js';
 import { DEFAULT_LANGUAGE } from './src/i18n/languages.data.js';
 
@@ -45,5 +46,7 @@ export default defineConfig({
     __ASSISTANT_PAGE_LANGUAGES__: JSON.stringify(assistantPageCodes()),
     // Языки калькулятора Human Design — так же, см. scripts/hd-calc-languages.js.
     __HD_CALC_LANGUAGES__: JSON.stringify(hdCalcCodes()),
+    // Языки теста ценностей — так же, см. scripts/values-test-languages.js.
+    __VALUES_TEST_LANGUAGES__: JSON.stringify(valuesTestCodes()),
   },
 });
