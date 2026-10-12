@@ -22,7 +22,9 @@ interface Props {
  * сознательно: в пререндере он отдаёт opacity-0. Без LanguageBanner: тест
  * пока только по-русски, как калькулятор.
  *
- * Вебвизор на этой странице выключен — подстановкой в scripts/prerender.mjs.
+ * Вебвизор и карта кликов Метрики на этой странице выключены — подстановкой
+ * в scripts/prerender.mjs; VK-пиксель (Top.Mail.Ru) здесь не загружается —
+ * см. src/main.tsx.
  */
 export default function ValuesTestPage({ texts, language }: Props) {
   const { t } = useTranslation();

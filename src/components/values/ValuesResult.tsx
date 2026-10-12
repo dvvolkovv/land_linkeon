@@ -40,7 +40,9 @@ function ValueCard({ texts, value, tiedWith = [] }: { texts: ValuesTexts; value:
 /**
  * Результат: круг, ведущие и наименее важная ценности, напряжения, переход
  * к Оле, все десять в личном порядке. Данных в атрибутах нет: круг —
- * картинкой, черновик Оле собирается только в момент клика.
+ * картинкой, черновик Оле собирается только в момент клика. Единственное
+ * исключение на всём тесте — aria-pressed у прежнего ответа в ValuesQuestion
+ * (нужен для доступности; пока Вебвизор выключен, безвреден — см. ValuesTest.tsx).
  */
 export default function ValuesResult({ texts, result, onRestart }: Props) {
   const r = texts.result;
@@ -108,7 +110,7 @@ export default function ValuesResult({ texts, result, onRestart }: Props) {
               </ul>
             </>
           ) : (
-            // Выделились одна-две ценности, остальные набрали поровну (restEqual).
+            // Выделились одна-три ценности, остальные набрали поровну (restEqual).
             <p data-testid="values-rest-equal" className="mt-6 max-w-2xl leading-relaxed text-paper-800">
               {r.restEqual}
             </p>

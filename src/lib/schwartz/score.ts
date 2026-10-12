@@ -32,7 +32,10 @@ export interface ValuesResult {
   ranking: ValueKey[];
   /** Приоритеты не выделились: ответы почти одинаковые. */
   flat: boolean;
-  /** Три ведущие; одна-две при restEqual; пусто, если приоритеты не выделились. */
+  /**
+   * Три ведущие; при restEqual — все, чья сумма больше минимальной (одна-три);
+   * пусто, если приоритеты не выделились.
+   */
   top: ValueKey[];
   /**
    * Полная ничья на срезе тройки: ценности вне top, у которых все три ответа
@@ -41,17 +44,18 @@ export interface ValuesResult {
    * показать как есть. Ранжирование отсортировано по (сумма, наибольший,
    * наименьший), поэтому совпадение с top[0] или top[1] вне тройки влечёт
    * совпадение с top[2]. Сумма top[2] здесь всегда строго больше минимальной
-   * — той же, что у bottom (иначе сработал бы restEqual, см. ниже), —
-   * поэтому top[2] не может совпасть с bottom: topTies и bottomTies не
-   * пересекаются и не содержат bottom. В порядке ranking; пусто при flat и
-   * при restEqual.
+   * — той же, что у bottom (вне restEqual над минимумом не меньше четырёх
+   * ценностей, см. ниже), — поэтому top[2] не может совпасть с bottom:
+   * topTies и bottomTies не пересекаются и не содержат bottom. В порядке
+   * ranking; пусто при flat и при restEqual.
    */
   topTies: ValueKey[];
   /**
    * Наименее важная среди тех, что не вошли в top: ничья решается в обратную
    * сторону, чем наверху — ниже та, где сильнее минимум («совсем не похож на
    * меня»), затем максимум, и только при полном совпадении ответов — дальняя
-   * по кругу ценность. null при flat и при restEqual.
+   * по кругу ценность. Всегда с минимальной суммой. null при flat и при
+   * restEqual.
    */
   bottom: ValueKey | null;
   /**
@@ -61,12 +65,12 @@ export interface ValuesResult {
    */
   bottomTies: ValueKey[];
   /**
-   * Выделились всего одна-две ценности, а остальные набрали одну и ту же
+   * Выделились не больше трёх ценностей, а все остальные набрали одну и ту же
    * (минимальную) сумму — назвать среди них «наименее важную» было бы
-   * произволом круга. Срабатывает, когда у третьей по рангу (top[2] в обычном
-   * случае) сумма совпадает с минимальной суммой по всем десяти: это значит,
-   * что с третьего места и до конца все ценности делят одну сумму. false при
-   * flat.
+   * произволом круга: при полностью одинаковых ответах её выбрал бы порядок
+   * круга, а пометка «с тем же результатом» перечислила бы до шести других.
+   * Срабатывает, когда сумму больше минимальной по всем десяти набрали одна,
+   * две или три ценности; тогда top — ровно они. false при flat.
    */
   restEqual: boolean;
   axes: Record<AxisKey, AxisResult>;
@@ -127,15 +131,14 @@ export function scoreAnswers(answers: readonly number[]): ValuesResult {
     return { scores, ranking, flat: true, top: [], topTies: [], bottom: null, bottomTies: [], restEqual: false, axes };
   }
 
-  // Сумма третьей по рангу совпадает с минимальной — значит, с третьего места
-  // и до конца все ценности делят одну сумму: выделилась только одна-две,
-  // а «наименее важную» среди равных не назвать (решение владельца).
+  // Больше минимальной суммы набрали не больше трёх ценностей — значит, все
+  // остальные делят одну сумму: ведущие — только выделившиеся, а «наименее
+  // важную» среди равных не назвать (решение владельца).
   const minSum = stats[ranking[ranking.length - 1]].sum;
-  const restEqual = stats[ranking[2]].sum === minSum;
+  const above = ranking.filter((k) => stats[k].sum > minSum);
 
-  if (restEqual) {
-    const top = ranking.filter((k) => stats[k].sum > minSum);
-    return { scores, ranking, flat: false, top, topTies: [], bottom: null, bottomTies: [], restEqual: true, axes };
+  if (above.length <= 3) {
+    return { scores, ranking, flat: false, top: above, topTies: [], bottom: null, bottomTies: [], restEqual: true, axes };
   }
 
   const top = ranking.slice(0, 3);
@@ -149,7 +152,8 @@ export function scoreAnswers(answers: readonly number[]): ValuesResult {
     circleIndex(b) - circleIndex(a);
 
   const bottom = VALUE_KEYS.filter((k) => !topSet.has(k)).sort(byDisinterest)[0];
-  // bottom — минимальная сумма среди всех (иначе она попала бы в top), поэтому
+  // bottom — минимальная сумма среди всех (над минимумом не меньше четырёх
+  // ценностей, так что вне top минимальная сумма есть), поэтому
   // перенос в конец лишь переставляет её внутри «хвоста» с равной минимальной
   // суммой, не трогая более высокие записи.
   const orderedRanking = [...ranking.filter((k) => k !== bottom), bottom];

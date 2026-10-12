@@ -60,16 +60,19 @@ const escapeXml = (s: string) =>
  * целиком. Длина сектора — балл ценности на постоянной шкале; пунктир —
  * личное среднее. Ведущие — ярче и жирной подписью; наименее важная —
  * бледная и со своей штриховой обводкой (иначе не отличить от гедонизма и
- * обычных секторов с нулевым баллом). По краю — одна дуга на группу высшего
- * порядка целиком (от начала её первого сектора до конца последнего, а не
- * по дуге на каждую входящую в неё ценность); у гедонизма дуги нет. Самая
- * длинная группа (сохранение, три ценности) занимает слот 108°, сама дуга —
- * 107° (минус зазоры по краям) — меньше 180°, поэтому у одной такой дуги
- * флаг large-arc 0 остаётся верным.
+ * обычных секторов с нулевым баллом). Полная ничья рисуется как ничья:
+ * ценности из topTies — как ведущие, из bottomTies — как наименее важная, —
+ * ведь между ними выбрал только порядок круга, а не ответы. По краю — одна
+ * дуга на группу высшего порядка целиком (от начала её первого сектора до
+ * конца последнего, а не по дуге на каждую входящую в неё ценность); у
+ * гедонизма дуги нет. Самая длинная группа (сохранение, три ценности)
+ * занимает слот 108°, сама дуга — 107° (минус зазоры по краям) — меньше
+ * 180°, поэтому у одной такой дуги флаг large-arc 0 остаётся верным.
  */
 export function renderValuesCircleSvg(result: ValuesResult, labels: Record<ValueKey, string>): string {
   const { cx, cy, radius, width, height, fontSize } = CIRCLE;
-  const top = new Set(result.top);
+  const top = new Set([...result.top, ...result.topTies]);
+  const bottom = new Set(result.bottom ? [result.bottom, ...result.bottomTies] : []);
   const parts = [
     `<circle cx="${cx}" cy="${cy}" r="${r2(sectorRadius(0))}" fill="none" stroke="#d6d3d1" stroke-dasharray="4 4"/>`,
   ];
@@ -89,7 +92,7 @@ export function renderValuesCircleSvg(result: ValuesResult, labels: Record<Value
     const a1 = startAngle(i + 1) - GAP / 2;
     const r = sectorRadius(result.scores[key]);
     const group = VALUE_GROUP[key];
-    const isBottom = key === result.bottom;
+    const isBottom = bottom.has(key);
     const color = isBottom ? MUTED : group ? GROUP_COLORS[group] : NEUTRAL;
     const opacity = isBottom ? 0.25 : top.has(key) ? 0.9 : 0.45;
     const outline = isBottom ? ` stroke="${NEUTRAL}" stroke-dasharray="3 3"` : '';

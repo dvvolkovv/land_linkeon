@@ -28,9 +28,17 @@ import './index.css';
 // приложение читают метку отсюда (не теряется на стыке лендинг→app).
 persistAttribution();
 
+// Адрес теста ценностей разбирается один раз: он нужен и пикселю, и выбору
+// страницы ниже.
+const parsedValues = parseValuesTestPath(window.location.pathname);
+
 // VK-пиксель: pageView для связки клик по рекламе → визит (цель «registration»
-// срабатывает в приложении).
-initVkPixel();
+// срабатывает в приложении). На адресе теста ценностей пиксель не грузим
+// (на любом, и на невыпущенном языке тоже, где по нему рисуется главная):
+// счётчик Top.Mail.Ru по своим настройкам может собирать клики, а клики на
+// тесте выдают ответы — по той же причине там выключены Вебвизор и карта
+// кликов Метрики (scripts/prerender.mjs).
+if (!parsedValues) initVkPixel();
 
 // Зафиксировать заход на лендинг с источником (VK/utm и пр.) — верх воронки.
 trackLandingVisit();
@@ -64,7 +72,6 @@ const assistantRoute =
 const parsedHd = parseHdCalcPath(window.location.pathname);
 const hdRoute = parsedHd && hasHdCalculator(parsedHd.language) ? parsedHd : null;
 // Тест ценностей — так же: на невыпущенном языке рисуем главную.
-const parsedValues = parseValuesTestPath(window.location.pathname);
 const valuesRoute = parsedValues && hasValuesTest(parsedValues.language) ? parsedValues : null;
 const root = createRoot(document.getElementById('root')!);
 
