@@ -15,7 +15,7 @@
 ## Что выяснено при подготовке плана (12.10.2026)
 
 1. **Кабинет готов.** На `origin/main` кабинета (`45e3301`) скрипт `data-draft-capture` в `index.html` кладёт черновик в `pending_draft` для любого `?assistant=` — не только для Райи; автоприветствие при ждущем черновике не шлётся. Оля — `assistant=2` (`src/content/assistants/roster.data.js`, `slug: 'olia', id: 2`). Правок кабинета нет.
-2. **Метрика лендинга** инициализируется одной строкой в `index.html`: `ym(105902201, 'init', {webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});`. Каждая страница лендинга — свой пререндеренный HTML из этого шаблона, переходы между страницами — с перезагрузкой. Поэтому `webvisor:false` для одной страницы — замена подстроки в её HTML при пререндере; остальные страницы не меняются.
+2. **Метрика лендинга** инициализируется одной строкой в `index.html`: `ym(105902201, 'init', {webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});`. Каждая страница лендинга — свой пререндеренный HTML из этого шаблона, переходы между страницами — с перезагрузкой. Поэтому `webvisor:false` (и `clickmap:false`) для одной страницы — замена подстроки в её HTML при пререндере; остальные страницы не меняются.
 3. **В основном чекауте лендинга на маке нет `node_modules`.** Ни один тест на маке не запускается — всё через `node-run.sh` на ноде (Task 1). На ноду попадает только закоммиченное, поэтому красный тест коммитится отдельным коммитом `test(…): … (красный)` — так уже принято в репозитории.
 4. **Порядок ценностей на круге** — по Шварцу: самостоятельность, стимуляция, гедонизм, достижение, власть, безопасность, конформность, традиция, доброта, универсализм. Сектор 0 начинается сверху, дальше по часовой стрелке. Подписи с таким порядком помещаются в рисунок 520×300 при шрифте 16 (проверяет `texts.test.ts`, Task 5).
 5. **Пороги в целых числах.** Балл ценности — сумма трёх ответов / 3 минус личное среднее. Разница осей и разброс баллов от личного среднего не зависят, поэтому сравниваются суммы: «приоритеты не выделились» ⇔ разброс сумм ценностей ≤ 1; ось «в равновесии» ⇔ `|сумма_левых·n_прав − сумма_правых·n_лев| < 0,5·3·n_лев·n_прав`. Ответ ровно на пороге (разница 0,5) — уже не равновесие. Из «не выделились» следует равновесие обеих осей (разброс ≤ 1 даёт разницу осей не больше 1/3).
@@ -34,7 +34,8 @@
 | результат в `sessionStorage` | запись хранит `{answers, index}`; `index = 30` — тест пройден, при загрузке сразу результат без цели `values-test-complete` | цель — только факт прохождения, не перезагрузка |
 | ничьи «по порядку круга» | по ответам человека: при равной сумме выше сильнее «похож», ниже — сильнее «не похож»; наименее важная — среди не вошедших в три ведущие; круг — только при полном совпадении ответов (решение владельца 12.10, после ревью Task 2–4). Код модуля в ветке уточнён по ревью: круг 520×300, одна дуга обода на группу, наименее важная — пунктирной обводкой | ничьи у третьего места — около 41% прохождений, порядок круга перекашивал результат к концу круга |
 | у третьей по порядку та же сумма, что у последней | ведущих 1–2 (только набравшие больше остальных), наименее важной нет, `restEqual: true`, на странице — «Остальные ценности набрали поровну…», в сообщении — «остальные — поровну» (по ревью 12.10: иначе пометки ничьих перечисляли одно и то же) | случается, когда 8 ценностей из 10 набрали одинаковую сумму |
-| полные ничьи (те же три ответа) | помечаются честно: `topTies`/`bottomTies` в результате, строка «Вровень с ней: …» под карточкой третьей ведущей и наименее важной, «(вровень с ней — …)» в сообщении Оле (решение владельца 12.10) | полная ничья у третьего места — до 18–41% прохождений |
+| полные ничьи (те же три ответа) | помечаются честно: `topTies`/`bottomTies` в результате, строка «С тем же результатом: …» под карточкой третьей ведущей и наименее важной, «(с тем же результатом — …)» в сообщении Оле (решение владельца 12.10; «вровень с ней» не годилось по роду) | полная ничья у третьего места — до 18–41% прохождений |
+| карта кликов на странице теста | выключена вместе с Вебвизором (`clickmap:false`) | по ревью Task 5: последовательность кликов по шести кнопкам при общем порядке утверждений восстанавливает ответы так же, как Вебвизор; без этого фраза «ответы не попадают в аналитику» неверна |
 | сообщение Оле | `{axes}` — две короткие фразы из `axesInMessage` через «; » (первая с заглавной, вторая со строчной) | одна фраза на обе оси читается естественно |
 
 ## Порядок и зависимости
@@ -1319,7 +1320,7 @@ export interface ValuesTexts {
     ctaNote: string;
     allHeading: string;
     restart: string;
-    /** Под карточкой третьей ведущей или наименее важной при полной ничьей: «Вровень с ней: {names}». */
+    /** Под карточкой третьей ведущей или наименее важной при полной ничьей: «С тем же результатом: {names}». */
     tiedWith: string;
     /** Заголовок, когда выделилась одна ценность: «Ведущая ценность». */
     topHeadingOne: string;
@@ -1333,7 +1334,7 @@ export interface ValuesTexts {
   disclaimer: string;
   /** Союз перед последним названием в перечне сообщения: «и». */
   and: string;
-  /** В сообщении Оле после ценности при полной ничьей: «(вровень с ней — {names})». */
+  /** В сообщении Оле после ценности при полной ничьей: «(с тем же результатом — {names})». */
   tiedInMessage: string;
   /** Часть сообщения про наименее важную: «на последнем — {bottom}». */
   bottomInMessage: string;
@@ -1571,7 +1572,7 @@ const ru: ValuesTexts = {
     ctaNote: 'Личный разбор ценностей — у Оли, при регистрации 25 000 токенов в подарок',
     allHeading: 'Все 10 ценностей — в вашем порядке',
     restart: 'Пройти заново',
-    tiedWith: 'Вровень с ней: {names}',
+    tiedWith: 'С тем же результатом: {names}',
     topHeadingOne: 'Ведущая ценность',
     restEqual: 'Остальные ценности набрали поровну, поэтому наименее важную назвать нельзя.',
   },
@@ -1587,11 +1588,11 @@ const ru: ValuesTexts = {
     },
     {
       q: 'Это научный тест?',
-      a: 'В основе — теория базовых ценностей Шалома Шварца, одна из самых изученных моделей ценностей в психологии. Утверждения мы написали сами по мотивам этой теории: это не официальный опросник PVQ и не клиническая методика, а инструмент для самопознания.',
+      a: 'В основе — теория базовых ценностей Шалома Шварца, одна из широко изученных моделей ценностей в психологии. Утверждения мы написали сами по мотивам этой теории: это не официальный опросник PVQ и не клиническая методика, а инструмент для самопознания.',
     },
     {
       q: 'Сохраняются ли мои ответы?',
-      a: 'Нет. Расчёт идёт в браузере, ответы не уходят на сервер и не попадают в аналитику. Пока вкладка открыта, они хранятся в ней; закроете вкладку — всё сотрётся.',
+      a: 'Нет. Расчёт идёт в браузере, ответы не уходят на сервер и не попадают в аналитику. Хранятся они только в этой вкладке — чтобы не пропасть при случайной перезагрузке.',
     },
     {
       q: 'Почему результат — порядок ценностей, а не баллы?',
@@ -1605,7 +1606,7 @@ const ru: ValuesTexts = {
   disclaimer:
     'Тест для самопознания по мотивам теории базовых ценностей Шалома Шварца. Не клиническая и не официальная методика.',
   and: 'и',
-  tiedInMessage: '(вровень с ней — {names})',
+  tiedInMessage: '(с тем же результатом — {names})',
   bottomInMessage: 'на последнем — {bottom}',
   restEqualInMessage: 'остальные — поровну',
   message:
@@ -1873,7 +1874,7 @@ describe('сообщение Оле', () => {
   it('полная ничья — в скобках после третьей ведущей и после наименее важной', () => {
     const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 }));
     expect(valuesMessage(ru, r)).toBe(
-      'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность, стимуляция и доброта (вровень с ней — универсализм), на последнем — традиция (вровень с ней — гедонизм, достижение, власть, безопасность и конформность). Мне ближе перемены, чем сохранение привычного; забота о других для меня важнее личного успеха. Помоги разобраться, что это значит для меня',
+      'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность, стимуляция и доброта (с тем же результатом — универсализм), на последнем — традиция (с тем же результатом — гедонизм, достижение, власть, безопасность и конформность). Мне ближе перемены, чем сохранение привычного; забота о других для меня важнее личного успеха. Помоги разобраться, что это значит для меня',
     );
   });
 
@@ -2050,7 +2051,7 @@ const list = (names: string[], and: string): string =>
 
 /**
  * Первое сообщение Оле: ведущие, наименее важная и обе оси; полная ничья —
- * в скобках после ценности («вровень с ней — …»); остальные набрали поровну —
+ * в скобках после ценности («с тем же результатом — …»); остальные набрали поровну —
  * «остальные — поровну» вместо наименее важной. Приоритеты не выделились —
  * своё сообщение без ценностей. Ответов в нём нет — только итог, который
  * человек и так видит на экране.
@@ -3129,8 +3130,9 @@ export function renderValuesTest(language: string): { html: string; title: strin
 
 ```js
  * Тест ценностей (/tests/values/) — по своему списку языков,
- * valuesTestCodes() из values-test-languages.js. На его странице Вебвизор
- * выключен: подстановка webvisor:true → webvisor:false только в её HTML.
+ * valuesTestCodes() из values-test-languages.js. На его странице Вебвизор и
+ * карта кликов выключены: подстановки webvisor:true → webvisor:false и
+ * clickmap:true → clickmap:false только в её HTML.
  *
 ```
 
@@ -3174,9 +3176,10 @@ const { render, renderAssistant, renderAssistantsCatalog, renderHdCalculator, re
 
 ```js
 // Тест ценностей. Тест работает только в браузере; в пререндере — вступление,
-// карточка старта, десять ценностей и вопросы. Вебвизор на странице выключен
-// (спека 2026-10-12, «Приватность»): по кликам и ширине полосы прогресса
-// восстанавливаются ответы, среди них — о вере. Цели и карта кликов остаются.
+// карточка старта, десять ценностей и вопросы. Вебвизор и карта кликов на
+// странице выключены (спека 2026-10-12, «Приватность»): порядок утверждений
+// общий для всех, и по последовательности кликов по шести кнопкам
+// восстанавливаются ответы, среди них — о вере. Цели и посещаемость остаются.
 for (const code of VALUES_TEST_CODES) {
   const where = `${code}/tests/values`;
   const rendered = renderValuesTest(code);
@@ -3192,8 +3195,12 @@ for (const code of VALUES_TEST_CODES) {
   );
   page = mustReplace(page, '<div id="root"></div>', () => `<div id="root">${rendered.html}</div>`, '<div id="root">');
   page = mustReplace(page, 'webvisor:true', () => 'webvisor:false', 'webvisor (тест ценностей)');
+  page = mustReplace(page, 'clickmap:true', () => 'clickmap:false', 'clickmap (тест ценностей)');
   if (!page.includes('webvisor:false') || page.includes('webvisor:true')) {
     throw new Error(`${where}: Вебвизор на странице теста не выключен`);
+  }
+  if (!page.includes('clickmap:false') || page.includes('clickmap:true')) {
+    throw new Error(`${where}: карта кликов на странице теста не выключена`);
   }
 
   const ld = jsonLdOf(rendered.html, where);
@@ -3212,7 +3219,7 @@ for (const code of VALUES_TEST_CODES) {
   checkBreadcrumbs(ld, page, 2, where);
 
   writePage(valuesTestDirFor(code), page);
-  console.log(`✅ ${where} (Вебвизор выключен)`);
+  console.log(`✅ ${where} (Вебвизор и карта кликов выключены)`);
 }
 ```
 
@@ -3304,10 +3311,10 @@ git add src/pages/ValuesTestPage.tsx src/entry-server.tsx scripts/prerender.mjs 
 git commit -q -m "feat(values): страница /tests/values/ — пререндер с выключенным Вебвизором, sitemap, вход в браузере
 
 Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
-bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(pnpm build > /tmp/values-build.log 2>&1 && echo BUILD_OK || (echo BUILD_FAILED; tail -20 /tmp/values-build.log)); grep -E "tests/values|входном" /tmp/values-build.log; grep -o "webvisor:[a-z]*" dist/tests/values/index.html; grep -o "webvisor:[a-z]*" dist/index.html; grep -o "<loc>[^<]*tests[^<]*</loc>" dist/sitemap.xml; ls -l dist/assets/index-*.js; (pnpm typecheck > /tmp/values-tsc.log 2>&1 && echo TSC_OK || echo TSC_FAILED)'
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(pnpm build > /tmp/values-build.log 2>&1 && echo BUILD_OK || (echo BUILD_FAILED; tail -20 /tmp/values-build.log)); grep -E "tests/values|входном" /tmp/values-build.log; grep -o -E "(webvisor|clickmap):[a-z]*" dist/tests/values/index.html; grep -o -E "(webvisor|clickmap):[a-z]*" dist/index.html; grep -o "<loc>[^<]*tests[^<]*</loc>" dist/sitemap.xml; ls -l dist/assets/index-*.js; (pnpm typecheck > /tmp/values-tsc.log 2>&1 && echo TSC_OK || echo TSC_FAILED)'
 ```
 
-Expected: `BUILD_OK`; строки `✅ ru/tests/values (Вебвизор выключен)` и `✅ тексты ассистентов, калькулятор и тест ценностей не во входном бандле`; `webvisor:false` у теста и `webvisor:true` у главной; в sitemap одна строка `https://linkeon.io/tests/values/`; входной бандл — не больше точки отсчёта Task 1 + 2 КБ; `TSC_OK`.
+Expected: `BUILD_OK`; строки `✅ ru/tests/values (Вебвизор и карта кликов выключены)` и `✅ тексты ассистентов, калькулятор и тест ценностей не во входном бандле`; `webvisor:false` и `clickmap:false` у теста, `webvisor:true` и `clickmap:true` у главной; в sitemap одна строка `https://linkeon.io/tests/values/`; входной бандл — не больше точки отсчёта Task 1 + 2 КБ; `TSC_OK`.
 
 ---
 
@@ -3431,7 +3438,7 @@ const h1Of = (html: string) => html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '
 // Сырой HTTP — так страницу видит краулер. Код ответа ничего не доказывает:
 // SPA-фолбэк отдаёт 200 на любой путь, поэтому смотрим на содержимое.
 test.describe('тест ценностей в сыром HTML', () => {
-  test('страница, метатеги, hreflang, ценности в пререндере, Вебвизор выключен', async ({ baseURL }) => {
+  test('страница, метатеги, hreflang, ценности в пререндере, Вебвизор и карта кликов выключены', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const html = await (await ctx.get(PATH)).text();
     const codes = valuesTestCodes();
@@ -3447,9 +3454,12 @@ test.describe('тест ценностей в сыром HTML', () => {
     expect(html, 'карточка старта — в пререндере').toContain('data-testid="values-start"');
     expect(html).toContain('webvisor:false');
     expect(html).not.toContain('webvisor:true');
+    expect(html).toContain('clickmap:false');
+    expect(html).not.toContain('clickmap:true');
 
     const home = await (await ctx.get('/')).text();
     expect(home, 'на главной Вебвизор должен остаться').toContain('webvisor:true');
+    expect(home, 'на главной карта кликов должна остаться').toContain('clickmap:true');
     await ctx.dispose();
   });
 
@@ -3856,14 +3866,14 @@ Expected: если первая команда показала чужой `depl
 
 ```bash
 bash ~/Downloads/land_linkeon/.superpowers/values-test/node-ssh.sh 'SITE=https://linkeon.io
-curl -s $SITE/tests/values/ | grep -o -E "<html lang=\"[a-z]+\"|<h1[^>]*>[^<]{0,80}|rel=\"canonical\" href=\"[^\"]+\"|hreflang=\"[a-z-]+\"|webvisor:[a-z]+" | sort -u
+curl -s $SITE/tests/values/ | grep -o -E "<html lang=\"[a-z]+\"|<h1[^>]*>[^<]{0,80}|rel=\"canonical\" href=\"[^\"]+\"|hreflang=\"[a-z-]+\"|(webvisor|clickmap):[a-z]+" | sort -u
 curl -s -o /dev/null -w "%{http_code} → %{redirect_url}\n" $SITE/tests/values
 curl -s $SITE/sitemap.xml | grep -o "<loc>[^<]*tests[^<]*</loc>"
-curl -s $SITE/ | grep -o -E "href=\"/tests/values/\"|webvisor:[a-z]+" | sort | uniq -c
+curl -s $SITE/ | grep -o -E "href=\"/tests/values/\"|(webvisor|clickmap):[a-z]+" | sort | uniq -c
 curl -s $SITE/assistants/olia/ | grep -o "href=\"/tests/values/\"" | sort | uniq -c'
 ```
 
-`grep -c` по HTML не годится: пререндер — одна длинная строка. Expected: `<html lang="ru"`, H1 теста, `canonical` — `https://linkeon.io/tests/values/`, hreflang только `ru` и `x-default`, `webvisor:false`; адрес без слэша — `301 → https://linkeon.io/tests/values/`; в sitemap одна строка теста; на главной ссылка дважды и `webvisor:true`; на странице Оли — ссылка (кнопка наверху и подвал).
+`grep -c` по HTML не годится: пререндер — одна длинная строка. Expected: `<html lang="ru"`, H1 теста, `canonical` — `https://linkeon.io/tests/values/`, hreflang только `ru` и `x-default`, `webvisor:false` и `clickmap:false`; адрес без слэша — `301 → https://linkeon.io/tests/values/`; в sitemap одна строка теста; на главной ссылка дважды, `webvisor:true` и `clickmap:true`; на странице Оли — ссылка (кнопка наверху и подвал).
 
 ---
 
