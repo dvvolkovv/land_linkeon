@@ -114,7 +114,10 @@ describe('расчёт теста ценностей', () => {
     expect(differentMax.topTies).toEqual([]);
   });
 
-  it('ведущая не бывает наименее важной', () => {
+  // Обычный случай: top[2] не делит минимальную сумму с «хвостом», bottom
+  // выбирается. В restEqual (ниже) то же свойство держится иначе: там
+  // bottom не выбирается вовсе, так что ведущая и подавно не может стать им.
+  it('обычный случай: ведущая не бывает наименее важной', () => {
     const r = scoreAnswers(
       withItems(by({ selfDirection: 5 }, 4), {
         selfDirection3: 4,
@@ -169,6 +172,23 @@ describe('расчёт теста ценностей', () => {
     expect(tiedAcrossCut.bottom).toBeNull();
     expect(tiedAcrossCut.topTies).toEqual([]);
     expect(tiedAcrossCut.bottomTies).toEqual([]);
+
+    // третья по рангу (стимуляция, {6,4,2}) делит минимальную СУММУ с хвостом,
+    // но её полная статистика не совпадает ни с одним хвостовым значением
+    // (ни с гедонизмом {6,3,3}, ни с остальными {4,4,4}) — принятое правило
+    // (сумма) всё равно гасит выбор bottom, в отличие от более узкого правила
+    // (полное совпадение с конкретным «наименее важным»).
+    const sumOnlyTie = scoreAnswers(
+      withItems(by({ selfDirection: 5 }, 4), {
+        stimulation1: 6, stimulation2: 4, stimulation3: 2,
+        hedonism1: 6, hedonism2: 3, hedonism3: 3,
+      }),
+    );
+    expect(sumOnlyTie.restEqual).toBe(true);
+    expect(sumOnlyTie.top).toEqual(['selfDirection']);
+    expect(sumOnlyTie.bottom).toBeNull();
+    expect(sumOnlyTie.topTies).toEqual([]);
+    expect(sumOnlyTie.bottomTies).toEqual([]);
   });
 
   it('граница «не выделились»: разброс в одну единицу ответа — ещё ровно, в две — уже нет', () => {
