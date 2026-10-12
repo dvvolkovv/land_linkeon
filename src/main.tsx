@@ -13,6 +13,9 @@ import { hasAssistantPages } from './content/assistants/availability';
 import { parseHdCalcPath } from './lib/hdRoute';
 import { hasHdCalculator } from './content/hd/availability';
 import { loadHdTexts } from './content/hd/load';
+import { parseValuesTestPath } from './lib/valuesRoute';
+import { hasValuesTest } from './content/values/availability';
+import { loadValuesTexts } from './content/values/load';
 import { persistAttribution } from './lib/attribution';
 import { trackLandingVisit, initLandingEngagement } from './lib/track';
 import { reachCtaGoal } from './lib/goal';
@@ -60,6 +63,9 @@ const assistantRoute =
 // Калькулятор на языке, где он не выпущен, — тоже SPA-фолбэк: рисуем главную.
 const parsedHd = parseHdCalcPath(window.location.pathname);
 const hdRoute = parsedHd && hasHdCalculator(parsedHd.language) ? parsedHd : null;
+// Тест ценностей — так же: на невыпущенном языке рисуем главную.
+const parsedValues = parseValuesTestPath(window.location.pathname);
+const valuesRoute = parsedValues && hasValuesTest(parsedValues.language) ? parsedValues : null;
 const root = createRoot(document.getElementById('root')!);
 
 if (assistantRoute) {
@@ -105,6 +111,22 @@ if (assistantRoute) {
       );
     })
     .catch((error) => console.error('калькулятор: чанк не загрузился, остаётся пререндер', error));
+} else if (valuesRoute) {
+  // Тест — отдельные чанки: страница с расчётом и тексты языка. Рисуем, когда
+  // пришли оба: createRoot не гидратирует, ранний render заменил бы
+  // пререндер пустым кадром.
+  Promise.all([import('./pages/ValuesTestPage'), loadValuesTexts(valuesRoute.language)])
+    .then(([{ default: ValuesTestPage }, texts]) => {
+      // Не бывает: язык попадает в VALUES_TEST_CODES, только если есть его
+      // модуль текстов (scripts/values-test-languages.js).
+      if (!texts) return;
+      root.render(
+        <StrictMode>
+          <ValuesTestPage texts={texts} language={valuesRoute.language} />
+        </StrictMode>,
+      );
+    })
+    .catch((error) => console.error('тест ценностей: чанк не загрузился, остаётся пререндер', error));
 } else {
   root.render(
     <StrictMode>

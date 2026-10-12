@@ -8,7 +8,8 @@
  * на страницах ассистентов и в их каталоге (src/pages/AssistantPage.tsx,
  * src/pages/AssistantsCatalogPage.tsx и их части из src/components/assistants/),
  * а также на странице калькулятора Human Design (src/pages/HumanDesignPage.tsx
- * и src/components/hd/) — это весь список, и он обязан совпадать с кодом. Testimonials, FinalCTA и
+ * и src/components/hd/), на странице теста ценностей (src/pages/ValuesTestPage.tsx
+ * и src/components/values/) — это весь список, и он обязан совпадать с кодом. Testimonials, FinalCTA и
  * остальные секции главной этой веткой не тронуты и остаются на холодном
  * gray-50; добавляя сюда секцию или страницу, дописывай её в этот перечень,
  * иначе файл начнёт описывать несуществующее.
