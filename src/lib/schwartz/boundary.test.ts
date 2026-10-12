@@ -21,7 +21,7 @@ const findForbidden = (src: string) => stripComments(src).match(FORBIDDEN);
 
 const dir = new URL('./', import.meta.url);
 const sources = readdirSync(dir)
-  .filter((f) => f.endsWith('.ts') && !f.endsWith('.test.ts'))
+  .filter((f) => /\.tsx?$/.test(f) && !/\.test\.tsx?$/.test(f))
   .map((f) => ({ file: f, code: readFileSync(new URL(f, dir), 'utf8') }));
 
 describe('граница модуля schwartz', () => {

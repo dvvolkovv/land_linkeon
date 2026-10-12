@@ -16,6 +16,7 @@ describe('расчёт теста ценностей', () => {
     expect(() => scoreAnswers(by({}, 0))).toThrow(RangeError);
     expect(() => scoreAnswers(by({}, 7))).toThrow(RangeError);
     expect(() => scoreAnswers(by({ power: 2.5 }))).toThrow(RangeError);
+    expect(() => scoreAnswers(new Array(30))).toThrow(RangeError);
   });
 
   it('ручной пример: балл — среднее ценности минус личное среднее', () => {
@@ -49,7 +50,7 @@ describe('расчёт теста ценностей', () => {
     for (const k of VALUE_KEYS) expect(b.scores[k]).toBeCloseTo(a.scores[k], 10);
   });
 
-  it('ничья решается порядком круга — и наверху, и внизу', () => {
+  it('одинаковые ответы — порядок круга, и наверху, и внизу', () => {
     const r = scoreAnswers(by({ tradition: 5, benevolence: 5, security: 5 }));
     expect(r.top).toEqual(['security', 'tradition', 'benevolence']);
     expect(r.ranking).toEqual([
@@ -57,6 +58,28 @@ describe('расчёт теста ценностей', () => {
       'selfDirection', 'stimulation', 'hedonism', 'achievement', 'power', 'conformity', 'universalism',
     ]);
     expect(r.bottom).toBe('universalism');
+  });
+
+  it('ничья наверху — выше та, где сильнее «очень похож»', () => {
+    const r = scoreAnswers(
+      withItems(by({ selfDirection: 5, stimulation: 5 }), { universalism1: 6, universalism2: 5, universalism3: 4 }),
+    );
+    expect(r.top).toEqual(['universalism', 'selfDirection', 'stimulation']);
+  });
+
+  it('ничья внизу — ниже та, где сильнее «совсем не похож»', () => {
+    const r = scoreAnswers(withItems(by({ power: 2 }, 4), { achievement1: 1, achievement2: 2, achievement3: 3 }));
+    expect(r.bottom).toBe('achievement');
+    expect(r.ranking[r.ranking.length - 1]).toBe('achievement');
+  });
+
+  it('ведущая не бывает наименее важной', () => {
+    const r = scoreAnswers(
+      withItems(by({ selfDirection: 5 }, 4), { selfDirection3: 4, stimulation1: 6, stimulation2: 4, stimulation3: 2 }),
+    );
+    expect(r.top).toEqual(['selfDirection', 'stimulation', 'hedonism']);
+    expect(r.bottom).toBe('universalism');
+    expect(r.flat).toBe(false);
   });
 
   it('одинаковые ответы — приоритеты не выделились', () => {
@@ -87,6 +110,14 @@ describe('расчёт теста ценностей', () => {
     expect(at.axes.change).toEqual({ lean: 'left', diff: 0.5 });
     const right = scoreAnswers(by({ security: 6, tradition: 6 }));
     expect(right.axes.change.lean).toBe('right');
+    // наивная арифметика через средние (а не целые суммы) даёт здесь
+    // 0.4999999999999998 вместо 0.5 — страховка от такого регресса.
+    const focusAt = scoreAnswers(withItems(by({}, 2), { benevolence1: 3, achievement1: 1, power1: 1 }));
+    expect(focusAt.axes.focus).toEqual({ lean: 'left', diff: 0.5 });
+    const changeAt = scoreAnswers(
+      withItems(by({}, 2), { selfDirection1: 3, security1: 1, conformity1: 1, tradition1: 1 }),
+    );
+    expect(changeAt.axes.change).toEqual({ lean: 'left', diff: 0.5 });
   });
 
   it('персоны', () => {

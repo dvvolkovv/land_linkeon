@@ -8,7 +8,13 @@ const by = (map: Partial<Record<ValueKey, number>>, rest = 3): number[] =>
 
 /** Радиусы секторов в порядке круга: сектор — путь из центра. */
 const sectorRadii = (svg: string) =>
-  [...svg.matchAll(/<path d="M 260 210 L [\d.-]+ [\d.-]+ A ([\d.]+) /g)].map((m) => Number(m[1]));
+  [...svg.matchAll(new RegExp(`<path d="M ${CIRCLE.cx} ${CIRCLE.cy} L [\\d.-]+ [\\d.-]+ A ([\\d.]+) `, 'g'))].map(
+    (m) => Number(m[1]),
+  );
+
+/** Полные теги секторов (с «Z» в конце d, в отличие от дуг обода). */
+const sectorPaths = (svg: string) =>
+  [...svg.matchAll(new RegExp(`<path d="M ${CIRCLE.cx} ${CIRCLE.cy} L [^"]*Z"[^>]*/>`, 'g'))].map((m) => m[0]);
 
 describe('круг ценностей', () => {
   const result = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 6, power: 1 }));
@@ -54,5 +60,54 @@ describe('круг ценностей', () => {
   it('подписи справа — от начала строки, слева — до её конца', () => {
     expect(labelLayout(VALUE_KEYS.indexOf('hedonism')).anchor).toBe('start');
     expect(labelLayout(VALUE_KEYS.indexOf('tradition')).anchor).toBe('end');
+  });
+
+  it('подписи помещаются по высоте рисунка', () => {
+    for (let i = 0; i < VALUE_KEYS.length; i += 1) {
+      const { y } = labelLayout(i);
+      expect(y - CIRCLE.fontSize / 2, `сектор ${i}`).toBeGreaterThanOrEqual(0);
+      expect(y + CIRCLE.fontSize / 2, `сектор ${i}`).toBeLessThanOrEqual(CIRCLE.height);
+    }
+  });
+
+  it('наименее важная — штриховой обводкой, остальные без неё', () => {
+    const svg = renderValuesCircleSvg(result, LABELS);
+    const paths = sectorPaths(svg);
+    expect(paths).toHaveLength(10);
+    const dashed = paths.filter((p) => p.includes('stroke-dasharray="3 3"'));
+    expect(dashed).toHaveLength(1);
+    expect(paths[VALUE_KEYS.indexOf(result.bottom!)]).toBe(dashed[0]);
+
+    const flatSvg = renderValuesCircleSvg(scoreAnswers(by({}, 4)), LABELS);
+    expect(sectorPaths(flatSvg).some((p) => p.includes('stroke-dasharray'))).toBe(false);
+  });
+
+  it('один путь обода на группу, не на ценность', () => {
+    const svg = renderValuesCircleSvg(result, LABELS);
+    expect([...svg.matchAll(/stroke-width="6"/g)]).toHaveLength(4);
+  });
+
+  it('геометрия секторов: флаги дуги 0 0 1, радиус у обеих точек, угол раствора 35°', () => {
+    const svg = renderValuesCircleSvg(result, LABELS);
+    const matches = [
+      ...svg.matchAll(
+        new RegExp(
+          `M ${CIRCLE.cx} ${CIRCLE.cy} L ([\\d.-]+) ([\\d.-]+) A ([\\d.-]+) [\\d.-]+ 0 (\\d) (\\d) ([\\d.-]+) ([\\d.-]+) Z`,
+          'g',
+        ),
+      ),
+    ];
+    expect(matches).toHaveLength(10);
+    for (const m of matches) {
+      const [x0, y0, r, largeArc, sweep, x1, y1] = m.slice(1).map(Number);
+      expect(largeArc).toBe(0);
+      expect(sweep).toBe(1);
+      expect(Math.abs(Math.hypot(x0 - CIRCLE.cx, y0 - CIRCLE.cy) - r)).toBeLessThanOrEqual(0.05);
+      expect(Math.abs(Math.hypot(x1 - CIRCLE.cx, y1 - CIRCLE.cy) - r)).toBeLessThanOrEqual(0.05);
+      const deg = (x: number, y: number) => (Math.atan2(y - CIRCLE.cy, x - CIRCLE.cx) * 180) / Math.PI;
+      let span = deg(x1, y1) - deg(x0, y0);
+      if (span < 0) span += 360;
+      expect(Math.abs(span - 35)).toBeLessThanOrEqual(0.1);
+    }
   });
 });
