@@ -73,8 +73,12 @@ describe('тексты теста ценностей', () => {
       it('шаблоны: ключи на месте', () => {
         expect(placeholders(t.start.resume)).toEqual(['done', 'total']);
         expect(placeholders(t.question.progress)).toEqual(['n', 'total']);
-        expect(placeholders(t.message)).toEqual(['axes', 'bottom', 'top']);
+        expect(placeholders(t.message)).toEqual(['axes', 'rest', 'top']);
+        expect(placeholders(t.bottomInMessage)).toEqual(['bottom']);
+        expect(placeholders(t.restEqualInMessage)).toEqual([]);
         expect(placeholders(t.messageFlat)).toEqual([]);
+        expect(placeholders(t.result.tiedWith)).toEqual(['names']);
+        expect(placeholders(t.tiedInMessage)).toEqual(['names']);
       });
 
       it('ценности: строка до 60 знаков со строчной, описание 150–420 с названием в начале', () => {
