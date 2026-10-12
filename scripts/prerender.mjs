@@ -465,6 +465,10 @@ for (const code of VALUES_TEST_CODES) {
   if (!/\bwebvisor:false\b/.test(init) || !/\bclickmap:false\b/.test(init)) {
     throw new Error(`${where}: в инициализации Метрики Вебвизор или карта кликов не выключены`);
   }
+  const head = page.slice(0, page.indexOf('</head>'));
+  if (/(webvisor|clickmap):\s*(true|!0)/.test(head)) {
+    throw new Error(`${where}: в <head> осталось включённое webvisor/clickmap — второй счётчик или повторный init`);
+  }
 
   const ld = jsonLdOf(rendered.html, where);
   const faqSection = rendered.html.match(/<section[^>]*data-testid="values-faq"[^>]*>([\s\S]*?)<\/section>/)?.[1];
@@ -479,6 +483,9 @@ for (const code of VALUES_TEST_CODES) {
   const valueCount = (model.match(/<li[\s>]/g) ?? []).length;
   if (valueCount !== 10) throw new Error(`${where}: описаний ценностей ${valueCount}, нужно 10`);
   if (!rendered.html.includes('data-testid="values-start"')) throw new Error(`${where}: нет карточки старта`);
+  if (!rendered.html.includes('data-testid="values-test"')) {
+    throw new Error(`${where}: нет контейнера теста (data-testid="values-test") — main.tsx не запустит тест`);
+  }
   checkBreadcrumbs(ld, page, 2, where);
 
   writePage(valuesTestDirFor(code), page);
