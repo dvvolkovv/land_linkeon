@@ -3702,21 +3702,47 @@ Expected: `E2E_OK`, все тесты обоих файлов прошли.
 
 - [ ] **Step 3: Проверка не слепая**
 
-Зелёный прогон ничего не доказывает, пока проверку не сломали нарочно. Временные коммиты — только на ноду, в `origin` не уходят, после прогона снимаются `reset`.
+Зелёный прогон ничего не доказывает, пока проверку не сломали нарочно. Каждая поломка — отдельный временный коммит и отдельный прогон; свой `git reset --hard HEAD~1` сразу после прогона, до следующей поломки. Временные коммиты — только на ноду, в `origin` не уходят.
 
-Сначала — поломки, которые должен поймать браузерный тест: оси в черновике через пробел вместо «; » и цель `values-test-complete` на каждом ответе.
+Поломка A — разделитель осей в черновике Оле через пробел вместо «; » (черновик персоны теперь сравнивается целиком, Step 1):
 
 ```bash
 cd ~/Downloads/land_linkeon/.worktrees/values-test
 sed -i '' "s/.join('; '),/.join(' '),/" src/lib/valuesDraft.ts
-sed -i '' "s/if (isComplete(next)) reachGoal('values-test-complete');/reachGoal('values-test-complete');/" src/components/values/ValuesTest.tsx
 git diff --stat
-git commit -q -am "tmp: нарочная поломка — e2e должен её увидеть"
-bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken.log | head'
+git commit -q -am "tmp: нарочная поломка A — разделитель осей в черновике"
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken-a.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken-a.log | head'
 git reset -q --hard HEAD~1
 ```
 
-Expected: `git diff --stat` — два файла; `E2E_FAILED`, красные — «прохождение…» и «пройденный тест после перезагрузки…».
+Expected: `git diff --stat` — один файл; `E2E_FAILED`, красная только «прохождение…» (там — точный черновик `toBe`; у ничьей — `toContain`, разделитель не ловит).
+
+Поломка B — цель `values-test-complete` уходит на каждый ответ, а не только на завершающий:
+
+```bash
+cd ~/Downloads/land_linkeon/.worktrees/values-test
+sed -i '' "s/if (isComplete(next)) reachGoal('values-test-complete');/reachGoal('values-test-complete');/" src/components/values/ValuesTest.tsx
+git diff --stat
+git commit -q -am "tmp: нарочная поломка B — повторная цель values-test-complete"
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken-b.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken-b.log | head'
+git reset -q --hard HEAD~1
+```
+
+Expected: `git diff --stat` — один файл; `E2E_FAILED`, красные — «прохождение…» (список целей не совпадёт с эталоном) и «пройденный тест после перезагрузки…» (счётчик `values-test-complete` после перезагрузки и после «Пройти заново»).
+
+Поломка C — `data-testid="values-rest-equal"` переименован, блок больше не найти:
+
+```bash
+cd ~/Downloads/land_linkeon/.worktrees/values-test
+sed -i '' 's/data-testid="values-rest-equal"/data-testid="values-rest-equal-x"/' src/components/values/ValuesResult.tsx
+git diff --stat
+git commit -q -am "tmp: нарочная поломка C — переименован data-testid restEqual"
+bash ~/Downloads/land_linkeon/.superpowers/values-test/node-run.sh '(CI=1 ./node_modules/.bin/playwright test tests/values-test.spec.ts > /tmp/values-e2e-broken-c.log 2>&1 && echo E2E_OK || echo E2E_FAILED); grep -E "✘|passed|failed" /tmp/values-e2e-broken-c.log | head'
+git reset -q --hard HEAD~1
+git log --oneline -1
+```
+
+Expected: `git diff --stat` — один файл; `E2E_FAILED`, красная только «остальные ценности набрали поровну…» (Task 13 Step 4 по ревью). После `reset` последний коммит — Step 2.
 
 Потом — Вебвизор: подстановка, которая ничего не выключает, должна остановить сборку.
 
