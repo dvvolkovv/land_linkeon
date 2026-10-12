@@ -31,6 +31,7 @@ describe('расчёт теста ценностей', () => {
     expect(r.bottom).toBe('power');
     expect(r.bottomTies).toEqual([]);
     expect(r.flat).toBe(false);
+    expect(r.restEqual).toBe(false);
     // открытость (6+6)/2 против сохранения (3+3+3)/3; забота (6+3)/2 против самоутверждения (3+1)/2
     expect(r.axes.change).toEqual({ lean: 'left', diff: 3 });
     expect(r.axes.focus).toEqual({ lean: 'left', diff: 2.5 });
@@ -93,6 +94,24 @@ describe('расчёт теста ценностей', () => {
     expect(r.topTies).toEqual(['universalism']);
     expect(r.bottom).toBe('tradition');
     expect(r.bottomTies).toEqual(['hedonism', 'achievement', 'power', 'security', 'conformity']);
+    expect(r.restEqual).toBe(false);
+  });
+
+  it('sameStats сверяет все три статистики, не только сумму', () => {
+    const base = by({ selfDirection: 6, stimulation: 6 });
+    // у «благожелательности» и «универсализма» одна сумма и максимум, но разный минимум
+    const differentMin = scoreAnswers(
+      withItems(base, { benevolence1: 6, benevolence2: 3, benevolence3: 3, universalism1: 6, universalism2: 4, universalism3: 2 }),
+    );
+    expect(differentMin.top).toEqual(['selfDirection', 'stimulation', 'benevolence']);
+    expect(differentMin.topTies).toEqual([]);
+
+    // у «благожелательности» и «универсализма» одна сумма и минимум, но разный максимум
+    const differentMax = scoreAnswers(
+      withItems(base, { benevolence1: 6, benevolence2: 4, benevolence3: 2, universalism1: 5, universalism2: 5, universalism3: 2 }),
+    );
+    expect(differentMax.top).toEqual(['selfDirection', 'stimulation', 'benevolence']);
+    expect(differentMax.topTies).toEqual([]);
   });
 
   it('ведущая не бывает наименее важной', () => {
@@ -111,9 +130,40 @@ describe('расчёт теста ценностей', () => {
     expect(r.topTies).toEqual([]);
     expect(r.bottom).toBeNull();
     expect(r.bottomTies).toEqual([]);
+    expect(r.restEqual).toBe(false);
     expect(r.axes.change.lean).toBe('balance');
     expect(r.axes.focus.lean).toBe('balance');
     expect(r.ranking).toEqual([...VALUE_KEYS]);
+  });
+
+  it('выделились одна-две, остальные поровну — наименее важной нет', () => {
+    const one = scoreAnswers(by({ selfDirection: 5 }, 4));
+    expect(one.flat).toBe(false);
+    expect(one.restEqual).toBe(true);
+    expect(one.top).toEqual(['selfDirection']);
+    expect(one.bottom).toBeNull();
+    expect(one.topTies).toEqual([]);
+    expect(one.bottomTies).toEqual([]);
+
+    const two = scoreAnswers(by({ selfDirection: 5, stimulation: 5 }, 4));
+    expect(two.restEqual).toBe(true);
+    expect(two.top).toEqual(['selfDirection', 'stimulation']);
+    expect(two.bottom).toBeNull();
+
+    // достижение {6,3,3} заняло бы третье место по максимуму, власть {6,3,3}
+    // стала бы наименее важной по минимуму — но их статистики совпадают, и
+    // назвать одну из двух «третьей», а другую «наименее важной» — произвол.
+    const tiedAcrossCut = scoreAnswers(
+      withItems(by({ selfDirection: 6, stimulation: 6 }, 4), {
+        achievement1: 6, achievement2: 3, achievement3: 3,
+        power1: 6, power2: 3, power3: 3,
+      }),
+    );
+    expect(tiedAcrossCut.restEqual).toBe(true);
+    expect(tiedAcrossCut.top).toEqual(['selfDirection', 'stimulation']);
+    expect(tiedAcrossCut.bottom).toBeNull();
+    expect(tiedAcrossCut.topTies).toEqual([]);
+    expect(tiedAcrossCut.bottomTies).toEqual([]);
   });
 
   it('граница «не выделились»: разброс в одну единицу ответа — ещё ровно, в две — уже нет', () => {
