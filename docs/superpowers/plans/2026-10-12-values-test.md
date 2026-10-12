@@ -33,6 +33,7 @@
 | «Продолжить (12 из 30)» | число — сколько утверждений отвечено, продолжение — с того места, где человек был | после «Назад» текущее утверждение может быть раньше последнего отвеченного |
 | результат в `sessionStorage` | запись хранит `{answers, index}`; `index = 30` — тест пройден, при загрузке сразу результат без цели `values-test-complete` | цель — только факт прохождения, не перезагрузка |
 | ничьи «по порядку круга» | по ответам человека: при равной сумме выше сильнее «похож», ниже — сильнее «не похож»; наименее важная — среди не вошедших в три ведущие; круг — только при полном совпадении ответов (решение владельца 12.10, после ревью Task 2–4). Код модуля в ветке уточнён по ревью: круг 520×300, одна дуга обода на группу, наименее важная — пунктирной обводкой | ничьи у третьего места — около 41% прохождений, порядок круга перекашивал результат к концу круга |
+| полные ничьи (те же три ответа) | помечаются честно: `topTies`/`bottomTies` в результате, строка «Вровень с ней: …» под карточкой третьей ведущей и наименее важной, «(вровень с ней — …)» в сообщении Оле (решение владельца 12.10) | полная ничья у третьего места — до 18–41% прохождений |
 | сообщение Оле | `{axes}` — две короткие фразы из `axesInMessage` через «; » (первая с заглавной, вторая со строчной) | одна фраза на обе оси читается естественно |
 
 ## Порядок и зависимости
@@ -85,7 +86,9 @@ interface ValuesResult {
   ranking: ValueKey[];                // по убыванию; ничьи — по ответам человека, наименее важная последней
   flat: boolean;                      // приоритеты не выделились
   top: ValueKey[];                    // 3 или [] при flat
+  topTies: ValueKey[];                // вне тройки, но ответы те же, что у третьей (полная ничья)
   bottom: ValueKey | null;            // null при flat
+  bottomTies: ValueKey[];             // вне тройки, ответы те же, что у наименее важной
   axes: Record<AxisKey, { lean: AxisLean; diff: number }>;
 }
 
@@ -1021,6 +1024,8 @@ describe('тексты теста ценностей', () => {
         expect(placeholders(t.question.progress)).toEqual(['n', 'total']);
         expect(placeholders(t.message)).toEqual(['axes', 'bottom', 'top']);
         expect(placeholders(t.messageFlat)).toEqual([]);
+        expect(placeholders(t.result.tiedWith)).toEqual(['names']);
+        expect(placeholders(t.tiedInMessage)).toEqual(['names']);
       });
 
       it('ценности: строка до 60 знаков со строчной, описание 150–420 с названием в начале', () => {
@@ -1310,14 +1315,18 @@ export interface ValuesTexts {
     ctaNote: string;
     allHeading: string;
     restart: string;
+    /** Под карточкой третьей ведущей или наименее важной при полной ничьей: «Вровень с ней: {names}». */
+    tiedWith: string;
   };
   modelSection: { heading: string; lead: string };
   faqHeading: string;
   /** 4–6 вопросов — их же видит поисковик в FAQPage. */
   faq: { q: string; a: string }[];
   disclaimer: string;
-  /** Союз перед последней ведущей ценностью в сообщении: «и». */
+  /** Союз перед последним названием в перечне сообщения: «и». */
   and: string;
+  /** В сообщении Оле после ценности при полной ничьей: «(вровень с ней — {names})». */
+  tiedInMessage: string;
   /** Первое сообщение Оле: {top} {bottom} {axes}. */
   message: string;
   /** Сообщение, когда приоритеты не выделились. */
@@ -1550,6 +1559,7 @@ const ru: ValuesTexts = {
     ctaNote: 'Личный разбор ценностей — у Оли, при регистрации 25 000 токенов в подарок',
     allHeading: 'Все 10 ценностей — в вашем порядке',
     restart: 'Пройти заново',
+    tiedWith: 'Вровень с ней: {names}',
   },
   modelSection: {
     heading: 'Десять ценностей по Шварцу',
@@ -1581,6 +1591,7 @@ const ru: ValuesTexts = {
   disclaimer:
     'Тест для самопознания по мотивам теории базовых ценностей Шалома Шварца. Не клиническая и не официальная методика.',
   and: 'и',
+  tiedInMessage: '(вровень с ней — {names})',
   message:
     'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — {top}, на последнем — {bottom}. {axes}. Помоги разобраться, что это значит для меня',
   messageFlat:
@@ -1670,7 +1681,7 @@ md.push('', `## ${ru.modelSection.heading}`, '', ru.modelSection.lead);
 md.push('', `## ${ru.faqHeading}`);
 for (const f of ru.faq) md.push('', `**${f.q}**`, '', f.a);
 md.push('', '## Оговорка', '', ru.disclaimer);
-md.push('', '## Сообщения Оле', '', `- шаблон: ${ru.message}`, `- приоритеты не выделились: ${ru.messageFlat}`);
+md.push('', '## Сообщения Оле', '', `- шаблон: ${ru.message}`, `- полная ничья: ${ru.tiedInMessage}`, `- приоритеты не выделились: ${ru.messageFlat}`);
 writeFileSync('/tmp/values-texts-ru.md', md.join('\n') + '\n');
 console.log('выгружено: /tmp/values-blind.txt, /tmp/values-key.json, /tmp/values-texts-ru.md');
 ```
@@ -1843,6 +1854,13 @@ describe('сообщение Оле', () => {
     );
   });
 
+  it('полная ничья — в скобках после третьей ведущей и после наименее важной', () => {
+    const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 }));
+    expect(valuesMessage(ru, r)).toBe(
+      'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность, стимуляция и доброта (вровень с ней — универсализм), на последнем — традиция (вровень с ней — гедонизм, достижение, власть, безопасность и конформность). Мне ближе перемены, чем сохранение привычного; забота о других для меня важнее личного успеха. Помоги разобраться, что это значит для меня',
+    );
+  });
+
   it('приоритеты не выделились — своё сообщение', () => {
     expect(valuesMessage(ru, scoreAnswers(by({}, 4)))).toBe(ru.messageFlat);
   });
@@ -1859,7 +1877,9 @@ describe('сообщение Оле', () => {
         ranking: longest,
         flat: false,
         top: longest.slice(0, 3),
+        topTies: longest.slice(4, 7),
         bottom: longest[3],
+        bottomTies: longest.slice(7),
         axes: { change: { lean: longestLean('change'), diff: 0 }, focus: { lean: longestLean('focus'), diff: 0 } },
       };
       expect(valuesMessage(t, worst).length, code).toBeLessThanOrEqual(DRAFT_MAX_LENGTH);
@@ -1985,7 +2005,7 @@ export const rayaChatUrlWithDraft = (message: string): string => chatUrlWithDraf
 
 ```ts
 import { chatHref, chatUrlWithDraft, fillTemplate } from './chatDraft';
-import { AXIS_KEYS, type ValuesResult } from './schwartz';
+import { AXIS_KEYS, type ValueKey, type ValuesResult } from './schwartz';
 import type { ValuesTexts } from '../content/values/types';
 
 /** id Оли в приложении (таблица agents; тот же — в src/content/assistants/roster.data.js). */
@@ -1995,19 +2015,29 @@ const UTM_CONTENT = 'values-test';
 export const oliaChatHref = (): string => chatHref(OLIA_ID, UTM_CONTENT);
 export const oliaChatUrlWithDraft = (message: string): string => chatUrlWithDraft(OLIA_ID, UTM_CONTENT, message);
 
-type MessageTexts = Pick<ValuesTexts, 'values' | 'axesInMessage' | 'and' | 'message' | 'messageFlat'>;
+type MessageTexts = Pick<
+  ValuesTexts,
+  'values' | 'axesInMessage' | 'and' | 'tiedInMessage' | 'message' | 'messageFlat'
+>;
+
+/** «а, б и в»; одно название — как есть. */
+const list = (names: string[], and: string): string =>
+  names.length > 1 ? `${names.slice(0, -1).join(', ')} ${and} ${names[names.length - 1]}` : names.join('');
 
 /**
- * Первое сообщение Оле: три ведущие, наименее важная и обе оси. Приоритеты
- * не выделились — своё сообщение без ценностей. Ответов в нём нет — только
+ * Первое сообщение Оле: три ведущие, наименее важная и обе оси; полная
+ * ничья — в скобках после ценности («вровень с ней — …»). Приоритеты не
+ * выделились — своё сообщение без ценностей. Ответов в нём нет — только
  * итог, который человек и так видит на экране.
  */
 export function valuesMessage(texts: MessageTexts, result: ValuesResult): string {
   if (result.flat || !result.bottom) return texts.messageFlat;
-  const top = result.top.map((k) => texts.values[k].inMessage);
+  const name = (k: ValueKey) => texts.values[k].inMessage;
+  const tied = (ties: ValueKey[]) =>
+    ties.length ? ` ${fillTemplate(texts.tiedInMessage, { names: list(ties.map(name), texts.and) })}` : '';
   return fillTemplate(texts.message, {
-    top: `${top.slice(0, -1).join(', ')} ${texts.and} ${top[top.length - 1]}`,
-    bottom: texts.values[result.bottom].inMessage,
+    top: list(result.top.map(name), texts.and) + tied(result.topTies),
+    bottom: name(result.bottom) + tied(result.bottomTies),
     axes: AXIS_KEYS.map((k) => texts.axesInMessage[k][result.axes[k].lean]).join('; '),
   });
 }
@@ -2610,6 +2640,7 @@ import {
   type ValuesResult as Result,
 } from '../../lib/schwartz';
 import { oliaChatHref, oliaChatUrlWithDraft, valuesMessage } from '../../lib/valuesDraft';
+import { fillTemplate } from '../../lib/chatDraft';
 import type { ValuesTexts } from '../../content/values/types';
 
 interface Props {
@@ -2618,13 +2649,19 @@ interface Props {
   onRestart: () => void;
 }
 
-function ValueCard({ texts, value }: { texts: ValuesTexts; value: ValueKey }) {
+/** Карточка ценности; tiedWith — полная ничья на срезе (те же три ответа), помечается честно. */
+function ValueCard({ texts, value, tiedWith = [] }: { texts: ValuesTexts; value: ValueKey; tiedWith?: ValueKey[] }) {
   const v = texts.values[value];
   return (
     <li className="rounded-xl border border-paper-300 bg-paper-50 p-4">
       <p className="font-semibold text-paper-900">{v.name}</p>
       <p className="mt-1 text-sm text-paper-700">{v.line}</p>
       <p className="mt-2 leading-relaxed text-paper-800">{v.text}</p>
+      {tiedWith.length > 0 && (
+        <p data-testid="values-tie" className="mt-2 text-sm text-paper-700">
+          {fillTemplate(texts.result.tiedWith, { names: tiedWith.map((k) => texts.values[k].name).join(', ') })}
+        </p>
+      )}
     </li>
   );
 }
@@ -2686,13 +2723,13 @@ export default function ValuesResult({ texts, result, onRestart }: Props) {
         <>
           <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.topHeading}</h3>
           <ol data-testid="values-top" className="mt-3 grid gap-3 md:grid-cols-3">
-            {result.top.map((k) => (
-              <ValueCard key={k} texts={texts} value={k} />
+            {result.top.map((k, i) => (
+              <ValueCard key={k} texts={texts} value={k} tiedWith={i === result.top.length - 1 ? result.topTies : []} />
             ))}
           </ol>
           <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.bottomHeading}</h3>
           <ul data-testid="values-bottom" className="mt-3 grid gap-3 md:grid-cols-3">
-            <ValueCard texts={texts} value={result.bottom} />
+            <ValueCard texts={texts} value={result.bottom} tiedWith={result.bottomTies} />
           </ul>
           <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.axesHeading}</h3>
           <p data-testid="values-axes" className="mt-3 max-w-2xl leading-relaxed text-paper-800">
@@ -3552,6 +3589,21 @@ test.describe('тест в браузере', () => {
     await page.locator('[data-cta="values-test-to-olia"]').click();
     await page.waitForURL(/^https:\/\/my\.linkeon\.io\/chat/);
     expect(decodeURIComponent(new URL(page.url()).hash.slice('#draft='.length))).toBe(ru.messageFlat);
+  });
+
+  test('полная ничья — помечена под карточками и в сообщении Оле', async ({ page, baseURL }) => {
+    await stubNetwork(page, baseURL!);
+    await begin(page);
+    const tie: Partial<Record<ValueKey, number>> = { selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 };
+    await answerRange(page, 0, ITEMS.length, (v) => tie[v] ?? 3);
+    await expect(page.getByTestId('values-top').getByTestId('values-tie')).toHaveText(
+      ru.result.tiedWith.replace('{names}', ru.values.universalism.name),
+    );
+    await expect(page.getByTestId('values-bottom').getByTestId('values-tie')).toContainText(ru.values.hedonism.name);
+    await page.locator('[data-cta="values-test-to-olia"]').click();
+    await page.waitForURL(/^https:\/\/my\.linkeon\.io\/chat/);
+    const draft = decodeURIComponent(new URL(page.url()).hash.slice('#draft='.length));
+    expect(draft).toContain(ru.tiedInMessage.replace('{names}', ru.values.universalism.inMessage));
   });
 
   test('пройденный тест после перезагрузки — сразу результат, цель не повторяется; «Пройти заново»', async ({ page, baseURL }) => {
