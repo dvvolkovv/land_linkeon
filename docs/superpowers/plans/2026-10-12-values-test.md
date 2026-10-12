@@ -3559,6 +3559,20 @@ async function begin(page: Page) {
 
 test.describe('тест в браузере', () => {
   test.use({ viewport: { width: 390, height: 844 } });
+  // Кнопки ответа заблокированы 250 мс после смены утверждения (защита от
+  // двойного тапа): полный проход — не меньше 30 × 250 мс, с перезагрузкой дольше.
+  test.describe.configure({ timeout: 60_000 });
+
+  test('на чужом HTML тест не запускается: /ru/tests/values/ уводит на канонический адрес', async ({ page, baseURL }) => {
+    await stubNetwork(page, baseURL!);
+    // dist/ru/tests/values/ нет — сервер отдаёт главную с Вебвизором; тест на ней запускаться не должен.
+    await page.goto('/ru/tests/values/');
+    await page.waitForURL((url) => url.pathname === PATH);
+    await clientRendered(page);
+    await expect(page.getByTestId('values-start')).toBeVisible();
+    const html = await page.content();
+    expect(html).toContain('webvisor:false');
+  });
 
   test('прохождение: ведущие ценности, ссылка к Оле с черновиком, в аналитику — только имена целей', async ({ page, baseURL }) => {
     const captured = await stubNetwork(page, baseURL!);
@@ -3872,6 +3886,8 @@ curl -s $SITE/sitemap.xml | grep -o "<loc>[^<]*tests[^<]*</loc>"
 curl -s $SITE/ | grep -o -E "href=\"/tests/values/\"|(webvisor|clickmap):[a-z]+" | sort | uniq -c
 curl -s $SITE/assistants/olia/ | grep -o "href=\"/tests/values/\"" | sort | uniq -c'
 ```
+
+Плюс проверка по сети в обе стороны (браузерными инструментами с ноды): на `https://linkeon.io/tests/values/` после «Начать» и пяти-шести ответов — ни одного запроса к `mc.yandex.ru/webvisor/105902201` и `mc.yandex.ru/clmap/105902201` и никаких целей на каждый клик; на главной те же запросы есть (фильтр не слепой). Нашлись запросы на странице теста — выкат откатить и разбираться: параметров `init` недостаточно.
 
 `grep -c` по HTML не годится: пререндер — одна длинная строка. Expected: `<html lang="ru"`, H1 теста, `canonical` — `https://linkeon.io/tests/values/`, hreflang только `ru` и `x-default`, `webvisor:false` и `clickmap:false`; адрес без слэша — `301 → https://linkeon.io/tests/values/`; в sitemap одна строка теста; на главной ссылка дважды, `webvisor:true` и `clickmap:true`; на странице Оли — ссылка (кнопка наверху и подвал).
 
