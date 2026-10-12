@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { VALUES_TEXTS } from './texts.server';
-import { AXIS_KEYS, HIGHER_ORDER_KEYS, ITEM_IDS, VALUE_KEYS, type AxisLean } from '../../lib/schwartz';
+import { ANSWER_MAX, ANSWER_MIN, AXIS_KEYS, HIGHER_ORDER_KEYS, ITEM_IDS, VALUE_KEYS, type AxisLean } from '../../lib/schwartz';
 import { CIRCLE, labelLayout } from '../../lib/schwartz/circle';
 
 /**
@@ -12,8 +12,18 @@ import { CIRCLE, labelLayout } from '../../lib/schwartz/circle';
 const PLACEHOLDER = /TODO|TBD|Lorem|\{\{|\}\}/;
 const EMOJI = /\p{Extended_Pictographic}/u;
 const PRICE = /₽|руб\.|рубл|\$|€/;
-// \b в JS не видит кириллицу — границы слова через \p{L}.
-const GENDERED = /(?<!\p{L})(он|она|его|ему|него|нему|сам|сама|самому|самой)(?!\p{L})/iu;
+// \b в JS не видит кириллицу — границы слова через \p{L}. её/ей/ней не ловим
+// сознательно: в утверждениях они относятся к словам женского рода («вера и
+// её предписания»), а не к описанному человеку; «им» — множественное число.
+const GENDERED =
+  /(?<!\p{L})(он|она|его|ему|него|нему|ним|нём|нем|сам|сама|саму|самого|самому|самим|самом|самой|был|была|рад|рада|готов|готова|согласен|согласна|уверен|уверена|должен|должна|способен|способна|доволен|довольна|счастлив|счастлива)(?!\p{L})/iu;
+// Эвристика прошедшего времени 1 лица («я прошёл тест» тоже выдаёт род
+// говорящего). «Правила» — существительное мн. ч., ложное срабатывание;
+// других таких слов в текстах нет, поэтому список исключений — один.
+const PAST = /(?<!\p{L})\p{L}+[аеёиоуыя]л(а|ся|ась)?(?!\p{L})/iu;
+const NOT_PAST = new Set(['правила']);
+const pastTenseHits = (s: string): string[] =>
+  [...s.matchAll(new RegExp(PAST, 'giu'))].map((m) => m[0].toLowerCase()).filter((w) => !NOT_PAST.has(w));
 const PORTRAIT = /^(Этот человек|Этому человеку|Для этого человека|Этого человека) /;
 const LEANS: AxisLean[] = ['left', 'right', 'balance'];
 
@@ -23,6 +33,23 @@ function strings(value: unknown): string[] {
   if (value && typeof value === 'object') return Object.values(value).flatMap(strings);
   return [];
 }
+
+/** Как strings(), но с путём до значения — чтобы исключить известные шаблоны. */
+function stringsWithPath(value: unknown, path: string[] = []): { path: string; s: string }[] {
+  if (typeof value === 'string') return [{ path: path.join('.'), s: value }];
+  if (Array.isArray(value)) return value.flatMap((v, i) => stringsWithPath(v, [...path, String(i)]));
+  if (value && typeof value === 'object')
+    return Object.entries(value).flatMap(([k, v]) => stringsWithPath(v, [...path, k]));
+  return [];
+}
+const TEMPLATE_PATHS = new Set([
+  'start.resume',
+  'question.progress',
+  'message',
+  'bottomInMessage',
+  'result.tiedWith',
+  'tiedInMessage',
+]);
 
 const keys = (o: object) => Object.keys(o).sort();
 const placeholders = (s: string) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
@@ -42,7 +69,7 @@ describe('тексты теста ценностей', () => {
           expect(keys(table)).toEqual([...AXIS_KEYS].sort());
           for (const axis of AXIS_KEYS) expect(keys(table[axis])).toEqual([...LEANS].sort());
         }
-        expect(t.question.scale).toHaveLength(6);
+        expect(t.question.scale).toHaveLength(ANSWER_MAX - ANSWER_MIN + 1);
       });
 
       it('нет пустых строк и заготовок', () => {
@@ -81,31 +108,29 @@ describe('тексты теста ценностей', () => {
         expect(placeholders(t.tiedInMessage)).toEqual(['names']);
       });
 
-      it('ценности: строка до 60 знаков со строчной, описание 150–420 с названием в начале', () => {
-        for (const k of VALUE_KEYS) {
-          const v = t.values[k];
-          expect(v.line.length, k).toBeLessThanOrEqual(60);
-          expect(v.line[0], k).toBe(v.line[0].toLowerCase());
-          expect(v.text.length, k).toBeGreaterThanOrEqual(150);
-          expect(v.text.length, k).toBeLessThanOrEqual(420);
-          expect(v.text.startsWith(v.name), k).toBe(true);
-          expect(v.inMessage, k).toBe(v.inMessage.toLowerCase());
+      it('плейсхолдеры — только в известных шаблонах, не в остальных строках', () => {
+        for (const { path, s } of stringsWithPath(t)) {
+          if (TEMPLATE_PATHS.has(path)) continue;
+          expect(placeholders(s), path).toEqual([]);
         }
       });
 
-      it('оси: фразы результата 30–200 знаков; в сообщении change — с заглавной, focus — со строчной', () => {
+      it('ценности: строка до 60 знаков, описание 150–420 с названием в начале', () => {
+        for (const k of VALUE_KEYS) {
+          const v = t.values[k];
+          expect(v.line.length, k).toBeLessThanOrEqual(60);
+          expect(v.text.length, k).toBeGreaterThanOrEqual(150);
+          expect(v.text.length, k).toBeLessThanOrEqual(420);
+          expect(v.text.startsWith(v.name), k).toBe(true);
+        }
+      });
+
+      it('оси: фразы результата 30–200 знаков', () => {
         for (const axis of AXIS_KEYS) {
           for (const lean of LEANS) {
             expect(t.axes[axis][lean].length, `${axis}.${lean}`).toBeGreaterThanOrEqual(30);
             expect(t.axes[axis][lean].length, `${axis}.${lean}`).toBeLessThanOrEqual(200);
           }
-        }
-        for (const lean of LEANS) {
-          const change = t.axesInMessage.change[lean];
-          const focus = t.axesInMessage.focus[lean];
-          expect(change[0], lean).toBe(change[0].toUpperCase());
-          expect(focus[0], lean).toBe(focus[0].toLowerCase());
-          expect(change.endsWith('.') || focus.endsWith('.'), lean).toBe(false);
         }
       });
 
@@ -128,13 +153,14 @@ describe('тексты теста ценностей', () => {
     });
   }
 
-  // Правило 4 — о русском языке; у переводов свои правила рода.
+  // Правило 4 — о русском языке; у переводов свои правила рода и регистра.
   it('ru: утверждения — портреты без рода, 40–140 знаков, одно предложение', () => {
     const t = VALUES_TEXTS.ru;
     for (const id of ITEM_IDS) {
       const s = t.statements[id];
       expect(s, id).toMatch(PORTRAIT);
       expect(s, id).not.toMatch(GENDERED);
+      expect(pastTenseHits(s), id).toEqual([]);
       expect(s.length, id).toBeGreaterThanOrEqual(40);
       expect(s.length, id).toBeLessThanOrEqual(140);
       expect((s.match(/[.!?](\s|$)/g) ?? []).length, id).toBe(1);
@@ -142,8 +168,94 @@ describe('тексты теста ценностей', () => {
     }
   });
 
-  it('детектор рода не слепой к кириллице', () => {
-    expect('Этому человеку важно, чтобы его ценили.').toMatch(GENDERED);
-    expect('Этому человеку важна самостоятельность.').not.toMatch(GENDERED);
+  it('ru: сообщение Оле — без рода и времени, выдающих говорящего', () => {
+    const t = VALUES_TEXTS.ru;
+    const toCheck: Record<string, string> = {
+      message: t.message,
+      messageFlat: t.messageFlat,
+      tiedInMessage: t.tiedInMessage,
+      bottomInMessage: t.bottomInMessage,
+      restEqualInMessage: t.restEqualInMessage,
+    };
+    for (const axis of AXIS_KEYS) {
+      for (const lean of LEANS) {
+        toCheck[`axesInMessage.${axis}.${lean}`] = t.axesInMessage[axis][lean];
+      }
+    }
+    for (const [label, s] of Object.entries(toCheck)) {
+      expect(s, label).not.toMatch(GENDERED);
+      expect(pastTenseHits(s), label).toEqual([]);
+    }
+  });
+
+  it('ru: ценности и оси — регистр по правилам русского языка', () => {
+    const t = VALUES_TEXTS.ru;
+    for (const k of VALUE_KEYS) {
+      const v = t.values[k];
+      expect(v.line[0], k).toBe(v.line[0].toLowerCase());
+      expect(v.inMessage, k).toBe(v.inMessage.toLowerCase());
+    }
+    for (const lean of LEANS) {
+      const change = t.axesInMessage.change[lean];
+      const focus = t.axesInMessage.focus[lean];
+      expect(change[0], lean).toBe(change[0].toUpperCase());
+      expect(focus[0], lean).toBe(focus[0].toLowerCase());
+      expect(change.endsWith('.') || focus.endsWith('.'), lean).toBe(false);
+    }
+  });
+
+  it('ru: описания ценностей — 2–3 предложения', () => {
+    const t = VALUES_TEXTS.ru;
+    for (const k of VALUE_KEYS) {
+      const count = (t.values[k].text.match(/[.!?](\s|$)/g) ?? []).length;
+      expect(count, k).toBeGreaterThanOrEqual(2);
+      expect(count, k).toBeLessThanOrEqual(3);
+    }
+  });
+
+  it('ru: без заявлений о валидности/официальности/клинической пригодности, кроме отрицания', () => {
+    const t = VALUES_TEXTS.ru;
+    for (const s of strings(t)) {
+      expect(s).not.toMatch(/валидир|(?<!не )официальн|(?<!не )клиническ/iu);
+    }
+  });
+
+  it('детектор рода и прошедшего времени — таблица случаев', () => {
+    const mustFlag = [
+      'чтобы его ценили',
+      'чтобы с ним считались',
+      'думает о нём',
+      'уважать самого себя',
+      'он согласен',
+      'был бы счастлив',
+      'Я прошёл тест',
+    ];
+    const mustNotFlag = [
+      'Этому человеку важна самостоятельность.',
+      'вера и её предписания',
+      'им важно понимать',
+      'правила — не формальность',
+    ];
+    for (const s of mustFlag) {
+      expect(GENDERED.test(s) || pastTenseHits(s).length > 0, s).toBe(true);
+    }
+    for (const s of mustNotFlag) {
+      expect(s, s).not.toMatch(GENDERED);
+      expect(pastTenseHits(s), s).toEqual([]);
+    }
+  });
+});
+
+describe('ru — решения из спеки', () => {
+  const t = VALUES_TEXTS.ru;
+  it('h1', () => {
+    expect(t.h1).toBe('Тест ценностей Шварца онлайн — бесплатно');
+  });
+  it('хлебная крошка', () => {
+    expect(t.breadcrumb).toBe('Тест ценностей');
+  });
+  it('кнопка и подпись под ней', () => {
+    expect(t.result.cta).toBe('Разобрать с Олей');
+    expect(t.result.ctaNote).toMatch(/25\s000 токенов в подарок/);
   });
 });
