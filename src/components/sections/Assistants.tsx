@@ -9,6 +9,8 @@ import { CARD_SLUGS } from './assistantCards';
 import { hasAssistantPages } from '../../content/assistants/availability';
 import { ASSISTANTS } from '../../content/assistants/roster';
 import { assistantPath, assistantsCatalogPath } from '../../lib/assistantRoute';
+import { hasHdCalculator } from '../../content/hd/availability';
+import { hdCalcPath } from '../../lib/hdRoute';
 
 /**
  * ИСТОЧНИК ПРАВДЫ ДЛЯ ИМЁН — таблица `agent_translations` в базе приложения
@@ -105,6 +107,13 @@ export default function Assistants() {
           {linked && (
             <a href={assistantsCatalogPath(i18n.language)} className="inline-flex items-center py-2 min-h-11 text-paper-800 hover:text-paper-900 font-semibold text-sm underline underline-offset-4">
               {t('assistantPages.allCount', { count: ASSISTANTS.length })}
+            </a>
+          )}
+          {/* Калькулятор есть не на всех языках: ссылка на невыпущенную версию
+              вела бы в SPA-фолбэк (как в Footer). */}
+          {hasHdCalculator(i18n.language) && (
+            <a href={hdCalcPath(i18n.language)} className="inline-flex items-center py-2 min-h-11 text-paper-800 hover:text-paper-900 font-semibold text-sm underline underline-offset-4">
+              {t('assistants.hdCalc')}
             </a>
           )}
         </div>
