@@ -53,7 +53,7 @@ export default function AssistantPage({ entry, pack, language }: Props) {
   ];
 
   const cta = (
-    <Button href={chatHref} size="lg" dataCta="assistant-start">
+    <Button href={chatHref} size="lg" dataCta="assistant-start" className="sm:whitespace-nowrap">
       {page.cta} <ArrowRight aria-hidden="true" className="w-4 h-4" />
     </Button>
   );
@@ -80,13 +80,13 @@ export default function AssistantPage({ entry, pack, language }: Props) {
               {page.h1}
             </h1>
             <p className="mt-5 text-lg text-paper-800 max-w-2xl leading-relaxed">{page.lead}</p>
-            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3">
               {cta}
               {/* Вторая кнопка наверху — например, калькулятор у Райи. Это переход
                   внутри сайта, а не в приложение, поэтому без data-cta: воронку
                   landing_cta_click считают только переходы в чат. */}
               {page.heroLink && (
-                <Button href={page.heroLink.href} size="lg" variant="outline">
+                <Button href={page.heroLink.href} size="lg" variant="outline" className="text-center sm:whitespace-nowrap">
                   {page.heroLink.text}
                 </Button>
               )}
