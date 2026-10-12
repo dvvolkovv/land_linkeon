@@ -50,9 +50,11 @@ export default function ValuesTest({ texts }: { texts: ValuesTexts }) {
     } else {
       document.getElementById('values-statement')?.focus({ preventScroll: true });
       const box = document.getElementById('values-test');
-      // Шапка фиксированная, h-16 (64px): после «Пройти заново» из низа длинного результата
-      // и на маленьких экранах утверждение иначе меняется за пределами экрана.
-      if (box && box.getBoundingClientRect().top < 64) box.scrollIntoView({ block: 'start' });
+      const rect = box?.getBoundingClientRect();
+      // Шапка фиксированная (h-16, 64px). Блок уходит под неё (после «Пройти заново»
+      // из низа длинного результата) или не помещается снизу (после «Начать» блок стоит
+      // под вступлением) — подтягиваем его к верху, чтобы утверждение и ответы были на экране.
+      if (box && rect && (rect.top < 64 || rect.bottom > window.innerHeight)) box.scrollIntoView({ block: 'start' });
     }
   }, [progress, started, result]);
 
