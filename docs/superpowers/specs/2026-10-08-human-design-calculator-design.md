@@ -192,6 +192,33 @@ Human Design, ассистент — Райя.
 - Успех — доля расчётов, дошедших до клика, и регистрации по метке. Цели в
   Метрике заводит владелец.
 
+### Как смотреть результат (после выката 12.10.2026)
+
+- Доля расчётов, дошедших до клика, — в Метрике лендинга (счётчик 105902201):
+  конверсия цели `hd-calc-to-raya` к `hd-calc-submit`. Расчёт в нашу таблицу
+  событий не пишется: `landing_cta_click` — шаг «Нажал „Начать“» воронки в
+  админке и пункт политики «нажатие кнопки перехода в Приложение».
+- Переходы к Райе по дням — наша таблица событий:
+
+  ```sql
+  select date_trunc('day', ts) as day, count(*) as to_raya
+  from events
+  where name = 'landing_cta_click'
+    and props->>'cta' = 'hd-calc-to-raya'
+    and ts > now() - interval '30 days'
+  group by 1 order by 1;
+  ```
+
+- Регистрации по метке калькулятора (`utm_content=hd-calc` в ссылке к Райе;
+  тестовые аккаунты — исключить предикатом `excludeTestUsersSql('user_id')`
+  из `spirits_back/src/admin/admin.service.ts`):
+
+  ```sql
+  select count(*)
+  from ai_profiles_consolidated
+  where signup_campaign like '%hd-calc%';
+  ```
+
 ## Тексты и права
 
 - Русские тексты: вводный текст, FAQ и около 90 коротких описаний (5 типов и
