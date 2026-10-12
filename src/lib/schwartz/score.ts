@@ -8,6 +8,7 @@ export const BALANCE_THRESHOLD = 0.5;
 /** Разброс баллов ценностей меньше этого — приоритеты не выделились. */
 export const FLAT_THRESHOLD = 0.5;
 const PER_VALUE = 3;
+const RANGE_ERROR_MESSAGE = `тест ценностей: нужно ${ITEMS.length} ответов от ${ANSWER_MIN} до ${ANSWER_MAX}`;
 
 export interface AxisResult {
   lean: AxisLean;
@@ -32,12 +33,28 @@ export interface ValuesResult {
   /** Три ведущие; пусто, если приоритеты не выделились. */
   top: ValueKey[];
   /**
+   * Полная ничья на срезе тройки: ценности вне top, у которых все три ответа
+   * совпадают (сумма, максимум и минимум) с третьей ведущей (top[2]) — то
+   * есть ничья решилась только порядком круга, а не ответами, и это стоит
+   * показать как есть. Совпадение именно с top[2] достаточно: совпади такая
+   * ценность с top[0] или top[1], она совпала бы и с top[2] (иначе ранние две
+   * были бы тоже разными), и сама вошла бы в тройку. В порядке ranking;
+   * пусто, если приоритеты не выделились.
+   */
+  topTies: ValueKey[];
+  /**
    * Наименее важная среди тех, что не вошли в top: ничья решается в обратную
    * сторону, чем наверху — ниже та, где сильнее минимум («совсем не похож на
    * меня»), затем максимум, и только при полном совпадении ответов — дальняя
    * по кругу ценность. null, если приоритеты не выделились.
    */
   bottom: ValueKey | null;
+  /**
+   * Полная ничья у наименее важной: ценности вне top (и кроме самой bottom),
+   * чьи три ответа совпадают (сумма, максимум и минимум) с bottom. В порядке
+   * ranking; пусто, если приоритеты не выделились.
+   */
+  bottomTies: ValueKey[];
   axes: Record<AxisKey, AxisResult>;
 }
 
@@ -68,12 +85,12 @@ function statsByValue(answers: readonly number[]): Record<ValueKey, Stat> {
  */
 export function scoreAnswers(answers: readonly number[]): ValuesResult {
   if (answers.length !== ITEMS.length) {
-    throw new RangeError(`тест ценностей: нужно ${ITEMS.length} ответов от ${ANSWER_MIN} до ${ANSWER_MAX}`);
+    throw new RangeError(RANGE_ERROR_MESSAGE);
   }
   for (let i = 0; i < answers.length; i += 1) {
     const a = answers[i];
     if (!Number.isInteger(a) || a < ANSWER_MIN || a > ANSWER_MAX) {
-      throw new RangeError(`тест ценностей: нужно ${ITEMS.length} ответов от ${ANSWER_MIN} до ${ANSWER_MAX}`);
+      throw new RangeError(RANGE_ERROR_MESSAGE);
     }
   }
   const stats = statsByValue(answers);
@@ -93,7 +110,7 @@ export function scoreAnswers(answers: readonly number[]): ValuesResult {
   const axes = Object.fromEntries(AXIS_KEYS.map((key) => [key, axis(key, sums)])) as Record<AxisKey, AxisResult>;
 
   if (flat) {
-    return { scores, ranking, flat: true, top: [], bottom: null, axes };
+    return { scores, ranking, flat: true, top: [], topTies: [], bottom: null, bottomTies: [], axes };
   }
 
   const top = ranking.slice(0, 3);
@@ -112,7 +129,13 @@ export function scoreAnswers(answers: readonly number[]): ValuesResult {
   // суммой, не трогая более высокие записи.
   const orderedRanking = [...ranking.filter((k) => k !== bottom), bottom];
 
-  return { scores, ranking: orderedRanking, flat: false, top, bottom, axes };
+  const sameStats = (a: ValueKey, b: ValueKey): boolean =>
+    stats[a].sum === stats[b].sum && stats[a].max === stats[b].max && stats[a].min === stats[b].min;
+  const third = top[2];
+  const topTies = orderedRanking.filter((k) => !topSet.has(k) && sameStats(k, third));
+  const bottomTies = orderedRanking.filter((k) => !topSet.has(k) && k !== bottom && sameStats(k, bottom));
+
+  return { scores, ranking: orderedRanking, flat: false, top, topTies, bottom, bottomTies, axes };
 }
 
 /**
