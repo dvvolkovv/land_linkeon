@@ -56,13 +56,10 @@ export default function HumanDesignPage({ texts, language }: Props) {
             <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-paper-900 text-balance break-words hyphens-auto">
               {texts.h1}
             </h1>
-            <div className="mt-5 space-y-4 max-w-2xl">
-              {texts.intro.map((p) => (
-                <p key={p} className="text-lg text-paper-800 leading-relaxed">
-                  {p}
-                </p>
-              ))}
-            </div>
+            {/* Над формой — только первый абзац: человек из поиска сразу видит,
+                куда вводить дату (решение владельца). Остальное вступление — под
+                результатом; поисковик видит его целиком. */}
+            <p className="mt-5 max-w-2xl text-lg text-paper-800 leading-relaxed">{texts.intro[0]}</p>
           </div>
         </section>
 
@@ -76,6 +73,18 @@ export default function HumanDesignPage({ texts, language }: Props) {
         </section>
 
         {result && <HdResult texts={texts} result={result} />}
+
+        {texts.intro.length > 1 && (
+          <section data-testid="hd-about" className="max-w-4xl mx-auto px-6 pb-10 md:pb-12">
+            <div className="space-y-4 max-w-2xl">
+              {texts.intro.slice(1).map((p) => (
+                <p key={p} className="text-lg text-paper-800 leading-relaxed">
+                  {p}
+                </p>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section aria-labelledby="hd-types-heading" data-testid="hd-types" className="bg-paper-100 border-y border-paper-300">
           <div className="max-w-4xl mx-auto px-6 py-12 md:py-16">

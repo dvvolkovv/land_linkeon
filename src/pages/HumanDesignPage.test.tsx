@@ -29,6 +29,15 @@ describe('страница калькулятора (пререндер)', () =>
     expect(html).toContain('"@type":"BreadcrumbList"');
   });
 
+  // Решение владельца: форма — сразу после H1 и первого абзаца, остальное
+  // вступление — после формы; поисковик по-прежнему видит его целиком.
+  it('над формой только первый абзац вступления, остальные — ниже', () => {
+    const form = html.indexOf('id="hd-form-heading"');
+    expect(form).toBeGreaterThan(-1);
+    expect(html.indexOf(texts.intro[0])).toBeLessThan(form);
+    for (const p of texts.intro.slice(1)) expect(html.indexOf(p)).toBeGreaterThan(form);
+  });
+
   it('крошки: Главная → Расчёт Human Design', () => {
     const crumbs = pick(/<nav aria-label="[^"]*"[\s\S]*?<\/nav>/);
     expect(crumbs).toContain('href="/"');
