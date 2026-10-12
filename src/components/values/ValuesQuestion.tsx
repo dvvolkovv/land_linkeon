@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { ANSWER_MAX, ANSWER_MIN, ITEMS } from '../../lib/schwartz';
 import { fillTemplate } from '../../lib/chatDraft';
@@ -22,6 +23,15 @@ const OPTIONS = Array.from({ length: ANSWER_MAX - ANSWER_MIN + 1 }, (_, i) => AN
 export default function ValuesQuestion({ texts, index, chosen, onAnswer, onBack }: Props) {
   const q = texts.question;
   const total = ITEMS.length;
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    // Кнопки ответов — те же DOM-узлы для следующего утверждения: нервный
+    // двойной тап успевает попасть по уже другому вопросу. 250 мс — реальный
+    // disabled, а не проверка по времени клика, которая тихо съела бы тап.
+    setReady(false);
+    const t = window.setTimeout(() => setReady(true), 250);
+    return () => window.clearTimeout(t);
+  }, [index]);
   return (
     <div data-testid="values-question" className="max-w-2xl">
       <div className="flex min-h-11 items-center justify-between gap-4 text-sm text-paper-700">
@@ -43,24 +53,28 @@ export default function ValuesQuestion({ texts, index, chosen, onAnswer, onBack 
         <div className="h-full bg-brand-800 transition-[width]" style={{ width: `${(index / total) * 100}%` }} />
       </div>
       <p
+        key={index}
         id="values-statement"
         tabIndex={-1}
         className="mt-6 text-xl font-semibold leading-snug text-paper-900 focus:outline-none md:text-2xl"
       >
         {texts.statements[ITEMS[index].id]}
       </p>
-      <p className="mt-2 text-paper-700">{q.prompt}</p>
-      <div role="group" aria-labelledby="values-statement" className="mt-5 grid gap-2">
+      <p id="values-prompt" className="mt-2 text-paper-700">
+        {q.prompt}
+      </p>
+      <div role="group" aria-labelledby="values-statement" aria-describedby="values-prompt" className="mt-5 grid gap-2">
         {OPTIONS.map((value) => (
           <button
             key={value}
             type="button"
+            disabled={!ready}
             aria-pressed={chosen === value}
             onClick={() => onAnswer(value)}
             className={`min-h-12 rounded-xl border px-4 py-3 text-left font-semibold transition-colors ${
               chosen === value
                 ? 'border-brand-800 bg-brand-800 text-white'
-                : 'border-paper-300 bg-paper-50 text-paper-900 hover:border-paper-500'
+                : 'border-paper-300 bg-paper-50 text-paper-900 [@media(hover:hover)]:hover:border-paper-500'
             }`}
           >
             {q.scale[value - 1]}

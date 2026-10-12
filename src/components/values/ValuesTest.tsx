@@ -49,6 +49,10 @@ export default function ValuesTest({ texts }: { texts: ValuesTexts }) {
       document.getElementById('values-result-heading')?.focus({ preventScroll: true });
     } else {
       document.getElementById('values-statement')?.focus({ preventScroll: true });
+      const box = document.getElementById('values-test');
+      // Шапка фиксированная, h-16 (64px): после «Пройти заново» из низа длинного результата
+      // и на маленьких экранах утверждение иначе меняется за пределами экрана.
+      if (box && box.getBoundingClientRect().top < 64) box.scrollIntoView({ block: 'start' });
     }
   }, [progress, started, result]);
 
