@@ -53,14 +53,28 @@ describe('расчёт теста ценностей', () => {
     for (const k of VALUE_KEYS) expect(b.scores[k]).toBeCloseTo(a.scores[k], 10);
   });
 
-  it('одинаковые ответы — порядок круга, и наверху, и внизу', () => {
+  it('одинаковые ответы наверху — порядок круга', () => {
+    // Выделились ровно три, остальные семь — поровну: это restEqual, наименее
+    // важной нет (иначе её назначил бы порядок круга).
     const r = scoreAnswers(by({ tradition: 5, benevolence: 5, security: 5 }));
     expect(r.top).toEqual(['security', 'tradition', 'benevolence']);
+    expect(r.restEqual).toBe(true);
+    expect(r.bottom).toBeNull();
     expect(r.ranking).toEqual([
       'security', 'tradition', 'benevolence',
       'selfDirection', 'stimulation', 'hedonism', 'achievement', 'power', 'conformity', 'universalism',
     ]);
-    expect(r.bottom).toBe('universalism');
+  });
+
+  it('одинаковые ответы внизу — ниже дальняя по кругу', () => {
+    // Над минимальной суммой восемь ценностей — обычный случай; у власти и
+    // достижения ответы одинаковые {2,2,2}, власть дальше по кругу — она ниже.
+    const r = scoreAnswers(by({ tradition: 5, benevolence: 5, security: 5, power: 2, achievement: 2 }));
+    expect(r.restEqual).toBe(false);
+    expect(r.top).toEqual(['security', 'tradition', 'benevolence']);
+    expect(r.bottom).toBe('power');
+    expect(r.bottomTies).toEqual(['achievement']);
+    expect(r.ranking.slice(-2)).toEqual(['achievement', 'power']);
   });
 
   it('ничья наверху — выше та, где сильнее «очень похож»', () => {
@@ -71,10 +85,17 @@ describe('расчёт теста ценностей', () => {
   });
 
   it('ничья, решённая ответами, — не помечается', () => {
+    // Над минимальной суммой четыре ценности — обычный случай (при трёх
+    // сработал бы restEqual, и пустой topTies ничего бы не проверял).
     const r = scoreAnswers(
-      withItems(by({ selfDirection: 5, stimulation: 5 }), { universalism1: 6, universalism2: 5, universalism3: 4 }),
+      withItems(by({ selfDirection: 6, stimulation: 6, universalism: 5 }), {
+        benevolence1: 6, benevolence2: 5, benevolence3: 4,
+      }),
     );
-    // у остальных ответы {3,3,3}, а не {5,5,5}, как у «стимуляции» (третьей ведущей)
+    expect(r.restEqual).toBe(false);
+    expect(r.top).toEqual(['selfDirection', 'stimulation', 'benevolence']);
+    // у универсализма та же сумма, что у «доброты» (третьей ведущей), но ответы
+    // {5,5,5}, а не {6,5,4}: ничью решил максимум, а не порядок круга
     expect(r.topTies).toEqual([]);
 
     const bottomR = scoreAnswers(withItems(by({ power: 2 }, 4), { achievement1: 1, achievement2: 2, achievement3: 3 }));
@@ -114,19 +135,24 @@ describe('расчёт теста ценностей', () => {
     expect(differentMax.topTies).toEqual([]);
   });
 
-  // Обычный случай: top[2] не делит минимальную сумму с «хвостом», bottom
-  // выбирается. В restEqual (ниже) то же свойство держится иначе: там
-  // bottom не выбирается вовсе, так что ведущая и подавно не может стать им.
+  // Обычный случай на границе: над минимальной суммой ровно четыре ценности —
+  // три ведущие и достижение ({5,5,3}: та же сумма и максимум, что у гедонизма,
+  // но минимум ниже), остальные шесть делят минимальную. bottom выбирается
+  // среди них. В restEqual (ниже) то же свойство держится иначе: там bottom
+  // не выбирается вовсе, так что ведущая и подавно не может стать им.
   it('обычный случай: ведущая не бывает наименее важной', () => {
     const r = scoreAnswers(
       withItems(by({ selfDirection: 5 }, 4), {
         selfDirection3: 4,
         stimulation1: 6, stimulation2: 4, stimulation3: 3,
         hedonism1: 5,
+        achievement1: 5, achievement2: 5, achievement3: 3,
       }),
     );
     expect(r.top).toEqual(['selfDirection', 'stimulation', 'hedonism']);
+    expect(r.topTies).toEqual([]);
     expect(r.bottom).toBe('universalism');
+    expect(r.bottomTies).toEqual(['power', 'security', 'conformity', 'tradition', 'benevolence']);
     expect(r.flat).toBe(false);
     expect(r.restEqual).toBe(false);
   });
@@ -189,6 +215,16 @@ describe('расчёт теста ценностей', () => {
     expect(sumOnlyTie.bottom).toBeNull();
     expect(sumOnlyTie.topTies).toEqual([]);
     expect(sumOnlyTie.bottomTies).toEqual([]);
+  });
+
+  it('три выделились, остальные поровну — наименее важной нет', () => {
+    const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 6 }));
+    expect(r.flat).toBe(false);
+    expect(r.restEqual).toBe(true);
+    expect(r.top).toEqual(['selfDirection', 'stimulation', 'benevolence']);
+    expect(r.bottom).toBeNull();
+    expect(r.topTies).toEqual([]);
+    expect(r.bottomTies).toEqual([]);
   });
 
   it('граница «не выделились»: разброс в одну единицу ответа — ещё ровно, в две — уже нет', () => {

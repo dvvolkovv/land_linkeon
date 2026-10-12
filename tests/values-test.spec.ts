@@ -79,6 +79,8 @@ interface Captured {
   events: string[];
   /** Пути всех не-GET запросов (любой метод, любое происхождение) — чтобы поймать лишний канал. */
   posts: string[];
+  /** Адреса всех запросов страницы — чтобы проверить, куда она ходит, а куда нет. */
+  urls: string[];
 }
 
 /**
@@ -87,10 +89,11 @@ interface Captured {
  * страница: нужен лишь адрес, на который ушёл переход.
  */
 async function stubNetwork(page: Page, baseURL: string): Promise<Captured> {
-  const captured: Captured = { ym: [], events: [], posts: [] };
+  const captured: Captured = { ym: [], events: [], posts: [], urls: [] };
   const own = new URL(baseURL).origin;
   await page.exposeFunction('__captureYm', (args: unknown[]) => void captured.ym.push(args));
   page.on('request', (req) => {
+    captured.urls.push(req.url());
     if (req.method() !== 'GET') captured.posts.push(new URL(req.url()).pathname);
   });
   await page.addInitScript(() => {
@@ -131,6 +134,9 @@ async function answerRange(page: Page, from: number, to: number, pick: (value: V
     await answerButton(page, pick(ITEMS[i].value, i)).click();
   }
 }
+
+/** VK-пиксель (счётчик Top.Mail.Ru): его скрипт и pageView идут на этот хост. */
+const isVkPixel = (url: string) => new URL(url).hostname === 'top-fwz1.mail.ru';
 
 const PERSONA: Partial<Record<ValueKey, number>> = { selfDirection: 6, stimulation: 6, benevolence: 6, power: 1 };
 const persona = (v: ValueKey) => PERSONA[v] ?? 3;
@@ -235,6 +241,25 @@ test.describe('тест в браузере', () => {
     expect(captured.events.join('\n')).not.toContain('values-test-complete');
     // Единственный не-GET адрес за весь проход — канал событий; лишних путей нет.
     expect([...new Set(captured.posts)]).toEqual(['/webhook/events/track']);
+    // VK-пиксель за весь проход не загружался (что перехват его видит — в тесте ниже).
+    expect(captured.urls.filter(isVkPixel)).toEqual([]);
+  });
+
+  test('VK-пиксель: на главной загружается, на странице теста — нет', async ({ page, baseURL }) => {
+    const captured = await stubNetwork(page, baseURL!);
+    // Не вслепую: на главной запрос к пикселю есть — значит, перехват его видит.
+    const homePixel = page.waitForRequest((req) => isVkPixel(req.url()));
+    await page.goto('/');
+    await homePixel;
+    await expect(page.locator('#tmr-code')).toHaveCount(1);
+
+    const before = captured.urls.length;
+    await page.goto(PATH);
+    await clientRendered(page);
+    expect(captured.urls.length, 'перехват на странице теста ничего не увидел').toBeGreaterThan(before);
+    expect(captured.urls.slice(before).filter(isVkPixel)).toEqual([]);
+    await expect(page.locator('#tmr-code')).toHaveCount(0);
+    expect(await page.evaluate(() => '_tmr' in window)).toBe(false);
   });
 
   test('«Назад» показывает прежний ответ; перезагрузка — «Продолжить» с того же места', async ({ page, baseURL }) => {

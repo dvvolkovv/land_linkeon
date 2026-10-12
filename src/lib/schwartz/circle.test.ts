@@ -82,6 +82,33 @@ describe('круг ценностей', () => {
     expect(sectorPaths(flatSvg).some((p) => p.includes('stroke-dasharray'))).toBe(false);
   });
 
+  it('полная ничья нарисована как ничья: равные ведущей — как ведущие, равные наименее важной — как она', () => {
+    const tie = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 }));
+    // не вслепую: ничьи на срезе тройки и внизу действительно есть
+    expect(tie.topTies).toEqual(['universalism']);
+    expect(tie.bottom).toBe('tradition');
+    expect(tie.bottomTies).toHaveLength(5);
+
+    const svg = renderValuesCircleSvg(tie, LABELS);
+    const weightOf = (k: ValueKey) => svg.match(new RegExp(`font-weight="(\\d+)"[^>]*>${k}</text>`))?.[1];
+    expect(weightOf('universalism')).toBe('700');
+    expect(weightOf('benevolence')).toBe('700');
+
+    const paths = sectorPaths(svg);
+    const at = (k: ValueKey) => paths[VALUE_KEYS.indexOf(k)];
+    /** Оформление сектора — тег без геометрии. */
+    const style = (k: ValueKey) => at(k).replace(/ d="[^"]*"/, '');
+    // универсализм и доброта — одна группа (один цвет): оформление должно совпасть целиком
+    expect(style('universalism')).toBe(style('benevolence'));
+    expect(at('universalism')).toContain('fill-opacity="0.9"');
+    expect(at('universalism')).not.toContain('stroke-dasharray');
+
+    const dashed = paths.filter((p) => p.includes('stroke-dasharray="3 3"'));
+    expect(dashed).toHaveLength(1 + tie.bottomTies.length);
+    expect(at(tie.bottom!)).toContain('fill-opacity="0.25"');
+    for (const k of tie.bottomTies) expect(style(k), k).toBe(style(tie.bottom!));
+  });
+
   it('один путь обода на группу, не на ценность, и дуга — на весь её слот', () => {
     const svg = renderValuesCircleSvg(result, LABELS);
     const rims = [
