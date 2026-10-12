@@ -16,7 +16,11 @@ export interface Progress {
   index: number;
 }
 
-export const EMPTY_PROGRESS: Progress = { answers: [], index: 0 };
+/** Неизменяемая: общий стартовый объект не должен портиться случайной мутацией вызывающего кода. */
+export const EMPTY_PROGRESS: Progress = Object.freeze({
+  answers: Object.freeze([]) as unknown as number[],
+  index: 0,
+});
 
 export const isComplete = (p: Progress): boolean => p.index === ITEMS.length;
 

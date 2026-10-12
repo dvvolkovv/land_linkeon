@@ -3,9 +3,16 @@ import { appUrl } from './appUrl';
 /** Кабинет отбрасывает черновик длиннее — см. spirits_front/src/utils/pendingDraft.ts. */
 export const DRAFT_MAX_LENGTH = 600;
 
-/** Подстановка {ключей} шаблона из текстов страницы. Незнакомый ключ остаётся как есть. */
+/**
+ * Подстановка {ключей} шаблона из текстов страницы. Незнакомый ключ остаётся
+ * как есть. Берёт только свои свойства объекта — иначе {constructor} или
+ * {__proto__} подставили бы значение из прототипа вместо того, чтобы остаться
+ * видимой опечаткой.
+ */
 export function fillTemplate(template: string, values: Record<string, string>): string {
-  return template.replace(/\{(\w+)\}/g, (whole, key: string) => values[key] ?? whole);
+  return template.replace(/\{(\w+)\}/g, (whole, key: string) =>
+    Object.prototype.hasOwnProperty.call(values, key) ? values[key] : whole,
+  );
 }
 
 /**
