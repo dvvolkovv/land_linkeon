@@ -8,7 +8,13 @@ import { fillTemplate } from '../src/lib/chatDraft';
 
 const PATH = '/tests/values/';
 const count = (html: string, re: RegExp) => (html.match(re) ?? []).length;
-const h1Of = (html: string) => html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '';
+// renderToString экранирует ', ", <, > и & — иначе апостроф или «&» в h1
+// (например, в названии ценности с артиклем «L'autonomie») ложно не совпал
+// бы с текстом исходного .ts-модуля. &amp; — последним, чтобы не раскодировать
+// вложенные сущности вида &amp;lt; во что-то другое.
+const decodeHtmlEntities = (s: string): string =>
+  s.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+const h1Of = (html: string) => decodeHtmlEntities(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '');
 
 // Сырой HTTP — так страницу видит краулер. Код ответа ничего не доказывает:
 // SPA-фолбэк отдаёт 200 на любой путь, поэтому смотрим на содержимое.
@@ -62,8 +68,7 @@ test.describe('тест ценностей в сыром HTML', () => {
   // Каждая нерусская версия: свой язык в <html>, ровно один canonical на
   // свой адрес, кластер hreflang ведёт на свои адреса (не только счётом —
   // по каждой цели), H1 — из текстов этого языка, Вебвизор и карта кликов
-  // выключены. Пока переводов нет, цикл пуст; с Task 8 обязан пройти по
-  // шести языкам.
+  // выключены. Пока переводов нет, цикл пуст.
   test('нерусские версии: язык, canonical, hreflang, H1, Вебвизор и карта кликов выключены', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const codes = valuesTestCodes();
@@ -74,8 +79,8 @@ test.describe('тест ценностей в сыром HTML', () => {
       expect(html, code).toContain(`<link rel="canonical" href="${valuesTestUrlFor(code, DEFAULT_LANGUAGE)}"`);
       expect(count(html, /hreflang="/g), `${code}: hreflang`).toBe(codes.length + 1);
       expect(wrongHreflang(html, codes), `${code}: hreflang не на свой адрес`).toEqual([]);
-      // Проверено (Task 7, ревью): динамический import() .ts-модуля под Playwright
-      // работает и с переменным путём — модуль текстов языка доступен прямо здесь.
+      // Проверено отдельным прогоном: динамический import() .ts-модуля под
+      // Playwright работает и с переменным путём — модуль текстов языка доступен прямо здесь.
       const texts = (await import(`../src/content/values/texts/${code}.ts`)).default;
       expect(h1Of(html), `${code}: H1`).toBe(texts.h1);
       expect(html, code).toContain('webvisor:false');
