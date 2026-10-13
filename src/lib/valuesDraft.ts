@@ -1,5 +1,5 @@
 import { chatHref, chatUrlWithDraft, fillTemplate } from './chatDraft';
-import { joinAnd, joinClauses } from './textJoin';
+import { joinAnd, joinClauses, joinSentences } from './textJoin';
 import { AXIS_KEYS, type ValueKey, type ValuesResult } from './schwartz';
 import type { ValuesTexts } from '../content/values/types';
 
@@ -27,12 +27,12 @@ export function valuesMessage(texts: MessageTexts, result: ValuesResult, languag
   if (result.flat) return texts.messageFlat;
   const name = (k: ValueKey) => texts.values[k].inMessage;
   const list = (keys: ValueKey[]) => joinAnd(keys.map(name), language);
-  const tied = (ties: ValueKey[]) =>
-    ties.length ? ` ${fillTemplate(texts.tiedInMessage, { names: list(ties) })}` : '';
+  const withTies = (head: string, ties: ValueKey[]) =>
+    ties.length ? joinSentences([head, fillTemplate(texts.tiedInMessage, { names: list(ties) })], language) : head;
   return fillTemplate(texts.message, {
-    top: list(result.top) + tied(result.topTies),
+    top: withTies(list(result.top), result.topTies),
     rest: result.bottom
-      ? fillTemplate(texts.bottomInMessage, { bottom: name(result.bottom) + tied(result.bottomTies) })
+      ? fillTemplate(texts.bottomInMessage, { bottom: withTies(name(result.bottom), result.bottomTies) })
       : texts.restEqualInMessage,
     axes: joinClauses(
       AXIS_KEYS.map((k) => texts.axesInMessage[k][result.axes[k].lean]),
