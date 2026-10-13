@@ -2,7 +2,9 @@ import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { ASSISTANTS, ASSISTANT_SLUGS } from './roster.data.js';
 import { PACKS } from './packs.server';
-import { languageFromPath } from '../../i18n/urlLanguage';
+import { parseAssistantPath } from '../../lib/assistantRoute';
+import { parseHdCalcPath } from '../../lib/hdRoute';
+import { parseValuesTestPath } from '../../lib/valuesRoute';
 import type { AssistantPageText } from './types';
 
 /**
@@ -117,17 +119,33 @@ describe('тексты страниц ассистентов: каждая ст�
       // кнопку/ссылку на страницу другого языка (или на несуществующий
       // адрес), а isSitePageReleased это не ловит: он проверяет только, что
       // адрес выпущен хоть у какого-то языка из href, а не что это язык
-      // страницы, с которой ссылка ведёт.
+      // страницы, с которой ссылка ведёт. Три проверки:
+      // 1) href — абсолютный путь, а не относительный обрывок;
+      // 2) без избыточного префикса /ru/ — канонический русский адрес лежит
+      //    в корне, а parseValuesTestPath/parseHdCalcPath/parseAssistantPath
+      //    сами по себе /ru/... разберут как валидный, просто нежелательный;
+      // 3) адрес распознаётся одним из трёх роутов сайта, и его язык
+      //    совпадает с языком страницы, на которой стоит ссылка.
+      const linkLanguage = (href: string): string | null =>
+        (parseValuesTestPath(href) ?? parseHdCalcPath(href) ?? parseAssistantPath(href))?.language ?? null;
+      const expectOwnLanguageLink = (href: string) => {
+        expect(href.startsWith('/'), `не абсолютный путь — ${href}`).toBe(true);
+        expect(href.split('/').filter(Boolean)[0], `избыточный префикс /ru/ — ${href}`).not.toBe('ru');
+        const language = linkLanguage(href);
+        expect(language, `адрес не распознан ни тестом ценностей, ни калькулятором, ни страницей ассистента — ${href}`).not.toBeNull();
+        expect(language, `язык адреса не совпадает с языком страницы — ${href}`).toBe(code);
+      };
+
       if (p.heroLink) {
         it('heroLink ведёт на адрес своего языка', () => {
-          expect(languageFromPath(p.heroLink!.href)).toBe(code);
+          expectOwnLanguageLink(p.heroLink!.href);
         });
       }
 
       for (const [i, f] of p.faq.entries()) {
         if (!f.link) continue;
         it(`faq[${i}].link ведёт на адрес своего языка`, () => {
-          expect(languageFromPath(f.link!.href)).toBe(code);
+          expectOwnLanguageLink(f.link!.href);
         });
       }
 
