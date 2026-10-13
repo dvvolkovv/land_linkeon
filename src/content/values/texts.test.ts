@@ -31,7 +31,10 @@ const PORTRAIT = /^(Этот человек|Этому человеку|Для �
 const LEANS: AxisLean[] = ['left', 'right', 'balance'];
 
 const CYRILLIC = /\p{Script=Cyrillic}/u;
-const HAN = /\p{Script=Han}/u;
+const HAN =
+  // \p{Script=Han} — иероглифы; \u3000-\u303F и \uFF00-\uFFEF — полноширинная
+  // пунктуация (в т.ч. скобки «（）»), которая в zh занимает тот же кегль.
+  /[\p{Script=Han}\u3000-\u303F\uFF00-\uFFEF]/u;
 /** Ширина подписи в кеглях: иероглиф — во весь кегль, прочее — 0,62 (с запасом). */
 const labelWidthEm = (s: string): number => [...s].reduce((w, ch) => w + (HAN.test(ch) ? 1 : 0.62), 0);
 
@@ -90,6 +93,11 @@ describe('ширина подписи круга', () => {
   it('иероглиф — 1 кегль, остальное — 0,62', () => {
     expect(labelWidthEm('自我')).toBe(2);
     expect(labelWidthEm('ab')).toBeCloseTo(1.24);
+  });
+  // Полноширинная пунктуация (включая скобки) — тот же кегль, что иероглиф,
+  // а не 0,62: иначе подпись с «（…）» в zh казалась бы у́же, чем рисуется.
+  it('полноширинная пунктуация — тоже 1 кегль', () => {
+    expect(labelWidthEm('（')).toBe(1);
   });
 });
 
