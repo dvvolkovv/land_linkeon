@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dashSeparator, joinAnd, joinClauses, joinComma, joinSentences } from './textJoin';
+import { dashParts, dashSeparator, joinAnd, joinClauses, joinComma, joinInline, joinSentences } from './textJoin';
 
 describe('склейка текста по языку', () => {
   it('ru: перечень с «и» — как прежняя склейка сообщения Оле', () => {
@@ -45,5 +45,15 @@ describe('склейка текста по языку', () => {
   it('тире между названием и пояснением: в zh «——» без пробелов', () => {
     expect(dashSeparator('ru')).toBe(' — ');
     expect(dashSeparator('zh')).toBe('——');
+  });
+
+  it('dashParts — тот же дефис разложен на пробел снаружи span и остаток внутри', () => {
+    expect(dashParts('ru')).toEqual({ gap: ' ', dash: '— ' });
+    expect(dashParts('zh')).toEqual({ gap: '', dash: '——' });
+  });
+
+  it('joinInline — ценность и скобка ничьи в одной фразе: пробел, в zh — без него', () => {
+    expect(joinInline(['a', 'b'], 'en')).toBe('a b');
+    expect(joinInline(['甲', '乙'], 'zh')).toBe('甲乙');
   });
 });
