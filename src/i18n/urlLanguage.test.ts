@@ -7,6 +7,12 @@ import { languageFromPath, pathForLanguage } from './urlLanguage';
 vi.mock('../content/assistants/availability', () => ({
   hasAssistantPages: (code: string) => code === 'ru' || code === 'en',
 }));
+vi.mock('../content/values/availability', () => ({
+  hasValuesTest: (code: string) => code === 'ru' || code === 'en',
+}));
+vi.mock('../content/hd/availability', () => ({
+  hasHdCalculator: (code: string) => code === 'ru',
+}));
 
 describe('languageFromPath', () => {
   it('корень — язык по умолчанию', () => {
@@ -89,5 +95,23 @@ describe('pathForLanguage: явный index.html на прочих страни�
     expect(pathForLanguage('en', '/legal/offer/index.html')).toBe('/en/legal/offer');
     expect(pathForLanguage('en', '/legal/index.html')).toBe('/en/');
     expect(pathForLanguage('de', '/en/index.html')).toBe('/de/');
+  });
+});
+
+describe('pathForLanguage на тесте ценностей и калькуляторе', () => {
+  // Без этого переключатель (и баннер языка) с теста уводили на главную.
+  it('тест: та же страница на выпущенном языке', () => {
+    expect(pathForLanguage('en', '/tests/values/')).toBe('/en/tests/values/');
+    expect(pathForLanguage('ru', '/en/tests/values/', '?a=1', '#faq')).toBe('/tests/values/?a=1#faq');
+    expect(pathForLanguage('en', '/tests/values/index.html')).toBe('/en/tests/values/');
+  });
+
+  it('тест: на невыпущенном языке — главная этого языка', () => {
+    expect(pathForLanguage('de', '/tests/values/', '?a=1')).toBe('/de/?a=1');
+  });
+
+  it('калькулятор: та же страница только там, где выпущен', () => {
+    expect(pathForLanguage('ru', '/en/calculators/human-design/')).toBe('/calculators/human-design/');
+    expect(pathForLanguage('en', '/calculators/human-design/')).toBe('/en/');
   });
 });
