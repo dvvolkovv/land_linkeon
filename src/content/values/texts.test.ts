@@ -35,11 +35,14 @@ const HAN = /\p{Script=Han}/u;
 /** Ширина подписи в кеглях: иероглиф — во весь кегль, прочее — 0,62 (с запасом). */
 const labelWidthEm = (s: string): number => [...s].reduce((w, ch) => w + (HAN.test(ch) ? 1 : 0.62), 0);
 
-// Китайский передаёт ту же мысль вдвое меньшим числом знаков — пределы как у
-// страниц ассистентов (src/content/assistants/packs.test.ts: zh 40–120).
+// Китайский передаёт ту же мысль в ~2,5–3 раза меньшим числом знаков (по
+// собранным текстам: zh/ru ≈ 0,3–0,39, русские описания начинаются от 192
+// знаков). Пределы description — как у страниц ассистентов
+// (src/content/assistants/packs.test.ts: zh 40–120); остальные пределы —
+// русские × ~0,4–0,5.
 const limitsFor = (code: string) =>
   code === 'zh'
-    ? { description: [40, 120], valueText: [60, 200], valueLine: 30, axis: [12, 100] }
+    ? { description: [40, 120], valueText: [45, 200], valueLine: 30, axis: [12, 100] }
     : { description: [100, 180], valueText: [150, 420], valueLine: 60, axis: [30, 200] };
 // Описание ценности начинается с названия; в es, fr, pt — допустим артикль
 // («La autodirección…», «L'autonomie…»): название — в первых 60 знаках.
