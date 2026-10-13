@@ -5,6 +5,9 @@
  * подряд без пробела), французскому нужен неразрывный пробел перед «;».
  */
 
+// Английские тексты сайта — британские (favourite, recognise): перечень без оксфордской запятой.
+const LIST_LOCALE: Record<string, string> = { en: 'en-GB' };
+
 /**
  * «а, б и в» — перечень с союзом языка. Intl.ListFormat нет в Safari до 14.1
  * (iOS 14.0–14.4), а сборка нацелена на safari14: там — перечень без союза,
@@ -12,7 +15,7 @@
  */
 export function joinAnd(items: string[], language: string): string {
   if (typeof Intl.ListFormat !== 'function') return joinComma(items, language);
-  return new Intl.ListFormat(language, { style: 'long', type: 'conjunction' }).format(items);
+  return new Intl.ListFormat(LIST_LOCALE[language] ?? language, { style: 'long', type: 'conjunction' }).format(items);
 }
 
 /** «а, б, в» — перечень без союза. */
