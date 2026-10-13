@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { ASSISTANTS, ASSISTANT_SLUGS } from './roster.data.js';
 import { PACKS } from './packs.server';
+import { languageFromPath } from '../../i18n/urlLanguage';
 import type { AssistantPageText } from './types';
 
 /**
@@ -108,6 +109,25 @@ describe('тексты страниц ассистентов: каждая ст�
           expect(image.alt.trim().length).toBeGreaterThan(0);
           expect(Number.isInteger(image.width) && image.width > 0, 'width').toBe(true);
           expect(Number.isInteger(image.height) && image.height > 0, 'height').toBe(true);
+        });
+      }
+
+      // РЕГРЕССИЯ (на будущее): heroLink и faq[].link пишутся руками в каждый
+      // pages/<язык>/<slug>.ts — лишний или забытый языковой префикс уводит
+      // кнопку/ссылку на страницу другого языка (или на несуществующий
+      // адрес), а isSitePageReleased это не ловит: он проверяет только, что
+      // адрес выпущен хоть у какого-то языка из href, а не что это язык
+      // страницы, с которой ссылка ведёт.
+      if (p.heroLink) {
+        it('heroLink ведёт на адрес своего языка', () => {
+          expect(languageFromPath(p.heroLink!.href)).toBe(code);
+        });
+      }
+
+      for (const [i, f] of p.faq.entries()) {
+        if (!f.link) continue;
+        it(`faq[${i}].link ведёт на адрес своего языка`, () => {
+          expect(languageFromPath(f.link!.href)).toBe(code);
         });
       }
 
