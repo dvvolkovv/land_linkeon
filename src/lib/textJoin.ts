@@ -34,3 +34,8 @@ export function joinClauses(parts: string[], language: string): string {
 export function joinSentences(parts: string[], language: string): string {
   return parts.join(language === 'zh' ? '' : ' ');
 }
+
+/** Название и пояснение через тире: в китайском «——» без пробелов. */
+export function dashSeparator(language: string): string {
+  return language === 'zh' ? '——' : ' — ';
+}
