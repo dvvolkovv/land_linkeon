@@ -5,7 +5,6 @@ import { valuesTestUrlFor } from '../scripts/site-urls.mjs';
 import ru from '../src/content/values/texts/ru';
 import { ITEMS, VALUE_KEYS, type ValueKey } from '../src/lib/schwartz';
 import { fillTemplate } from '../src/lib/chatDraft';
-import { joinAnd, joinClauses } from '../src/lib/textJoin';
 
 const PATH = '/tests/values/';
 const count = (html: string, re: RegExp) => (html.match(re) ?? []).length;
@@ -216,12 +215,11 @@ test.describe('тест в браузере', () => {
     // собран из тех же текстов ru.ts, что и valuesDraft.ts.
     expect(draft).toBe(
       fillTemplate(ru.message, {
-        top: joinAnd(
-          [ru.values.selfDirection.inMessage, ru.values.stimulation.inMessage, ru.values.benevolence.inMessage],
-          'ru',
-        ),
+        // Склейка — литералами, а не joinAnd/joinClauses: иначе e2e повторял бы
+        // проверяемый код. Русские правила: «, … и …» и «; ».
+        top: `${ru.values.selfDirection.inMessage}, ${ru.values.stimulation.inMessage} и ${ru.values.benevolence.inMessage}`,
         rest: fillTemplate(ru.bottomInMessage, { bottom: ru.values.power.inMessage }),
-        axes: joinClauses([ru.axesInMessage.change.left, ru.axesInMessage.focus.left], 'ru'),
+        axes: `${ru.axesInMessage.change.left}; ${ru.axesInMessage.focus.left}`,
       }),
     );
 
