@@ -68,11 +68,15 @@ test.describe('тест ценностей в сыром HTML', () => {
   // Каждая нерусская версия: свой язык в <html>, ровно один canonical на
   // свой адрес, кластер hreflang ведёт на свои адреса (не только счётом —
   // по каждой цели), H1 — из текстов этого языка, Вебвизор и карта кликов
-  // выключены. Пока переводов нет, цикл пуст.
+  // выключены. Переводы — en, es, de, fr, pt, zh (шесть языков).
   test('нерусские версии: язык, canonical, hreflang, H1, Вебвизор и карта кликов выключены', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const codes = valuesTestCodes();
-    for (const code of codes.filter((c) => c !== DEFAULT_LANGUAGE)) {
+    const nonRu = codes.filter((c) => c !== DEFAULT_LANGUAGE);
+    // Цикл ниже не должен молча оказаться пустым — иначе все expect() внутри
+    // него не выполнятся ни разу, а тест всё равно будет зелёным.
+    expect(nonRu, 'переводы есть — цикл не должен быть пустым').toHaveLength(6);
+    for (const code of nonRu) {
       const html = await (await ctx.get(`/${code}/tests/values/`)).text();
       expect(html, code).toContain(`<html lang="${code}"`);
       expect(count(html, /rel="canonical"/g), `${code}: ровно один canonical`).toBe(1);
