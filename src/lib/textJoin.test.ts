@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { joinAnd, joinClauses, joinComma, joinSentences } from './textJoin';
+import { dashSeparator, joinAnd, joinClauses, joinComma, joinSentences } from './textJoin';
 
 describe('склейка текста по языку', () => {
   it('ru: перечень с «и» — как прежняя склейка сообщения Оле', () => {
@@ -40,5 +40,10 @@ describe('склейка текста по языку', () => {
     expect(joinClauses(['a', 'b'], 'fr')).toBe('a\u00A0; b');
     expect(joinSentences(['One.', 'Two.'], 'en')).toBe('One. Two.');
     expect(joinSentences(['一。', '二。'], 'zh')).toBe('一。二。');
+  });
+
+  it('тире между названием и пояснением: в zh «——» без пробелов', () => {
+    expect(dashSeparator('ru')).toBe(' — ');
+    expect(dashSeparator('zh')).toBe('——');
   });
 });
