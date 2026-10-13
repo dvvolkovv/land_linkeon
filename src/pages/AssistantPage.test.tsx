@@ -207,3 +207,25 @@ describe('баннер языка на страницах раздела', () =>
     }
   });
 });
+
+describe('FAQ-ссылка на странице ассистента', () => {
+  // РЕГРЕССИЯ: f.link рендерился без проверки isSitePageReleased — после
+  // перевода (Task 8) ссылка FAQ Райи на других языках повела бы на
+  // /<code>/calculators/human-design/, которого там ещё нет (калькулятор
+  // остаётся русским, см. src/content/hd/texts/ — только ru.ts).
+  it('скрыта, если её страница не выпущена на этом языке', () => {
+    const entry = assistantBySlug('raya')!;
+    const unreleasedPack = {
+      ...PACKS.ru,
+      raya: {
+        ...PACKS.ru.raya,
+        faq: PACKS.ru.raya.faq.map((f) =>
+          f.link ? { ...f, link: { ...f.link, href: '/de/calculators/human-design/' } } : f,
+        ),
+      },
+    };
+    const html = render(<AssistantPage entry={entry} pack={unreleasedPack} language="ru" />);
+    const faq = pick(html, /<section[^>]*data-testid="assistant-faq"[\s\S]*?<\/section>/);
+    expect(faq).not.toContain('/de/calculators/human-design/');
+  });
+});
