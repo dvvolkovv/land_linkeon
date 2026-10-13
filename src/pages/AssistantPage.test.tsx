@@ -8,6 +8,13 @@ import { createServerI18n } from '../i18n/server';
 import { PACKS } from '../content/assistants/packs.server';
 import { ASSISTANTS, assistantBySlug } from '../content/assistants/roster';
 
+// Как в sitePageReleased.test.ts: мок делает тест независимым от реального
+// состояния выпуска калькулятора — переживёт его запуск на 'de' и любом
+// другом языке, кроме ru.
+vi.mock('../content/hd/availability', () => ({
+  hasHdCalculator: (code: string) => code === 'ru',
+}));
+
 const render = (ui: ReactElement, language = 'ru') =>
   renderToStaticMarkup(<I18nextProvider i18n={createServerI18n(language)}>{ui}</I18nextProvider>);
 
@@ -211,10 +218,12 @@ describe('баннер языка на страницах раздела', () =>
 describe('FAQ-ссылка на странице ассистента', () => {
   // РЕГРЕССИЯ: f.link рендерился без проверки isSitePageReleased — после
   // перевода (Task 8) ссылка FAQ Райи на других языках повела бы на
-  // /<code>/calculators/human-design/, которого там ещё нет (калькулятор
-  // остаётся русским, см. src/content/hd/texts/ — только ru.ts).
-  it('скрыта, если её страница не выпущена на этом языке', () => {
+  // /<code>/calculators/human-design/, которого там ещё нет (hasHdCalculator
+  // замокан выше: 'ru' выпущен, остальные — нет, независимо от реальной даты
+  // запуска калькулятора на других языках).
+  it('скрыта, если её страница не выпущена на этом языке — но сам вопрос остаётся', () => {
     const entry = assistantBySlug('raya')!;
+    const linked = PACKS.ru.raya.faq.find((f) => f.link)!;
     const unreleasedPack = {
       ...PACKS.ru,
       raya: {
@@ -226,6 +235,9 @@ describe('FAQ-ссылка на странице ассистента', () => {
     };
     const html = render(<AssistantPage entry={entry} pack={unreleasedPack} language="ru" />);
     const faq = pick(html, /<section[^>]*data-testid="assistant-faq"[\s\S]*?<\/section>/);
+    // Невакуумная проверка: без неё тест зеленел бы и если вопрос пропал из
+    // FAQ целиком, а не только если скрылась ссылка внутри него.
+    expect(faq, `вопрос «${linked.q}» пропал из FAQ`).toContain(linked.q);
     expect(faq).not.toContain('/de/calculators/human-design/');
   });
 });
