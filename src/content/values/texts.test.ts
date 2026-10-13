@@ -182,6 +182,16 @@ describe('тексты теста ценностей', () => {
         }
       });
 
+      // Глоссарий: name («Самостоятельность») и inMessage («самостоятельность»
+      // в сообщении Оле) — одно и то же слово в разном регистре/форме для
+      // заголовка vs фразы, не два разных перевода одной ценности.
+      it('ценности: inMessage согласуется с name (глоссарий)', () => {
+        for (const k of VALUE_KEYS) {
+          const v = t.values[k];
+          expect(v.inMessage.toLocaleLowerCase(code), k).toContain(v.name.toLocaleLowerCase(code));
+        }
+      });
+
       it('оси: фразы результата в пределах языка', () => {
         for (const axis of AXIS_KEYS) {
           for (const lean of LEANS) {
@@ -207,6 +217,10 @@ describe('тексты теста ценностей', () => {
             expect(s, path).not.toMatch(CYRILLIC);
             expect(s, path).not.toMatch(AGENT_WORD);
           }
+        });
+
+        it('оговорка — упоминает Шварца (Schwartz/施瓦茨)', () => {
+          expect(t.disclaimer).toMatch(/Schwartz|施瓦茨/);
         });
       }
 
