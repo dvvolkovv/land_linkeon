@@ -21,6 +21,7 @@ const olia: AssistantPageText = {
   lead: 'A Ólia faz uma pergunta de cada vez e repara no que está por trás das suas respostas. No fim, monta o seu mapa de valores: o que o move, qual é a sua lógica de ação e para onde pode crescer.',
   card: 'Cinco passos de conversa — do herói preferido às cores da Dinâmica da Espiral. No fim, um mapa de valores pessoal.',
   cta: 'Falar com a Ólia',
+  heroLink: { text: 'Fazer o teste de valores grátis', href: '/pt/tests/values/' },
   situations: [
     'Tudo parece certo — o trabalho, os planos, as pessoas à sua volta —, mas não sabe o que disso é seu e o que são expectativas dos outros.',
     'Tem uma escolha pela frente — mudar de profissão, mudar de cidade, abrir um negócio — e quer apoiar-se no que é importante para si.',

@@ -20,6 +20,7 @@ const olia: AssistantPageText = {
   lead: "Olia pose ses questions une à une et remarque ce qui se cache derrière vos réponses. À la fin, elle dresse votre carte des valeurs : ce qui vous anime, quelle est votre logique d'action et dans quelle direction grandir.",
   card: "Une conversation en cinq étapes, du héros préféré aux couleurs de la Spirale dynamique. À la fin, votre carte des valeurs personnelle.",
   cta: "Parler avec Olia",
+  heroLink: { text: 'Faire le test des valeurs gratuitement', href: '/fr/tests/values/' },
   situations: [
     "Tout semble en ordre (travail, projets, entourage), mais vous ne savez pas ce qui vient de vous et ce qui relève des attentes des autres.",
     "Un choix vous attend (changer de métier, déménager, vous lancer à votre compte), et vous voulez vous appuyer sur ce qui compte vraiment pour vous.",

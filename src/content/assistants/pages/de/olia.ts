@@ -21,6 +21,7 @@ const olia: AssistantPageText = {
   lead: 'Olja stellt eine Frage nach der anderen und bemerkt, was hinter Ihren Antworten steckt. Am Ende fasst sie alles in einer Wertekarte zusammen: was Sie antreibt, welche Handlungslogik Sie haben und wohin Sie wachsen können.',
   card: 'Fünf Gesprächsschritte – vom Lieblingshelden bis zu den Farben von Spiral Dynamics. Am Ende Ihre persönliche Wertekarte.',
   cta: 'Mit Olja sprechen',
+  heroLink: { text: 'Kostenlosen Wertetest machen', href: '/de/tests/values/' },
   situations: [
     'Eigentlich stimmt alles – Arbeit, Pläne, Freundeskreis –, aber Sie wissen nicht, was davon wirklich Ihres ist und was fremde Erwartungen sind.',
     'Eine Entscheidung steht an – den Beruf wechseln, umziehen, sich selbstständig machen –, und Sie möchten sich auf das stützen, was Ihnen selbst wichtig ist.',

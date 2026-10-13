@@ -20,6 +20,7 @@ const olia: AssistantPageText = {
   lead: "Olia asks questions one at a time and notices what lies behind your answers. At the end, she puts together a values map: what drives you, what your action logic is and where you can grow.",
   card: "A conversation in five steps — from a favourite hero to the colours of Spiral Dynamics. At the end, a personal values map.",
   cta: "Talk to Olia",
+  heroLink: { text: "Take the free values test", href: "/en/tests/values/" },
   situations: [
     "Everything seems right — the job, the plans, the people around you — but you can't tell which of it is yours and which is other people's expectations.",
     "There's a choice ahead — changing careers, moving, starting your own business — and you want to base it on what matters to you.",
