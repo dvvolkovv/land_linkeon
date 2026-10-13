@@ -628,6 +628,8 @@ Expected: `unit 0` — в том числе прежний тест «втора
 
 В начало `src/content/values/texts.test.ts`, после `const LEANS…`:
 
+Исходный вариант; после ревью актуален `src/content/values/texts.test.ts`.
+
 ```ts
 const CYRILLIC = /\p{Script=Cyrillic}/u;
 const HAN = /\p{Script=Han}/u;
