@@ -53,7 +53,7 @@ export default function ValuesTestPage({ texts, language }: Props) {
         </section>
 
         <section aria-label={texts.breadcrumb} className="max-w-4xl mx-auto px-6 py-10 md:py-12">
-          <ValuesTest texts={texts} />
+          <ValuesTest texts={texts} language={language} />
         </section>
 
         {texts.intro.length > 1 && (

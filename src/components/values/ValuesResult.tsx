@@ -12,16 +12,29 @@ import {
 } from '../../lib/schwartz';
 import { oliaChatHref, oliaChatUrlWithDraft, valuesMessage } from '../../lib/valuesDraft';
 import { fillTemplate } from '../../lib/chatDraft';
+import { joinComma, joinSentences } from '../../lib/textJoin';
 import type { ValuesTexts } from '../../content/values/types';
 
 interface Props {
   texts: ValuesTexts;
+  /** Язык страницы — для склейки перечней и сообщения Оле. */
+  language: string;
   result: Result;
   onRestart: () => void;
 }
 
 /** Карточка ценности; tiedWith — полная ничья на срезе (те же три ответа), помечается честно. */
-function ValueCard({ texts, value, tiedWith = [] }: { texts: ValuesTexts; value: ValueKey; tiedWith?: ValueKey[] }) {
+function ValueCard({
+  texts,
+  language,
+  value,
+  tiedWith = [],
+}: {
+  texts: ValuesTexts;
+  language: string;
+  value: ValueKey;
+  tiedWith?: ValueKey[];
+}) {
   const v = texts.values[value];
   return (
     <li className="rounded-xl border border-paper-300 bg-paper-50 p-4">
@@ -30,7 +43,7 @@ function ValueCard({ texts, value, tiedWith = [] }: { texts: ValuesTexts; value:
       <p className="mt-2 leading-relaxed text-paper-800">{v.text}</p>
       {tiedWith.length > 0 && (
         <p data-testid="values-tie" className="mt-2 text-sm text-paper-700">
-          {fillTemplate(texts.result.tiedWith, { names: tiedWith.map((k) => texts.values[k].name).join(', ') })}
+          {fillTemplate(texts.result.tiedWith, { names: joinComma(tiedWith.map((k) => texts.values[k].name), language) })}
         </p>
       )}
     </li>
@@ -44,7 +57,7 @@ function ValueCard({ texts, value, tiedWith = [] }: { texts: ValuesTexts; value:
  * исключение на всём тесте — aria-pressed у прежнего ответа в ValuesQuestion
  * (нужен для доступности; пока Вебвизор выключен, безвреден — см. ValuesTest.tsx).
  */
-export default function ValuesResult({ texts, result, onRestart }: Props) {
+export default function ValuesResult({ texts, language, result, onRestart }: Props) {
   const r = texts.result;
   const labels = useMemo(
     () => Object.fromEntries(VALUE_KEYS.map((k) => [k, texts.values[k].name])) as Record<ValueKey, string>,
@@ -56,7 +69,7 @@ export default function ValuesResult({ texts, result, onRestart }: Props) {
   // href без черновика — осознанно, как у калькулятора.
   const toOlia = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const url = oliaChatUrlWithDraft(valuesMessage(texts, result));
+    const url = oliaChatUrlWithDraft(valuesMessage(texts, result, language));
     if (e.metaKey || e.ctrlKey || e.shiftKey) window.open(url, '_blank', 'noopener');
     else window.location.assign(url);
   };
@@ -99,14 +112,20 @@ export default function ValuesResult({ texts, result, onRestart }: Props) {
           </h3>
           <ol data-testid="values-top" className="mt-3 grid gap-3 md:grid-cols-3">
             {result.top.map((k, i) => (
-              <ValueCard key={k} texts={texts} value={k} tiedWith={i === result.top.length - 1 ? result.topTies : []} />
+              <ValueCard
+                key={k}
+                texts={texts}
+                language={language}
+                value={k}
+                tiedWith={i === result.top.length - 1 ? result.topTies : []}
+              />
             ))}
           </ol>
           {result.bottom ? (
             <>
               <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.bottomHeading}</h3>
               <ul data-testid="values-bottom" className="mt-3 grid gap-3 md:grid-cols-3">
-                <ValueCard texts={texts} value={result.bottom} tiedWith={result.bottomTies} />
+                <ValueCard texts={texts} language={language} value={result.bottom} tiedWith={result.bottomTies} />
               </ul>
             </>
           ) : (
@@ -117,7 +136,7 @@ export default function ValuesResult({ texts, result, onRestart }: Props) {
           )}
           <h3 className="mt-8 text-xl font-semibold text-paper-900">{r.axesHeading}</h3>
           <p data-testid="values-axes" className="mt-3 max-w-2xl leading-relaxed text-paper-800">
-            {AXIS_KEYS.map((k) => texts.axes[k][result.axes[k].lean]).join(' ')}
+            {joinSentences(AXIS_KEYS.map((k) => texts.axes[k][result.axes[k].lean]), language)}
           </p>
         </>
       )}

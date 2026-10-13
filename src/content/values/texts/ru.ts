@@ -207,7 +207,6 @@ const ru: ValuesTexts = {
   ],
   disclaimer:
     'Тест для самопознания по мотивам теории базовых ценностей Шалома Шварца. Не клиническая и не официальная методика.',
-  and: 'и',
   tiedInMessage: '(с тем же результатом — {names})',
   bottomInMessage: 'на последнем — {bottom}',
   restEqualInMessage: 'остальные — поровну',

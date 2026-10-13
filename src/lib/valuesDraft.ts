@@ -1,4 +1,5 @@
 import { chatHref, chatUrlWithDraft, fillTemplate } from './chatDraft';
+import { joinAnd, joinClauses } from './textJoin';
 import { AXIS_KEYS, type ValueKey, type ValuesResult } from './schwartz';
 import type { ValuesTexts } from '../content/values/types';
 
@@ -11,30 +12,31 @@ export const oliaChatUrlWithDraft = (message: string): string => chatUrlWithDraf
 
 type MessageTexts = Pick<
   ValuesTexts,
-  'values' | 'axesInMessage' | 'and' | 'tiedInMessage' | 'bottomInMessage' | 'restEqualInMessage' | 'message' | 'messageFlat'
+  'values' | 'axesInMessage' | 'tiedInMessage' | 'bottomInMessage' | 'restEqualInMessage' | 'message' | 'messageFlat'
 >;
-
-/** «а, б и в»; одно название — как есть. */
-const list = (names: string[], and: string): string =>
-  names.length > 1 ? `${names.slice(0, -1).join(', ')} ${and} ${names[names.length - 1]}` : names.join('');
 
 /**
  * Первое сообщение Оле: ведущие, наименее важная и обе оси; полная ничья —
  * в скобках после ценности («с тем же результатом — …»); остальные набрали поровну —
  * «остальные — поровну» вместо наименее важной. Приоритеты не выделились —
  * своё сообщение без ценностей. Ответов в нём нет — только итог, который
- * человек и так видит на экране.
+ * человек и так видит на экране. Перечни и оси склеиваются по правилам языка
+ * страницы (src/lib/textJoin.ts).
  */
-export function valuesMessage(texts: MessageTexts, result: ValuesResult): string {
+export function valuesMessage(texts: MessageTexts, result: ValuesResult, language: string): string {
   if (result.flat) return texts.messageFlat;
   const name = (k: ValueKey) => texts.values[k].inMessage;
+  const list = (keys: ValueKey[]) => joinAnd(keys.map(name), language);
   const tied = (ties: ValueKey[]) =>
-    ties.length ? ` ${fillTemplate(texts.tiedInMessage, { names: list(ties.map(name), texts.and) })}` : '';
+    ties.length ? ` ${fillTemplate(texts.tiedInMessage, { names: list(ties) })}` : '';
   return fillTemplate(texts.message, {
-    top: list(result.top.map(name), texts.and) + tied(result.topTies),
+    top: list(result.top) + tied(result.topTies),
     rest: result.bottom
       ? fillTemplate(texts.bottomInMessage, { bottom: name(result.bottom) + tied(result.bottomTies) })
       : texts.restEqualInMessage,
-    axes: AXIS_KEYS.map((k) => texts.axesInMessage[k][result.axes[k].lean]).join('; '),
+    axes: joinClauses(
+      AXIS_KEYS.map((k) => texts.axesInMessage[k][result.axes[k].lean]),
+      language,
+    ),
   });
 }

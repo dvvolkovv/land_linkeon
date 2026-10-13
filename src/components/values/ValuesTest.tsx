@@ -38,7 +38,7 @@ import type { ValuesTexts } from '../../content/values/types';
  * этого скринридер не скажет, какой ответ выбран. Пока Вебвизор выключен,
  * это безвредно; если его вернут — помнить про это исключение.
  */
-export default function ValuesTest({ texts }: { texts: ValuesTexts }) {
+export default function ValuesTest({ texts, language }: { texts: ValuesTexts; language: string }) {
   const [saved] = useState(() => (typeof window === 'undefined' ? null : loadProgress()));
   const [progress, setProgress] = useState<Progress>(saved ?? EMPTY_PROGRESS);
   const [started, setStarted] = useState(saved !== null && isComplete(saved));
@@ -111,7 +111,7 @@ export default function ValuesTest({ texts }: { texts: ValuesTexts }) {
       </div>
     );
   } else if (result) {
-    body = <ValuesResult texts={texts} result={result} onRestart={begin} />;
+    body = <ValuesResult texts={texts} language={language} result={result} onRestart={begin} />;
   } else {
     body = (
       <ValuesQuestion
