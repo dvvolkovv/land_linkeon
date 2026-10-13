@@ -12,39 +12,39 @@ const by = (map: Partial<Record<ValueKey, number>>, rest = 3): number[] =>
 describe('сообщение Оле', () => {
   it('ведущие, наименее важная и обе оси', () => {
     const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 6, power: 1 }));
-    expect(valuesMessage(ru, r)).toBe(
+    expect(valuesMessage(ru, r, 'ru')).toBe(
       'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность, стимуляция и доброта, на последнем — власть. Мне ближе перемены, чем сохранение привычного; забота о других для меня важнее личного успеха. Помоги разобраться, что это значит для меня',
     );
   });
 
   it('полная ничья — в скобках после третьей ведущей и после наименее важной', () => {
     const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5 }));
-    expect(valuesMessage(ru, r)).toBe(
+    expect(valuesMessage(ru, r, 'ru')).toBe(
       'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность, стимуляция и доброта (с тем же результатом — универсализм), на последнем — традиция (с тем же результатом — гедонизм, достижение, власть, безопасность и конформность). Мне ближе перемены, чем сохранение привычного; забота о других для меня важнее личного успеха. Помоги разобраться, что это значит для меня',
     );
   });
 
   it('остальные набрали поровну — без наименее важной', () => {
     const r = scoreAnswers(by({ selfDirection: 5, stimulation: 5 }, 4));
-    expect(valuesMessage(ru, r)).toBe(
+    expect(valuesMessage(ru, r, 'ru')).toBe(
       'Оля, привет! Мой результат теста ценностей по Шварцу: на первом месте — самостоятельность и стимуляция, остальные — поровну. Мне ближе перемены, чем сохранение привычного; забота о других и личный успех у меня в равновесии. Помоги разобраться, что это значит для меня',
     );
   });
 
   it('приоритеты не выделились — своё сообщение', () => {
-    expect(valuesMessage(ru, scoreAnswers(by({}, 4)))).toBe(ru.messageFlat);
+    expect(valuesMessage(ru, scoreAnswers(by({}, 4)), 'ru')).toBe(ru.messageFlat);
   });
 
   it('остальные набрали поровну, ведущая — одна', () => {
     const r = scoreAnswers(by({ selfDirection: 5 }, 4));
-    expect(valuesMessage(ru, r)).toContain('на первом месте — самостоятельность, остальные — поровну.');
+    expect(valuesMessage(ru, r, 'ru')).toContain('на первом месте — самостоятельность, остальные — поровну.');
   });
 
   it('полная ничья в top — обе ценности названы', () => {
     const r = scoreAnswers(
       by({ selfDirection: 6, stimulation: 6, benevolence: 5, universalism: 5, security: 5 }),
     );
-    expect(valuesMessage(ru, r)).toContain('(с тем же результатом — доброта и универсализм)');
+    expect(valuesMessage(ru, r, 'ru')).toContain('(с тем же результатом — доброта и универсализм)');
   });
 
   it('самый длинный возможный случай — в лимите кабинета', () => {
@@ -65,9 +65,19 @@ describe('сообщение Оле', () => {
         bottomTies: longest.slice(7),
         axes: { change: { lean: longestLean('change'), diff: 0 }, focus: { lean: longestLean('focus'), diff: 0 } },
       };
-      expect(valuesMessage(t, worst).length, code).toBeLessThanOrEqual(DRAFT_MAX_LENGTH);
+      expect(valuesMessage(t, worst, code).length, code).toBeLessThanOrEqual(DRAFT_MAX_LENGTH);
       expect(t.messageFlat.length, code).toBeLessThanOrEqual(DRAFT_MAX_LENGTH);
     }
+  });
+
+  // Склейка — по языку страницы, а не по русским правилам: в китайском «、»,
+  // «和» без пробелов и полноширинная «；». Тексты здесь русские — проверяется
+  // только склейка.
+  it('перечень и оси склеиваются по правилам языка страницы', () => {
+    const r = scoreAnswers(by({ selfDirection: 6, stimulation: 6, benevolence: 6, power: 1 }));
+    const zh = valuesMessage(ru, r, 'zh');
+    expect(zh).toContain('самостоятельность、стимуляция和доброта');
+    expect(zh).toContain('привычного；забота');
   });
 });
 
