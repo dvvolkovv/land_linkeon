@@ -193,6 +193,14 @@ describe('тексты теста ценностей', () => {
           }
         });
       }
+
+      // Шаблон message сам ставит точку (или «。» в zh) после {axes} — во
+      // всех языках фраза для Оли приходит без своей, иначе на конце — две.
+      it('фразы осей для Оли — без точки в конце (её ставит шаблон)', () => {
+        for (const axis of AXIS_KEYS) {
+          for (const lean of LEANS) expect(t.axesInMessage[axis][lean], `${axis}.${lean}`).not.toMatch(/[.。]$/);
+        }
+      });
     });
   }
 
@@ -243,7 +251,8 @@ describe('тексты теста ценностей', () => {
       const focus = t.axesInMessage.focus[lean];
       expect(change[0], lean).toBe(change[0].toUpperCase());
       expect(focus[0], lean).toBe(focus[0].toLowerCase());
-      expect(change.endsWith('.') || focus.endsWith('.'), lean).toBe(false);
+      // Точка на конце — общее правило для всех языков, см. «фразы осей для
+      // Оли — без точки в конце» внутри цикла по языкам; здесь — только регистр.
     }
   });
 
