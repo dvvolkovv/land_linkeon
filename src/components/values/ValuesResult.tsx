@@ -12,7 +12,7 @@ import {
 } from '../../lib/schwartz';
 import { oliaChatHref, oliaChatUrlWithDraft, valuesMessage } from '../../lib/valuesDraft';
 import { fillTemplate } from '../../lib/chatDraft';
-import { joinComma, joinSentences } from '../../lib/textJoin';
+import { dashSeparator, joinComma, joinSentences } from '../../lib/textJoin';
 import type { ValuesTexts } from '../../content/values/types';
 
 interface Props {
@@ -157,14 +157,25 @@ export default function ValuesResult({ texts, language, result, onRestart }: Pro
           />
         </summary>
         <ol data-testid="values-all" className="space-y-4 pb-5">
-          {result.ranking.map((k) => (
-            <li key={k}>
-              <p className="font-semibold text-paper-900">
-                {texts.values[k].name} <span className="font-normal text-paper-700">— {texts.values[k].line}</span>
-              </p>
-              <p className="mt-1 leading-relaxed text-paper-800">{texts.values[k].text}</p>
-            </li>
-          ))}
+          {result.ranking.map((k) => {
+            // Разделитель — по языку страницы: в zh «——» без пробелов, у остальных —
+            // как раньше, « — » (пробел до тире — снаружи span, после — внутри него,
+            // чтобы разметка для ru не поменялась).
+            const dash = dashSeparator(language);
+            return (
+              <li key={k}>
+                <p className="font-semibold text-paper-900">
+                  {texts.values[k].name}
+                  {dash.startsWith(' ') ? ' ' : ''}
+                  <span className="font-normal text-paper-700">
+                    {dash.trimStart()}
+                    {texts.values[k].line}
+                  </span>
+                </p>
+                <p className="mt-1 leading-relaxed text-paper-800">{texts.values[k].text}</p>
+              </li>
+            );
+          })}
         </ol>
       </details>
 
