@@ -26,7 +26,12 @@ export interface AssistantPageText {
   card: string;
   /** Надпись кнопки в чат — с именем в нужной форме: «Поговорить с Алексеем». */
   cta: string;
-  /** Вторая кнопка наверху страницы, рядом с основной (например, калькулятор у Райи). Только на языках, где цель выпущена. */
+  /**
+   * Вторая кнопка наверху страницы, рядом с основной (например, калькулятор
+   * у Райи). Только на языках, где цель выпущена: на остальных кнопка
+   * скрывается при рендере — AssistantPage.tsx проверяет href через
+   * isSitePageReleased, в тексте страницы ограничивать языки не нужно.
+   */
   heroLink?: { text: string; href: string };
   /** «С чем приходят»: 4–6 конкретных ситуаций. */
   situations: string[];
@@ -48,7 +53,9 @@ export interface AssistantPageText {
   cannot: string[];
   /**
    * Вопросы и ответы: 4–5. `link` — ссылка после ответа (FAQ Райи ведёт на
-   * калькулятор Human Design). В FAQPage уходит только текст ответа.
+   * калькулятор Human Design). В FAQPage уходит только текст ответа. Как и
+   * heroLink, скрывается на языке, где цель не выпущена (isSitePageReleased
+   * в AssistantPage.tsx).
    */
   faq: { q: string; a: string; link?: { text: string; href: string } }[];
 }

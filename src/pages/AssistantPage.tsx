@@ -85,7 +85,9 @@ export default function AssistantPage({ entry, pack, language }: Props) {
               {cta}
               {/* Вторая кнопка наверху — например, калькулятор у Райи. Это переход
                   внутри сайта, а не в приложение, поэтому без data-cta: воронку
-                  landing_cta_click считают только переходы в чат. */}
+                  landing_cta_click считают только переходы в чат. Показывается
+                  только если isSitePageReleased подтвердит, что цель выпущена
+                  на этом языке — иначе адреса нет (nginx отдал бы фолбэк). */}
               {page.heroLink && isSitePageReleased(page.heroLink.href) && (
                 <Button href={page.heroLink.href} size="lg" variant="outline" className="text-center sm:whitespace-nowrap">
                   {page.heroLink.text}
@@ -199,7 +201,10 @@ export default function AssistantPage({ entry, pack, language }: Props) {
                 </summary>
                 <p className="pb-5 text-paper-800 leading-relaxed">
                   {f.a}
-                  {f.link && (
+                  {/* Как и у heroLink выше: ссылка существует не на всех языках
+                      (f.link.href может вести на тест/калькулятор), поэтому
+                      показывается только если isSitePageReleased подтвердит адрес. */}
+                  {f.link && isSitePageReleased(f.link.href) && (
                     <>
                       {' '}
                       <a href={f.link.href} className="font-semibold text-brand-800 underline hover:text-brand-900">
