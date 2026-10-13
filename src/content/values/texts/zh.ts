@@ -124,7 +124,7 @@ const zh: ValuesTexts = {
     openness: '对变化的开放',
     selfEnhancement: '自我提升',
     conservation: '保守',
-    selfTranscendence: '自我超越',
+    selfTranscendence: '关爱他人',
   },
   axes: {
     change: {

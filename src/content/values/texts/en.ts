@@ -132,7 +132,7 @@ const en: ValuesTexts = {
     openness: "Openness to Change",
     selfEnhancement: "Self-Enhancement",
     conservation: "Conservation",
-    selfTranscendence: "Self-Transcendence",
+    selfTranscendence: "Care for Others",
   },
   axes: {
     change: {

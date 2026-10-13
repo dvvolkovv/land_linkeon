@@ -132,7 +132,7 @@ const fr: ValuesTexts = {
     openness: 'Ouverture au changement',
     selfEnhancement: 'Affirmation de soi',
     conservation: 'Continuité',
-    selfTranscendence: 'Dépassement de soi',
+    selfTranscendence: 'Souci des autres',
   },
   axes: {
     change: {

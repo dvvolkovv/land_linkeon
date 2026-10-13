@@ -132,7 +132,7 @@ const pt: ValuesTexts = {
     openness: 'Abertura à mudança',
     selfEnhancement: 'Autopromoção',
     conservation: 'Conservação',
-    selfTranscendence: 'Autotranscendência',
+    selfTranscendence: 'Cuidado com os outros',
   },
   axes: {
     change: {

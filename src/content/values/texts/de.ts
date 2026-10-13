@@ -150,7 +150,7 @@ const de: ValuesTexts = {
     openness: 'Offenheit für Wandel',
     selfEnhancement: 'Selbststärkung',
     conservation: 'Bewahrung',
-    selfTranscendence: 'Selbsttranszendenz',
+    selfTranscendence: 'Fürsorge für andere',
   },
   axes: {
     change: {

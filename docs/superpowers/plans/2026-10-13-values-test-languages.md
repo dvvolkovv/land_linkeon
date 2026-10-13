@@ -67,7 +67,9 @@ Task 1 (рабочая копия) → Task 2–7 (код и проверки) �
    | openness | Openness to Change | Apertura al cambio | Offenheit für Wandel | Ouverture au changement | Abertura à mudança | 对变化的开放 |
    | selfEnhancement | Self-Enhancement | Autopromoción | Selbststärkung | Affirmation de soi | Autopromoção | 自我提升 |
    | conservation | Conservation | Conservación | Bewahrung | Continuité | Conservação | 保守 |
-   | selfTranscendence | Self-Transcendence | Autotrascendencia | Selbsttranszendenz | Dépassement de soi | Autotranscendência | 自我超越 |
+   | selfTranscendence | Care for Others | Cuidado de los demás | Fürsorge für andere | Souci des autres | Cuidado com os outros | 关爱他人 |
+
+   selfTranscendence — бытовым словом, как русское «Забота о других» (решение владельца 13.10.2026: термины Шварца вроде «Dépassement de soi» в обиходе читаются как «превзойти себя»).
 
    Вычитчик может предложить другое слово только с обоснованием (устоявшееся в литературе по Шварцу на этом языке) — тогда оно меняется во всех текстах языка.
 6. **Ограничения русского текста сохраняются:** без цен и валют, эмодзи, слова «агент» и его переводов в значении «ассистент»; Linkeon не переводится; никаких заявлений о валидности, официальности, клинической пригодности, кроме отрицания; оговорка (`disclaimer`) — «самопознание по мотивам теории Шварца, не клиническая и не официальная методика». Слово agent / agente / Agent / 智能体 в значении «ассистент» не используется. Иероглифы и полноширинная пунктуация — только в zh.
