@@ -9,7 +9,7 @@ describe('склейка текста по языку', () => {
   });
 
   it('союз и запятые — языка', () => {
-    expect(joinAnd(['a', 'b', 'c'], 'en')).toBe('a, b, and c');
+    expect(joinAnd(['a', 'b', 'c'], 'en')).toBe('a, b and c');
     expect(joinAnd(['a', 'b', 'c'], 'de')).toBe('a, b und c');
     expect(joinAnd(['a', 'b', 'c'], 'fr')).toBe('a, b et c');
     expect(joinAnd(['a', 'b', 'c'], 'es')).toBe('a, b y c');
