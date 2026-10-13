@@ -53,6 +53,26 @@ test.describe('тест ценностей в сыром HTML', () => {
     await ctx.dispose();
   });
 
+  // Каждая нерусская версия: свой язык в <html>, свой canonical, тот же
+  // кластер hreflang, Вебвизор и карта кликов выключены. До переводов цикл
+  // пуст; после Task 8 обязан пройти по шести языкам.
+  test('нерусские версии: язык, canonical, hreflang, Вебвизор и карта кликов выключены', async ({ baseURL }) => {
+    const ctx = await request.newContext({ baseURL });
+    const codes = valuesTestCodes();
+    for (const code of codes.filter((c) => c !== DEFAULT_LANGUAGE)) {
+      const html = await (await ctx.get(`/${code}/tests/values/`)).text();
+      expect(html, code).toContain(`<html lang="${code}"`);
+      expect(html, code).toContain(`<link rel="canonical" href="${valuesTestUrlFor(code, DEFAULT_LANGUAGE)}"`);
+      expect(count(html, /hreflang="/g), `${code}: hreflang`).toBe(codes.length + 1);
+      expect(html, code).toContain('webvisor:false');
+      expect(html, code).not.toContain('webvisor:true');
+      expect(html, code).toContain('clickmap:false');
+      expect(html, code).not.toContain('clickmap:true');
+      expect(html, `${code}: карточка старта`).toContain('data-testid="values-start"');
+    }
+    await ctx.dispose();
+  });
+
   test('sitemap: тест только на выпущенных языках', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const xml = await (await ctx.get('/sitemap.xml')).text();
