@@ -18,12 +18,12 @@ describe('склейка текста по языку', () => {
     expect(joinAnd(['甲', '乙'], 'zh')).toBe('甲和乙');
   });
 
-  it('без Intl.ListFormat (Safari до 14.1) — перечень без союза, без исключения', () => {
+  it('без Intl.ListFormat (Safari до 14.1) — союз руками по карте языков, без исключения', () => {
     const saved = Object.getOwnPropertyDescriptor(Intl, 'ListFormat')!;
     Reflect.deleteProperty(Intl, 'ListFormat');
     try {
-      expect(joinAnd(['а', 'б', 'в'], 'ru')).toBe('а, б, в');
-      expect(joinAnd(['甲', '乙'], 'zh')).toBe('甲、乙');
+      expect(joinAnd(['а', 'б', 'в'], 'ru')).toBe('а, б и в');
+      expect(joinAnd(['甲', '乙', '丙'], 'zh')).toBe('甲、乙和丙');
     } finally {
       Object.defineProperty(Intl, 'ListFormat', saved);
     }
