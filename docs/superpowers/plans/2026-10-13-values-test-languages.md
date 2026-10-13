@@ -63,7 +63,7 @@ Task 1 (рабочая копия) → Task 2–7 (код и проверки) �
    | conformity | Conformity | Conformidad | Konformität | Conformité | Conformidade | 遵从 |
    | tradition | Tradition | Tradición | Tradition | Tradition | Tradição | 传统 |
    | benevolence | Benevolence | Benevolencia | Wohlwollen | Bienveillance | Benevolência | 仁慈 |
-   | universalism | Universalism | Universalismo | Universalismus | Universalisme | Universalismo | 普世主义 |
+   | universalism | Universalism | Universalismo | Universalismus | Universalisme | Universalismo | 普遍主义 |
    | openness | Openness to Change | Apertura al cambio | Offenheit für Wandel | Ouverture au changement | Abertura à mudança | 对变化的开放 |
    | selfEnhancement | Self-Enhancement | Autopromoción | Selbststärkung | Affirmation de soi | Autopromoção | 自我提升 |
    | conservation | Conservation | Conservación | Bewahrung | Continuité | Conservação | 保守 |

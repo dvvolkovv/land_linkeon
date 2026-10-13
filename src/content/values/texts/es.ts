@@ -7,13 +7,13 @@ import type { ValuesTexts } from '../types';
 const es: ValuesTexts = {
   title: 'Test de valores de Schwartz online gratis — mapa de valores | Linkeon',
   description:
-    'Test de valores de Schwartz gratis: 30 afirmaciones, unos 5 minutos. El círculo de 10 valores de Shalom Schwartz, sus valores principales y un análisis con Olia.',
+    'Test de valores de Schwartz gratis: 30 afirmaciones, unos 5 minutos. Descubra sus valores principales en el círculo de 10 valores de Shalom Schwartz y analícelos con Olia.',
   h1: 'Test de valores de Schwartz online y gratis',
   breadcrumb: 'Test de valores',
   intro: [
     'Treinta descripciones breves de personas distintas. Indique cuánto se parece a usted cada una y verá un círculo de diez valores básicos: qué ocupa el primer lugar para usted, qué queda más lejos y dónde están las principales tensiones internas.',
-    'El test se inspira en la teoría de los valores básicos del psicólogo social Shalom Schwartz. Las respuestas se quedan en su dispositivo: el cálculo se hace en el propio navegador y no se envía nada a ningún servidor.',
-    'El resultado no es una evaluación ni un diagnóstico, sino un punto de partida para hablar de usted. Puede continuar la conversación con Olia, la asistente que guía la exploración de valores.',
+    'El test se inspira en la teoría de los valores básicos del psicólogo social Shalom Schwartz. Las respuestas se quedan en su dispositivo: el cálculo se hace en el propio navegador y las respuestas no se envían a ningún servidor.',
+    'El resultado no es una evaluación ni un diagnóstico, sino un punto de partida para una conversación sobre usted. Puede continuarla con Olia, la asistente que guía la exploración de valores.',
   ],
   start: {
     meta: '30 afirmaciones · unos 5 minutos · las respuestas se quedan en su dispositivo',
@@ -38,7 +38,7 @@ const es: ValuesTexts = {
     selfDirection1: 'A esta persona le importa la independencia: elegir su camino a su manera, sin órdenes de arriba.',
     selfDirection2: 'Esta persona se pone con gusto a construir, componer o inventar algo propio, solo por curiosidad.',
     selfDirection3: 'Para esta persona es importante pensar por su cuenta y llegar a sus propias conclusiones.',
-    stimulation1: 'Esta persona se lanza con facilidad: una ciudad desconocida, una afición nueva, un viaje repentino, todo le hace feliz.',
+    stimulation1: 'Esta persona se lanza con facilidad: una ciudad desconocida, una afición nueva, un viaje repentino, todo eso le alegra.',
     stimulation2: 'Para esta persona, una vida sin cambios ni variedad se vuelve insípida enseguida.',
     stimulation3: 'A esta persona le atrae lo que no se sabe cómo va a acabar: los proyectos audaces y los retos arriesgados.',
     hedonism1: 'A esta persona le importa que en su vida haya muchas cosas agradables: buena comida, descanso, pequeños placeres.',
@@ -48,22 +48,22 @@ const es: ValuesTexts = {
     achievement2: 'Para esta persona es importante lucir su maestría ante quienes entienden del tema.',
     achievement3: 'Esta persona aspira a estar entre los mejores de su campo.',
     power1: 'Para esta persona es importante influir en los demás y decidir cómo se usan el dinero y los recursos comunes.',
-    power2: 'Para esta persona es importante una riqueza que muestre su posición en la sociedad.',
+    power2: 'Para esta persona es importante un buen nivel económico que muestre su posición en la sociedad.',
     power3: 'A esta persona le importan un estatus alto y la autoridad, tener peso a ojos de los demás.',
     security1: 'Esta persona elige la prudencia: revisar una vez más, ir sobre seguro, no poner en riesgo su salud.',
-    security2: 'A esta persona le importa vivir en un país donde las calles sean tranquilas y las leyes se cumplan.',
+    security2: 'A esta persona le importa vivir en un país donde haya tranquilidad en las calles y las leyes se cumplan.',
     security3: 'A esta persona le importa la estabilidad: un trabajo seguro, ahorros para tiempos difíciles, un mañana previsible.',
     conformity1: 'Para esta persona, las normas no son una formalidad: se cumplen, gusten o no.',
     conformity2: 'Esta persona se contiene en público: no levanta la voz ni se permite palabras bruscas.',
-    conformity3: 'Esta persona se viste y se comporta como es costumbre allí donde está.',
+    conformity3: 'Esta persona se viste y se comporta como se espera allí donde esté.',
     tradition1: 'Para esta persona, las costumbres familiares —los pasteles de las fiestas, las historias de los antepasados, las fechas señaladas— son algo que hay que conservar.',
-    tradition2: 'Para esta persona, la fe y sus fiestas ocupan un lugar importante en la vida.',
+    tradition2: 'Para esta persona, la fe y las fiestas religiosas ocupan un lugar importante en su vida.',
     tradition3: 'Esta persona acepta su destino con serenidad: lo que le toca, hay que vivirlo con dignidad.',
     benevolence1: 'Esta persona acude enseguida a ayudar cuando a sus seres queridos les pasa algo.',
     benevolence2: 'Esta persona es alguien a quien los amigos confían sus secretos y que nunca les falla.',
     benevolence3: 'A esta persona le importa que sus seres queridos estén bien, y para ello no escatima tiempo ni esfuerzo.',
     universalism1: 'Esta persona se preocupa por quienes sufren guerras y catástrofes en cualquier parte del mundo, y ayuda en lo que puede.',
-    universalism2: 'Esta persona procura dañar lo menos posible la naturaleza: ahorra recursos, no tira basura, piensa en las consecuencias.',
+    universalism2: 'Esta persona procura dañar lo menos posible la naturaleza: ahorra recursos, no deja basura, piensa en las consecuencias.',
     universalism3: 'Para esta persona es importante que en el mundo haya sitio para distintas opiniones, culturas y formas de vida.',
   },
   values: {
@@ -71,7 +71,7 @@ const es: ValuesTexts = {
       name: 'Autodirección',
       inMessage: 'la autodirección',
       line: 'libertad para pensar, elegir y crear algo propio',
-      text: 'La autodirección es la necesidad de pensar por cuenta propia, elegir el camino y crear algo suyo. A quienes la ponen en los primeros puestos les agobian los marcos rígidos y las instrucciones ajenas: necesitan entender para qué hacen las cosas y dejar en ellas su sello personal.',
+      text: 'La autodirección es la necesidad de pensar por cuenta propia, elegir su camino y crear algo suyo. A quienes la ponen en los primeros puestos les agobian los marcos rígidos y las instrucciones ajenas: necesitan entender para qué hacen las cosas y dejar en ellas su sello personal.',
     },
     stimulation: {
       name: 'Estimulación',
@@ -101,7 +101,7 @@ const es: ValuesTexts = {
       name: 'Seguridad',
       inMessage: 'la seguridad',
       line: 'estabilidad, orden y protección',
-      text: 'La seguridad es la necesidad de estabilidad y protección para la propia persona, sus seres queridos y la sociedad. Cuando ocupa los primeros puestos, la persona piensa con antelación, valora la fiabilidad y el orden, evita los riesgos innecesarios y se procura reservas para los imprevistos.',
+      text: 'La seguridad es la necesidad de estabilidad y protección para uno mismo, los seres queridos y la sociedad. Cuando ocupa los primeros puestos, la persona piensa con antelación, valora la fiabilidad y el orden, evita los riesgos innecesarios y se procura reservas para los imprevistos.',
     },
     conformity: {
       name: 'Conformidad',
@@ -136,14 +136,14 @@ const es: ValuesTexts = {
   },
   axes: {
     change: {
-      left: 'Se identifica más con la apertura al cambio —la autodirección y la novedad— que con la conservación del orden habitual.',
-      right: 'Se identifica más con la conservación de lo habitual —la seguridad, las normas y las tradiciones— que con la apertura al cambio.',
-      balance: 'En usted, la apertura al cambio y la conservación de lo habitual están en equilibrio: ninguna de las dos pesa claramente más.',
+      left: 'Usted se identifica más con la apertura al cambio —la autodirección y la novedad— que con la conservación del orden habitual.',
+      right: 'Usted se identifica más con la conservación de lo habitual —la seguridad, las normas y las tradiciones— que con la apertura al cambio.',
+      balance: 'En su caso, la apertura al cambio y la conservación de lo habitual están en equilibrio: ninguna de las dos pesa claramente más.',
     },
     focus: {
       left: 'Para usted, el cuidado de los demás —sus seres queridos y el mundo que le rodea— es más importante que el éxito personal y la influencia.',
       right: 'Para usted, el éxito personal y la influencia son más importantes que el cuidado de los demás y del mundo que le rodea.',
-      balance: 'Mantiene en equilibrio el cuidado de los demás y el éxito personal.',
+      balance: 'Para usted, el cuidado de los demás y el éxito personal están en equilibrio.',
     },
   },
   axesInMessage: {
@@ -167,10 +167,10 @@ const es: ValuesTexts = {
     axesHeading: 'Tensiones principales',
     flatHeading: 'No se destacan prioridades',
     flatText:
-      'Ha valorado casi todas las afirmaciones por igual, así que no se pueden señalar valores principales. Pruebe a hacer el test otra vez comparando las descripciones entre sí, o descubra con Olia qué es lo que de verdad le importa.',
+      'Ha valorado casi todas las afirmaciones por igual, así que no se pueden señalar valores principales. Intente hacer el test otra vez comparando las descripciones entre sí, o descubra con Olia qué es lo que de verdad le importa.',
     cta: 'Analizarlo con Olia',
     ctaNote: 'Análisis personal de valores con Olia: al registrarse, 25.000 tokens de regalo',
-    allHeading: 'Los 10 valores, en su orden',
+    allHeading: 'Los 10 valores, en el orden de su resultado',
     restart: 'Repetir el test',
     tiedWith: 'Con el mismo resultado: {names}',
     topHeadingOne: 'Valor principal',
@@ -178,7 +178,7 @@ const es: ValuesTexts = {
   },
   modelSection: {
     heading: 'Los diez valores de Schwartz',
-    lead: 'Schwartz describió diez valores que se encuentran en culturas de todo el mundo. Se disponen en círculo: los vecinos conviven sin dificultad y los opuestos tiran en direcciones contrarias, como el deseo de novedad y el de conservar lo conocido.',
+    lead: 'Schwartz describió diez valores que se encuentran en distintas culturas de todo el mundo. Se disponen en círculo: los valores vecinos conviven sin dificultad y los opuestos tiran en direcciones contrarias, como el deseo de novedad y el de conservar lo conocido.',
   },
   faqHeading: 'Preguntas sobre el test',
   faq: [
@@ -196,11 +196,11 @@ const es: ValuesTexts = {
     },
     {
       q: '¿Por qué el resultado es un orden de valores y no una puntuación?',
-      a: 'Según Schwartz, lo importante no son las puntuaciones en sí, sino qué valores pesan más que otros. Por eso el test tiene en cuenta su manera de responder: aunque dé puntuaciones altas a todas las afirmaciones, el círculo mostrará igualmente qué es lo más importante para usted.',
+      a: 'Según Schwartz, lo importante no son las puntuaciones en sí, sino qué valores pesan más que otros. Por eso el test tiene en cuenta su manera de responder: aunque dé puntuaciones altas a todas las afirmaciones, el círculo mostrará igualmente qué pesa más para usted.',
     },
     {
       q: '¿Qué hago con el resultado?',
-      a: 'Fíjese en los valores principales y en las tensiones principales: dónde sus decisiones, su tiempo y su dinero coinciden con lo que le importa y dónde no. Puede analizarlo a fondo con Olia: ella guía la exploración de valores en una conversación y arma un mapa personal de valores.',
+      a: 'Fíjese en los valores principales y en las principales tensiones: dónde sus decisiones, su tiempo y su dinero coinciden con lo que le importa y dónde no. Puede analizarlo a fondo con Olia: ella guía la exploración de valores en una conversación y arma un mapa personal de valores.',
     },
   ],
   disclaimer:

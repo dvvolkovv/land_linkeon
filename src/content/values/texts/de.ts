@@ -5,13 +5,13 @@ import type { ValuesTexts } from '../types';
  * docs/superpowers/plans/2026-10-13-values-test-languages.md, «Правила переводов».
  */
 const de: ValuesTexts = {
-  title: 'Schwartz Wertetest online kostenlos – Ihre Wertekarte | Linkeon',
+  title: 'Schwartz-Wertetest online kostenlos – Ihre Wertekarte | Linkeon',
   description:
-    'Schwartz Wertetest kostenlos: 30 Aussagen, etwa 5 Minuten. Der Kreis der 10 Grundwerte nach Shalom Schwartz, Ihre wichtigsten Werte und ein Gespräch mit Olja.',
-  h1: 'Schwartz Wertetest online – kostenlos',
+    'Kostenloser Wertetest nach Shalom Schwartz: 30 Aussagen, etwa 5 Minuten. Ein Kreis aus 10 Grundwerten, Ihre wichtigsten Werte und die Auswertung im Gespräch mit Olja.',
+  h1: 'Schwartz-Wertetest online – kostenlos',
   breadcrumb: 'Wertetest',
   intro: [
-    'Dreißig kurze Beschreibungen verschiedener Menschen. Geben Sie jeweils an, wie sehr Ihnen die beschriebene Person ähnelt – und Sie sehen einen Kreis aus zehn Grundwerten: was für Sie an erster Stelle steht, was Ihnen am fernsten liegt und wo Ihre wichtigsten inneren Spannungen verlaufen.',
+    'Dreißig kurze Beschreibungen verschiedener Menschen. Geben Sie jeweils an, wie sehr Ihnen die beschriebene Person ähnelt – und Sie sehen einen Kreis aus zehn Grundwerten: was für Sie an erster Stelle steht, was Ihnen am fernsten liegt und welche inneren Spannungen bei Ihnen zentral sind.',
     'Der Test lehnt sich an die Theorie der Grundwerte des Sozialpsychologen Shalom Schwartz an. Ihre Antworten bleiben auf Ihrem Gerät: Die Berechnung läuft direkt im Browser, die Antworten werden nicht an einen Server gesendet.',
     'Das Ergebnis ist keine Bewertung und keine Diagnose, sondern ein Ausgangspunkt für ein Gespräch über sich selbst. Fortsetzen können Sie es mit Olja – der Assistentin, die durch die Werte-Erkundung führt.',
   ],
@@ -35,69 +35,71 @@ const de: ValuesTexts = {
     ],
   },
   statements: {
-    selfDirection1: 'Dieser Person ist Unabhängigkeit wichtig: den Weg selbst wählen, ohne Anweisungen von oben.',
-    selfDirection2: 'Diese Person bastelt, schreibt oder erfindet gern etwas Eigenes – einfach aus Spaß an der Sache.',
-    selfDirection3: 'Dieser Person ist es wichtig, selbst zu denken und zu eigenen Schlüssen zu kommen.',
+    selfDirection1: 'Dieser Person ist Unabhängigkeit wichtig: den eigenen Weg wählen, ohne Anweisungen von oben.',
+    selfDirection2: 'Diese Person bastelt, schreibt oder erfindet gern etwas Eigenes – einfach aus Neugier.',
+    selfDirection3: 'Diese Person legt Wert darauf, selbst zu denken und zu eigenen Schlüssen zu kommen.',
     stimulation1:
-      'Diese Person ist schnell zum Aufbruch bereit: eine fremde Stadt, ein neues Hobby, eine spontane Reise – all das macht nur Freude.',
+      'Diese Person ist schnell zum Aufbruch bereit: eine fremde Stadt, ein neues Hobby, eine spontane Reise – immer gern.',
     stimulation2: 'Dieser Person wird ein Leben ohne Veränderung und Abwechslung schnell fade.',
     stimulation3:
-      'Diese Person fühlt sich dorthin gezogen, wo der Ausgang vorher nicht feststeht: zu kühnen Vorhaben und riskanten Herausforderungen.',
+      'Diese Person zieht es dorthin, wo der Ausgang ungewiss ist: zu kühnen Vorhaben und riskanten Herausforderungen.',
     hedonism1:
       'Dieser Person ist es wichtig, dass es im Leben viel Angenehmes gibt: gutes Essen, Erholung, kleine Freuden.',
-    hedonism2: 'Diese Person gönnt sich ohne Weiteres etwas Schönes und sucht dafür keinen Anlass.',
+    hedonism2: 'Diese Person gönnt sich ohne Weiteres etwas Schönes und braucht dafür keinen Anlass.',
     hedonism3: 'Diese Person schätzt einfache Genüsse: ein warmes Bad, das Lieblingsessen, einen Abend ganz ohne Sorgen.',
-    achievement1: 'Dieser Person ist es wichtig, im eigenen Fach zu wachsen: hohe Ziele zu setzen und zu erreichen.',
-    achievement2: 'Dieser Person ist es wichtig, mit Können vor denen zu glänzen, die etwas von der Sache verstehen.',
+    achievement1:
+      'Dieser Person ist es wichtig, im eigenen Fach zu wachsen: sich hohe Ziele zu setzen und sie zu erreichen.',
+    achievement2: 'Diese Person legt Wert darauf, vor Kennern mit dem eigenen Können zu glänzen.',
     achievement3: 'Diese Person strebt danach, im eigenen Fach zu den Besten zu gehören.',
-    power1: 'Dieser Person ist es wichtig, Menschen zu beeinflussen und über gemeinsames Geld und Ressourcen zu entscheiden.',
-    power2: 'Dieser Person ist Wohlstand wichtig, an dem man die Stellung in der Gesellschaft erkennt.',
-    power3: 'Dieser Person sind hoher Status und Autorität wichtig – Gewicht in den Augen der anderen.',
+    power1:
+      'Diese Person legt Wert darauf, Menschen zu beeinflussen und über gemeinsame Gelder und Ressourcen zu entscheiden.',
+    power2: 'Diese Person legt Wert auf Wohlstand, an dem man die Stellung in der Gesellschaft erkennt.',
+    power3: 'Dieser Person sind hoher Status und Autorität wichtig – in den Augen anderer etwas zu gelten.',
     security1:
-      'Diese Person setzt auf Vorsicht: lieber einmal mehr prüfen, sich absichern, die Gesundheit nicht riskieren.',
+      'Diese Person setzt auf Vorsicht: lieber einmal zu viel prüfen, sich absichern, die Gesundheit nicht riskieren.',
     security2:
-      'Dieser Person ist es wichtig, in einem Land zu leben, in dem es auf den Straßen ruhig ist und die Gesetze greifen.',
+      'Dieser Person ist es wichtig, in einem Land zu leben, in dem man sich auf der Straße sicher fühlt und die Gesetze greifen.',
     security3:
-      'Dieser Person ist Stabilität wichtig: eine sichere Arbeit, Rücklagen für schlechte Zeiten, ein planbares Morgen.',
+      'Dieser Person ist Stabilität wichtig: ein sicherer Arbeitsplatz, Rücklagen für schlechte Zeiten, eine planbare Zukunft.',
     conformity1:
       'Diese Person sieht Regeln nicht als Formsache: Man hält sich daran, ob es einem passt oder nicht.',
     conformity2: 'Diese Person beherrscht sich vor anderen, wird nicht laut und erlaubt sich keine scharfen Worte.',
     conformity3: 'Diese Person kleidet und verhält sich so, wie es am jeweiligen Ort üblich ist.',
     tradition1:
-      'Diese Person findet, dass Familienbräuche bewahrt werden müssen: das Festtagsgebäck, Geschichten über die Vorfahren, Jahrestage.',
-    tradition2: 'Dieser Person sind der Glaube und die religiösen Feiertage ein wichtiger Teil des Lebens.',
+      'Diese Person findet, dass Familienbräuche bewahrt werden müssen: Festtagsgebäck, Geschichten über die Vorfahren, Jahrestage.',
+    tradition2: 'Diese Person räumt dem Glauben und den religiösen Feiertagen einen wichtigen Platz im Leben ein.',
     tradition3:
-      'Diese Person nimmt das eigene Schicksal gelassen an: Was einem zufällt, gilt es mit Würde zu leben.',
+      'Diese Person nimmt das eigene Schicksal gelassen an: Was einem beschieden ist, gilt es mit Würde zu tragen.',
     benevolence1: 'Diese Person kommt sofort zu Hilfe, wenn nahestehenden Menschen etwas passiert ist.',
     benevolence2:
       'Dieser Person vertrauen Freunde Geheimnisse an – in der Gewissheit, nie im Stich gelassen zu werden.',
     benevolence3:
-      'Dieser Person ist es wichtig, dass es nahestehenden Menschen gut geht – dafür ist keine Zeit und keine Mühe zu viel.',
+      'Dieser Person ist es wichtig, dass es nahestehenden Menschen gut geht – dafür ist weder Zeit noch Mühe zu schade.',
     universalism1:
       'Diese Person sorgt sich um Menschen, die irgendwo auf der Welt unter Kriegen und Katastrophen leiden, und hilft, so gut es geht.',
     universalism2:
       'Diese Person versucht, der Natur möglichst wenig zu schaden: Ressourcen schonen, keinen Müll hinterlassen, an die Folgen denken.',
     universalism3:
-      'Dieser Person ist es wichtig, dass es in der Welt Platz für verschiedene Ansichten, Kulturen und Lebensweisen gibt.',
+      'Diese Person legt Wert darauf, dass es in der Welt Platz für verschiedene Ansichten, Kulturen und Lebensweisen gibt.',
   },
   values: {
     selfDirection: {
       name: 'Selbstbestimmung',
       inMessage: 'Selbstbestimmung',
       line: 'Freiheit, selbst zu denken, zu wählen und zu gestalten',
-      text: 'Selbstbestimmung ist das Bedürfnis, selbst zu denken, den eigenen Weg zu wählen und Eigenes zu schaffen. Menschen, bei denen sie weit oben steht, fühlen sich durch starre Vorgaben und fremde Anweisungen eingeengt; sie wollen verstehen, wozu sie etwas tun, und ihrer Sache eine eigene Handschrift geben.',
+      text: 'Selbstbestimmung ist das Bedürfnis, selbst zu denken, den eigenen Weg zu wählen und Eigenes zu schaffen. Menschen, bei denen sie weit oben steht, fühlen sich durch starre Vorgaben und fremde Anweisungen eingeengt; sie wollen verstehen, wozu sie etwas tun, und ihrer Arbeit die eigene Handschrift geben.',
     },
     stimulation: {
       name: 'Stimulation',
       inMessage: 'Stimulation',
-      line: 'Neues, Spannung und Veränderung',
-      text: 'Stimulation ist der Drang nach Neuem, Spannung und Veränderung. Ist sie wichtig, sucht man neue Orte, Beschäftigungen und Aufgaben, lässt sich leicht begeistern und hat Routine schnell satt. Ein ruhiges, vorhersehbares Leben wirkt dann fade.',
+      line: 'Neues, Nervenkitzel und Veränderung',
+      text: 'Stimulation ist der Drang nach Neuem, Nervenkitzel und Veränderung. Ist sie wichtig, sucht man neue Orte, Beschäftigungen und Aufgaben, lässt sich leicht begeistern und hat Routine schnell satt. Ein ruhiges, vorhersehbares Leben wirkt dann fade.',
     },
     hedonism: {
       name: 'Hedonismus',
       inMessage: 'Hedonismus',
       line: 'Genuss und Freude am Leben',
-      text: 'Hedonismus ist der Wert von Genuss und Freude im Hier und Jetzt. Für Menschen, denen er wichtig ist, besteht das Leben nicht nur aus Aufgaben und Pflichten: Gutes Essen, Erholung, schöne Dinge und angenehme Gesellschaft zählen nicht weniger als die Arbeit.',
+      text: 'Hedonismus steht für Genuss und Freude im Hier und Jetzt. Für Menschen, denen er wichtig ist, besteht das Leben nicht nur aus Aufgaben und Pflichten: Gutes Essen, Erholung, schöne Dinge und angenehme Gesellschaft zählen nicht weniger als die Arbeit.',
     },
     achievement: {
       name: 'Leistung',
@@ -109,7 +111,7 @@ const de: ValuesTexts = {
       name: 'Macht',
       inMessage: 'Macht',
       line: 'Status, Einfluss und Ressourcen',
-      text: 'Macht ist der Wert von Status, Einfluss und Ressourcen. Menschen, denen sie wichtig ist, wollen die Lage im Griff haben, Entscheidungen treffen und eine Stellung einnehmen, mit der man rechnet. Geld und Autorität sind für sie ein Mittel, das Geschehen zu beeinflussen.',
+      text: 'Macht steht für Status, Einfluss und Ressourcen. Menschen, denen sie wichtig ist, wollen die Lage im Griff haben, Entscheidungen treffen und eine Stellung einnehmen, die Gewicht hat. Geld und Autorität sind für sie ein Mittel, das Geschehen zu beeinflussen.',
     },
     security: {
       name: 'Sicherheit',
@@ -121,7 +123,7 @@ const de: ValuesTexts = {
       name: 'Konformität',
       inMessage: 'Konformität',
       line: 'Zurückhaltung und das Befolgen von Regeln',
-      text: 'Konformität bedeutet Zurückhaltung und das Befolgen der Regeln, die im eigenen Umfeld gelten. Menschen mit diesem Wert achten darauf, andere nicht zu verletzen, halten Wort und achten Absprachen und Normen, auch wenn sie lieber anders handeln würden.',
+      text: 'Konformität bedeutet Zurückhaltung und das Befolgen der Regeln, die im eigenen Umfeld gelten. Menschen mit diesem Wert achten darauf, niemandem zu nahe zu treten, stehen zu ihrem Wort und halten sich an Absprachen und Normen, auch wenn sie lieber anders handeln würden.',
     },
     tradition: {
       name: 'Tradition',
@@ -133,13 +135,13 @@ const de: ValuesTexts = {
       name: 'Wohlwollen',
       inMessage: 'Wohlwollen',
       line: 'Fürsorge und Treue gegenüber Nahestehenden',
-      text: 'Wohlwollen ist die Fürsorge für die Menschen in der Nähe: Familie, Freunde, Kollegen. Menschen, bei denen dieser Wert weit oben steht, sind verlässlich, helfen gern und geben der Beziehung zuliebe auch nach; Treue und Vertrauen zählen für sie mehr als der eigene Vorteil.',
+      text: 'Wohlwollen ist die Fürsorge für die Menschen im eigenen Umfeld: Familie, Freunde, Kollegen. Menschen, bei denen dieser Wert weit oben steht, sind verlässlich, helfen gern und geben der Beziehung zuliebe auch nach; Treue und Vertrauen zählen für sie mehr als der eigene Vorteil.',
     },
     universalism: {
       name: 'Universalismus',
       inMessage: 'Universalismus',
       line: 'Gerechtigkeit für alle und Sorge um die Welt',
-      text: 'Universalismus ist die Sorge um alle Menschen und um die Natur, nicht nur um den eigenen Kreis. Menschen, denen er wichtig ist, liegen Gerechtigkeit, Gleichheit, Toleranz gegenüber anderen Ansichten und ein schonender Umgang mit der Welt am Herzen.',
+      text: 'Universalismus ist die Sorge um alle Menschen und um die Natur, nicht nur um die eigenen Leute. Wem er wichtig ist, dem liegen Gerechtigkeit, Gleichheit, Toleranz gegenüber anderen Ansichten und ein schonender Umgang mit der Welt am Herzen.',
     },
   },
   higherOrder: {
@@ -158,7 +160,7 @@ const de: ValuesTexts = {
     focus: {
       left: 'Die Sorge um andere – um Nahestehende und die Welt ringsum – ist Ihnen wichtiger als persönlicher Erfolg und Einfluss.',
       right: 'Persönlicher Erfolg und Einfluss sind Ihnen wichtiger als die Sorge um andere und um die Welt ringsum.',
-      balance: 'Die Sorge um andere und persönlicher Erfolg halten sich bei Ihnen die Waage.',
+      balance: 'Die Sorge um andere und persönlicher Erfolg sind Ihnen gleich wichtig.',
     },
   },
   axesInMessage: {
@@ -170,7 +172,7 @@ const de: ValuesTexts = {
     focus: {
       left: 'die Sorge um andere ist mir wichtiger als persönlicher Erfolg',
       right: 'persönlicher Erfolg ist mir wichtiger als die Sorge um andere',
-      balance: 'die Sorge um andere und persönlicher Erfolg halten sich bei mir die Waage',
+      balance: 'die Sorge um andere und persönlicher Erfolg sind mir gleich wichtig',
     },
   },
   result: {
@@ -182,7 +184,7 @@ const de: ValuesTexts = {
     axesHeading: 'Zentrale Spannungen',
     flatHeading: 'Keine Prioritäten erkennbar',
     flatText:
-      'Sie haben fast alle Aussagen gleich bewertet, deshalb lassen sich keine führenden Werte bestimmen. Machen Sie den Test noch einmal und vergleichen Sie die Beschreibungen untereinander – oder finden Sie mit Olja heraus, was Ihnen wirklich wichtig ist.',
+      'Sie haben fast alle Aussagen gleich bewertet, deshalb lässt sich nicht bestimmen, welche Werte bei Ihnen an erster Stelle stehen. Machen Sie den Test noch einmal und vergleichen Sie dabei die Beschreibungen miteinander – oder finden Sie mit Olja heraus, was Ihnen wirklich wichtig ist.',
     cta: 'Mit Olja besprechen',
     ctaNote: 'Persönliche Werte-Auswertung mit Olja – bei der Registrierung 25.000 Tokens geschenkt',
     allHeading: 'Alle 10 Werte – in Ihrer Reihenfolge',
@@ -190,7 +192,7 @@ const de: ValuesTexts = {
     tiedWith: 'Mit gleichem Ergebnis: {names}',
     topHeadingOne: 'Wichtigster Wert',
     restEqual:
-      'Die übrigen Werte haben gleich abgeschnitten, deshalb lässt sich nicht sagen, welcher am wenigsten wichtig ist.',
+      'Die übrigen Werte liegen gleichauf, deshalb lässt sich nicht sagen, welcher am wenigsten wichtig ist.',
   },
   modelSection: {
     heading: 'Zehn Werte nach Schwartz',
@@ -208,15 +210,15 @@ const de: ValuesTexts = {
     },
     {
       q: 'Werden meine Antworten gespeichert?',
-      a: 'Nein. Die Berechnung läuft im Browser, die Antworten gehen nicht an einen Server und fließen in keine Webanalyse ein. Gespeichert werden sie nur in diesem Tab – damit sie bei einem versehentlichen Neuladen nicht verloren gehen.',
+      a: 'Nein. Die Berechnung läuft im Browser, die Antworten gehen nicht an einen Server und fließen in keine Webanalyse ein. Sie bleiben nur in diesem Tab – damit sie bei einem versehentlichen Neuladen nicht verloren gehen.',
     },
     {
       q: 'Warum ist das Ergebnis eine Rangfolge der Werte und keine Punktzahl?',
-      a: 'Nach Schwartz kommt es nicht auf die Bewertungen an sich an, sondern darauf, welche Werte andere überwiegen. Deshalb berücksichtigt der Test Ihre Art zu antworten: Wenn Sie alle Aussagen hoch bewerten, zeigt der Kreis trotzdem, was davon wichtiger ist.',
+      a: 'Nach Schwartz kommt es nicht auf die Bewertungen an sich an, sondern darauf, welche Werte schwerer wiegen als andere. Deshalb berücksichtigt der Test Ihre Art zu antworten: Wenn Sie alle Aussagen hoch bewerten, zeigt der Kreis trotzdem, was davon wichtiger ist.',
     },
     {
-      q: 'Was mache ich mit dem Ergebnis?',
-      a: 'Sehen Sie sich die wichtigsten Werte und die zentralen Spannungen an: wo Entscheidungen, Zeit und Geld zu dem passen, was Ihnen wichtig ist, und wo nicht. Ausführlich besprechen können Sie das mit Olja – sie führt im Gespräch durch die Werte-Erkundung und stellt eine persönliche Wertekarte zusammen.',
+      q: 'Was fange ich mit dem Ergebnis an?',
+      a: 'Sehen Sie sich Ihre wichtigsten Werte und die zentralen Spannungen an: Wo passen Ihre Entscheidungen und der Umgang mit Zeit und Geld zu dem, was Ihnen wichtig ist, und wo nicht? Ausführlich besprechen können Sie das mit Olja – sie führt im Gespräch durch die Werte-Erkundung und stellt eine persönliche Wertekarte zusammen.',
     },
   ],
   disclaimer:
