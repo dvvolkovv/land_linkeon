@@ -569,7 +569,11 @@ console.log('✅ sitemap.xml');
   // первый посетитель страницы на любом языке качал бы тексты всех сразу.
   const valuesH1Needles = VALUES_TEST_CODES.map((code) => {
     const valuesH1 = textOf(renderValuesTest(code).html);
-    if (valuesH1.length < 15) {
+    // zh передаёт то же примерно втрое меньшим числом знаков (как и в
+    // texts.test.ts: limitsFor) — порог в 15 там недостижим для короткого H1,
+    // хотя как игла он уже вполне различим.
+    const minLength = code === 'zh' ? 8 : 15;
+    if (valuesH1.length < minLength) {
       throw new Error(`${code}/tests/values: H1 «${valuesH1}» слишком короткий для проверки бандла`);
     }
     return { slug: `тест ценностей (H1 ${code})`, needle: valuesH1 };
