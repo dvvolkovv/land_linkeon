@@ -44,9 +44,15 @@ const limitsFor = (code: string) =>
   code === 'zh'
     ? { description: [40, 120], valueText: [45, 200], valueLine: 30, axis: [12, 100] }
     : { description: [100, 180], valueText: [150, 420], valueLine: 60, axis: [30, 200] };
-// Описание ценности начинается с названия; в es, fr, pt — допустим артикль
-// («La autodirección…», «L'autonomie…»): название — в первых 60 знаках.
+// Описание ценности начинается с названия: в en, de, zh — буквально; в es,
+// fr, pt допустим артикль перед ним («La autodirección…», «L'autonomie…»,
+// «A autodireção…») — название в самом начале, сразу после артикля.
 const ARTICLE_LANGUAGES = new Set(['es', 'fr', 'pt']);
+const escapeRegExp = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// el/la/lo/los/las — es; le/les/l' — fr; o/a/os/as — pt. \s* — элизия
+// («l'autonomie») не оставляет пробела, обычный артикль — оставляет.
+const articlePattern = (name: string): RegExp =>
+  new RegExp(`^(?:(?:el|la|lo|los|las|le|les|l['’]|o|a|os|as)\\s*)?${escapeRegExp(name)}(?!\\p{L})`, 'iu');
 
 // Продукт никогда не называет ассистентов «агентами» — ни по-русски (см.
 // PRICE-соседний /агент/i), ни на языке перевода: agent/agente/agents/agenten, 智能体.
@@ -157,7 +163,7 @@ describe('тексты теста ценностей', () => {
           expect(v.text.length, k).toBeGreaterThanOrEqual(limits.valueText[0]);
           expect(v.text.length, k).toBeLessThanOrEqual(limits.valueText[1]);
           if (ARTICLE_LANGUAGES.has(code)) {
-            expect(v.text.slice(0, 60).toLowerCase(), k).toContain(v.name.toLowerCase());
+            expect(v.text, k).toMatch(articlePattern(v.name));
           } else {
             expect(v.text.startsWith(v.name), k).toBe(true);
           }
