@@ -19,9 +19,11 @@ export function joinComma(items: string[], language: string): string {
   return items.join(language === 'zh' ? '、' : ', ');
 }
 
-/** Части одной фразы через точку с запятой. */
+/** Части одной фразы через точку с запятой. Французская типографика — неразрывный пробел перед «;». */
 export function joinClauses(parts: string[], language: string): string {
-  return parts.join(language === 'zh' ? '；' : '; ');
+  if (language === 'zh') return parts.join('；');
+  if (language === 'fr') return parts.join('\u00A0; ');
+  return parts.join('; ');
 }
 
 /** Предложения подряд в одном абзаце. */
