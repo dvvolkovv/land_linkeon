@@ -560,16 +560,22 @@ console.log('✅ sitemap.xml');
     });
   }
 
-  // Тест ценностей: H1 — из чанка текстов, сообщение об ошибке расчёта —
-  // из чанка страницы (src/lib/schwartz/score.ts).
-  if (VALUES_TEST_CODES.includes(DEFAULT_LANGUAGE)) {
-    const valuesH1 = textOf(renderValuesTest(DEFAULT_LANGUAGE).html);
+  // Тест ценностей: H1 — из чанка текстов СВОЕГО языка, сообщение об ошибке
+  // расчёта — из общего чанка страницы (src/lib/schwartz/score.ts). H1 здесь
+  // собираются по каждому языку отдельно (не только DEFAULT_LANGUAGE): у
+  // ValuesTestPage один чанк на все языки, а тексты — свои на каждый
+  // (src/content/values/texts/<код>.ts); H1 другого языка в чанке страницы
+  // значил бы, что его тексты туда затянулись статическим импортом — тогда
+  // первый посетитель страницы на любом языке качал бы тексты всех сразу.
+  const valuesH1Needles = VALUES_TEST_CODES.map((code) => {
+    const valuesH1 = textOf(renderValuesTest(code).html);
     if (valuesH1.length < 15) {
-      throw new Error(`${DEFAULT_LANGUAGE}/tests/values: H1 «${valuesH1}» слишком короткий для проверки бандла`);
+      throw new Error(`${code}/tests/values: H1 «${valuesH1}» слишком короткий для проверки бандла`);
     }
-    needles.push({ slug: 'тест ценностей (H1)', needle: valuesH1 });
-    needles.push({ slug: 'тест ценностей (расчёт)', needle: 'тест ценностей: нужно' });
-  }
+    return { slug: `тест ценностей (H1 ${code})`, needle: valuesH1 };
+  });
+  needles.push(...valuesH1Needles);
+  if (VALUES_TEST_CODES.length > 0) needles.push({ slug: 'тест ценностей (расчёт)', needle: 'тест ценностей: нужно' });
 
   const entryFiles = [
     ...template.matchAll(/<script type="module"[^>]*\ssrc="([^"]+\.js)"/g),
@@ -595,8 +601,9 @@ console.log('✅ sitemap.xml');
   // нашлась нигде — значит, поиск слеп (иначе записанная строка, другой
   // источник текста), и «во входном бандле нет» ничего не доказывает.
   const assets = join(dist, 'assets');
-  const chunks = readdirSync(assets)
-    .filter((f) => f.endsWith('.js') && !entryFiles.includes(`assets/${f}`))
+  const assetFiles = readdirSync(assets).filter((f) => f.endsWith('.js'));
+  const chunks = assetFiles
+    .filter((f) => !entryFiles.includes(`assets/${f}`))
     .map((f) => normalizeJs(readFileSync(join(assets, f), 'utf8')));
   for (const { slug, needle } of needles) {
     if (!chunks.some((js) => js.includes(needle))) {
@@ -607,4 +614,28 @@ console.log('✅ sitemap.xml');
     }
   }
   console.log(`✅ тексты ассистентов, калькулятор и тест ценностей не во входном бандле (${entryFiles.join(', ')})`);
+
+  // Тест ценностей многоязычен, а страница — одна на все языки: чанк
+  // ValuesTestPage-*.js грузится независимо от языка (src/main.tsx, динамический
+  // import()), поэтому H1 конкретного языка обязан жить только в своём чанке
+  // текстов (src/content/values/texts/<код>.ts), не в общей странице. Статический
+  // импорт текстов одного языка в ValuesTestPage.tsx дал бы той же странице
+  // тянуть тексты всех языков сразу — ловится только здесь, по готовому dist/.
+  if (valuesH1Needles.length > 0) {
+    const pageChunkFiles = assetFiles.filter((f) => f.startsWith('ValuesTestPage-'));
+    if (pageChunkFiles.length === 0) {
+      throw new Error('пререндер: чанк ValuesTestPage-*.js не найден в dist/assets — проверку текстов по языкам нечем делать');
+    }
+    const pageChunks = pageChunkFiles.map((f) => normalizeJs(readFileSync(join(assets, f), 'utf8')));
+    for (const { slug, needle } of valuesH1Needles) {
+      if (pageChunks.some((js) => js.includes(needle))) {
+        throw new Error(
+          `в общий чанк теста ценностей (${pageChunkFiles.join(', ')}) попал текст одного языка ` +
+            `(нашлось «${needle}» — ${slug}) — тексты теста ценностей должны жить только в своём чанке ` +
+            'src/content/values/texts/<код>.ts, не в общей ValuesTestPage; статический импорт в неё недопустим.',
+        );
+      }
+    }
+    console.log(`✅ тест ценностей: H1 каждого языка — в своём чанке, не в общем ValuesTestPage (${pageChunkFiles.join(', ')})`);
+  }
 }
