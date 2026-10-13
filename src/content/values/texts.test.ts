@@ -48,6 +48,10 @@ const limitsFor = (code: string) =>
 // («La autodirección…», «L'autonomie…»): название — в первых 60 знаках.
 const ARTICLE_LANGUAGES = new Set(['es', 'fr', 'pt']);
 
+// Продукт никогда не называет ассистентов «агентами» — ни по-русски (см.
+// PRICE-соседний /агент/i), ни на языке перевода: agent/agente/agents/agenten, 智能体.
+const AGENT_WORD = /(?<!\p{L})agent(?:e|s|en)?(?!\p{L})|智能体/iu;
+
 function strings(value: unknown): string[] {
   if (typeof value === 'string') return [value];
   if (Array.isArray(value)) return value.flatMap(strings);
@@ -180,8 +184,11 @@ describe('тексты теста ценностей', () => {
       });
 
       if (code !== 'ru') {
-        it('перевод: ни кириллицы, ни рублей', () => {
-          for (const { path, s } of stringsWithPath(t)) expect(s, path).not.toMatch(CYRILLIC);
+        it('перевод: ни кириллицы, ни рублей, ни слова «агент» на языке перевода', () => {
+          for (const { path, s } of stringsWithPath(t)) {
+            expect(s, path).not.toMatch(CYRILLIC);
+            expect(s, path).not.toMatch(AGENT_WORD);
+          }
         });
       }
 
