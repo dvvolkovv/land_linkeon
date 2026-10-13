@@ -6,6 +6,7 @@ import Breadcrumbs from '../components/assistants/Breadcrumbs';
 import JsonLd from '../components/assistants/JsonLd';
 import LanguageBanner from '../components/ui/LanguageBanner';
 import { assistantsCatalogPath, homePath } from '../lib/assistantRoute';
+import { hasAssistantPages } from '../content/assistants/availability';
 import { ASSISTANTS, type AssistantCategory } from '../content/assistants/roster';
 import { breadcrumbJsonLd, type Crumb } from '../content/assistants/jsonLd';
 import type { AssistantPagesPack } from '../content/assistants/types';
@@ -59,8 +60,10 @@ export default function AssistantsCatalogPage({ pack, language }: { pack: Assist
       {/* Как на главной: сюда приходят из поиска, и англоязычному посетителю на
           русской странице нужно то же предложение сменить язык. Ссылка ведёт на
           эту же страницу на его языке (pathForLanguage). В пререндере пусто —
-          предложение считается в эффекте, по языку браузера. */}
-      <LanguageBanner />
+          предложение считается в эффекте, по языку браузера. available —
+          страницы ассистентов выпущены не на всех языках сайта (как у теста
+          ценностей, ValuesTestPage) — предлагать только те, где эта страница есть. */}
+      <LanguageBanner available={hasAssistantPages} />
     </div>
   );
 }
