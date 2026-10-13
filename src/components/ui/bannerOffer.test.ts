@@ -11,7 +11,7 @@ vi.mock('../../i18n/translatedLanguages', () => ({
   ],
 }));
 
-import { bannerOffer } from './LanguageBanner';
+import { bannerOffer } from './bannerOffer';
 
 describe('bannerOffer', () => {
   it('текущий язык страницы совпадает с предпочитаемым — ничего не предлагает', () => {
@@ -28,7 +28,7 @@ describe('bannerOffer', () => {
 
   // РЕГРЕССИЯ: на тесте ценностей баннер без фильтра предлагал язык страницы,
   // на которой самого теста нет (pathForLanguage увёл бы на главную этого
-  // языка) — see available в LanguageBanner.tsx.
+  // языка) — см. available в LanguageBanner.tsx.
   it('available отклоняет невыпущенный на этой странице язык', () => {
     expect(bannerOffer('ru', 'de', (code) => code === 'ru' || code === 'en')).toBeNull();
   });

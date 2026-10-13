@@ -1,34 +1,13 @@
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { resolveLanguage, type LanguageDef } from '../../i18n/languages';
-import { TRANSLATED_LANGUAGES } from '../../i18n/translatedLanguages';
 import { languageFromPath, pathForLanguage } from '../../i18n/urlLanguage';
+import { bannerOffer } from './bannerOffer';
 
 const DISMISS_KEY = 'll_lang_banner_dismissed';
 // Тот же ключ, что у переключателя и у inline-скрипта в <head>
 // (scripts/visitor-redirect.js): явный выбор отключает авторедирект.
 const CHOICE_KEY = 'll_lang_choice';
-
-/**
- * Чистый выбор баннера: current — язык текущей страницы, preferred — язык
- * браузера (уже сведённый к поддерживаемому через resolveLanguage). available
- * — страница выпущена не на всех языках: предлагать только те, где она есть;
- * без фильтра подходит любой переведённый язык.
- *
- * Выделена из эффекта отдельной функцией ради юнит-теста: jsdom в
- * репозитории не настроен (другие страницы проверяются renderToStaticMarkup,
- * без эффектов), а эта логика — чистая и тестируется без DOM.
- */
-export function bannerOffer(
-  current: string,
-  preferred: string,
-  available?: (code: string) => boolean,
-): LanguageDef | null {
-  if (preferred === current) return null;
-  // Без available — только выпущенные языки: предложить испанцу /es/, где
-  // лежит русский текст, — хуже, чем не предлагать ничего.
-  return TRANSLATED_LANGUAGES.find((l) => l.code === preferred && (available?.(l.code) ?? true)) ?? null;
-}
 
 /**
  * Предлагает перейти на язык браузера, но НЕ редиректит: автоматический
@@ -37,7 +16,9 @@ export function bannerOffer(
  *
  * `available` — страница выпущена не на всех языках — предлагать только те,
  * где она есть (например, тест ценностей: ValuesTestPage передаёт
- * hasValuesTest, иначе баннер увёл бы на главную чужого языка).
+ * hasValuesTest, иначе баннер увёл бы на главную чужого языка). Это
+ * зависимость эффекта ниже — передавать стабильную функцию (объявленную на
+ * уровне модуля), не инлайн-стрелку, см. bannerOffer.ts.
  *
  * Ничего не импортирует из ./i18n: тот модуль читает window на уровне
  * модуля и в графе рендера на сборке оказаться не должен. Подпись —
