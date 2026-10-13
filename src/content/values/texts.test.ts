@@ -61,8 +61,9 @@ const articlePattern = (name: string): RegExp =>
   new RegExp(`^(?:(?:el|la|lo|los|las|le|les|l['’]|o|a|os|as)\\s*)?${escapeRegExp(name)}(?!\\p{L})`, 'iu');
 
 // Продукт никогда не называет ассистентов «агентами» — ни по-русски (см.
-// PRICE-соседний /агент/i), ни на языке перевода: agent/agente/agents/agenten, 智能体.
-const AGENT_WORD = /(?<!\p{L})agent(?:e|s|en)?(?!\p{L})|智能体/iu;
+// соседнее правило «без эмодзи, без цен, без слова «агент»» с /агент/i), ни
+// на языке перевода: agent/agente/agentes/agents/agenten, 智能体.
+const AGENT_WORD = /(?<!\p{L})agent(?:es?|s|en)?(?!\p{L})|智能体/iu;
 
 function strings(value: unknown): string[] {
   if (typeof value === 'string') return [value];
