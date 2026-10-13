@@ -37,6 +37,7 @@ describe('склейка текста по языку', () => {
   it('части фразы через точку с запятой и предложения подряд', () => {
     expect(joinClauses(['Раз', 'два'], 'ru')).toBe('Раз; два');
     expect(joinClauses(['甲', '乙'], 'zh')).toBe('甲；乙');
+    expect(joinClauses(['a', 'b'], 'fr')).toBe('a\u00A0; b');
     expect(joinSentences(['One.', 'Two.'], 'en')).toBe('One. Two.');
     expect(joinSentences(['一。', '二。'], 'zh')).toBe('一。二。');
   });
