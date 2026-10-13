@@ -8,14 +8,26 @@
 // Английские тексты сайта — британские (favourite, recognise): перечень без оксфордской запятой.
 const LIST_LOCALE: Record<string, string> = { en: 'en-GB' };
 
+// Фолбэк без Intl.ListFormat (Safari < 14.1, см. ниже): союз — руками, по
+// карте языков. Язык без записи в карте (и не zh) — просто через запятую,
+// без союза (joinComma): лучше без «и», чем с английским «and» не по месту.
+const AND_WORD: Record<string, string> = { ru: 'и', en: 'and', es: 'y', de: 'und', fr: 'et', pt: 'e' };
+
 /**
  * «а, б и в» — перечень с союзом языка. Intl.ListFormat нет в Safari до 14.1
  * (iOS 14.0–14.4), а сборка нацелена на safari14: там — перечень без союза,
  * чтобы кнопка «Разобрать с Олей» не умирала молча.
  */
 export function joinAnd(items: string[], language: string): string {
-  if (typeof Intl.ListFormat !== 'function') return joinComma(items, language);
-  return new Intl.ListFormat(LIST_LOCALE[language] ?? language, { style: 'long', type: 'conjunction' }).format(items);
+  if (typeof Intl.ListFormat === 'function') {
+    return new Intl.ListFormat(LIST_LOCALE[language] ?? language, { style: 'long', type: 'conjunction' }).format(items);
+  }
+  if (items.length <= 1) return items.join('');
+  const last = items[items.length - 1];
+  const head = items.slice(0, -1);
+  if (language === 'zh') return `${head.join('、')}和${last}`;
+  const and = AND_WORD[language];
+  return and ? `${head.join(', ')} ${and} ${last}` : joinComma(items, language);
 }
 
 /** «а, б, в» — перечень без союза. */
