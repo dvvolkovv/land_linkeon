@@ -15,7 +15,7 @@ const AND_WORD: Record<string, string> = { ru: 'и', en: 'and', es: 'y', de: 'un
 
 /**
  * «а, б и в» — перечень с союзом языка. Intl.ListFormat нет в Safari до 14.1
- * (iOS 14.0–14.4), а сборка нацелена на safari14: там — перечень без союза,
+ * (iOS 14.0–14.4), а сборка нацелена на safari14: там союз берётся из AND_WORD,
  * чтобы кнопка «Разобрать с Олей» не умирала молча.
  */
 export function joinAnd(items: string[], language: string): string {
