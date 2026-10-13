@@ -23,4 +23,15 @@ describe('выпущена ли страница сайта', () => {
   it('прочие адреса не проверяются', () => {
     expect(isSitePageReleased('/assistants/olia/')).toBe(true);
   });
+
+  // РЕГРЕССИЯ: parseValuesTestPath/parseHdCalcPath не срезают query и хеш —
+  // с ними третий сегмент пути превращается в «values?utm=x» или «values#start»,
+  // разбор не узнаёт адрес, возвращает null, и isSitePageReleased молча
+  // откатывается к true. Абсолютный адрес ломается так же: первым сегментом
+  // становится «https:».
+  it('не путает хвост query/хеша и абсолютный адрес с третьим сегментом', () => {
+    expect(isSitePageReleased('/de/tests/values/?utm=x')).toBe(false);
+    expect(isSitePageReleased('/de/tests/values/#start')).toBe(false);
+    expect(isSitePageReleased('https://linkeon.io/de/tests/values/')).toBe(false);
+  });
 });
