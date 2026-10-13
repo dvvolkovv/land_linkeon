@@ -15,6 +15,18 @@ describe('склейка текста по языку', () => {
     expect(joinAnd(['a', 'b', 'c'], 'es')).toBe('a, b y c');
     expect(joinAnd(['a', 'b', 'c'], 'pt')).toBe('a, b e c');
     expect(joinAnd(['自我导向', '刺激', '仁慈'], 'zh')).toBe('自我导向、刺激和仁慈');
+    expect(joinAnd(['甲', '乙'], 'zh')).toBe('甲和乙');
+  });
+
+  it('без Intl.ListFormat (Safari до 14.1) — перечень без союза, без исключения', () => {
+    const saved = Object.getOwnPropertyDescriptor(Intl, 'ListFormat')!;
+    Reflect.deleteProperty(Intl, 'ListFormat');
+    try {
+      expect(joinAnd(['а', 'б', 'в'], 'ru')).toBe('а, б, в');
+      expect(joinAnd(['甲', '乙'], 'zh')).toBe('甲、乙');
+    } finally {
+      Object.defineProperty(Intl, 'ListFormat', saved);
+    }
   });
 
   it('перечень без союза', () => {
