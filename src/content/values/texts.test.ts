@@ -30,6 +30,21 @@ const pastTenseHits = (s: string): string[] =>
 const PORTRAIT = /^(Этот человек|Этому человеку|Для этого человека|Этого человека) /;
 const LEANS: AxisLean[] = ['left', 'right', 'balance'];
 
+const CYRILLIC = /\p{Script=Cyrillic}/u;
+const HAN = /\p{Script=Han}/u;
+/** Ширина подписи в кеглях: иероглиф — во весь кегль, прочее — 0,62 (с запасом). */
+const labelWidthEm = (s: string): number => [...s].reduce((w, ch) => w + (HAN.test(ch) ? 1 : 0.62), 0);
+
+// Китайский передаёт ту же мысль вдвое меньшим числом знаков — пределы как у
+// страниц ассистентов (src/content/assistants/packs.test.ts: zh 40–120).
+const limitsFor = (code: string) =>
+  code === 'zh'
+    ? { description: [40, 120], valueText: [60, 200], valueLine: 30, axis: [12, 100] }
+    : { description: [100, 180], valueText: [150, 420], valueLine: 60, axis: [30, 200] };
+// Описание ценности начинается с названия; в es, fr, pt — допустим артикль
+// («La autodirección…», «L'autonomie…»): название — в первых 60 знаках.
+const ARTICLE_LANGUAGES = new Set(['es', 'fr', 'pt']);
+
 function strings(value: unknown): string[] {
   if (typeof value === 'string') return [value];
   if (Array.isArray(value)) return value.flatMap(strings);
@@ -56,6 +71,14 @@ const TEMPLATE_PATHS = new Set([
 
 const keys = (o: object) => Object.keys(o).sort();
 const placeholders = (s: string) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
+
+describe('ширина подписи круга', () => {
+  // Без этого правило «иероглиф — во весь кегль» могло бы не сработать молча.
+  it('иероглиф — 1 кегль, остальное — 0,62', () => {
+    expect(labelWidthEm('自我')).toBe(2);
+    expect(labelWidthEm('ab')).toBeCloseTo(1.24);
+  });
+});
 
 describe('тексты теста ценностей', () => {
   it('русский — источник переводов — на месте', () => {
@@ -90,10 +113,12 @@ describe('тексты теста ценностей', () => {
         }
       });
 
+      const limits = limitsFor(code);
+
       it('метатеги, вступление, вопросы', () => {
         expect(t.title.length).toBeLessThanOrEqual(70);
-        expect(t.description.length).toBeGreaterThanOrEqual(100);
-        expect(t.description.length).toBeLessThanOrEqual(180);
+        expect(t.description.length).toBeGreaterThanOrEqual(limits.description[0]);
+        expect(t.description.length).toBeLessThanOrEqual(limits.description[1]);
         expect(t.intro.length).toBeGreaterThanOrEqual(2);
         expect(t.intro.length).toBeLessThanOrEqual(4);
         expect(t.faq.length).toBeGreaterThanOrEqual(4);
@@ -118,21 +143,25 @@ describe('тексты теста ценностей', () => {
         }
       });
 
-      it('ценности: строка до 60 знаков, описание 150–420 с названием в начале', () => {
+      it('ценности: строка под названием, описание с названием в начале', () => {
         for (const k of VALUE_KEYS) {
           const v = t.values[k];
-          expect(v.line.length, k).toBeLessThanOrEqual(60);
-          expect(v.text.length, k).toBeGreaterThanOrEqual(150);
-          expect(v.text.length, k).toBeLessThanOrEqual(420);
-          expect(v.text.startsWith(v.name), k).toBe(true);
+          expect(v.line.length, k).toBeLessThanOrEqual(limits.valueLine);
+          expect(v.text.length, k).toBeGreaterThanOrEqual(limits.valueText[0]);
+          expect(v.text.length, k).toBeLessThanOrEqual(limits.valueText[1]);
+          if (ARTICLE_LANGUAGES.has(code)) {
+            expect(v.text.slice(0, 60).toLowerCase(), k).toContain(v.name.toLowerCase());
+          } else {
+            expect(v.text.startsWith(v.name), k).toBe(true);
+          }
         }
       });
 
-      it('оси: фразы результата 30–200 знаков', () => {
+      it('оси: фразы результата в пределах языка', () => {
         for (const axis of AXIS_KEYS) {
           for (const lean of LEANS) {
-            expect(t.axes[axis][lean].length, `${axis}.${lean}`).toBeGreaterThanOrEqual(30);
-            expect(t.axes[axis][lean].length, `${axis}.${lean}`).toBeLessThanOrEqual(200);
+            expect(t.axes[axis][lean].length, `${axis}.${lean}`).toBeGreaterThanOrEqual(limits.axis[0]);
+            expect(t.axes[axis][lean].length, `${axis}.${lean}`).toBeLessThanOrEqual(limits.axis[1]);
           }
         }
       });
@@ -140,13 +169,27 @@ describe('тексты теста ценностей', () => {
       it('подписи круга помещаются в рисунок', () => {
         VALUE_KEYS.forEach((k, i) => {
           const { x, anchor } = labelLayout(i);
-          // Ширина строки — с запасом: 0,62 кегля на знак, кириллица в системном шрифте уже.
-          const w = t.values[k].name.length * 0.62 * CIRCLE.fontSize;
+          const w = labelWidthEm(t.values[k].name) * CIRCLE.fontSize;
           const [from, to] = anchor === 'start' ? [x, x + w] : anchor === 'end' ? [x - w, x] : [x - w / 2, x + w / 2];
           expect(from, k).toBeGreaterThanOrEqual(4);
           expect(to, k).toBeLessThanOrEqual(CIRCLE.width - 4);
         });
       });
+
+      if (code !== 'ru') {
+        it('перевод: ни кириллицы, ни рублей', () => {
+          for (const { path, s } of stringsWithPath(t)) expect(s, path).not.toMatch(CYRILLIC);
+        });
+      }
+
+      if (code === 'zh') {
+        // Абзац осей склеивается без пробела (joinSentences): каждая фраза — законченное предложение.
+        it('zh: фразы осей кончаются на «。»', () => {
+          for (const axis of AXIS_KEYS) {
+            for (const lean of LEANS) expect(t.axes[axis][lean], `${axis}.${lean}`).toMatch(/。$/);
+          }
+        });
+      }
     });
   }
 
