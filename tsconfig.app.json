@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    // ES2021.Intl отдельно от target ES2020 — Intl.ListFormat (textJoin.ts) типизирован
-    // только там, а по умолчанию lib не поднимается выше ES2020.
+    // lib задан явно (ES2020) — Intl.ListFormat (textJoin.ts) типизирован отдельно,
+    // в lib.es2021.intl.d.ts, независимо от target; без ES2021.Intl тут tsc не найдёт.
     "lib": ["ES2020", "ES2021.Intl", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
