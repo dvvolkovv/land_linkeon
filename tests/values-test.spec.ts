@@ -163,19 +163,31 @@ async function stubNetwork(page: Page, baseURL: string): Promise<Captured> {
   return captured;
 }
 
-/** Кнопка ответа: подписи шкалы — ответы 1…6 по порядку. */
-const answerButton = (page: Page, value: number) =>
-  page.getByTestId('values-question').getByRole('button', { name: ru.question.scale[value - 1], exact: true });
+/** Кнопка ответа: подписи шкалы — ответы 1…6 по порядку. Язык — своей шкалой (по умолчанию русской). */
+const answerButtonIn = (page: Page, value: number, scale: string[]) =>
+  page.getByTestId('values-question').getByRole('button', { name: scale[value - 1], exact: true });
+const answerButton = (page: Page, value: number) => answerButtonIn(page, value, ru.question.scale);
 
 /** Подпись прогресса из шаблона текстов, а не захардкоженная строка. */
-const progressLabel = (n: number): string => fillTemplate(ru.question.progress, { n: String(n), total: String(ITEMS.length) });
+const progressLabelIn = (template: string, n: number): string => fillTemplate(template, { n: String(n), total: String(ITEMS.length) });
+const progressLabel = (n: number): string => progressLabelIn(ru.question.progress, n);
 
-/** Ответить на утверждения с from-го по to-е (с нуля), дожидаясь каждого. */
-async function answerRange(page: Page, from: number, to: number, pick: (value: ValueKey, i: number) => number) {
+/** Ответить на утверждения с from-го по to-е (с нуля), дожидаясь каждого. Язык — своей шкалой и шаблоном прогресса. */
+async function answerRangeIn(
+  page: Page,
+  from: number,
+  to: number,
+  pick: (value: ValueKey, i: number) => number,
+  scale: string[],
+  progressTemplate: string,
+) {
   for (let i = from; i < to; i += 1) {
-    await expect(page.getByTestId('values-progress-label')).toHaveText(progressLabel(i + 1));
-    await answerButton(page, pick(ITEMS[i].value, i)).click();
+    await expect(page.getByTestId('values-progress-label')).toHaveText(progressLabelIn(progressTemplate, i + 1));
+    await answerButtonIn(page, pick(ITEMS[i].value, i), scale).click();
   }
+}
+async function answerRange(page: Page, from: number, to: number, pick: (value: ValueKey, i: number) => number) {
+  return answerRangeIn(page, from, to, pick, ru.question.scale, ru.question.progress);
 }
 
 /** VK-пиксель (счётчик Top.Mail.Ru): его скрипт и pageView идут на этот хост. */
@@ -185,10 +197,13 @@ const PERSONA: Partial<Record<ValueKey, number>> = { selfDirection: 6, stimulati
 const persona = (v: ValueKey) => PERSONA[v] ?? 3;
 const goalsOf = (captured: Captured) => captured.ym.filter((a) => a[1] === 'reachGoal').map((a) => a[2]);
 
-async function begin(page: Page) {
-  await page.goto(PATH);
+async function beginAt(page: Page, path: string, beginLabel: string) {
+  await page.goto(path);
   await clientRendered(page);
-  await page.getByRole('button', { name: ru.start.begin, exact: true }).click();
+  await page.getByRole('button', { name: beginLabel, exact: true }).click();
+}
+async function begin(page: Page) {
+  return beginAt(page, PATH, ru.start.begin);
 }
 
 test.describe('тест в браузере', () => {
@@ -382,5 +397,88 @@ test.describe('тест в браузере', () => {
     // «Пройти заново» не трогает счётчик завершений — цель поднята из старого
     // прогресса при перезагрузке, новый проход ещё не окончен.
     expect(goalsOf(captured).filter((g) => g === 'values-test-complete')).toHaveLength(1);
+  });
+});
+
+/**
+ * Полный проход не только по-русски: та же персона (PERSONA), что и в
+ * «прохождение: ведущие ценности…» выше, но на /zh/ и /en/ — доказать, что
+ * склейка черновика Оле по-настоящему языковая на живой странице, а не
+ * только в модульных тестах textJoin.ts/valuesDraft.ts. Черновик здесь
+ * собирается литералом из полей zh.ts/en.ts с явно выписанными союзами
+ * («、», «和», «；», скобка ничьи без пробела) — не вызовом joinAnd/joinClauses,
+ * иначе e2e повторял бы проверяемый код и ничего не доказывал при его регрессии.
+ */
+test.describe('тест в браузере — черновик Оле на zh', () => {
+  // locale контекста — язык страницы: иначе предпочитаемый Playwright'ом по
+  // умолчанию en-US не совпал бы с zh, и LanguageBanner предложил бы сменить
+  // язык (LanguageBanner.tsx, bannerOffer) — лишний баннер над кнопками теста.
+  test.use({ viewport: { width: 390, height: 844 }, locale: 'zh-CN' });
+  test.describe.configure({ timeout: 60_000 });
+
+  test('полный проход, черновик Оле собран по китайской типографике, lang=zh, без VK-пикселя', async ({ page, baseURL }) => {
+    const zh = (await import('../src/content/values/texts/zh.ts')).default;
+    const captured = await stubNetwork(page, baseURL!);
+    await beginAt(page, '/zh/tests/values/', zh.start.begin);
+    await answerRangeIn(page, 0, ITEMS.length, persona, zh.question.scale, zh.question.progress);
+
+    await expect(page.getByTestId('values-result')).toBeVisible();
+
+    const cta = page.locator('[data-cta="values-test-to-olia"]');
+    await cta.click();
+    await page.waitForURL(/^https:\/\/my\.linkeon\.io\/chat/);
+    const url = new URL(page.url());
+    expect(url.searchParams.get('lang'), 'приложение должно ответить по-китайски').toBe('zh');
+
+    const draft = decodeURIComponent(url.hash.slice('#draft='.length));
+    // Союз и перечисление — явно «、»/«和» (не вызовом joinAnd), скобка ничьи
+    // здесь не нужна (нет ничьей у этой персоны), «；» между осями — тоже литералом.
+    const top = `${zh.values.selfDirection.inMessage}、${zh.values.stimulation.inMessage}和${zh.values.benevolence.inMessage}`;
+    const axes = `${zh.axesInMessage.change.left}；${zh.axesInMessage.focus.left}`;
+    expect(draft).toBe(
+      fillTemplate(zh.message, {
+        top,
+        rest: fillTemplate(zh.bottomInMessage, { bottom: zh.values.power.inMessage }),
+        axes,
+      }),
+    );
+
+    expect(captured.urls.filter(isVkPixel), 'VK-пиксель не должен грузиться на странице теста').toEqual([]);
+  });
+});
+
+test.describe('тест в браузере — черновик Оле на en', () => {
+  // Без явного locale: Playwright по умолчанию на en-US, тот же язык, что у
+  // страницы — LanguageBanner не предложит ничего менять и без переопределения.
+  test.use({ viewport: { width: 390, height: 844 } });
+  test.describe.configure({ timeout: 60_000 });
+
+  test('полный проход, черновик Оле — британский перечень без оксфордской запятой, lang=en', async ({ page, baseURL }) => {
+    const en = (await import('../src/content/values/texts/en.ts')).default;
+    const captured = await stubNetwork(page, baseURL!);
+    await beginAt(page, '/en/tests/values/', en.start.begin);
+    await answerRangeIn(page, 0, ITEMS.length, persona, en.question.scale, en.question.progress);
+
+    await expect(page.getByTestId('values-result')).toBeVisible();
+
+    const cta = page.locator('[data-cta="values-test-to-olia"]');
+    await cta.click();
+    await page.waitForURL(/^https:\/\/my\.linkeon\.io\/chat/);
+    const url = new URL(page.url());
+    expect(url.searchParams.get('lang'), 'приложение должно ответить по-английски').toBe('en');
+
+    const draft = decodeURIComponent(url.hash.slice('#draft='.length));
+    // Британский перечень: «a, b and c», без оксфордской запятой перед and.
+    const top = `${en.values.selfDirection.inMessage}, ${en.values.stimulation.inMessage} and ${en.values.benevolence.inMessage}`;
+    const axes = `${en.axesInMessage.change.left}; ${en.axesInMessage.focus.left}`;
+    expect(draft).toBe(
+      fillTemplate(en.message, {
+        top,
+        rest: fillTemplate(en.bottomInMessage, { bottom: en.values.power.inMessage }),
+        axes,
+      }),
+    );
+
+    expect(captured.urls.filter(isVkPixel), 'VK-пиксель не должен грузиться на странице теста').toEqual([]);
   });
 });
