@@ -1,5 +1,5 @@
 import { chatHref, chatUrlWithDraft, fillTemplate } from './chatDraft';
-import { joinAnd, joinClauses, joinSentences } from './textJoin';
+import { joinAnd, joinClauses, joinInline } from './textJoin';
 import { AXIS_KEYS, type ValueKey, type ValuesResult } from './schwartz';
 import type { ValuesTexts } from '../content/values/types';
 
@@ -27,10 +27,10 @@ export function valuesMessage(texts: MessageTexts, result: ValuesResult, languag
   if (result.flat) return texts.messageFlat;
   const name = (k: ValueKey) => texts.values[k].inMessage;
   const list = (keys: ValueKey[]) => joinAnd(keys.map(name), language);
-  // Ценность и скобка ничьи — через joinSentences(language): в zh без пробела перед «（»,
+  // Ценность и скобка ничьи — через joinInline(language): в zh без пробела перед «（»,
   // в ru и остальных — с обычным пробелом, как раньше.
   const withTies = (head: string, ties: ValueKey[]) =>
-    ties.length ? joinSentences([head, fillTemplate(texts.tiedInMessage, { names: list(ties) })], language) : head;
+    ties.length ? joinInline([head, fillTemplate(texts.tiedInMessage, { names: list(ties) })], language) : head;
   return fillTemplate(texts.message, {
     top: withTies(list(result.top), result.topTies),
     rest: result.bottom

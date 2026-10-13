@@ -12,7 +12,7 @@ import {
 } from '../../lib/schwartz';
 import { oliaChatHref, oliaChatUrlWithDraft, valuesMessage } from '../../lib/valuesDraft';
 import { fillTemplate } from '../../lib/chatDraft';
-import { dashSeparator, joinComma, joinSentences } from '../../lib/textJoin';
+import { dashParts, joinComma, joinSentences } from '../../lib/textJoin';
 import type { ValuesTexts } from '../../content/values/types';
 
 interface Props {
@@ -161,14 +161,14 @@ export default function ValuesResult({ texts, language, result, onRestart }: Pro
             // Разделитель — по языку страницы: в zh «——» без пробелов, у остальных —
             // как раньше, « — » (пробел до тире — снаружи span, после — внутри него,
             // чтобы разметка для ru не поменялась).
-            const dash = dashSeparator(language);
+            const { gap, dash } = dashParts(language);
             return (
               <li key={k}>
                 <p className="font-semibold text-paper-900">
                   {texts.values[k].name}
-                  {dash.startsWith(' ') ? ' ' : ''}
+                  {gap}
                   <span className="font-normal text-paper-700">
-                    {dash.trimStart()}
+                    {dash}
                     {texts.values[k].line}
                   </span>
                 </p>
