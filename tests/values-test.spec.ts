@@ -53,17 +53,31 @@ test.describe('тест ценностей в сыром HTML', () => {
     await ctx.dispose();
   });
 
-  // Каждая нерусская версия: свой язык в <html>, свой canonical, тот же
-  // кластер hreflang, Вебвизор и карта кликов выключены. До переводов цикл
-  // пуст; после Task 8 обязан пройти по шести языкам.
-  test('нерусские версии: язык, canonical, hreflang, Вебвизор и карта кликов выключены', async ({ baseURL }) => {
+  /** Языки hreflang-кластера, которые не ведут на свою версию этой же страницы (как в tests/assistants.spec.ts). */
+  const wrongHreflang = (html: string, codes: string[]) =>
+    [...codes.map((c) => [c, valuesTestUrlFor(c, DEFAULT_LANGUAGE)]), ['x-default', valuesTestUrlFor(DEFAULT_LANGUAGE, DEFAULT_LANGUAGE)]]
+      .filter(([lang, href]) => !html.includes(`hreflang="${lang}" href="${href}"`))
+      .map(([lang]) => lang);
+
+  // Каждая нерусская версия: свой язык в <html>, ровно один canonical на
+  // свой адрес, кластер hreflang ведёт на свои адреса (не только счётом —
+  // по каждой цели), H1 — из текстов этого языка, Вебвизор и карта кликов
+  // выключены. Пока переводов нет, цикл пуст; с Task 8 обязан пройти по
+  // шести языкам.
+  test('нерусские версии: язык, canonical, hreflang, H1, Вебвизор и карта кликов выключены', async ({ baseURL }) => {
     const ctx = await request.newContext({ baseURL });
     const codes = valuesTestCodes();
     for (const code of codes.filter((c) => c !== DEFAULT_LANGUAGE)) {
       const html = await (await ctx.get(`/${code}/tests/values/`)).text();
       expect(html, code).toContain(`<html lang="${code}"`);
+      expect(count(html, /rel="canonical"/g), `${code}: ровно один canonical`).toBe(1);
       expect(html, code).toContain(`<link rel="canonical" href="${valuesTestUrlFor(code, DEFAULT_LANGUAGE)}"`);
       expect(count(html, /hreflang="/g), `${code}: hreflang`).toBe(codes.length + 1);
+      expect(wrongHreflang(html, codes), `${code}: hreflang не на свой адрес`).toEqual([]);
+      // Проверено (Task 7, ревью): динамический import() .ts-модуля под Playwright
+      // работает и с переменным путём — модуль текстов языка доступен прямо здесь.
+      const texts = (await import(`../src/content/values/texts/${code}.ts`)).default;
+      expect(h1Of(html), `${code}: H1`).toBe(texts.h1);
       expect(html, code).toContain('webvisor:false');
       expect(html, code).not.toContain('webvisor:true');
       expect(html, code).toContain('clickmap:false');
