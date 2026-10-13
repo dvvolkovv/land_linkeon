@@ -10,15 +10,40 @@ const DISMISS_KEY = 'll_lang_banner_dismissed';
 const CHOICE_KEY = 'll_lang_choice';
 
 /**
+ * Чистый выбор баннера: current — язык текущей страницы, preferred — язык
+ * браузера (уже сведённый к поддерживаемому через resolveLanguage). available
+ * — страница выпущена не на всех языках: предлагать только те, где она есть;
+ * без фильтра подходит любой переведённый язык.
+ *
+ * Выделена из эффекта отдельной функцией ради юнит-теста: jsdom в
+ * репозитории не настроен (другие страницы проверяются renderToStaticMarkup,
+ * без эффектов), а эта логика — чистая и тестируется без DOM.
+ */
+export function bannerOffer(
+  current: string,
+  preferred: string,
+  available?: (code: string) => boolean,
+): LanguageDef | null {
+  if (preferred === current) return null;
+  // Без available — только выпущенные языки: предложить испанцу /es/, где
+  // лежит русский текст, — хуже, чем не предлагать ничего.
+  return TRANSLATED_LANGUAGES.find((l) => l.code === preferred && (available?.(l.code) ?? true)) ?? null;
+}
+
+/**
  * Предлагает перейти на язык браузера, но НЕ редиректит: автоматический
  * редирект по Accept-Language уводит краулер с канонического корня и мешает
  * тем, кто пришёл на конкретную языковую версию осознанно.
+ *
+ * `available` — страница выпущена не на всех языках — предлагать только те,
+ * где она есть (например, тест ценностей: ValuesTestPage передаёт
+ * hasValuesTest, иначе баннер увёл бы на главную чужого языка).
  *
  * Ничего не импортирует из ./i18n: тот модуль читает window на уровне
  * модуля и в графе рендера на сборке оказаться не должен. Подпись —
  * самоназвание языка, перевод для неё не нужен.
  */
-export default function LanguageBanner() {
+export default function LanguageBanner({ available }: { available?: (code: string) => boolean } = {}) {
   const [offer, setOffer] = useState<{ lang: LanguageDef; href: string } | null>(null);
 
   useEffect(() => {
@@ -29,16 +54,13 @@ export default function LanguageBanner() {
     }
     const current = languageFromPath(window.location.pathname);
     const preferred = resolveLanguage(navigator.language);
-    if (preferred === current) return;
-    // Только выпущенные языки: предложить испанцу /es/, где лежит русский
-    // текст, — хуже, чем не предлагать ничего.
-    const lang = TRANSLATED_LANGUAGES.find((l) => l.code === preferred);
+    const lang = bannerOffer(current, preferred, available);
     if (!lang) return;
     setOffer({
       lang,
       href: pathForLanguage(preferred, window.location.pathname, window.location.search, window.location.hash),
     });
-  }, []);
+  }, [available]);
 
   if (!offer) return null;
 

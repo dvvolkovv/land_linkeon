@@ -7,6 +7,7 @@ import JsonLd from '../components/assistants/JsonLd';
 import LanguageBanner from '../components/ui/LanguageBanner';
 import ValuesTest from '../components/values/ValuesTest';
 import { breadcrumbJsonLd, faqJsonLd, type Crumb } from '../content/assistants/jsonLd';
+import { hasValuesTest } from '../content/values/availability';
 import { homePath } from '../lib/assistantRoute';
 import { valuesTestPath } from '../lib/valuesRoute';
 import { VALUE_KEYS } from '../lib/schwartz';
@@ -21,8 +22,9 @@ interface Props {
  * Тест ценностей — вход из поиска. В пререндере: вступление, карточка
  * старта, десять ценностей и вопросы; тест оживает в браузере. FadeIn нет
  * сознательно: в пререндере он отдаёт opacity-0. LanguageBanner — как на
- * страницах ассистентов: предлагает этот же тест на языке браузера, если он
- * выпущен.
+ * страницах ассистентов: предлагает этот же тест на языке браузера, но
+ * только если тест на нём выпущен (hasValuesTest передан в available) —
+ * иначе баннер увёл бы на главную чужого языка вместо теста.
  *
  * Вебвизор и карта кликов Метрики на этой странице выключены — подстановкой
  * в scripts/prerender.mjs; VK-пиксель (Top.Mail.Ru) здесь не загружается —
@@ -118,8 +120,10 @@ export default function ValuesTestPage({ texts, language }: Props) {
       </main>
 
       <Footer homeHref={home} />
-      {/* В пререндере пусто — предложение считается в эффекте, по языку браузера. */}
-      <LanguageBanner />
+      {/* В пререндере пусто — предложение считается в эффекте, по языку браузера.
+          available=hasValuesTest: без фильтра баннер мог бы предложить язык,
+          на котором этого теста нет. */}
+      <LanguageBanner available={hasValuesTest} />
     </div>
   );
 }
