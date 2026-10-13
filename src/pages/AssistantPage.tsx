@@ -10,6 +10,7 @@ import JsonLd from '../components/assistants/JsonLd';
 import LanguageBanner from '../components/ui/LanguageBanner';
 import { appUrl } from '../lib/appUrl';
 import { assistantPath, assistantsCatalogPath, homePath } from '../lib/assistantRoute';
+import { isSitePageReleased } from '../lib/sitePageReleased';
 import { assistantBySlug, assistantName, type AssistantEntry } from '../content/assistants/roster';
 import { breadcrumbJsonLd, faqJsonLd, type Crumb } from '../content/assistants/jsonLd';
 import type { AssistantPagesPack } from '../content/assistants/types';
@@ -85,7 +86,7 @@ export default function AssistantPage({ entry, pack, language }: Props) {
               {/* Вторая кнопка наверху — например, калькулятор у Райи. Это переход
                   внутри сайта, а не в приложение, поэтому без data-cta: воронку
                   landing_cta_click считают только переходы в чат. */}
-              {page.heroLink && (
+              {page.heroLink && isSitePageReleased(page.heroLink.href) && (
                 <Button href={page.heroLink.href} size="lg" variant="outline" className="text-center sm:whitespace-nowrap">
                   {page.heroLink.text}
                 </Button>
