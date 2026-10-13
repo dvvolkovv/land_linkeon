@@ -51,3 +51,19 @@ export function joinSentences(parts: string[], language: string): string {
 export function dashSeparator(language: string): string {
   return language === 'zh' ? '——' : ' — ';
 }
+
+/**
+ * Тот же dashSeparator(), разложенный под разметку «имя␠<span>—␠пояснение</span>»:
+ * gap — что поставить после имени СНАРУЖИ span (пробел или ''), dash — что
+ * поставить первым ВНУТРИ span. Для ru/остальных пробел уходит в gap, внутри
+ * span остаётся «— » с уже нужным пробелом перед текстом; для zh — везде пусто.
+ */
+export function dashParts(language: string): { gap: string; dash: string } {
+  const sep = dashSeparator(language);
+  return sep.startsWith(' ') ? { gap: ' ', dash: sep.trimStart() } : { gap: '', dash: sep };
+}
+
+/** Склейка внутри одной фразы (например, ценность и скобка ничьи): пробел, в zh — без него. */
+export function joinInline(parts: string[], language: string): string {
+  return joinSentences(parts, language);
+}
