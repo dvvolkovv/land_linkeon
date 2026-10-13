@@ -35,9 +35,11 @@ const de: ValuesTexts = {
     ],
   },
   statements: {
-    selfDirection1: 'Dieser Person ist Unabhängigkeit wichtig: den eigenen Weg wählen, ohne Anweisungen von oben.',
+    selfDirection1:
+      'Dieser Person ist es wichtig, den Weg nach dem eigenen Kompass zu wählen, nicht nach Vorgaben von oben.',
     selfDirection2: 'Diese Person bastelt, schreibt oder erfindet gern etwas Eigenes – einfach aus Neugier.',
-    selfDirection3: 'Diese Person legt Wert darauf, selbst zu denken und zu eigenen Schlüssen zu kommen.',
+    selfDirection3:
+      'Diese Person legt Wert darauf, die Dinge mit dem eigenen Kopf zu durchdenken und daraus eigene Schlüsse zu ziehen.',
     stimulation1:
       'Diese Person ist schnell zum Aufbruch bereit: eine fremde Stadt, ein neues Hobby, eine spontane Reise – immer gern.',
     stimulation2: 'Dieser Person wird ein Leben ohne Veränderung und Abwechslung schnell fade.',
@@ -64,7 +66,7 @@ const de: ValuesTexts = {
     conformity1:
       'Diese Person sieht Regeln nicht als Formsache: Man hält sich daran, ob es einem passt oder nicht.',
     conformity2: 'Diese Person beherrscht sich vor anderen, wird nicht laut und erlaubt sich keine scharfen Worte.',
-    conformity3: 'Diese Person kleidet und verhält sich so, wie es am jeweiligen Ort üblich ist.',
+    conformity3: 'Diese Person kleidet und benimmt sich so, wie man es in der jeweiligen Umgebung erwartet.',
     tradition1:
       'Diese Person findet, dass Familienbräuche bewahrt werden müssen: Festtagsgebäck, Geschichten über die Vorfahren, Jahrestage.',
     tradition2: 'Diese Person räumt dem Glauben und den religiösen Feiertagen einen wichtigen Platz im Leben ein.',

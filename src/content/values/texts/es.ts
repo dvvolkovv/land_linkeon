@@ -37,7 +37,7 @@ const es: ValuesTexts = {
   statements: {
     selfDirection1: 'A esta persona le importa la independencia: elegir su camino a su manera, sin órdenes de arriba.',
     selfDirection2: 'Esta persona se pone con gusto a construir, componer o inventar algo propio, solo por curiosidad.',
-    selfDirection3: 'Para esta persona es importante pensar por su cuenta y llegar a sus propias conclusiones.',
+    selfDirection3: 'A esta persona le importa pensar con su propia cabeza y sacar sus conclusiones sin que se las den hechas.',
     stimulation1: 'Esta persona se lanza con facilidad: una ciudad desconocida, una afición nueva, un viaje repentino, todo eso le alegra.',
     stimulation2: 'Para esta persona, una vida sin cambios ni variedad se vuelve insípida enseguida.',
     stimulation3: 'A esta persona le atrae lo que no se sabe cómo va a acabar: los proyectos audaces y los retos arriesgados.',

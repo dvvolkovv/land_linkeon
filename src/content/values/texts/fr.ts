@@ -55,7 +55,7 @@ const fr: ValuesTexts = {
     security3: 'Pour cette personne, la stabilité est importante : un emploi sûr, des économies pour les coups durs, un lendemain prévisible.',
     conformity1: 'Pour cette personne, les règles ne sont pas une formalité : on les respecte, qu’on les aime ou non.',
     conformity2: 'Cette personne se retient en public, sans hausser le ton ni se permettre de paroles dures.',
-    conformity3: 'Cette personne s’habille et se comporte selon les usages de chaque endroit.',
+    conformity3: 'Cette personne s’habille et se comporte comme il convient selon l’endroit.',
     tradition1: 'Pour cette personne, les coutumes familiales — gâteaux des jours de fête, récits sur les ancêtres, dates marquantes — sont à préserver.',
     tradition2: 'Pour cette personne, la foi et ses fêtes occupent une place importante dans sa vie.',
     tradition3: 'Cette personne accepte son sort avec sérénité : ce que la vie apporte, il faut le vivre dignement.',

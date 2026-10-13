@@ -46,7 +46,7 @@ const pt: ValuesTexts = {
     hedonism3: 'Esta pessoa aprecia os prazeres simples: um banho quente, o prato preferido, um serão sem preocupação nenhuma.',
     achievement1: 'Para esta pessoa, é importante crescer naquilo que faz: definir objetivos ambiciosos e alcançá-los.',
     achievement2: 'Para esta pessoa, é importante brilhar pela sua competência diante de quem percebe do assunto.',
-    achievement3: 'Esta pessoa esforça-se por estar entre os melhores naquilo que faz.',
+    achievement3: 'Esta pessoa quer contar-se entre os melhores da sua área.',
     power1: 'Para esta pessoa, é importante ter influência sobre os outros e decidir como usar o dinheiro e os recursos comuns.',
     power2: 'Para esta pessoa, é importante ter um nível de vida que mostre a sua posição na sociedade.',
     power3: 'Para esta pessoa, é importante ter um estatuto elevado e autoridade, ter peso aos olhos dos outros.',
