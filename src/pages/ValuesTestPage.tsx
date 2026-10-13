@@ -4,6 +4,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Breadcrumbs from '../components/assistants/Breadcrumbs';
 import JsonLd from '../components/assistants/JsonLd';
+import LanguageBanner from '../components/ui/LanguageBanner';
 import ValuesTest from '../components/values/ValuesTest';
 import { breadcrumbJsonLd, faqJsonLd, type Crumb } from '../content/assistants/jsonLd';
 import { homePath } from '../lib/assistantRoute';
@@ -19,8 +20,9 @@ interface Props {
 /**
  * Тест ценностей — вход из поиска. В пререндере: вступление, карточка
  * старта, десять ценностей и вопросы; тест оживает в браузере. FadeIn нет
- * сознательно: в пререндере он отдаёт opacity-0. Без LanguageBanner: тест
- * пока только по-русски, как калькулятор.
+ * сознательно: в пререндере он отдаёт opacity-0. LanguageBanner — как на
+ * страницах ассистентов: предлагает этот же тест на языке браузера, если он
+ * выпущен.
  *
  * Вебвизор и карта кликов Метрики на этой странице выключены — подстановкой
  * в scripts/prerender.mjs; VK-пиксель (Top.Mail.Ru) здесь не загружается —
@@ -116,6 +118,8 @@ export default function ValuesTestPage({ texts, language }: Props) {
       </main>
 
       <Footer homeHref={home} />
+      {/* В пререндере пусто — предложение считается в эффекте, по языку браузера. */}
+      <LanguageBanner />
     </div>
   );
 }

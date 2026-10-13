@@ -1,6 +1,10 @@
 import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from './languages';
 import { hasAssistantPages } from '../content/assistants/availability';
+import { hasValuesTest } from '../content/values/availability';
+import { hasHdCalculator } from '../content/hd/availability';
 import { ASSISTANTS_SEGMENT, assistantPath, assistantsCatalogPath, parseAssistantPath } from '../lib/assistantRoute';
+import { parseValuesTestPath, valuesTestPath } from '../lib/valuesRoute';
+import { hdCalcPath, parseHdCalcPath } from '../lib/hdRoute';
 import { pathSegments } from '../lib/pathSegments';
 
 /**
@@ -49,6 +53,16 @@ export function pathForLanguage(
     const target =
       route?.kind === 'assistant' ? assistantPath(language, route.slug) : assistantsCatalogPath(language);
     return `${target}${search}${hash}`;
+  }
+
+  // С теста ценностей и калькулятора — на ту же страницу другого языка, если
+  // она у него выпущена; иначе на главную языка, как у страниц ассистентов.
+  // Этим же путём строит адрес баннер языка (LanguageBanner).
+  if (parseValuesTestPath(pathname) && hasValuesTest(language)) {
+    return `${valuesTestPath(language)}${search}${hash}`;
+  }
+  if (parseHdCalcPath(pathname) && hasHdCalculator(language)) {
+    return `${hdCalcPath(language)}${search}${hash}`;
   }
 
   return `${base}${search}${hash}`;
