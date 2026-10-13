@@ -27,6 +27,8 @@ export function valuesMessage(texts: MessageTexts, result: ValuesResult, languag
   if (result.flat) return texts.messageFlat;
   const name = (k: ValueKey) => texts.values[k].inMessage;
   const list = (keys: ValueKey[]) => joinAnd(keys.map(name), language);
+  // Ценность и скобка ничьи — через joinSentences(language): в zh без пробела перед «（»,
+  // в ru и остальных — с обычным пробелом, как раньше.
   const withTies = (head: string, ties: ValueKey[]) =>
     ties.length ? joinSentences([head, fillTemplate(texts.tiedInMessage, { names: list(ties) })], language) : head;
   return fillTemplate(texts.message, {
