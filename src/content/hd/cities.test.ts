@@ -116,7 +116,8 @@ describe('поиск на языке страницы', () => {
     for (const code of CODES) expect(first(code, 'kazan').zone, code).toBe('Europe/Moscow');
   });
   it('упрощёнными иероглифами — и те города, что в GeoNames записаны традиционными', () => {
-    expect(first('zh', '纽约').zone).toBe('America/New_York');
+    // Сам город, а не «纽约州东草地» (так находилось до перевода в упрощённые).
+    expect(first('zh', '纽约')).toMatchObject({ name: '纽约市', zone: 'America/New_York' });
     expect(first('zh', '维也纳').zone).toBe('Europe/Vienna');
   });
 });
@@ -140,5 +141,15 @@ describe('названия на языке — без странностей и�
     expect(searchCities(indexCities(DBS.pt.db), 'Hong Kong')[0].name).toBe('Hong Kong');
     // Земля Вена названа как город — подпись без повтора; было «Viana, Áustria».
     expect(cityPlace(searchCities(indexCities(DBS.pt.db), 'Viena')[0])).toBe('Áustria');
+  });
+  it('правки вычитки (scripts/hd-city-overrides.tsv) — поверх GeoNames и CLDR', () => {
+    const first = (code: (typeof CODES)[number], q: string) => searchCities(indexCities(DBS[code].db), q)[0];
+    expect(first('zh', '金沙萨')).toMatchObject({ name: '金沙萨', zone: 'Africa/Kinshasa' });
+    expect(first('de', 'Peking')).toMatchObject({ name: 'Peking', zone: 'Asia/Shanghai' });
+    expect(first('pt', 'Maoming')).toMatchObject({ name: 'Maoming', zone: 'Asia/Shanghai' });
+    expect(first('en', 'Abu Dhabi')).toMatchObject({ name: 'Abu Dhabi', zone: 'Asia/Dubai' });
+    expect(DBS.en.db.countries.HK).toBe('Hong Kong');
+    expect(DBS.zh.db.countries.HK).toBe('香港');
+    expect(DBS.en.db.countries.CD).toBe('DR Congo');
   });
 });
