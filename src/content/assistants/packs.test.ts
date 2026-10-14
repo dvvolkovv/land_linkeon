@@ -31,6 +31,10 @@ const CYRILLIC = /[Ѐ-ӿ]/;
 const MARKDOWN = /\*\*|^#{1,6}\s|^\s*\|.*\|\s*$/m;
 // Служебные теги приложения вида [CALENDAR_PROPOSAL:<uuid>] — для посетителя мусор.
 const APP_TAG = /\[[A-Z][A-Z_]+:/;
+// Решение владельца (08.10.2026 для калькулятора HD, 14.10 — и для страниц
+// ассистентов): основателя метода и Jovian Archive не называем и на их сайты
+// (jovianarchive.com, mybodygraph.com) не ссылаемся — ни на каком языке.
+const HD_FOUNDER = /jovian|mybodygraph|ra uru hu|ра уру ху|乌鲁/i;
 
 const own = (p: AssistantPageText) => [
   p.title, p.description, p.h1, p.lead, p.card, p.cta,
@@ -89,6 +93,10 @@ describe('тексты страниц ассистентов: каждая ст�
 
       it('без эмодзи вне примера разговора', () => {
         for (const s of own(p)) expect(s).not.toMatch(EMOJI);
+      });
+
+      it('без основателя Human Design и Jovian Archive — и в примере разговора', () => {
+        for (const s of all(p)) expect(s).not.toMatch(HD_FOUNDER);
       });
 
       it('разметка и служебные теги в примере сняты', () => {
