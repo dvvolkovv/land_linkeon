@@ -7,7 +7,9 @@ import Breadcrumbs from '../components/assistants/Breadcrumbs';
 import JsonLd from '../components/assistants/JsonLd';
 import HdForm, { type HdResultData } from '../components/hd/HdForm';
 import HdResult from '../components/hd/HdResult';
+import LanguageBanner from '../components/ui/LanguageBanner';
 import { breadcrumbJsonLd, faqJsonLd, type Crumb } from '../content/assistants/jsonLd';
+import { hasHdCalculator } from '../content/hd/availability';
 import { homePath } from '../lib/assistantRoute';
 import { hdCalcPath } from '../lib/hdRoute';
 import { HD_TYPES } from '../lib/human-design';
@@ -23,12 +25,14 @@ interface Props {
  * пустая форма, пять типов и вопросы; форма и расчёт оживают в браузере.
  * FadeIn нет сознательно: в пререндере он отдаёт opacity-0.
  *
- * Без LanguageBanner сознательно: калькулятор пока только по-русски, а
- * баннер предложил бы чужую (не русскую) главную.
+ * LanguageBanner — как на тесте ценностей: предлагает этот же калькулятор
+ * на языке браузера, если он выпущен.
  */
 export default function HumanDesignPage({ texts, language }: Props) {
   const { t } = useTranslation();
   const home = homePath(language);
+  // Полноширинная пунктуация в подписи GeoNames — см. комментарий у блока ниже.
+  const zh = language === 'zh';
   const [result, setResult] = useState<HdResultData | null>(null);
   const crumbs: Crumb[] = [
     { name: t('assistantPages.home'), path: home },
@@ -123,12 +127,15 @@ export default function HumanDesignPage({ texts, language }: Props) {
 
         <section className="max-w-4xl mx-auto px-6 pb-12 space-y-2 text-xs text-paper-600">
           <p>{texts.disclaimer}</p>
+          {/* Китайская пунктуация полноширинная и без пробела после «，»/«。»
+              (пробел перед латинским «GeoNames» — общий для всех языков). */}
           <p data-testid="hd-credits">
             {texts.credits}{' '}
             <a href="https://www.geonames.org/" className="underline hover:text-paper-900" rel="noopener noreferrer" target="_blank">
               GeoNames
             </a>
-            ,{' '}
+            {zh ? '，' : ','}
+            {zh ? '' : ' '}
             <a
               href="https://creativecommons.org/licenses/by/4.0/"
               className="underline hover:text-paper-900"
@@ -137,7 +144,8 @@ export default function HumanDesignPage({ texts, language }: Props) {
             >
               CC BY 4.0
             </a>
-            .{' '}
+            {zh ? '。' : '.'}
+            {zh ? '' : ' '}
             <a href="/licenses.txt" className="underline hover:text-paper-900">
               {texts.licenses}
             </a>
@@ -146,6 +154,8 @@ export default function HumanDesignPage({ texts, language }: Props) {
       </main>
 
       <Footer homeHref={home} />
+      {/* В пререндере пусто — предложение считается в эффекте, по языку браузера. */}
+      <LanguageBanner available={hasHdCalculator} />
     </div>
   );
 }
