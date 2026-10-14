@@ -9,6 +9,7 @@ const raya: AssistantPageText = {
   lead: 'Hacen falta la fecha, la hora exacta y la ciudad de nacimiento. Raya calcula la carta con Swiss Ephemeris y le explica qué significan en la práctica su tipo, su estrategia y su autoridad.',
   card: 'Calcula el bodygraph a partir de la fecha, la hora y el lugar de nacimiento y explica el tipo, la estrategia y la autoridad.',
   cta: 'Hablar con Raya',
+  heroLink: { text: 'Calcular el bodygraph gratis', href: '/es/calculators/human-design/' },
   situations: [
     'Ha oído hablar del Diseño Humano y quiere conocer su tipo y su estrategia.',
     'Ya sacó su carta en una calculadora gratuita, pero no entiende qué significan los centros y los canales.',
@@ -62,7 +63,8 @@ Si ya ha mirado su carta en jovianarchive.com o mybodygraph.com, dígame qué le
     },
     {
       q: '¿En qué se diferencia de una calculadora o de un chatbot corriente?',
-      a: 'Una calculadora genera la carta y da descripciones genéricas. Raya analiza su propia carta y le propone un experimento basado en su estrategia. Además, los asistentes de Linkeon comparten un mismo perfil: lo que le cuenta a uno, lo saben todos.',
+      a: 'Una calculadora genera la carta y da descripciones genéricas — nosotros también tenemos una. Raya analiza su propia carta y le propone un experimento basado en su estrategia. Además, los asistentes de Linkeon comparten un mismo perfil: lo que le cuenta a uno, lo saben todos.',
+      link: { text: 'Calcular el bodygraph gratis', href: '/es/calculators/human-design/' },
     },
     {
       q: '¿Y si tengo dudas sobre el Human Design?',

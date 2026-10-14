@@ -9,6 +9,7 @@ const raya: AssistantPageText = {
   lead: "You'll need your date, exact time and city of birth. Raya will calculate your chart using the Swiss Ephemeris and explain what your type, strategy and authority mean in practice.",
   card: "Calculates your bodygraph from your date, time and place of birth and explains your type, strategy and authority.",
   cta: "Talk to Raya",
+  heroLink: { text: "Calculate your bodygraph for free", href: "/en/calculators/human-design/" },
   situations: [
     "You've heard about Human Design and want to find out your type and strategy.",
     "You've already generated your chart with a free calculator, but you don't understand what the centres and channels mean.",
@@ -63,7 +64,8 @@ If you've already looked at your chart on jovianarchive.com or mybodygraph.com, 
     },
     {
       q: "How is this different from a calculator or a regular chatbot?",
-      a: "A calculator draws the chart and gives generic descriptions. Raya reads your own chart and suggests an experiment based on your strategy. And Linkeon assistants share one profile: tell one, and they all know.",
+      a: "A calculator draws the chart and gives generic descriptions — we have one too. Raya reads your own chart and suggests an experiment based on your strategy. And Linkeon assistants share one profile: tell one, and they all know.",
+      link: { text: "Calculate your bodygraph for free", href: "/en/calculators/human-design/" },
     },
     {
       q: "What if I'm sceptical about Human Design?",
