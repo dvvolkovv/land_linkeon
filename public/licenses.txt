@@ -35,11 +35,13 @@ SOFTWARE.
    https://www.geonames.org/
 
 Cities with a population over 15,000 and capitals (cities15000), country
-and region names (countryInfo, admin1CodesASCII), their Russian names
+and region names (countryInfo, admin1CodesASCII), their names in the site
+languages — Russian, English, Spanish, German, French, Portuguese, Chinese
 (alternateNamesV2) and IANA time zones. Licensed under Creative Commons
 Attribution 4.0 (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
 
-Changes: only the name (Russian and Latin), country, region, time zone and
-population (rounded to thousands) are kept; Europe/Kyiv is written as
-Europe/Kiev for older browsers. The file is built by
-scripts/build-hd-cities.py (https://github.com/dvvolkovv/land_linkeon).
+Changes: only the name (in the file's language and in Latin), country,
+region, time zone and population (rounded to thousands) are kept;
+Europe/Kyiv is written as Europe/Kiev for older browsers. The files (one per
+language) are built by scripts/build-hd-cities.py
+(https://github.com/dvvolkovv/land_linkeon).
