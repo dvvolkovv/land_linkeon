@@ -68,7 +68,7 @@ export default function HumanDesignPage({ texts, language }: Props) {
             {texts.form.heading}
           </h2>
           <div className="mt-6 max-w-2xl">
-            <HdForm texts={texts} onResult={setResult} />
+            <HdForm texts={texts} language={language} onResult={setResult} />
           </div>
         </section>
 

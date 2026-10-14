@@ -7,6 +7,8 @@ interface Props {
   texts: HdTexts;
   value: City | null;
   onChange: (city: City | null) => void;
+  /** Язык страницы — у базы городов своя для каждого языка. */
+  language: string;
 }
 
 const LIST_ID = 'hd-city-list';
@@ -19,7 +21,7 @@ export const FIELD_CLASS =
  * при первом фокусе. Поле и список скрыты от Вебвизора: ym-disable-keys —
  * значение поля, ym-hide-content — текст подсказок.
  */
-export default function CityInput({ texts, value, onChange }: Props) {
+export default function CityInput({ texts, value, onChange, language }: Props) {
   const f = texts.form;
   const [query, setQuery] = useState(value?.name ?? '');
   const [index, setIndex] = useState<CityIndex | null>(null);
@@ -38,7 +40,7 @@ export default function CityInput({ texts, value, onChange }: Props) {
   const load = () => {
     if (index || status === 'loading') return;
     setStatus('loading');
-    loadCityIndex()
+    loadCityIndex(language)
       .then((loaded) => {
         setIndex(loaded);
         setStatus('idle');

@@ -24,7 +24,16 @@ type DstChoice = 'before' | 'after';
  * Ничего не хранит: после перезагрузки форма пустая. Поля скрыты от
  * Вебвизора (ym-disable-keys), строки с данными — ym-hide-content.
  */
-export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: (r: HdResultData) => void }) {
+export default function HdForm({
+  texts,
+  language,
+  onResult,
+}: {
+  texts: HdTexts;
+  /** Язык страницы — передаётся дальше в CityInput за базой городов. */
+  language: string;
+  onResult: (r: HdResultData) => void;
+}) {
   const f = texts.form;
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -117,7 +126,7 @@ export default function HdForm({ texts, onResult }: { texts: HdTexts; onResult: 
           </div>
         </div>
 
-        <CityInput texts={texts} value={city} onChange={edit(setCity)} />
+        <CityInput texts={texts} value={city} onChange={edit(setCity)} language={language} />
 
         {city && conversion && conversion !== 'unknownZone' && conversion.kind === 'ok' && (
           <p className="ym-hide-content text-sm text-paper-800" data-testid="hd-zone-line">
