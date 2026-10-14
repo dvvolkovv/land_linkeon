@@ -50,9 +50,9 @@ describe('карточки ассистентов на главной', () => {
   });
 
   // Решение владельца: рядом со ссылкой на каталог — ссылка на калькулятор
-  // Human Design, но только там, где он выпущен (сейчас — только ru): на
-  // невыпущенном языке ссылка вела бы в SPA-фолбэк.
-  it('ссылка на калькулятор — на ru есть, на en её нет', () => {
+  // Human Design, но только там, где он выпущен (с 14.10.2026 — все семь
+  // языков): на невыпущенном языке ссылка вела бы в SPA-фолбэк.
+  it('ссылка на калькулятор — на ru и на en, каждая на калькулятор своего языка', () => {
     const htmlRu = renderToStaticMarkup(
       <I18nextProvider i18n={createServerI18n('ru')}>
         <Assistants />
@@ -66,6 +66,7 @@ describe('карточки ассистентов на главной', () => {
         <Assistants />
       </I18nextProvider>,
     );
-    expect(htmlEn).not.toContain('/calculators/human-design/');
+    expect(htmlEn).toContain('href="/en/calculators/human-design/"');
+    expect(htmlEn).not.toContain('href="/calculators/human-design/"');
   });
 });

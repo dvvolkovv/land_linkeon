@@ -1,11 +1,12 @@
 import type { ReactElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { I18nextProvider } from 'react-i18next';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import Header from './Header';
 import Footer from './Footer';
 import { createServerI18n } from '../../i18n/server';
 import { ASSISTANTS } from '../../content/assistants/roster';
+import { hdCalcPath } from '../../lib/hdRoute';
 
 const render = (ui: ReactElement, language = 'ru') =>
   renderToStaticMarkup(<I18nextProvider i18n={createServerI18n(language)}>{ui}</I18nextProvider>);
@@ -50,9 +51,28 @@ describe('подвал', () => {
     expect(render(<Footer />)).toMatch(/href="\/calculators\/human-design\/"[^>]*>Расчёт Human Design<\/a>/);
   });
 
-  // Калькулятор пока только на русском: ссылка на /en/calculators/… вела бы
-  // в SPA-фолбэк.
-  it('на языке без калькулятора пункта нет', () => {
-    expect(render(<Footer />, 'en')).not.toContain('/calculators/');
+  // С 14.10.2026 калькулятор выпущен на всех семи языках — пункт ведёт на
+  // калькулятор своего языка.
+  it('на каждом языке пункт ведёт на калькулятор своего языка', () => {
+    for (const code of ['ru', 'en', 'es', 'de', 'fr', 'pt', 'zh']) {
+      expect(render(<Footer />, code), code).toContain(`href="${hdCalcPath(code)}"`);
+    }
+  });
+});
+
+describe('подвал: язык без калькулятора', () => {
+  afterEach(() => {
+    vi.doUnmock('../../content/hd/availability');
+    vi.resetModules();
+  });
+
+  // Ссылка на невыпущенный язык вела бы в SPA-фолбэк. Сейчас выпущены все
+  // языки сайта, поэтому «невыпущенный» изображаем подменой availability.
+  it('на языке без калькулятора пункта нет', async () => {
+    vi.resetModules();
+    vi.doMock('../../content/hd/availability', () => ({ hasHdCalculator: (code: string) => code === 'ru' }));
+    const { default: MockedFooter } = await import('./Footer');
+    expect(render(<MockedFooter />, 'en')).not.toContain('/calculators/human-design/');
+    expect(render(<MockedFooter />, 'ru')).toContain('href="/calculators/human-design/"');
   });
 });
