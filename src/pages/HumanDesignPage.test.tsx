@@ -72,13 +72,16 @@ describe('страница калькулятора (пререндер)', () =>
   // латинским «GeoNames» остаётся). Тексты берём русские для обоих
   // рендеров — проверяем только пунктуацию, не перевод.
   it('подпись GeoNames: полноширинная пунктуация в zh, обычная — в ru', () => {
+    // Ссылки разрывают текст тегами («GeoNames</a>，<a>CC BY…») — сравниваем
+    // текстовое содержимое без разметки, а не сырой HTML.
     const pick = (lang: string) => {
       const h = renderToStaticMarkup(
         <I18nextProvider i18n={createServerI18n('ru')}>
           <HumanDesignPage texts={texts} language={lang} />
         </I18nextProvider>,
       );
-      return h.match(/<p data-testid="hd-credits">[\s\S]*?<\/p>/)?.[0] ?? '';
+      const raw = h.match(/<p data-testid="hd-credits">([\s\S]*?)<\/p>/)?.[1] ?? '';
+      return raw.replace(/<[^>]+>/g, '');
     };
     expect(pick('zh')).toContain('GeoNames，CC BY 4.0。');
     expect(pick('ru')).toContain('GeoNames, CC BY 4.0.');
