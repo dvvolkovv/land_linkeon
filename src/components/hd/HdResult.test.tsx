@@ -160,8 +160,11 @@ describe('результат расчёта', () => {
 
   // Склейка по языку страницы (textJoin.ts): в zh тире между именем и
   // пояснением — «——» без пробелов, перечень центров в подписи схемы — через
-  // «、». Тексты берём русские — здесь проверяем не слова, а разделители.
-  it('zh: тире без пробелов и перечень центров через «、»', () => {
+  // «、». Тексты берём русские — здесь проверяем не слова, а разделители;
+  // сама русская проза центров и каналов может содержать « — » как обычное
+  // тире (см. открытые центры этой карты), поэтому не проверяем ВЕСЬ html на
+  // отсутствие « — », только то, что идёт сразу после закрывающего </strong>.
+  it('zh: тире сразу после имени без пробелов, перечень центров через «、»', () => {
     const zhHtml = renderToStaticMarkup(
       <HdResult
         texts={texts}
@@ -176,16 +179,15 @@ describe('результат расчёта', () => {
       />,
     );
     expect(chart.definedCenters.length).toBeGreaterThanOrEqual(2);
+    expect(chart.openCenters.length).toBeGreaterThanOrEqual(1);
     expect(chart.channels.length).toBeGreaterThanOrEqual(1);
 
-    // Нет «пробел-тире-пробел» вообще — ни у центров, ни у каналов.
-    expect(zhHtml).not.toContain(' — ');
-
-    // Сразу после имени — «——» без пробелов: у определённого центра, у
-    // открытого центра и у канала.
-    expect(zhHtml).toContain(`${texts.centers[chart.definedCenters[0]].name}</strong>——`);
-    expect(zhHtml).toContain(`${texts.centers[chart.openCenters[0]].name}</strong>——`);
-    expect(zhHtml).toContain(`${texts.channels['7-31'].name}</strong>——`);
+    // Единственные три </strong> на странице — у определённого центра,
+    // открытого центра и канала (см. HdResult.tsx): сразу после каждого —
+    // «——» без пробела, а не « — », как по-русски.
+    const afterStrong = [...zhHtml.matchAll(/<\/strong>(.{2})/g)].map((m) => m[1]);
+    expect(afterStrong).toHaveLength(3);
+    for (const tail of afterStrong) expect(tail).toBe('——');
 
     // Подпись схемы — перечень центров через «、», без запятых.
     const centers = chart.definedCenters.map((c) => texts.centers[c].name).join('、');
