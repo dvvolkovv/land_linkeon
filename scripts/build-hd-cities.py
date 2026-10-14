@@ -11,12 +11,12 @@ alternateNamesV2 (названия на языках сайта), countryInfo и
 - Unihan (Unicode, Unihan.zip → Unihan_Variants.txt, поле kSimplifiedVariant):
   китайские названия GeoNames часто записаны традиционными иероглифами —
   в базе zh они переводятся в упрощённые посимвольно. Результат зависит от
-  версии Unihan (скачивается latest), как названия стран — от версии ICU.
+  версии Unicode, поэтому берётся закреплённая:
+  https://www.unicode.org/Public/<версия>/ucd/Unihan.zip (сейчас 18.0.0).
 - CLDR — названия стран для всех языков, кроме русского, берёт
   scripts/hd-country-names.mjs через Intl.DisplayNames, поэтому нужен node
-  в PATH с полным ICU. Названия зависят от версии ICU в этом Node (печатается
-  при сборке). Русские названия стран — из GeoNames, как были: русская база
-  уже на проде и вычитана.
+  в PATH с полным ICU. Названия зависят от версии ICU в этом Node. Русские
+  названия стран — из GeoNames, как были: русская база уже на проде и вычитана.
 - scripts/hd-city-overrides.tsv — правки названий по вычитке носителями
   (язык, geonameid, вид, название, почему). Применяются последними, поверх
   GeoNames, CLDR и правил очистки. Правка, чей geonameid не встречается среди
@@ -24,6 +24,17 @@ alternateNamesV2 (названия на языках сайта), countryInfo и
   дампа устаревшие правки не должны тихо гнить. В zh правка с традиционным
   иероглифом тоже роняет сборку. Строка ru меняет русскую базу, которая уже
   на проде и вычитана, — только намеренно (сейчас одна: ДР Конго).
+
+Версии всех входов сборка печатает первым делом — их пишут в сообщение
+коммита с данными. GeoNames выкладывает только свежий дамп (обновляется
+каждый день, архива нет), так что дата дампа — из печати сборки.
+
+Правила очистки названий — для всех языков, кроме русского (он вычитан):
+«臺灣省 or 台灣省» — до « or »; апостроф-мягкий знак в конце транслитерации
+(Kazan’, Tver', Kamenʹ) — долой, внутри слова (L’Aquila) — нет, узбекское ‘
+(Poytug‘) — не трогаем. В zh у городов и регионов ещё: хвост «，страна»,
+«（штат）» в конце, «_» в конце и «X/X» → «X»; у стран скобки — часть названия
+CLDR (刚果（金）/ 刚果（布）), их не трогаем.
 
 Все базы собираются за один прогон по одному дампу и с одной сортировкой:
 строка N — один и тот же город во всех файлах (по номеру строки их сводит
@@ -33,13 +44,20 @@ alternateNamesV2 (названия на языках сайта), countryInfo и
 сырые дампы — во временном каталоге, в репозиторий не кладутся. Готовые JSON
 коммитятся. Только стандартная библиотека Python (и node для стран).
 
-  python3 scripts/build-hd-cities.py --src ~/geonames --out-dir src/content/hd
+  mkdir -p ~/geonames && cd ~/geonames
+  for f in cities15000.zip alternateNamesV2.zip countryInfo.txt admin1CodesASCII.txt; do
+    curl -fsSRO https://download.geonames.org/export/dump/$f
+  done
+  curl -fsSRO https://www.unicode.org/Public/18.0.0/ucd/Unihan.zip
 
-Unihan.zip ищется в --src (или --unihan). На ноде — в каталог вне клона
-(--out-dir /tmp/hd-cities), оттуда scp в воркдерево: новые файлы в клоне
-мешают ему переключаться на другой коммит. --review-dir — таблицы для
-вычитки: по языку review-<код>.tsv (500 крупнейших городов, их регионы, все
-страны рядом с русским названием); не коммитятся.
+  python3 scripts/build-hd-cities.py --src ~/geonames --out-dir /tmp/hd-cities
+
+--out-dir создаётся, если его нет; все семь файлов пишутся в конце, когда
+собраны. На ноде он — вне клона (новые файлы в клоне мешают ему переключаться
+на другой коммит), оттуда файлы scp в src/content/hd/ воркдерева. Unihan.zip
+ищется в --src (или --unihan). --review-dir — таблицы для вычитки: по языку
+review-<код>.tsv (500 крупнейших городов, их регионы, все страны рядом с
+русским названием); не коммитятся.
 
 Формат — интерфейс CityDb в src/lib/cities.ts:
   {"v":1,"zones":[…],"countries":{"RU":"Россия",…},"regions":[…],
@@ -50,10 +68,12 @@ Unihan.zip ищется в --src (или --unihan). На ноде — в кат�
 """
 import argparse
 import csv
+import datetime
 import gzip
 import io
 import json
 import os
+import re
 import subprocess
 import zipfile
 
@@ -86,8 +106,11 @@ CLDR_LOCALES = {'en': 'en-GB', 'es': 'es', 'de': 'de', 'fr': 'fr', 'pt': 'pt-PT'
 KEEP_AS_IS = {'阪'}
 
 # Правки названий по вычитке — данные, а не код: их проверяют люди.
-OVERRIDES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'hd-city-overrides.tsv')
+HERE = os.path.dirname(os.path.abspath(__file__))
+OVERRIDES_FILE = os.path.join(HERE, 'hd-city-overrides.tsv')
 KINDS = ('city', 'region', 'country')
+
+GEONAMES_FILES = ('cities15000.zip', 'alternateNamesV2.zip', 'countryInfo.txt', 'admin1CodesASCII.txt')
 
 csv.field_size_limit(10**9)
 
@@ -96,8 +119,28 @@ def tsv(binary):
     return csv.reader(io.TextIOWrapper(binary, encoding='utf-8'), delimiter='\t', quoting=csv.QUOTE_NONE)
 
 
+def geonames_versions(src):
+    """Строки «файл — размер, дата» для печати: у zip — дата файла внутри
+    архива (её ставит GeoNames при выгрузке), у txt — дата файла на диске
+    (curl -R сохраняет дату сервера)."""
+    lines = []
+    for name in GEONAMES_FILES:
+        path = f'{src}/{name}'
+        size = os.path.getsize(path)
+        if name.endswith('.zip'):
+            inner = name[:-4] + '.txt'
+            with zipfile.ZipFile(path) as z:
+                stamp = datetime.datetime(*z.getinfo(inner).date_time).strftime('%Y-%m-%d %H:%M')
+            lines.append(f'GeoNames {name} — {size} байт, {inner} от {stamp}')
+        else:
+            stamp = datetime.datetime.fromtimestamp(os.path.getmtime(path), datetime.timezone.utc)
+            lines.append(f'GeoNames {name} — {size} байт, от {stamp:%Y-%m-%d %H:%M} UTC')
+    return lines
+
+
 def load_simplified(path):
-    """Таблица для str.translate: традиционный иероглиф → упрощённый (Unihan).
+    """Таблица для str.translate: традиционный иероглиф → упрощённый (Unihan),
+    и строка версии из шапки Unihan_Variants.txt.
 
     Несколько упрощённых вариантов — берём первый из основной плоскости
     Юникода; если среди вариантов есть сам иероглиф, он остаётся как есть.
@@ -105,9 +148,12 @@ def load_simplified(path):
     почти нет, а обиходные упрощённые иероглифы все в основной плоскости —
     иначе «勒克瑙» (Лакхнау) стал бы «勒克» и квадратиком.
     """
-    table = {}
+    table, header = {}, {}
     with zipfile.ZipFile(path) as z, z.open('Unihan_Variants.txt') as f:
         for line in io.TextIOWrapper(f, encoding='utf-8'):
+            if line.startswith('# Unicode Version') or line.startswith('# Date:'):
+                key = 'version' if 'Version' in line else 'date'
+                header.setdefault(key, line[2:].strip())
             r = line.rstrip('\n').split('\t')
             if len(r) < 3 or r[1] != 'kSimplifiedVariant':
                 continue
@@ -116,44 +162,63 @@ def load_simplified(path):
             common = [v for v in variants if ord(v) <= 0xFFFF]
             if common and char not in variants and char not in KEEP_AS_IS:
                 table[ord(char)] = common[0]
-    return table
+    version = f"Unihan {os.path.basename(path)} — {header.get('version', 'версия неизвестна')}, {header.get('date', 'дата неизвестна')}"
+    return table, version
 
 
 def load_overrides(path):
-    """{язык: {geonameid: (вид, название)}} из hd-city-overrides.tsv."""
+    """{язык: {(вид, geonameid): название}} из hd-city-overrides.tsv."""
     overrides = {code: {} for code in LANGS}
     with open(path, encoding='utf-8', newline='') as f:
         rows = csv.reader(f, delimiter='\t', quoting=csv.QUOTE_NONE)
-        header = next(rows)
-        assert header == ['lang', 'geonameid', 'kind', 'name', 'why'], f'{path}: шапка {header}'
+        header = next(rows, None)
+        if header != ['lang', 'geonameid', 'kind', 'name', 'why']:
+            raise SystemExit(f'{path}:1: шапка {header}, нужна lang, geonameid, kind, name, why')
         for n, r in enumerate(rows, start=2):
-            assert len(r) == 5, f'{path}:{n}: {len(r)} колонок вместо 5'
+            if len(r) != 5:
+                raise SystemExit(f'{path}:{n}: {len(r)} колонок вместо 5')
             lang, gid, kind, name, _why = r
-            assert lang in LANGS, f'{path}:{n}: язык {lang}'
-            assert kind in KINDS, f'{path}:{n}: вид {kind}'
-            assert name and name == name.strip(), f'{path}:{n}: название {name!r}'
-            assert int(gid) not in overrides[lang], f'{path}:{n}: {lang} {gid} — второй раз'
-            overrides[lang][int(gid)] = (kind, name)
+            if lang not in LANGS:
+                raise SystemExit(f'{path}:{n}: язык {lang!r} — не из {", ".join(LANGS)}')
+            if kind not in KINDS:
+                raise SystemExit(f'{path}:{n}: вид {kind!r} — не из {", ".join(KINDS)}')
+            if not gid.isdigit():
+                raise SystemExit(f'{path}:{n}: geonameid {gid!r} — не число')
+            if not name or name != name.strip():
+                raise SystemExit(f'{path}:{n}: название {name!r} — пустое или с пробелами по краям')
+            key = (kind, int(gid))
+            if key in overrides[lang]:
+                raise SystemExit(f'{path}:{n}: {lang} {kind} {gid} — второй раз')
+            overrides[lang][key] = name
     return overrides
 
 
 def cldr_country_names(codes):
-    """{язык: {код страны: название}} по CLDR — через Node, см. hd-country-names.mjs."""
-    script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'hd-country-names.mjs')
+    """({язык: {код страны: название}}, строка версий) по CLDR — через Node,
+    см. hd-country-names.mjs."""
+    script = os.path.join(HERE, 'hd-country-names.mjs')
     payload = json.dumps({'locales': CLDR_LOCALES, 'codes': codes})
-    done = subprocess.run(['node', script], input=payload, stdout=subprocess.PIPE, text=True, check=True)
-    return json.loads(done.stdout)
+    try:
+        done = subprocess.run(['node', script], input=payload, stdout=subprocess.PIPE,
+                              encoding='utf-8', check=True)
+    except FileNotFoundError:
+        raise SystemExit('нужен node в PATH (на ноде — source ~/.nvm/nvm.sh)')
+    out = json.loads(done.stdout)
+    v = out['versions']
+    return out['names'], f"CLDR {v['cldr']}, ICU {v['icu']}, Node {v['node']}"
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--src', required=True, help='каталог со скачанными файлами GeoNames')
-    parser.add_argument('--out-dir', required=True, help='куда положить cities.<код>.json')
+    parser.add_argument('--out-dir', required=True, help='куда положить cities.<код>.json (создаётся)')
     parser.add_argument('--unihan', help='Unihan.zip (по умолчанию — в --src)')
     parser.add_argument('--review-dir', help='куда положить review-<код>.tsv для вычитки')
     args = parser.parse_args()
     src = args.src
 
+    # Сначала всё быстрое, что может упасть (файлы, node, правки), — и только
+    # потом долгий проход по alternateNamesV2.
     cities = []
     with zipfile.ZipFile(f'{src}/cities15000.zip') as z, z.open('cities15000.txt') as f:
         for r in tsv(f):
@@ -175,10 +240,45 @@ def main():
             r = line.rstrip('\n').split('\t')
             admin1[r[0]] = {'name': r[1], 'ascii': r[2], 'id': int(r[3])}
 
+    simplified, unihan_version = load_simplified(args.unihan or f'{src}/Unihan.zip')
+    overrides = load_overrides(OVERRIDES_FILE)
+
+    # Одна сортировка на все языки — на ней держится согласованность баз.
+    cities.sort(key=lambda c: (-c['pop'], c['id']))
+    zones = sorted({c['tz'] for c in cities})
+    zone_index = {z: i for i, z in enumerate(zones)}
+    used = sorted({c['cc'] for c in cities})
+    cldr, cldr_version = cldr_country_names(used)
+
+    def region_of(c):
+        return admin1.get(f"{c['cc']}.{c['a1']}")
+
+    # Правка должна попадать в город, регион или страну своего вида — иначе
+    # она устарела (GeoNames сменил запись) или в ней опечатка.
+    in_use = {
+        'city': {c['id'] for c in cities},
+        'region': {a['id'] for c in cities if (a := region_of(c))},
+        'country': {countries[cc]['id'] for cc in used if cc in countries},
+    }
+    problems = []
+    for code, rows in overrides.items():
+        for (kind, gid), name in rows.items():
+            if gid not in in_use[kind]:
+                problems.append(f'{code} {kind} {gid} «{name}»: такого {kind} в базе нет')
+            if code == 'zh' and name.translate(simplified) != name:
+                problems.append(f'{code} {kind} {gid} «{name}»: традиционные иероглифы')
+    if problems:
+        raise SystemExit('hd-city-overrides.tsv:\n  ' + '\n  '.join(problems))
+
+    print('входы сборки:')
+    for line in [*geonames_versions(src), unihan_version, cldr_version]:
+        print(f'  {line}')
+    print(f'{len(cities)} городов, поясов {len(zones)}, стран {len(used)}')
+
     # Название на языке: сначала код, стоящий раньше в LANGS, затем
     # предпочтительное, иначе полное, иначе короткое; разговорные и
     # исторические («Питер», «Ленинград») — нет. Один проход по дампу на все языки.
-    wanted = {c['id'] for c in cities} | {c['id'] for c in countries.values()} | {a['id'] for a in admin1.values()}
+    wanted = in_use['city'] | {c['id'] for c in countries.values()} | {a['id'] for a in admin1.values()}
     names = {code: {} for code in LANGS}
     with zipfile.ZipFile(f'{src}/alternateNamesV2.zip') as z, z.open('alternateNamesV2.txt') as f:
         for r in tsv(f):
@@ -194,75 +294,52 @@ def main():
             if gid not in best or rank < best[gid][0]:
                 best[gid] = (rank, r[3])
 
-    simplified = load_simplified(args.unihan or f'{src}/Unihan.zip')
-    overrides = load_overrides(OVERRIDES_FILE)
-
-    # Одна сортировка на все языки — на ней держится согласованность баз.
-    cities.sort(key=lambda c: (-c['pop'], c['id']))
-    zones = sorted({c['tz'] for c in cities})
-    zone_index = {z: i for i, z in enumerate(zones)}
-    used = sorted({c['cc'] for c in cities})
-    cldr = cldr_country_names(used)
-
-    # Правка должна попадать в город, регион или страну своего вида — иначе
-    # она устарела (GeoNames сменил запись) или в ней опечатка.
-    in_use = {
-        'city': {c['id'] for c in cities},
-        'region': {a['id'] for c in cities if (a := admin1.get(f"{c['cc']}.{c['a1']}"))},
-        'country': {countries[cc]['id'] for cc in used if cc in countries},
-    }
-    problems = []
-    for code, rows in overrides.items():
-        for gid, (kind, name) in rows.items():
-            if gid not in in_use[kind]:
-                problems.append(f'{code} {gid} {kind} «{name}»: такого {kind} в базе нет')
-            if code == 'zh' and name.translate(simplified) != name:
-                problems.append(f'{code} {gid} {kind} «{name}»: традиционные иероглифы')
-    if problems:
-        raise SystemExit('hd-city-overrides.tsv:\n  ' + '\n  '.join(problems))
-    print(f'{len(cities)} городов, поясов {len(zones)}, стран {len(used)}')
-
-    def clean(code, name):
-        """Правила для всех языков, кроме русского (русская база уже вычитана):
-        «臺灣省 or 台灣省» — до « or »; мягкий знак в конце транслитерации
-        (Kazan’, Tver’) — долой, внутри слова (L’Aquila) — нет; в zh —
-        упрощённые иероглифы."""
+    def clean(code, kind, name):
+        """Правила очистки (см. шапку); русские названия — как есть."""
         if code == 'ru':
             return name
         name = name.split(' or ')[0]
-        name = name.rstrip('’ʹ') or name
+        name = name.rstrip("'’ʹ") or name
         if code == 'zh':
             name = name.translate(simplified)
+            if kind != 'country':
+                name = name.split('，')[0].strip() or name
+                name = re.sub(r'（[^（）]*）$', '', name).strip() or name
+                name = name.rstrip('_') or name
+                halves = {half.strip() for half in name.split('/')}
+                if '/' in name and len(halves) == 1:
+                    name = halves.pop()
         return name
 
-    def site_name(code, gid, fallback, preset=None):
-        if gid in overrides[code]:
-            return overrides[code][gid][1]
-        if preset is None:
+    def site_name(code, kind, gid, fallback, cldr_name=None):
+        if (kind, gid) in overrides[code]:
+            return overrides[code][(kind, gid)]
+        if cldr_name is None:
             best = names[code]
-            preset = best[gid][1] if gid in best else fallback
-        return clean(code, preset)
+            cldr_name = best[gid][1] if gid in best else fallback
+        return clean(code, kind, cldr_name)
 
     def city_name(code, c):
-        return site_name(code, c['id'], c['name'])
+        return site_name(code, 'city', c['id'], c['name'])
 
     def region_name(code, a):
-        return site_name(code, a['id'], a['name'])
+        return site_name(code, 'region', a['id'], a['name'])
 
     def country_name(code, cc):
         country = countries.get(cc)
-        preset = cldr.get(code, {}).get(cc)
+        cldr_name = cldr.get(code, {}).get(cc)
         if not country:
-            return clean(code, preset) if preset else cc
-        return site_name(code, country['id'], country['name'], preset)
+            return clean(code, 'country', cldr_name) if cldr_name else cc
+        return site_name(code, 'country', country['id'], country['name'], cldr_name)
 
+    built = {}
     for code in LANGS:
         regions, region_index, rows = [], {}, []
         for c in cities:
             name = city_name(code, c)
             latin = c['ascii'] if c['ascii'] and c['ascii'].lower() != name.lower() else ''
             ri = -1
-            a = admin1.get(f"{c['cc']}.{c['a1']}")
+            a = region_of(c)
             if a:
                 region = region_name(code, a)
                 if region not in region_index:
@@ -279,20 +356,27 @@ def main():
             'cities': rows,
         }
         raw = json.dumps(data, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
-        with open(f'{args.out_dir}/cities.{code}.json', 'wb') as f:
-            f.write(raw)
         with_name = sum(1 for c in cities if c['id'] in names[code])
         with_cldr = sum(1 for cc in used if cc in cldr.get(code, {}))
-        applied = len(overrides[code])
+        built[code] = raw
         print(f'{code}: {len(rows)} городов, с названием на языке {with_name}, регионов {len(regions)}, '
-              f'стран по CLDR {with_cldr}, правок вычитки {applied}, размер {len(raw)} байт, gzip -9 {len(gzip.compress(raw, 9))} байт')
+              f'стран по CLDR {with_cldr}, правок вычитки {len(overrides[code])}, '
+              f'размер {len(raw)} байт, gzip -9 {len(gzip.compress(raw, 9))} байт')
+
+    # Пишем, только когда собраны все семь: полузаписанный набор баз
+    # рассогласован по определению.
+    os.makedirs(args.out_dir, exist_ok=True)
+    for code, raw in built.items():
+        with open(f'{args.out_dir}/cities.{code}.json', 'wb') as f:
+            f.write(raw)
+    print(f'базы — {args.out_dir}')
 
     if args.review_dir:
         os.makedirs(args.review_dir, exist_ok=True)
         top = cities[:500]
         top_regions = {}
         for c in top:
-            a = admin1.get(f"{c['cc']}.{c['a1']}")
+            a = region_of(c)
             if a:
                 top_regions.setdefault(a['id'], (a, c['cc']))
         for code in LANGS:
