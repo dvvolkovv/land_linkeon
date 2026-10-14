@@ -151,5 +151,7 @@ describe('названия на языке — без странностей и�
     expect(DBS.en.db.countries.HK).toBe('Hong Kong');
     expect(DBS.zh.db.countries.HK).toBe('香港');
     expect(DBS.en.db.countries.CD).toBe('DR Congo');
+    // Единственная намеренная правка русской базы: «Заир» устарел в 1997-м.
+    expect(DBS.ru.db.countries.CD).toBe('ДР Конго');
   });
 });
