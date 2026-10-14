@@ -377,7 +377,7 @@ export function draftMessage(template: string, parts: DraftParts, language: stri
 
 (`Date.UTC` для лет 0–99 сдвигает в 1900-е — в калькуляторе год от 1800; при сомнении — `new Date(Date.UTC(2000, m-1, d)).setUTCFullYear(y)`.)
 
-`HdResult.tsx`: prop `language: string`; `dataLine` — `date: formatBirthDate(result.date, language)`; `draftMessage(texts.message, {...}, language)`; перечень центров — `joinComma(centerNames, language)` (`import { joinComma } from '../../lib/textJoin'`). `HumanDesignPage.tsx`: `<HdResult texts={texts} language={language} result={result} />`. `HdResult.test.tsx` — `language="ru"`.
+`HdResult.tsx`: prop `language: string`; `dataLine` — `date: formatBirthDate(result.date, language)`; `draftMessage(texts.message, {...}, language)`; перечень центров — `joinComma(centerNames, language)`; тире между названием и описанием центра (определённые и открытые) и канала — `dashParts(language)` (как в `src/components/values/ValuesResult.tsx`: для ru разметка « — » не меняется, в zh — «——» без пробелов) (`import { dashParts, joinComma } from '../../lib/textJoin'`). `HumanDesignPage.tsx`: `<HdResult texts={texts} language={language} result={result} />`. `HdResult.test.tsx` — `language="ru"`; плюс красный тест: тот же результат с `language="zh"` — в списках центров и каналов нет « — », есть «——»; подпись схемы с двумя центрами склеена «、».
 
 - [ ] **Step 3: Зелёный**
 
