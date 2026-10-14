@@ -34,14 +34,18 @@ describe('база городов GeoNames', () => {
       it('форма записей и ссылки на справочники', () => {
         expect(db.v).toBe(1);
         expect(db.cities.length).toBeGreaterThan(25_000);
-        for (const [name, latin, cc, zone, population, region] of db.cities) {
-          expect(typeof name).toBe('string');
-          expect(typeof latin).toBe('string');
-          expect(db.countries[cc] ?? cc).toBeTruthy();
-          expect(db.zones[zone], name).toBeDefined();
-          expect(population).toBeGreaterThanOrEqual(0);
-          expect(region === -1 || db.regions[region] !== undefined, name).toBe(true);
-        }
+        // Плохие строки копим, а не проверяем построчно: 34 тыс. × 6 expect —
+        // по 2 с с лишним на каждую из семи баз в полном прогоне.
+        const bad = db.cities.filter(
+          ([name, latin, cc, zone, population, region]) =>
+            typeof name !== 'string' ||
+            typeof latin !== 'string' ||
+            !(db.countries[cc] ?? cc) ||
+            db.zones[zone] === undefined ||
+            !(population >= 0) ||
+            !(region === -1 || db.regions[region] !== undefined),
+        );
+        expect(bad.slice(0, 5)).toEqual([]);
       });
 
       it('от крупных к мелким', () => {
@@ -78,14 +82,20 @@ describe('база городов GeoNames', () => {
 describe('семь баз — один список городов', () => {
   // На этом держится поиск инструмента Райи по всем языкам (spirits_back):
   // строка N — один и тот же город во всех базах.
-  it('одинаковая длина, страна и пояс у каждой строки', () => {
+  it('одинаковая длина, страна, пояс и население у каждой строки', () => {
     for (const code of CODES) {
       const other = DBS[code].db;
       expect(other.cities.length, code).toBe(db.cities.length);
+      // Расхождения копим, а не проверяем построчно: 34 тыс. expect на базу —
+      // секунды, впритык к таймауту теста в полном прогоне.
+      const mismatches: string[] = [];
       other.cities.forEach((row, i) => {
-        expect(row[2], `${code}#${i}`).toBe(db.cities[i][2]);
-        expect(other.zones[row[3]], `${code}#${i}`).toBe(db.zones[db.cities[i][3]]);
+        const [name, , cc, zone, population] = db.cities[i];
+        if (row[2] !== cc || other.zones[row[3]] !== db.zones[zone] || row[4] !== population) {
+          mismatches.push(`${code}#${i}: ${row[0]} ${row[2]} ${other.zones[row[3]]} ${row[4]} ≠ ${name} ${cc} ${db.zones[zone]} ${population}`);
+        }
       });
+      expect(mismatches.slice(0, 5), code).toEqual([]);
     }
   });
 });
