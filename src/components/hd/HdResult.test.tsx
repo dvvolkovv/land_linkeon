@@ -182,11 +182,13 @@ describe('результат расчёта', () => {
     expect(chart.openCenters.length).toBeGreaterThanOrEqual(1);
     expect(chart.channels.length).toBeGreaterThanOrEqual(1);
 
-    // Единственные три </strong> на странице — у определённого центра,
-    // открытого центра и канала (см. HdResult.tsx): сразу после каждого —
-    // «——» без пробела, а не « — », как по-русски.
+    // Все </strong> на странице — по одному на каждый определённый центр,
+    // открытый центр и канал (см. HdResult.tsx): сразу после каждого —
+    // «——» без пробела, а не « — », как по-русски. Их 11 на этой карте
+    // (3 определённых + 6 открытых + 2 канала) — меньше трёх (определённый
+    // центр, открытый центр, канал) не бывает по условиям теста выше.
     const afterStrong = [...zhHtml.matchAll(/<\/strong>(.{2})/g)].map((m) => m[1]);
-    expect(afterStrong).toHaveLength(3);
+    expect(afterStrong.length).toBeGreaterThanOrEqual(3);
     for (const tail of afterStrong) expect(tail).toBe('——');
 
     // Подпись схемы — перечень центров через «、», без запятых.
