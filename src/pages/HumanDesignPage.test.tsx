@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { I18nextProvider } from 'react-i18next';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import HumanDesignPage from './HumanDesignPage';
 import { createServerI18n } from '../i18n/server';
 import { HD_TEXTS } from '../content/hd/texts.server';
@@ -66,5 +66,55 @@ describe('страница калькулятора (пререндер)', () =>
     expect(html).toContain('href="https://www.geonames.org/"');
     expect(html).toContain('href="https://creativecommons.org/licenses/by/4.0/"');
     expect(html).toContain('href="/licenses.txt"');
+  });
+
+  // Китайская типографика: «，» и «。» без пробела после (пробел перед
+  // латинским «GeoNames» остаётся). Тексты берём русские для обоих
+  // рендеров — проверяем только пунктуацию, не перевод.
+  it('подпись GeoNames: полноширинная пунктуация в zh, обычная — в ru', () => {
+    const pick = (lang: string) => {
+      const h = renderToStaticMarkup(
+        <I18nextProvider i18n={createServerI18n('ru')}>
+          <HumanDesignPage texts={texts} language={lang} />
+        </I18nextProvider>,
+      );
+      return h.match(/<p data-testid="hd-credits">[\s\S]*?<\/p>/)?.[0] ?? '';
+    };
+    expect(pick('zh')).toContain('GeoNames，CC BY 4.0。');
+    expect(pick('ru')).toContain('GeoNames, CC BY 4.0.');
+  });
+});
+
+describe('баннер языка на калькуляторе', () => {
+  afterEach(() => {
+    vi.doUnmock('../components/ui/LanguageBanner');
+    vi.resetModules();
+  });
+
+  // РЕГРЕССИЯ: без фильтра баннер мог бы предложить язык, на котором
+  // калькулятора нет. Проверяем, что страница передаёт именно hasHdCalculator
+  // (не любую функцию с такой же сигнатурой) — как на тесте ценностей.
+  it('баннер стоит на странице и получает именно hasHdCalculator', async () => {
+    vi.resetModules();
+    let captured: { available?: (code: string) => boolean } = {};
+    vi.doMock('../components/ui/LanguageBanner', () => ({
+      default: (props: { available?: (code: string) => boolean }) => {
+        captured = props;
+        return <i data-testid="language-banner" />;
+      },
+    }));
+    const { default: Page } = await import('./HumanDesignPage');
+    const { HD_TEXTS: hdTexts } = await import('../content/hd/texts.server');
+    // Тот же модуль, что видит сама страница (после общего resetModules) —
+    // иначе сравнение toBe сравнивало бы две разные функции с одинаковой
+    // реализацией и ничего бы не проверяло.
+    const { hasHdCalculator } = await import('../content/hd/availability');
+    const html = renderToStaticMarkup(
+      <I18nextProvider i18n={createServerI18n('ru')}>
+        <Page texts={hdTexts.ru} language="ru" />
+      </I18nextProvider>,
+    );
+    expect(html).toContain('data-testid="language-banner"');
+    expect(captured.available).toBe(hasHdCalculator);
   });
 });
