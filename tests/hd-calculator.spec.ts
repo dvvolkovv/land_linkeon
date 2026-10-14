@@ -296,6 +296,9 @@ const FOREIGN_CASES = [
     offset: 'UTC+8',
     date: '1990年3月12日',
     dataLine: '1990年3月12日 14:25，北京（UTC+8）',
+    // Полноширинные скобки и запятая, без пробелов — место города по-китайски
+    // не через латинскую пунктуацию. Регион и страна — из базы src/content/hd/cities.zh.json.
+    zoneLine: '北京（北京市，中国），出生那天的时区为 UTC+8',
   },
   {
     code: 'en',
@@ -339,6 +342,11 @@ for (const c of FOREIGN_CASES) {
       // Страна — из той же базы: «中国» / «United Kingdom», а не «Китай» / «Великобритания».
       await expect(zoneLine).toContainText(c.country);
       await expect(zoneLine).toContainText(c.offset);
+      // zh: место города — полноширинные скобки и запятая, без пробелов,
+      // не латинская пунктуация (ru/en тут не трогаем — ASCII «(…, …)» верен и им).
+      if ('zoneLine' in c) {
+        await expect(zoneLine).toHaveText(c.zoneLine);
+      }
 
       await page.getByRole('button', { name: texts.form.submit }).click();
       await expect(page.getByTestId('hd-result')).toBeVisible();
