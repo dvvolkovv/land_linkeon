@@ -9,6 +9,7 @@ const chart = chartFromUtc('1990-03-12T11:25:00Z');
 const html = renderToStaticMarkup(
   <HdResult
     texts={texts}
+    language="ru"
     result={{
       chart,
       date: '1990-03-12',
@@ -116,6 +117,7 @@ describe('результат расчёта', () => {
     const allDefinedHtml = renderToStaticMarkup(
       <HdResult
         texts={texts}
+        language="ru"
         result={{
           chart: allDefinedChart,
           date: '1990-03-12',
@@ -143,6 +145,7 @@ describe('результат расчёта', () => {
     const reflectorHtml = renderToStaticMarkup(
       <HdResult
         texts={texts}
+        language="ru"
         result={{
           chart: reflectorChart,
           date: '1941-09-12',
@@ -153,5 +156,39 @@ describe('результат расчёта', () => {
       />,
     );
     expect(reflectorHtml).toContain('>Бодиграф: Рефлектор. Определённые центры: нет</figcaption>');
+  });
+
+  // Склейка по языку страницы (textJoin.ts): в zh тире между именем и
+  // пояснением — «——» без пробелов, перечень центров в подписи схемы — через
+  // «、». Тексты берём русские — здесь проверяем не слова, а разделители.
+  it('zh: тире без пробелов и перечень центров через «、»', () => {
+    const zhHtml = renderToStaticMarkup(
+      <HdResult
+        texts={texts}
+        language="zh"
+        result={{
+          chart,
+          date: '1990-03-12',
+          time: '14:25',
+          city: { name: 'Казань', region: 'Татарстан', country: 'Россия', zone: 'Europe/Moscow' },
+          offsetSeconds: 3 * 3600,
+        }}
+      />,
+    );
+    expect(chart.definedCenters.length).toBeGreaterThanOrEqual(2);
+    expect(chart.channels.length).toBeGreaterThanOrEqual(1);
+
+    // Нет «пробел-тире-пробел» вообще — ни у центров, ни у каналов.
+    expect(zhHtml).not.toContain(' — ');
+
+    // Сразу после имени — «——» без пробелов: у определённого центра, у
+    // открытого центра и у канала.
+    expect(zhHtml).toContain(`${texts.centers[chart.definedCenters[0]].name}</strong>——`);
+    expect(zhHtml).toContain(`${texts.centers[chart.openCenters[0]].name}</strong>——`);
+    expect(zhHtml).toContain(`${texts.channels['7-31'].name}</strong>——`);
+
+    // Подпись схемы — перечень центров через «、», без запятых.
+    const centers = chart.definedCenters.map((c) => texts.centers[c].name).join('、');
+    expect(zhHtml).toContain(`Определённые центры: ${centers}`);
   });
 });

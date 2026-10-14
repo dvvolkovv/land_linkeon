@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DRAFT_MAX_LENGTH, RAYA_ID, draftMessage, fillTemplate, rayaChatHref, rayaChatUrlWithDraft } from './hdDraft';
+import { DRAFT_MAX_LENGTH, RAYA_ID, draftMessage, fillTemplate, formatBirthDate, rayaChatHref, rayaChatUrlWithDraft } from './hdDraft';
 
 const TEMPLATE =
   'Райя, привет! Мои данные рождения: {date}, {time}, {city} ({offset}). Калькулятор показал: {type}, профиль {profile}, {authority}. Расскажи, что это значит для меня';
@@ -16,7 +16,7 @@ const PARTS = {
 
 describe('черновик сообщения Райе', () => {
   it('текст как в спеке', () => {
-    expect(draftMessage(TEMPLATE, PARTS)).toBe(
+    expect(draftMessage(TEMPLATE, PARTS, 'ru')).toBe(
       'Райя, привет! Мои данные рождения: 12.03.1990, 14:25, Казань (UTC+3). Калькулятор показал: Генератор, профиль 3/5, сакральный авторитет. Расскажи, что это значит для меня',
     );
   });
@@ -26,14 +26,35 @@ describe('черновик сообщения Райе', () => {
   });
 
   it('самый длинный реальный случай укладывается в лимит кабинета', () => {
-    const long = draftMessage(TEMPLATE, {
-      ...PARTS,
-      city: 'Петропавловск-Камчатский',
-      offset: 'UTC+12',
-      type: 'Манифестирующий генератор',
-      authority: 'ментальный авторитет (через окружение)',
-    });
+    const long = draftMessage(
+      TEMPLATE,
+      {
+        ...PARTS,
+        city: 'Петропавловск-Камчатский',
+        offset: 'UTC+12',
+        type: 'Манифестирующий генератор',
+        authority: 'ментальный авторитет (через окружение)',
+      },
+      'ru',
+    );
     expect(long.length).toBeLessThan(DRAFT_MAX_LENGTH);
+  });
+});
+
+describe('дата рождения по языку', () => {
+  it('русский — 12.03.1990, как было', () => {
+    expect(formatBirthDate('1990-03-12', 'ru')).toBe('12.03.1990');
+  });
+  it('остальные — месяц словом', () => {
+    expect(formatBirthDate('1990-03-12', 'en')).toBe('12 March 1990');
+    expect(formatBirthDate('1990-03-12', 'de')).toBe('12. März 1990');
+    expect(formatBirthDate('1990-03-12', 'es')).toBe('12 de marzo de 1990');
+    expect(formatBirthDate('1990-03-12', 'fr')).toBe('12 mars 1990');
+    expect(formatBirthDate('1990-03-12', 'pt')).toBe('12 de março de 1990');
+    expect(formatBirthDate('1990-03-12', 'zh')).toBe('1990年3月12日');
+  });
+  it('старые даты — тоже', () => {
+    expect(formatBirthDate('1799-01-05', 'en')).toBe('5 January 1799');
   });
 });
 

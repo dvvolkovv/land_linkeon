@@ -96,15 +96,19 @@ describe('тексты калькулятора', () => {
       it('сообщение Райе укладывается в лимит кабинета при любом сочетании', () => {
         for (const type of HD_TYPES) {
           for (const authority of HD_AUTHORITIES) {
-            const message = draftMessage(t.message, {
-              date: '1990-03-12',
-              time: '14:25',
-              city: 'Петропавловск-Камчатский',
-              offset: 'UTC+12',
-              type: t.types[type].name,
-              profile: '3/5',
-              authority: t.authorities[authority].inMessage,
-            });
+            const message = draftMessage(
+              t.message,
+              {
+                date: '1990-03-12',
+                time: '14:25',
+                city: 'Петропавловск-Камчатский',
+                offset: 'UTC+12',
+                type: t.types[type].name,
+                profile: '3/5',
+                authority: t.authorities[authority].inMessage,
+              },
+              code,
+            );
             expect(message.length).toBeLessThan(DRAFT_MAX_LENGTH);
           }
         }
