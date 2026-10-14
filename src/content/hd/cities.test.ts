@@ -105,7 +105,7 @@ describe('поиск на языке страницы', () => {
   it('крупные города — названием на языке и с местом на языке', () => {
     expect(first('en', 'Munich').zone).toBe('Europe/Berlin');
     expect(first('de', 'München').zone).toBe('Europe/Berlin');
-    expect(cityPlace(first('de', 'München'))).toContain('Deutschland');
+    expect(cityPlace(first('de', 'München'))).toBe('Bayern, Deutschland');
     expect(first('es', 'Sevilla').zone).toBe('Europe/Madrid');
     expect(first('fr', 'Séville').zone).toBe('Europe/Madrid');
     expect(first('pt', 'Lisboa').zone).toBe('Europe/Lisbon');
@@ -114,5 +114,31 @@ describe('поиск на языке страницы', () => {
   });
   it('латиницей — на любом языке', () => {
     for (const code of CODES) expect(first(code, 'kazan').zone, code).toBe('Europe/Moscow');
+  });
+  it('упрощёнными иероглифами — и те города, что в GeoNames записаны традиционными', () => {
+    expect(first('zh', '纽约').zone).toBe('America/New_York');
+    expect(first('zh', '维也纳').zone).toBe('Europe/Vienna');
+  });
+});
+
+describe('названия на языке — без странностей исходных данных', () => {
+  it('страны — обиходными названиями CLDR, а не официальными', () => {
+    expect(DBS.de.db.countries.DE).toBe('Deutschland');
+    expect(DBS.en.db.countries.US).toBe('United States');
+    expect(DBS.zh.db.countries.RU).toBe('俄罗斯');
+    expect(DBS.es.db.countries.CN).toBe('China');
+  });
+  it('без «A or B», мягкого знака в конце и известных ошибок GeoNames', () => {
+    for (const code of CODES.filter((c) => c !== 'ru')) {
+      const { cities, regions, countries } = DBS[code].db;
+      const all = [...cities.map((c) => c[0]), ...regions, ...Object.values(countries)];
+      expect(all.filter((n) => n.includes(' or ')), code).toEqual([]);
+      expect(all.filter((n) => /[’ʹ]$/.test(n)), code).toEqual([]);
+    }
+    const kazan = searchCities(indexCities(DBS.en.db), 'Kazan')[0];
+    expect(kazan.name).toBe('Kazan');
+    expect(searchCities(indexCities(DBS.pt.db), 'Hong Kong')[0].name).toBe('Hong Kong');
+    // Земля Вена названа как город — подпись без повтора; было «Viana, Áustria».
+    expect(cityPlace(searchCities(indexCities(DBS.pt.db), 'Viena')[0])).toBe('Áustria');
   });
 });
