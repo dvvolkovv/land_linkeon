@@ -15,6 +15,7 @@
 3. **Открытые центры — «открытые», как на страницах Райи:** open, abierto, offen, ouvert, aberto (не indefinido), 开放的中心.
 4. **Название метода — как на странице Райи этого языка:** es — Diseño Humano во всех полях (и подвал `src/i18n/locales/es.json`: «Calculadora de Human Design» → «Calculadora de Diseño Humano»); zh — 人类图; en, de, fr, pt — Human Design латиницей. Местное поисковое слово — один раз в `description`: fr «design humain», pt «Desenho Humano»; es — «carta de Diseño Humano» в `title` или `description`; de — «Human Design Rechner» раздельно в `title`, `description`, H1.
 5. **Остальные сомнения — по рекомендациям составителей** (выбор в колонке языка): en — британское написание (centre, Judgement), Split definition без «(double)», Mental (Environmental); de — Reagieren, Eremit, Der Beat, Geistesblitz, offen; fr — мужской род названий типов и линий, Pulsation, Puissance, Transitoire; pt — Desenho (красная сторона), Gerador Manifestante, Bipartida, Modelo; zh — 人类图 и для бодиграфа, авторитеты без скобок с центром, 环境权威.
+6. **По вычитке (14.10):** zh — «G 中心» с пробелом (правило сайта: пробел между латиницей и иероглифами), в таблицах ниже — слитно; de — хлебные крошки «Human-Design-Rechner», как подвал `de.json`; раздельное «Human Design Rechner» — только в `title`, `description`, H1.
 
 
 ## Глоссарий Human Design — английский (en)

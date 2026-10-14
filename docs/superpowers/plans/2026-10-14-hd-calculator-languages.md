@@ -409,6 +409,8 @@ Expected: `unit 0`, `tsc 0`; русские ожидания в `HdResult.test.t
 
 В комментарии над компонентом заменить абзац «Без LanguageBanner сознательно: калькулятор пока только по-русски…» на «LanguageBanner — как на тесте ценностей: предлагает этот же калькулятор на языке браузера, если он выпущен.»
 
+Подпись GeoNames (`data-testid="hd-credits"`) склеивается в JSX из `texts.credits`, ссылок GeoNames и CC BY 4.0 и ссылки на лицензии с «,{' '}» и «.{' '}». В zh — полноширинные «，» и «。» без пробела после них (пробел перед латинской «GeoNames» остаётся). Тест в `HumanDesignPage.test.tsx`: при `language="zh"` текст `hd-credits` содержит «GeoNames，CC BY 4.0。», при ru — прежнее «GeoNames, CC BY 4.0.».
+
 - [ ] **Step 3: Зелёный** — commit «feat(hd): баннер языка на калькуляторе — только выпущенные языки», run `vitest run src/pages` и `pnpm typecheck` → `0`.
 
 ---
