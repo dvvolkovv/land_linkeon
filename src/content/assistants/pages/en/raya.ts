@@ -39,13 +39,13 @@ What this means in practice
 A 7-day experiment
 Before every significant action, be it a work decision, a purchase or an important conversation, briefly tell the people it affects. But only once the emotion has settled, at least the next day. In the evening, note how much resistance and anger there was compared with usual.
 
-If you've already looked at your chart on jovianarchive.com or mybodygraph.com, tell me what you got there, and I'll check it against mine.`,
+If you've already looked at your chart on another site, tell me what you got there, and I'll check it against mine.`,
   },
   can: [
     "Calculates the chart with the Swiss Ephemeris rather than by eye: converts your time of birth to UTC, allowing for the time zone and daylight saving time of those years.",
     "Explains your type, strategy, authority, profile and definition: which centres are open, what the key channels give you, where your incarnation cross leads.",
     "Suggests one seven-day experiment based on your strategy and authority.",
-    "If you send a chart from jovianarchive.com or mybodygraph.com, she'll check it against her own calculation and tell you plainly if the results differ.",
+    "If you send a chart from another site, she'll check it against her own calculation and tell you plainly if the results differ.",
     "Reads the chart of whoever you're asking about — yours, your child's, your partner's — and doesn't mix it up with others.",
   ],
   cannot: [
@@ -60,7 +60,7 @@ If you've already looked at your chart on jovianarchive.com or mybodygraph.com, 
     },
     {
       q: "Is this astrology?",
-      a: "No, although the calculation is also based on the positions of the planets. Here they're only a coordinate system; the interpretation goes through the 64 gates, 9 centres and 36 channels. Raya works in the classical school of Ra Uru Hu.",
+      a: "No, although the calculation is also based on the positions of the planets. Here they're only a coordinate system; the interpretation goes through the 64 gates, 9 centres and 36 channels.",
     },
     {
       q: "How is this different from a calculator or a regular chatbot?",

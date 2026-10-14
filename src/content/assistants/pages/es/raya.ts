@@ -38,17 +38,17 @@ Qué significa en la práctica
 Experimento de 7 días
 Antes de cada acción relevante, ya sea una decisión de trabajo, una compra o una conversación importante, avise brevemente a quienes les afecte. Pero solo cuando la emoción se haya asentado, como mínimo al día siguiente. Por la noche, anote cuánta resistencia y cuánta ira hubo en comparación con lo habitual.
 
-Si ya ha mirado su carta en jovianarchive.com o mybodygraph.com, dígame qué le salió y lo cotejo.`,
+Si ya ha mirado su carta en otro sitio web, dígame qué le salió y lo cotejo.`,
   },
   can: [
     'Calcula la carta con Swiss Ephemeris, no «a ojo»: pasa la hora de nacimiento a UTC teniendo en cuenta el huso horario y el horario de verano de aquellos años.',
     'Explica el tipo, la estrategia, la autoridad, el perfil y la definición: qué centros están abiertos, qué aportan los canales clave, hacia dónde apunta la cruz de encarnación.',
     'Le propone un experimento de siete días basado en su estrategia y su autoridad.',
-    'Si le envía su carta de jovianarchive.com o mybodygraph.com, la coteja con su propio cálculo y le dice claramente si los resultados no coinciden.',
+    'Si le envía su carta de otro sitio web, la coteja con su propio cálculo y le dice claramente si los resultados no coinciden.',
     'Analiza la carta de la persona por la que pregunta (la suya, la de su hijo, la de su pareja) y no la confunde con otras.',
   ],
   cannot: [
-    'No predice el destino ni acontecimientos: aquí el Human Design es una herramienta de autoconocimiento, no una predicción.',
+    'No predice el destino ni acontecimientos: aquí el Diseño Humano es una herramienta de autoconocimiento, no una predicción.',
     'No da recomendaciones médicas ni financieras y no sustituye a un médico, un abogado ni un asesor financiero.',
     'No se inventa la hora de nacimiento: si no la tiene, le dirá que no se puede hacer un cálculo exacto.',
   ],
@@ -59,7 +59,7 @@ Si ya ha mirado su carta en jovianarchive.com o mybodygraph.com, dígame qué le
     },
     {
       q: '¿Es astrología?',
-      a: 'No, aunque el cálculo también se basa en la posición de los planetas. Aquí eso es solo un sistema de coordenadas; la interpretación se hace a través de 64 puertas, 9 centros y 36 canales. Raya trabaja en la escuela clásica de Ra Uru Hu.',
+      a: 'No, aunque el cálculo también se basa en la posición de los planetas. Aquí eso es solo un sistema de coordenadas; la interpretación se hace a través de 64 puertas, 9 centros y 36 canales.',
     },
     {
       q: '¿En qué se diferencia de una calculadora o de un chatbot corriente?',
@@ -67,7 +67,7 @@ Si ya ha mirado su carta en jovianarchive.com o mybodygraph.com, dígame qué le
       link: { text: 'Calcular el bodygraph gratis', href: '/es/calculators/human-design/' },
     },
     {
-      q: '¿Y si tengo dudas sobre el Human Design?',
+      q: '¿Y si tengo dudas sobre el Diseño Humano?',
       a: 'Raya no intentará hacerle cambiar de opinión. Le propondrá un experimento de siete días: poner a prueba la estrategia con su propia experiencia y sacar sus propias conclusiones.',
     },
     {

@@ -45,13 +45,13 @@ O que isto significa na prática
 Experiência de 7 dias
 Antes de cada ação relevante, seja uma decisão de trabalho, uma compra ou uma conversa importante, informe brevemente as pessoas a quem diz respeito. Mas só depois de a emoção assentar, pelo menos no dia seguinte. À noite, registe quanta resistência e quanta raiva houve em comparação com o habitual.
 
-Se já viu o seu mapa em jovianarchive.com ou mybodygraph.com, diga-me o que lá saiu e eu comparo.`,
+Se já viu o seu mapa noutro site, diga-me o que lá saiu e eu comparo.`,
   },
   can: [
     'Calcula o mapa com a Swiss Ephemeris, não «a olho»: converte a hora de nascimento para UTC tendo em conta o fuso horário e a hora de verão em vigor nesses anos.',
     'Explica o tipo, a estratégia, a autoridade, o perfil e a definição: que centros estão abertos, o que dão os canais-chave, para onde aponta a cruz de encarnação.',
     'Propõe uma experiência de sete dias com base na sua estratégia e autoridade.',
-    'Se enviar o mapa do jovianarchive.com ou do mybodygraph.com, compara-o com o cálculo dela e diz-lhe abertamente se os resultados não coincidem.',
+    'Se enviar o mapa de outro site, compara-o com o cálculo dela e diz-lhe abertamente se os resultados não coincidem.',
     'Analisa o mapa da pessoa por quem pergunta — o seu, o de um filho, o do parceiro — e não o confunde com outros.',
   ],
   cannot: [
@@ -66,7 +66,7 @@ Se já viu o seu mapa em jovianarchive.com ou mybodygraph.com, diga-me o que lá
     },
     {
       q: 'Isto é astrologia?',
-      a: 'Não, embora o cálculo também se baseie na posição dos planetas. Aqui, essa posição é só o sistema de coordenadas; a interpretação faz-se através das 64 portas, dos 9 centros e dos 36 canais. A Raya trabalha na escola clássica de Ra Uru Hu.',
+      a: 'Não, embora o cálculo também se baseie na posição dos planetas. Aqui, essa posição é só o sistema de coordenadas; a interpretação faz-se através das 64 portas, dos 9 centros e dos 36 canais.',
     },
     {
       q: 'Em que é diferente de uma calculadora ou de um chatbot comum?',

@@ -38,13 +38,13 @@ Was das in der Praxis bedeutet
 Experiment für 7 Tage
 Informieren Sie vor jeder nennenswerten Handlung, sei es eine berufliche Entscheidung, ein Kauf oder ein wichtiges Gespräch, kurz die Menschen, die sie betrifft. Aber erst, wenn sich die Emotion gelegt hat, frühestens am nächsten Tag. Notieren Sie abends, wie viel Widerstand und Ärger es im Vergleich zu sonst gab.
 
-Wenn Sie Ihr Chart schon auf jovianarchive.com oder mybodygraph.com angesehen haben, schreiben Sie mir, was dort herauskam, und ich gleiche es ab.`,
+Wenn Sie Ihr Chart schon auf einer anderen Website angesehen haben, schreiben Sie mir, was dort herauskam, und ich gleiche es ab.`,
   },
   can: [
     'Berechnet das Chart mit Swiss Ephemeris statt nach Augenmaß: Sie rechnet die Geburtszeit in UTC um und berücksichtigt Zeitzone und Sommerzeit der jeweiligen Jahre.',
     'Erklärt Typ, Strategie, Autorität, Profil und Definition: welche Zentren offen sind, was die wichtigsten Kanäle bewirken, wohin das Inkarnationskreuz führt.',
     'Schlägt ein Experiment für sieben Tage vor, passend zu Ihrer Strategie und Autorität.',
-    'Wenn Sie ein Chart von jovianarchive.com oder mybodygraph.com schicken, gleicht sie es mit ihrer eigenen Berechnung ab und sagt offen, wenn die Ergebnisse voneinander abweichen.',
+    'Wenn Sie ein Chart von einer anderen Website schicken, gleicht sie es mit ihrer eigenen Berechnung ab und sagt offen, wenn die Ergebnisse voneinander abweichen.',
     'Deutet das Chart der Person, nach der Sie fragen – Ihr eigenes, das Ihres Kindes oder Partners – und verwechselt es nicht mit anderen.',
   ],
   cannot: [
@@ -59,7 +59,7 @@ Wenn Sie Ihr Chart schon auf jovianarchive.com oder mybodygraph.com angesehen ha
     },
     {
       q: 'Ist das Astrologie?',
-      a: 'Nein, auch wenn die Berechnung ebenfalls auf den Positionen der Planeten beruht. Hier sind sie nur das Koordinatensystem, gedeutet wird über 64 Tore, 9 Zentren und 36 Kanäle. Raya arbeitet in der klassischen Schule von Ra Uru Hu.',
+      a: 'Nein, auch wenn die Berechnung ebenfalls auf den Positionen der Planeten beruht. Hier sind sie nur das Koordinatensystem, gedeutet wird über 64 Tore, 9 Zentren und 36 Kanäle.',
     },
     {
       q: 'Worin unterscheidet sich das von einem Rechner oder einem gewöhnlichen Chatbot?',

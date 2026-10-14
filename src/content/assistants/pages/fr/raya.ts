@@ -42,13 +42,13 @@ Ce que cela signifie en pratique
 Expérience de 7 jours
 Avant chaque action notable, qu'il s'agisse d'une décision professionnelle, d'un achat ou d'une conversation importante, informez-en brièvement les personnes concernées. Mais seulement une fois l'émotion retombée, au moins le lendemain. Le soir, notez s'il y a eu plus ou moins de résistance et de colère que d'habitude.
 
-Si vous avez déjà regardé votre carte sur jovianarchive.com ou mybodygraph.com, dites-moi ce qui en est ressorti, et je comparerai.`,
+Si vous avez déjà regardé votre carte sur un autre site, dites-moi ce qui en est ressorti, et je comparerai.`,
   },
   can: [
     "Calcule la carte avec Swiss Ephemeris, pas « à vue de nez » : convertit l'heure de naissance en UTC en tenant compte du fuseau horaire et de l'heure d'été de l'époque.",
     "Explique le type, la stratégie, l'autorité, le profil et la définition : quels centres sont ouverts, ce qu'apportent les canaux clés, où mène la croix d'incarnation.",
     "Propose une expérience de sept jours fondée sur votre stratégie et votre autorité.",
-    "Si vous envoyez une carte de jovianarchive.com ou mybodygraph.com, la compare avec son propre calcul et vous dit franchement si les résultats divergent.",
+    "Si vous envoyez une carte d'un autre site, la compare avec son propre calcul et vous dit franchement si les résultats divergent.",
     "Étudie la carte de la personne sur laquelle vous l'interrogez (vous, votre enfant, votre partenaire) sans la confondre avec d'autres.",
   ],
   cannot: [
@@ -63,7 +63,7 @@ Si vous avez déjà regardé votre carte sur jovianarchive.com ou mybodygraph.co
     },
     {
       q: "Est-ce de l'astrologie ?",
-      a: "Non, même si le calcul repose aussi sur la position des planètes. Ici, ce n'est qu'un système de coordonnées ; l'interprétation passe par les 64 portes, les 9 centres et les 36 canaux. Raya travaille selon l'école classique de Ra Uru Hu.",
+      a: "Non, même si le calcul repose aussi sur la position des planètes. Ici, ce n'est qu'un système de coordonnées ; l'interprétation passe par les 64 portes, les 9 centres et les 36 canaux.",
     },
     {
       q: "En quoi est-ce différent d'un calculateur ou d'un chatbot classique ?",
