@@ -21,10 +21,23 @@ export interface DraftParts {
   authority: string;
 }
 
-/** Текст первого сообщения Райе. Дата — по-русски: 12.03.1990. */
-export function draftMessage(template: string, parts: DraftParts): string {
-  const [y, m, d] = parts.date.split('-');
-  return fillTemplate(template, { ...parts, date: `${d}.${m}.${y}` });
+/**
+ * Дата рождения для строки данных и черновика Райе. По-русски — 12.03.1990,
+ * как было; на других языках — месяц словом: «12 March 1990» не спутать с
+ * 3 декабря, как американское 03/12.
+ */
+export function formatBirthDate(date: string, language: string): string {
+  const [y, m, d] = date.split('-');
+  if (language === 'ru') return `${d}.${m}.${y}`;
+  const locale = language === 'en' ? 'en-GB' : language === 'pt' ? 'pt-PT' : language;
+  return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
+    new Date(Date.UTC(Number(y), Number(m) - 1, Number(d))),
+  );
+}
+
+/** Текст первого сообщения Райе на языке страницы. */
+export function draftMessage(template: string, parts: DraftParts, language: string): string {
+  return fillTemplate(template, { ...parts, date: formatBirthDate(parts.date, language) });
 }
 
 /** Ссылка без черновика — она и стоит в href кнопки. */

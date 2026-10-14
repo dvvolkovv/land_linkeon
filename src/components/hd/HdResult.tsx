@@ -4,8 +4,9 @@ import Button from '../ui/Button';
 import Bodygraph from './Bodygraph';
 import type { HdResultData } from './HdForm';
 import type { HdTexts, ProfileKey } from '../../content/hd/types';
-import { draftMessage, fillTemplate, rayaChatHref, rayaChatUrlWithDraft } from '../../lib/hdDraft';
+import { draftMessage, fillTemplate, formatBirthDate, rayaChatHref, rayaChatUrlWithDraft } from '../../lib/hdDraft';
 import { formatOffset } from '../../lib/human-design';
+import { dashParts, joinComma } from '../../lib/textJoin';
 
 function Row({ label, value, text, testId }: { label: string; value: string; text?: string; testId?: string }) {
   return (
@@ -29,7 +30,7 @@ function Row({ label, value, text, testId }: { label: string; value: string; tex
  * набору активных ворот дату рождения можно восстановить примерно до дня, а
  * не только по строке с датой, временем и городом (решение владельца).
  */
-export default function HdResult({ texts, result }: { texts: HdTexts; result: HdResultData }) {
+export default function HdResult({ texts, language, result }: { texts: HdTexts; language: string; result: HdResultData }) {
   const r = texts.result;
   const { chart } = result;
   const type = texts.types[chart.type];
@@ -37,8 +38,16 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
   const profile = texts.profiles[chart.profile as ProfileKey];
   const definition = texts.definitions[chart.definition];
   const offset = formatOffset(result.offsetSeconds);
-  const [y, m, d] = result.date.split('-');
-  const dataLine = fillTemplate(r.dataLine, { date: `${d}.${m}.${y}`, time: result.time, city: result.city.name, offset });
+  const dataLine = fillTemplate(r.dataLine, {
+    date: formatBirthDate(result.date, language),
+    time: result.time,
+    city: result.city.name,
+    offset,
+  });
+  // Тире между именем и пояснением — по языку страницы: в zh «——» без
+  // пробелов (gap='', dash='——'), у остальных — как раньше, « — » (пробел —
+  // снаружи, в gap; «— » с пробелом перед текстом — внутри, в dash).
+  const { gap, dash } = dashParts(language);
   // У Рефлектора определённых центров нет. Запасной вариант из плана —
   // `chart.definedCenters.map(...).join(', ') || r.noDefinedCenters` — при
   // пустом списке подставил бы в {centers} шаблона bodygraphLabel саму
@@ -47,7 +56,7 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
   // отдельный шаблон bodygraphLabelEmpty («Определённые центры: нет»).
   const centerNames = chart.definedCenters.map((c) => texts.centers[c].name);
   const label = centerNames.length
-    ? fillTemplate(r.bodygraphLabel, { type: type.name, centers: centerNames.join(', ') })
+    ? fillTemplate(r.bodygraphLabel, { type: type.name, centers: joinComma(centerNames, language) })
     : fillTemplate(r.bodygraphLabelEmpty, { type: type.name });
 
   // Черновик Райе собирается только здесь, в момент клика: в href кнопки
@@ -58,15 +67,19 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
   const toRaya = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const url = rayaChatUrlWithDraft(
-      draftMessage(texts.message, {
-        date: result.date,
-        time: result.time,
-        city: result.city.name,
-        offset,
-        type: type.name,
-        profile: chart.profile,
-        authority: authority.inMessage,
-      }),
+      draftMessage(
+        texts.message,
+        {
+          date: result.date,
+          time: result.time,
+          city: result.city.name,
+          offset,
+          type: type.name,
+          profile: chart.profile,
+          authority: authority.inMessage,
+        },
+        language,
+      ),
     );
     if (e.metaKey || e.ctrlKey || e.shiftKey) window.open(url, '_blank', 'noopener');
     else window.location.assign(url);
@@ -120,7 +133,10 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
             <ul className="mt-3 space-y-2" data-testid="hd-defined-centers">
               {chart.definedCenters.map((c) => (
                 <li key={c} className="text-paper-800 leading-relaxed">
-                  <strong className="text-paper-900">{texts.centers[c].name}</strong> — {texts.centers[c].defined}
+                  <strong className="text-paper-900">{texts.centers[c].name}</strong>
+                  {gap}
+                  {dash}
+                  {texts.centers[c].defined}
                 </li>
               ))}
             </ul>
@@ -134,7 +150,10 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
             <ul className="mt-3 space-y-2">
               {chart.openCenters.map((c) => (
                 <li key={c} className="text-paper-800 leading-relaxed">
-                  <strong className="text-paper-900">{texts.centers[c].name}</strong> — {texts.centers[c].open}
+                  <strong className="text-paper-900">{texts.centers[c].name}</strong>
+                  {gap}
+                  {dash}
+                  {texts.centers[c].open}
                 </li>
               ))}
             </ul>
@@ -151,8 +170,10 @@ export default function HdResult({ texts, result }: { texts: HdTexts; result: Hd
             <li key={key} className="text-paper-800 leading-relaxed">
               <strong className="text-paper-900">
                 {key} · {texts.channels[key].name}
-              </strong>{' '}
-              — {texts.channels[key].text}
+              </strong>
+              {gap}
+              {dash}
+              {texts.channels[key].text}
             </li>
           ))}
         </ul>

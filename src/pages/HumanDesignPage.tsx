@@ -72,7 +72,7 @@ export default function HumanDesignPage({ texts, language }: Props) {
           </div>
         </section>
 
-        {result && <HdResult texts={texts} result={result} />}
+        {result && <HdResult texts={texts} language={language} result={result} />}
 
         {texts.intro.length > 1 && (
           <section data-testid="hd-about" className="max-w-4xl mx-auto px-6 pb-10 md:pb-12">
