@@ -1,10 +1,7 @@
 import { indexCities, type CityDb, type CityIndex } from './cities';
 
 // Адреса всех семи баз; браузер скачивает только ту, что нужна странице.
-const URLS = import.meta.glob('../content/hd/cities.*.json', { query: '?url', import: 'default', eager: true }) as Record<
-  string,
-  string
->;
+const URLS = import.meta.glob<string>('../content/hd/cities.*.json', { query: '?url', import: 'default', eager: true });
 
 /** Адрес базы городов на языке страницы; незнакомый язык — русская. */
 export function cityDbUrl(language: string): string {
