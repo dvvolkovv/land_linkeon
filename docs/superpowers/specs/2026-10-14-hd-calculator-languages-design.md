@@ -1,7 +1,7 @@
 # Калькулятор Human Design на шести языках — дизайн
 
 **Дата:** 2026-10-14
-**Статус:** дизайн согласован владельцем, план не написан
+**Статус:** дизайн согласован владельцем; план — `docs/superpowers/plans/2026-10-14-hd-calculator-languages.md`
 **Основа:**
 - калькулятор — `docs/superpowers/specs/2026-10-08-human-design-calculator-design.md` и план того же дня («Правила текстов», таблица названий);
 - тест ценностей на шести языках — `docs/superpowers/specs/2026-10-13-values-test-languages-design.md`, план и итоги: процесс перевода, склейка по языку (`src/lib/textJoin.ts`), баннер с `available`, `isSitePageReleased`;
