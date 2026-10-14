@@ -3,7 +3,7 @@ import Button from '../ui/Button';
 import CityInput, { FIELD_CLASS } from './CityInput';
 import { DATE_RE, convert, localToday } from './hdFormLogic';
 import type { HdTexts } from '../../content/hd/types';
-import { cityPlace, type City } from '../../lib/cities';
+import { cityWithPlace, type City } from '../../lib/cities';
 import { fillTemplate } from '../../lib/hdDraft';
 import { reachGoal } from '../../lib/goal';
 import { formatOffset, calculateChart, type HdChart } from '../../lib/human-design';
@@ -131,7 +131,7 @@ export default function HdForm({
         {city && conversion && conversion !== 'unknownZone' && conversion.kind === 'ok' && (
           <p className="ym-hide-content text-sm text-paper-800" data-testid="hd-zone-line">
             {fillTemplate(f.zoneLine, {
-              city: `${city.name} (${cityPlace(city)})`,
+              city: cityWithPlace(city, language),
               offset: formatOffset(conversion.offsetSeconds),
             })}
           </p>

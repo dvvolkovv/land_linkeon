@@ -138,7 +138,7 @@ export default function CityInput({ texts, value, onChange, language }: Props) {
               className={`cursor-pointer px-3 py-2 ${i === active ? 'bg-brand-100 ring-2 ring-inset ring-brand-800' : ''}`}
             >
               <span className="font-medium text-paper-900">{city.name}</span>{' '}
-              <span className="text-sm text-paper-600">{cityPlace(city)}</span>
+              <span className="text-sm text-paper-600">{cityPlace(city, language)}</span>
             </li>
           ))}
         </ul>
