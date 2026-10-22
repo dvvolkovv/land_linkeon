@@ -137,7 +137,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">Version dated 5 August 2026</div>
+          <div className="text-xs text-gray-500">Version dated 22 October 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">Personal data operator</div>
             <div><strong>Name:</strong> Dmitry Viktorovich Volkov</div>
@@ -231,10 +231,6 @@ export function renderLegal(type: LegalType) {
               assistants. <strong>Country of operation: People's Republic of China</strong>
             </li>
             <li>
-              <strong>Kling (Kuaishou)</strong> — video generation and processing.{' '}
-              <strong>Country of operation: People's Republic of China</strong>
-            </li>
-            <li>
               <strong>Yandex SpeechKit</strong> — speech recognition for voice input.
               Country of operation: Russian Federation
             </li>
@@ -279,9 +275,7 @@ export function renderLegal(type: LegalType) {
             <strong>Please note in particular: part of the user's data is transferred to the
             People's Republic of China.</strong> The following is transferred to the PRC: the text
             of the user's messages to an AI assistant together with their profile context when
-            greeting messages are generated (vendor DeepSeek), and the text prompts, images and
-            audio used to generate and process video
-            (vendor Kling / Kuaishou). The People's Republic of China is not a party to the Council
+            greeting messages are generated (vendor DeepSeek). The People's Republic of China is not a party to the Council
             of Europe Convention for the Protection of Individuals with regard to Automatic
             Processing of Personal Data and is not included in the list of foreign states providing
             adequate protection of the rights of personal data subjects. The level of legal
@@ -396,7 +390,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">Version dated 5 August 2026</div>
+          <div className="text-xs text-gray-500">Version dated 22 October 2026</div>
           <P>
             By registering and using the LINKEON.IO Application the user consents to the processing
             of their personal data by Dmitry Viktorovich Volkov (INN 463404496646, email
@@ -437,7 +431,7 @@ export function renderLegal(type: LegalType) {
           <P>
             For AI-request processing, personal data is transferred to third-party vendors:
             OpenAI (USA), Anthropic (USA), Google (USA), ElevenLabs (USA), DeepSeek (PRC),
-            Kling / Kuaishou (PRC), Yandex SpeechKit (Russian Federation), as well as other AI
+            Yandex SpeechKit (Russian Federation), as well as other AI
             services engaged for particular features of the Application.
           </P>
           <P>
@@ -463,8 +457,7 @@ export function renderLegal(type: LegalType) {
           <P>
             <strong>Data is transferred, among other destinations, to the People's Republic of
             China:</strong> the text of the user's messages together with their profile context —
-            when greeting messages are generated (vendor DeepSeek); text prompts, images and audio
-            — when video is generated and processed (vendor Kling / Kuaishou). The People's
+            when greeting messages are generated (vendor DeepSeek). The People's
             Republic of China is not a party to the Council of Europe Convention for the Protection
             of Individuals with regard to Automatic Processing of Personal Data and is not included
             in the list of foreign states providing adequate protection of the rights of personal

@@ -145,7 +145,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">Fassung vom 5. August 2026</div>
+          <div className="text-xs text-gray-500">Fassung vom 22. Oktober 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">
               Verantwortlicher für die Verarbeitung personenbezogener Daten
@@ -245,10 +245,6 @@ export function renderLegal(type: LegalType) {
               KI-Assistenten. <strong>Sitzland: Volksrepublik China</strong>
             </li>
             <li>
-              <strong>Kling (Kuaishou)</strong> — Erzeugung und Bearbeitung von Videos.{' '}
-              <strong>Sitzland: Volksrepublik China</strong>
-            </li>
-            <li>
               <strong>Yandex SpeechKit</strong> — Spracherkennung bei der Spracheingabe.
               Sitzland: Russische Föderation
             </li>
@@ -294,11 +290,9 @@ export function renderLegal(type: LegalType) {
           </P>
           <P>
             <strong>Wir weisen ausdrücklich darauf hin: Ein Teil der Daten des Nutzers wird in die
-            Volksrepublik China übermittelt.</strong> In die VR China übermittelt werden: der Text
+            Volksrepublik China übermittelt.</strong> In die VR China übermittelt wird: der Text
             der Nachrichten des Nutzers an den KI-Assistenten zusammen mit dem Kontext seines
-            Profils bei der Erstellung der Begrüßungsnachrichten (Anbieter DeepSeek) sowie die
-            Textbeschreibungen, Bilder und Audioaufnahmen, auf deren Grundlage
-            Videos erzeugt und bearbeitet werden (Anbieter Kling / Kuaishou). Die Volksrepublik
+            Profils bei der Erstellung der Begrüßungsnachrichten (Anbieter DeepSeek). Die Volksrepublik
             China ist nicht Vertragspartei des Übereinkommens des Europarats zum Schutz des
             Menschen bei der automatischen Verarbeitung personenbezogener Daten und ist nicht in
             der Liste der ausländischen Staaten enthalten, die einen angemessenen Schutz der Rechte
@@ -428,7 +422,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">Fassung vom 5. August 2026</div>
+          <div className="text-xs text-gray-500">Fassung vom 22. Oktober 2026</div>
           <P>
             Mit der Registrierung und der Nutzung der Anwendung LINKEON.IO willigt der Nutzer
             gegenüber Dmitry Viktorovich Volkov (INN 463404496646, E-Mail support@linkeon.io),
@@ -471,8 +465,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Zur Verarbeitung der KI-Anfragen werden personenbezogene Daten an Anbieter aus
             Drittunternehmen übermittelt: OpenAI (USA), Anthropic (USA), Google (USA),
-            ElevenLabs (USA), DeepSeek (VR China), Kling / Kuaishou (VR China),
-            Yandex SpeechKit (Russische Föderation) sowie an sonstige KI-Dienste, die für einzelne
+            ElevenLabs (USA), DeepSeek (VR China), Yandex SpeechKit (Russische Föderation) sowie an sonstige KI-Dienste, die für einzelne
             Funktionen der Anwendung herangezogen werden.
           </P>
           <P>
@@ -501,9 +494,7 @@ export function renderLegal(type: LegalType) {
           <P>
             <strong>Daten werden unter anderem in die Volksrepublik China übermittelt:</strong> der
             Text der Nachrichten des Nutzers zusammen mit dem Kontext seines Profils — bei der
-            Erstellung der Begrüßungsnachrichten (Anbieter DeepSeek); Textbeschreibungen, Bilder
-            und Audioaufnahmen — bei der Erzeugung und Bearbeitung von Videos (Anbieter
-            Kling / Kuaishou). Die Volksrepublik China ist nicht Vertragspartei des Übereinkommens
+            Erstellung der Begrüßungsnachrichten (Anbieter DeepSeek). Die Volksrepublik China ist nicht Vertragspartei des Übereinkommens
             des Europarats zum Schutz des Menschen bei der automatischen Verarbeitung
             personenbezogener Daten und ist nicht in der Liste der ausländischen Staaten enthalten,
             die einen angemessenen Schutz der Rechte der betroffenen Personen gewährleisten; das

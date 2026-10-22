@@ -144,7 +144,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">Versión de 5 de agosto de 2026</div>
+          <div className="text-xs text-gray-500">Versión de 22 de octubre de 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">Responsable del tratamiento de datos personales</div>
             <div><strong>Nombre:</strong> Dmitry Viktorovich Volkov</div>
@@ -242,10 +242,6 @@ export function renderLegal(type: LegalType) {
               con los asistentes de IA. <strong>País de alojamiento: República Popular China</strong>
             </li>
             <li>
-              <strong>Kling (Kuaishou)</strong> — generación y procesamiento de vídeo.{' '}
-              <strong>País de alojamiento: República Popular China</strong>
-            </li>
-            <li>
               <strong>Yandex SpeechKit</strong> — reconocimiento del habla en la entrada por voz.
               País de alojamiento: Federación de Rusia
             </li>
@@ -291,11 +287,9 @@ export function renderLegal(type: LegalType) {
           </P>
           <P>
             <strong>Le advertimos expresamente: parte de los datos del usuario se transfiere a la
-            República Popular China.</strong> A la RPC se transfieren: el texto de los mensajes
+            República Popular China.</strong> A la RPC se transfiere: el texto de los mensajes
             del usuario dirigidos al asistente de IA junto con el contexto de su perfil, en la
-            elaboración de los mensajes de bienvenida (proveedor DeepSeek), así como las
-            descripciones textuales, las imágenes y las grabaciones de audio a partir de las
-            cuales se crea y se procesa el vídeo (proveedor Kling / Kuaishou). La República
+            elaboración de los mensajes de bienvenida (proveedor DeepSeek). La República
             Popular China no es parte del Convenio del Consejo de Europa para la protección de
             las personas con respecto al tratamiento automatizado de datos de carácter personal
             ni figura en la lista de Estados extranjeros que garantizan una protección adecuada
@@ -425,7 +419,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">Versión de 5 de agosto de 2026</div>
+          <div className="text-xs text-gray-500">Versión de 22 de octubre de 2026</div>
           <P>
             Al registrarse y utilizar la Aplicación LINKEON.IO, el usuario presta su
             consentimiento a Dmitry Viktorovich Volkov (INN 463404496646, correo electrónico
@@ -468,7 +462,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Para el tratamiento de las solicitudes de IA, los datos personales se transmiten a
             proveedores externos: OpenAI (EE. UU.), Anthropic (EE. UU.), Google (EE. UU.),
-            ElevenLabs (EE. UU.), DeepSeek (RPC), Kling / Kuaishou (RPC), Yandex SpeechKit
+            ElevenLabs (EE. UU.), DeepSeek (RPC), Yandex SpeechKit
             (Federación de Rusia), así como a otros servicios de IA empleados para funciones
             concretas de la Aplicación.
           </P>
@@ -498,9 +492,7 @@ export function renderLegal(type: LegalType) {
           <P>
             <strong>Los datos se transfieren, entre otros destinos, a la República Popular
             China:</strong> el texto de los mensajes del usuario junto con el contexto de su
-            perfil, en la elaboración de los mensajes de bienvenida (proveedor DeepSeek); las
-            descripciones textuales, las imágenes y las grabaciones de audio, en la generación y
-            el procesamiento del vídeo (proveedor Kling / Kuaishou). La República Popular China no
+            perfil, en la elaboración de los mensajes de bienvenida (proveedor DeepSeek). La República Popular China no
             es parte del Convenio del Consejo de Europa para la protección de las personas con
             respecto al tratamiento automatizado de datos de carácter personal ni figura en la
             lista de Estados extranjeros que garantizan una protección adecuada de los derechos de
