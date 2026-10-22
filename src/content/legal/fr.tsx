@@ -145,7 +145,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">Version du 5 août 2026</div>
+          <div className="text-xs text-gray-500">Version du 22 octobre 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">Responsable du traitement des données à caractère personnel</div>
             <div><strong>Dénomination :</strong> Dmitry Viktorovich Volkov</div>
@@ -244,10 +244,6 @@ export function renderLegal(type: LegalType) {
               avec les assistants IA. <strong>Pays d’hébergement : République populaire de Chine</strong>
             </li>
             <li>
-              <strong>Kling (Kuaishou)</strong> — génération et traitement des vidéos.{' '}
-              <strong>Pays d’hébergement : République populaire de Chine</strong>
-            </li>
-            <li>
               <strong>Yandex SpeechKit</strong> — reconnaissance vocale lors de la saisie vocale.
               Pays d’hébergement : Fédération de Russie
             </li>
@@ -295,11 +291,9 @@ export function renderLegal(type: LegalType) {
           <P>
             <strong>Nous attirons tout particulièrement votre attention sur le fait qu’une partie
             des données de l’utilisateur est transférée vers la République populaire de
-            Chine.</strong> Sont transférés vers la RPC : le texte des messages adressés par
+            Chine.</strong> Est transféré vers la RPC : le texte des messages adressés par
             l’utilisateur à l’assistant IA, accompagné du contexte de son profil, lors de la
-            génération des messages d’accueil (prestataire DeepSeek), ainsi que les descriptions
-            textuelles, les images et les enregistrements audio à partir desquels la vidéo est
-            créée et traitée (prestataire Kling / Kuaishou). La République populaire de Chine n’est
+            génération des messages d’accueil (prestataire DeepSeek). La République populaire de Chine n’est
             pas partie à la Convention du Conseil de l’Europe pour la protection des personnes à
             l’égard du traitement automatisé des données à caractère personnel et ne figure pas sur
             la liste des États étrangers assurant une protection adéquate des droits des personnes
@@ -428,7 +422,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">Version du 5 août 2026</div>
+          <div className="text-xs text-gray-500">Version du 22 octobre 2026</div>
           <P>
             En s’inscrivant et en utilisant l’Application LINKEON.IO, l’utilisateur consent à ce
             que Dmitry Viktorovich Volkov (INN 463404496646, adresse électronique
@@ -473,8 +467,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Aux fins du traitement des requêtes IA, les données à caractère personnel sont
             transmises à des prestataires tiers : OpenAI (États-Unis), Anthropic (États-Unis),
-            Google (États-Unis), ElevenLabs (États-Unis), DeepSeek (RPC), Kling / Kuaishou (RPC),
-            Yandex SpeechKit (Fédération de Russie), ainsi qu’à d’autres services d’IA mobilisés
+            Google (États-Unis), ElevenLabs (États-Unis), DeepSeek (RPC), Yandex SpeechKit (Fédération de Russie), ainsi qu’à d’autres services d’IA mobilisés
             pour certaines fonctionnalités de l’Application.
           </P>
           <P>
@@ -504,9 +497,7 @@ export function renderLegal(type: LegalType) {
           <P>
             <strong>Des données sont transférées, notamment, vers la République populaire de
             Chine :</strong> le texte des messages de l’utilisateur accompagné du contexte de son
-            profil — lors de la génération des messages d’accueil (prestataire DeepSeek) ; les
-            descriptions textuelles, les images et les enregistrements audio — lors de la
-            génération et du traitement des vidéos (prestataire Kling / Kuaishou). La République
+            profil — lors de la génération des messages d’accueil (prestataire DeepSeek). La République
             populaire de Chine n’est pas partie à la Convention du Conseil de l’Europe pour la
             protection des personnes à l’égard du traitement automatisé des données à caractère
             personnel et ne figure pas sur la liste des États étrangers assurant une protection
