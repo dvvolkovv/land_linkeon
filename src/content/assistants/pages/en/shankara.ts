@@ -24,6 +24,7 @@ const shankara: AssistantPageText = {
     "You want to know which mahadasha you're in now and when it will change.",
     "You're thinking about changing jobs or starting your own business and want to look at it through your chart.",
     "You only know your time of birth roughly, and you're not sure what that affects.",
+    "You want to know your dosha and what it means for your diet and daily routine.",
   ],
   example: {
     question:
@@ -61,11 +62,12 @@ Which area matters most to you right now: career and your own business, relation
     "Names your current mahadasha and antardasha and the strong transits of Saturn, Jupiter, Rahu and Ketu over the next 6–18 months.",
     "Suggests one next step: a window for an important decision, or an upaya — a supportive practice such as a mantra.",
     "Reads the chart of whoever you're asking about — yours, your child's, your partner's — and doesn't mix them up.",
+    "Determines your Ayurvedic constitution — your leading dosha — from your chart, a few questions and, if you like, a photo; suggests how to eat and live in tune with your dosha.",
   ],
   cannot: [
     "Doesn't predict death, serious illness or disasters: he talks about tendencies and cycles.",
     "Isn't a prediction of your fate: the chart is a map of the terrain, not a verdict, and the decisions remain yours.",
-    "Doesn't replace a doctor, a lawyer or a financial adviser: on health and money, this is astrology, not a diagnosis or financial advice.",
+    "Doesn't replace a doctor, a lawyer or a financial adviser: on health and money, this is astrology and Ayurveda, not a diagnosis or financial advice.",
     "Doesn't guess your time of birth: without it, he'll build a Moon chart (Chandra lagna) and warn you that the ascendant and houses are only approximate.",
   ],
   faq: [

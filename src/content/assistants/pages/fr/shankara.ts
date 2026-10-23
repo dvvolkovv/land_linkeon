@@ -23,6 +23,7 @@ const shankara: AssistantPageText = {
     "Vous voulez savoir quelle maha-dasha vous traversez en ce moment et quand elle changera.",
     "Vous pensez à changer de travail ou à lancer votre propre affaire et voulez regarder la question à travers votre thème.",
     "Vous ne connaissez votre heure de naissance qu'approximativement et ne savez pas ce que cela change.",
+    "Vous voulez connaître votre dosha et ce qu'il implique pour votre alimentation et votre rythme de vie.",
   ],
   example: {
     question: "Je suis née le 14 mars 1990 à 7 h 30 à Kazan. Que montre mon thème de naissance ?",
@@ -59,11 +60,12 @@ Quel domaine compte le plus pour toi en ce moment : la carrière et ta propre a
     "Indique la maha-dasha et l'antar-dasha en cours ainsi que les transits marquants de Saturne, Jupiter, Rahu et Ketu pour les 6 à 18 prochains mois.",
     "Propose un seul prochain pas : une fenêtre pour une décision importante ou un upaya, une pratique de soutien, par exemple un mantra.",
     "Étudie le thème de la personne sur laquelle vous l'interrogez (vous, votre enfant, votre partenaire) sans les confondre.",
+    "Détermine votre constitution ayurvédique, c'est-à-dire votre dosha dominant, à partir du thème, de quelques questions et, si vous le souhaitez, d'une photo ; suggère comment vous nourrir et vivre en accord avec votre dosha.",
   ],
   cannot: [
     "Ne prédit ni la mort, ni les maladies graves, ni les catastrophes : il parle de tendances et de cycles.",
     "Ce n'est pas une prédiction du destin : le thème est une carte du terrain, pas un verdict, et les décisions vous appartiennent.",
-    "Ne remplace pas un médecin, un juriste ou un conseiller financier : sur la santé et l'argent, c'est de l'astrologie, pas un diagnostic ni un conseil financier.",
+    "Ne remplace pas un médecin, un juriste ou un conseiller financier : sur la santé et l'argent, c'est de l'astrologie et de l'ayurveda, pas un diagnostic ni un conseil financier.",
     "N'invente pas l'heure de naissance : sans elle, il établit un thème lunaire (Chandra lagna) et vous prévient que l'ascendant et les maisons sont approximatifs.",
   ],
   faq: [
