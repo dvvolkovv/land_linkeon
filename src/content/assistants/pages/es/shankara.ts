@@ -27,6 +27,7 @@ const shankara: AssistantPageText = {
     'Quiere saber en qué maha dasha está ahora y cuándo cambiará.',
     'Piensa en cambiar de trabajo o en emprender, y quiere verlo a través de su carta.',
     'Solo conoce su hora de nacimiento aproximada y no sabe en qué influye eso.',
+    'Quiere conocer su dosha y qué significa para su alimentación y su rutina.',
   ],
   example: {
     question: 'Nací el 14 de marzo de 1990 a las 07:30 en Kazán. ¿Qué muestra mi carta natal?',
@@ -63,11 +64,12 @@ La carta muestra tendencias; las decisiones son tuyas.
     'Le indica el maha dasha y el antar dasha en curso y los tránsitos fuertes de Saturno, Júpiter, Rahu y Ketu para los próximos 6–18 meses.',
     'Propone un único paso siguiente: un momento propicio para una decisión importante o un upaya, una práctica de apoyo, como un mantra.',
     'Analiza la carta de la persona por la que pregunta (la suya, la de su hijo, la de su pareja) y no las confunde.',
+    'Determina su constitución ayurvédica (su dosha predominante) a partir de la carta, unas pocas preguntas y, si lo desea, una foto; le sugiere cómo alimentarse y organizar su día según su dosha.',
   ],
   cannot: [
     'No predice muertes, enfermedades graves ni catástrofes: habla de tendencias y ciclos.',
     'No es una predicción del destino: la carta es un mapa del terreno, no una sentencia, y las decisiones son suyas.',
-    'No sustituye a un médico, un abogado ni un asesor financiero: lo que diga sobre salud y dinero es astrología, no un diagnóstico ni un consejo financiero.',
+    'No sustituye a un médico, un abogado ni un asesor financiero: lo que diga sobre salud y dinero es astrología y ayurveda, no un diagnóstico ni un consejo financiero.',
     'No se inventa la hora de nacimiento: sin ella, levanta una carta lunar (Chandra lagna) y le advierte de que el ascendente y las casas son aproximados.',
   ],
   faq: [

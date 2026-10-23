@@ -27,6 +27,7 @@ const shankara: AssistantPageText = {
     'Quer saber que maha-dasha está a viver agora e quando vai mudar.',
     'Está a pensar mudar de emprego ou abrir um negócio e quer olhar para isso através do mapa.',
     'Só sabe a hora de nascimento de forma aproximada e não percebe em que é que isso influi.',
+    'Quer conhecer o seu dosha e perceber o que significa para a alimentação e a rotina.',
   ],
   example: {
     question: 'Nasci a 14 de março de 1990, às 07:30, em Cazã. O que mostra o meu mapa de nascimento?',
@@ -63,11 +64,12 @@ Que área é agora a mais importante para ti: a carreira e um negócio próprio,
     'Indica a maha-dasha e a antar-dasha atuais e os trânsitos fortes de Saturno, Júpiter, Rahu e Ketu para os próximos 6–18 meses.',
     'Propõe um próximo passo: uma janela para uma decisão importante ou uma upaya — uma prática de apoio, como um mantra.',
     'Analisa o mapa da pessoa por quem pergunta — o seu, o de um filho, o do parceiro — e não os confunde.',
+    'Determina a sua constituição ayurvédica — o seu dosha predominante — a partir do mapa, de algumas perguntas e, se quiser, de uma fotografia; sugere como comer e viver de acordo com o seu dosha.',
   ],
   cannot: [
     'Não prevê mortes, doenças graves nem catástrofes: fala de tendências e de ciclos.',
     'Não é uma previsão do destino: o mapa é um mapa do terreno, não uma sentença, e as decisões continuam a ser suas.',
-    'Não substitui um médico, um advogado ou um consultor financeiro: sobre saúde e dinheiro, isto é astrologia, não um diagnóstico nem um conselho financeiro.',
+    'Não substitui um médico, um advogado ou um consultor financeiro: sobre saúde e dinheiro, isto é astrologia e ayurveda, não um diagnóstico nem um conselho financeiro.',
     'Não inventa a hora de nascimento: sem ela, faz um mapa lunar (Chandra lagna) e avisa que o ascendente e as casas são aproximados.',
   ],
   faq: [
