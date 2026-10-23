@@ -62,7 +62,7 @@ Which area matters most to you right now: career and your own business, relation
     "Names your current mahadasha and antardasha and the strong transits of Saturn, Jupiter, Rahu and Ketu over the next 6–18 months.",
     "Suggests one next step: a window for an important decision, or an upaya — a supportive practice such as a mantra.",
     "Reads the chart of whoever you're asking about — yours, your child's, your partner's — and doesn't mix them up.",
-    "Determines your Ayurvedic constitution — your leading dosha — from your chart, a few questions and, if you like, a photo; suggests how to eat and live in tune with your dosha.",
+    "Determines your Ayurvedic constitution — your dominant dosha — from your chart, a few questions and, if you like, a photo; suggests how to eat and live in tune with your dosha.",
   ],
   cannot: [
     "Doesn't predict death, serious illness or disasters: he talks about tendencies and cycles.",

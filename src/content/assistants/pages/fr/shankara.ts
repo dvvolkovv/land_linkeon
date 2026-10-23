@@ -60,7 +60,7 @@ Quel domaine compte le plus pour toi en ce moment : la carrière et ta propre a
     "Indique la maha-dasha et l'antar-dasha en cours ainsi que les transits marquants de Saturne, Jupiter, Rahu et Ketu pour les 6 à 18 prochains mois.",
     "Propose un seul prochain pas : une fenêtre pour une décision importante ou un upaya, une pratique de soutien, par exemple un mantra.",
     "Étudie le thème de la personne sur laquelle vous l'interrogez (vous, votre enfant, votre partenaire) sans les confondre.",
-    "Détermine votre constitution ayurvédique, c'est-à-dire votre dosha dominant, à partir du thème, de quelques questions et, si vous le souhaitez, d'une photo ; suggère comment vous nourrir et vivre en accord avec votre dosha.",
+    "Détermine votre constitution ayurvédique, c'est-à-dire votre dosha dominant, à partir du thème, de quelques questions et, si vous le souhaitez, d'une photo ; vous indique comment vous nourrir et vivre en accord avec votre dosha.",
   ],
   cannot: [
     "Ne prédit ni la mort, ni les maladies graves, ni les catastrophes : il parle de tendances et de cycles.",

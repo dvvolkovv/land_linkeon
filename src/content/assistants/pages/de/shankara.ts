@@ -61,7 +61,7 @@ Welcher Bereich ist dir gerade am wichtigsten: Karriere und eigenes Geschäft, B
     'Nennt die aktuelle Maha-Dasha und Antar-Dasha sowie starke Transite von Saturn, Jupiter, Rahu und Ketu für die nächsten 6–18 Monate.',
     'Schlägt einen nächsten Schritt vor: ein Zeitfenster für eine wichtige Entscheidung oder ein Upaya – eine unterstützende Praxis, etwa ein Mantra.',
     'Deutet das Horoskop der Person, nach der Sie fragen – Ihr eigenes, das Ihres Kindes oder Partners – und verwechselt sie nicht.',
-    'Bestimmt Ihre ayurvedische Konstitution – Ihr vorherrschendes Dosha – anhand des Horoskops, einiger Fragen und auf Wunsch eines Fotos; gibt Hinweise, wie Sie passend zu Ihrem Dosha essen und leben.',
+    'Bestimmt Ihre ayurvedische Konstitution – Ihr vorherrschendes Dosha – anhand des Horoskops, einiger Fragen und auf Wunsch auch eines Fotos; gibt Hinweise, wie Sie passend zu Ihrem Dosha essen und leben.',
   ],
   cannot: [
     'Sagt keinen Tod, keine schweren Krankheiten und keine Katastrophen voraus: Er spricht über Tendenzen und Zyklen.',
