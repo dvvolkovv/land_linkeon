@@ -145,7 +145,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">Versão de 22 de outubro de 2026</div>
+          <div className="text-xs text-gray-500">Versão de 25 de outubro de 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">Responsável pelo tratamento dos dados pessoais</div>
             <div><strong>Nome:</strong> Dmitry Viktorovich Volkov</div>
@@ -224,16 +224,20 @@ export function renderLegal(type: LegalType) {
           </P>
           <UL>
             <li>
-              <strong>OpenAI</strong> (ChatGPT, GPT-4, GPT-5) — tratamento de pedidos de texto.
-              País de alojamento: EUA
+              <strong>Anthropic</strong> (Claude) — elaboração das respostas dos assistentes de IA
+              e do apoio por IA, procura de pessoas e análise de compatibilidade. País de
+              alojamento: EUA
             </li>
             <li>
-              <strong>Anthropic</strong> (Claude) — tratamento de pedidos de texto.
-              País de alojamento: EUA
+              <strong>OpenAI</strong> — chamadas de voz e reuniões com os assistentes de IA (modelo
+              de voz em tempo real), locução de textos em línguas que não o russo, reconhecimento e
+              locução de mensagens de voz no Telegram, pesquisa semântica e tratamento auxiliar de
+              textos (melhoria do texto ditado, análise de eventos do calendário, sugestões do
+              widget). País de alojamento: EUA
             </li>
             <li>
               <strong>Google</strong> (Gemini — tratamento de pedidos e análise da amostra de voz
-              carregada; Imagen 4.0 Ultra e Nano Banana — geração de imagens; Veo — geração de
+              carregada; Nano Banana — geração e edição de imagens; Gemini Omni — geração de
               vídeo). País de alojamento: EUA
             </li>
             <li>
@@ -241,12 +245,8 @@ export function renderLegal(type: LegalType) {
               carregada e narração do vídeo com essa voz. País de alojamento: EUA
             </li>
             <li>
-              <strong>DeepSeek</strong> — elaboração das mensagens de boas-vindas no chat com os
-              assistentes de IA. <strong>País de alojamento: República Popular da China</strong>
-            </li>
-            <li>
-              <strong>Yandex SpeechKit</strong> — reconhecimento de fala na introdução por voz.
-              País de alojamento: Federação da Rússia
+              <strong>Yandex SpeechKit</strong> — reconhecimento de fala na introdução por voz e
+              locução de textos em russo. País de alojamento: Federação da Rússia
             </li>
             <li>Outros serviços de IA utilizados para funcionalidades específicas da Aplicação</li>
           </UL>
@@ -254,7 +254,9 @@ export function renderLegal(type: LegalType) {
             <strong>Dados transmitidos:</strong> o texto dos pedidos e das mensagens do utilizador,
             o histórico do diálogo com o assistente e o contexto do perfil; para as funcionalidades
             de geração, as descrições textuais, bem como as imagens e as gravações áudio carregadas
-            pelo utilizador; na introdução por voz, o fluxo áudio do microfone. No âmbito do
+            pelo utilizador; na introdução por voz, o fluxo áudio do microfone; o áudio das
+            chamadas e reuniões de voz com os assistentes de IA; as mensagens de voz nos bots de
+            Telegram da Linkeon. No âmbito do
             contexto do perfil são transmitidos aos fornecedores de IA o nome próprio e o apelido do
             utilizador, bem como os seus interesses, valores, competências e intenções. O conteúdo
             das conversas e do perfil é transmitido na forma original e não é sujeito a
@@ -288,27 +290,18 @@ export function renderLegal(type: LegalType) {
             «Sobre os dados pessoais».
           </P>
           <P>
-            <strong>Chamamos expressamente a atenção para o facto de parte dos dados do utilizador
-            ser transferida para a República Popular da China.</strong> Para a RPC é transferido:
-            o texto das mensagens do utilizador dirigidas ao assistente de IA, juntamente com o
-            contexto do seu perfil, na elaboração das mensagens de boas-vindas (fornecedor
-            DeepSeek). A República Popular
-            da China não é parte na Convenção do Conselho da Europa para a Proteção das Pessoas
-            relativamente ao Tratamento Automatizado de Dados de Carácter Pessoal, nem consta da
-            lista de Estados estrangeiros que asseguram uma proteção adequada dos direitos dos
-            titulares dos dados. O nível de proteção jurídica dos dados pessoais na RPC difere do
-            estabelecido pela legislação da Federação da Rússia.
-          </P>
-          <P>
-            Além disso, os dados são transferidos para os EUA (OpenAI, Anthropic, Google,
-            ElevenLabs), incluindo a amostra áudio da voz do utilizador quando este recorre à
-            funcionalidade de narração do vídeo com a própria voz. O reconhecimento de fala na
-            introdução por voz é efetuado no território da Federação da Rússia (Yandex SpeechKit).
+            Os dados são transferidos para os EUA (OpenAI, Anthropic, Google, ElevenLabs),
+            incluindo a amostra áudio da voz do utilizador quando este recorre à funcionalidade de
+            narração do vídeo com a própria voz. O áudio das chamadas e reuniões de voz e as
+            mensagens de voz no Telegram são tratados fora do território da Federação da Rússia
+            (OpenAI). O reconhecimento de fala na introdução por voz e a
+            locução de textos em russo são efetuados no território da Federação da Rússia (Yandex
+            SpeechKit).
           </P>
           <P>
             Ao utilizar os assistentes de IA, as funcionalidades de geração de imagens e de vídeo e
             a introdução por voz, o utilizador dá o seu consentimento para essa transferência
-            internacional, incluindo a transferência de dados para a RPC. Se a transferência
+            internacional. Se a transferência
             internacional lhe for inaceitável, o utilizador deve abster-se de utilizar as
             funcionalidades correspondentes da Aplicação. Não comunique aos assistentes de IA
             informação cuja transferência para fora da Federação da Rússia lhe seja inadmissível.
@@ -417,7 +410,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">Versão de 22 de outubro de 2026</div>
+          <div className="text-xs text-gray-500">Versão de 25 de outubro de 2026</div>
           <P>
             Ao registar-se e utilizar a Aplicação LINKEON.IO, o utilizador dá o seu consentimento a
             Dmitry Viktorovich Volkov (INN 463404496646, correio eletrónico support@linkeon.io),
@@ -435,6 +428,8 @@ export function renderLegal(type: LegalType) {
               microfone quando é utilizada a introdução por voz</li>
             <li>Amostra áudio da própria voz — apenas quando é utilizada a funcionalidade de
               narração do vídeo com a própria voz e somente mediante confirmação específica do consentimento</li>
+            <li>Áudio das chamadas e reuniões de voz com os assistentes de IA, bem como as
+              mensagens de voz nos bots de Telegram da Linkeon</li>
             <li>Informação técnica sobre o dispositivo e dados dos pagamentos</li>
           </UL>
 
@@ -459,16 +454,18 @@ export function renderLegal(type: LegalType) {
           <H3>4. Comunicação de dados a terceiros</H3>
           <P>
             Para o tratamento dos pedidos de IA, os dados pessoais são transmitidos a fornecedores
-            terceiros: OpenAI (EUA), Anthropic (EUA), Google (EUA), ElevenLabs (EUA), DeepSeek
-            (RPC), Yandex SpeechKit (Federação da Rússia), bem como a outros
+            terceiros: OpenAI (EUA), Anthropic (EUA), Google (EUA), ElevenLabs (EUA),
+            Yandex SpeechKit (Federação da Rússia), bem como a outros
             serviços de IA utilizados para funcionalidades específicas da Aplicação.
           </P>
           <P>
             São transmitidos: o texto das mensagens e dos pedidos do utilizador, o histórico do
             diálogo com o assistente, o contexto do perfil (nome próprio, apelido, interesses,
             valores, competências, intenções), as imagens e as gravações áudio carregadas, o fluxo
-            áudio na introdução por voz, bem como a amostra áudio da voz quando é utilizada a
-            funcionalidade de narração do vídeo com a própria voz. O conteúdo das conversas e do
+            áudio na introdução por voz, a amostra áudio da voz quando é utilizada a
+            funcionalidade de narração do vídeo com a própria voz, o áudio das chamadas e
+            reuniões de voz com os assistentes de IA, bem como as mensagens de voz nos bots de
+            Telegram da Linkeon. O conteúdo das conversas e do
             perfil é transmitido na forma original e não é sujeito a anonimização. O identificador
             do utilizador e o número de telemóvel não são transmitidos aos fornecedores de IA.
           </P>
@@ -478,7 +475,7 @@ export function renderLegal(type: LegalType) {
             casos expressamente previstos pela legislação da Federação da Rússia.
           </P>
 
-          <H3>4.1. Transferência internacional de dados pessoais, incluindo para a RPC</H3>
+          <H3>4.1. Transferência internacional de dados pessoais</H3>
           <P>
             Parte dos fornecedores enumerados encontra-se fora da Federação da Rússia, pelo que o
             utilizador dá igualmente o seu consentimento para a transferência internacional dos seus
@@ -486,17 +483,9 @@ export function renderLegal(type: LegalType) {
             dados pessoais»).
           </P>
           <P>
-            <strong>Os dados são transferidos, nomeadamente, para a República Popular da
-            China:</strong> o texto das mensagens do utilizador, juntamente com o contexto do seu
-            perfil, na elaboração das mensagens de boas-vindas (fornecedor DeepSeek). A República Popular da China não é parte na Convenção do
-            Conselho da Europa para a Proteção das Pessoas relativamente ao Tratamento Automatizado
-            de Dados de Carácter Pessoal, nem consta da lista de Estados estrangeiros que asseguram
-            uma proteção adequada dos direitos dos titulares dos dados; o nível de proteção jurídica
-            dos dados pessoais na RPC difere do estabelecido pela legislação da Federação da Rússia.
-          </P>
-          <P>
-            Os dados são igualmente transferidos para os EUA (OpenAI, Anthropic, Google,
-            ElevenLabs). A descrição pormenorizada da transferência internacional consta do
+            Os dados são transferidos para os EUA (OpenAI, Anthropic, Google,
+            ElevenLabs). O áudio das chamadas e reuniões de voz e as mensagens de voz no Telegram
+            são tratados fora do território da Federação da Rússia (OpenAI). A descrição pormenorizada da transferência internacional consta do
             ponto 3.1 da Política de Privacidade.
           </P>
 
