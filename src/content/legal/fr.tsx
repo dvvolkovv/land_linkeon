@@ -145,7 +145,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">Version du 22 octobre 2026</div>
+          <div className="text-xs text-gray-500">Version du 25 octobre 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">Responsable du traitement des données à caractère personnel</div>
             <div><strong>Dénomination :</strong> Dmitry Viktorovich Volkov</div>
@@ -222,16 +222,21 @@ export function renderLegal(type: LegalType) {
           </P>
           <UL>
             <li>
-              <strong>OpenAI</strong> (ChatGPT, GPT-4, GPT-5) — traitement des requêtes textuelles.
-              Pays d’hébergement : États-Unis
+              <strong>Anthropic</strong> (Claude) — élaboration des réponses des assistants IA et
+              du support IA, recherche de personnes et analyse de compatibilité. Pays
+              d’hébergement : États-Unis
             </li>
             <li>
-              <strong>Anthropic</strong> (Claude) — traitement des requêtes textuelles.
-              Pays d’hébergement : États-Unis
+              <strong>OpenAI</strong> — appels et réunions vocaux avec les assistants IA (modèle
+              vocal en temps réel), synthèse vocale de textes dans des langues autres que le russe,
+              reconnaissance et synthèse vocale des messages vocaux dans Telegram, recherche
+              sémantique ainsi que traitement auxiliaire de textes (amélioration du texte dicté,
+              analyse des événements du calendrier, suggestions du widget). Pays d’hébergement :
+              États-Unis
             </li>
             <li>
               <strong>Google</strong> (Gemini — traitement des requêtes et analyse de l’échantillon
-              vocal téléversé ; Imagen 4.0 Ultra et Nano Banana — génération d’images ; Veo —
+              vocal téléversé ; Nano Banana — génération et retouche d’images ; Gemini Omni —
               génération de vidéos). Pays d’hébergement : États-Unis
             </li>
             <li>
@@ -240,12 +245,8 @@ export function renderLegal(type: LegalType) {
               États-Unis
             </li>
             <li>
-              <strong>DeepSeek</strong> — génération des messages d’accueil dans les conversations
-              avec les assistants IA. <strong>Pays d’hébergement : République populaire de Chine</strong>
-            </li>
-            <li>
-              <strong>Yandex SpeechKit</strong> — reconnaissance vocale lors de la saisie vocale.
-              Pays d’hébergement : Fédération de Russie
+              <strong>Yandex SpeechKit</strong> — reconnaissance vocale lors de la saisie vocale et
+              synthèse vocale de textes en russe. Pays d’hébergement : Fédération de Russie
             </li>
             <li>Autres services d’IA mobilisés pour certaines fonctionnalités de l’Application</li>
           </UL>
@@ -289,28 +290,16 @@ export function renderLegal(type: LegalType) {
             fédérale n° 152-FZ du 27.07.2006 « Sur les données à caractère personnel ».
           </P>
           <P>
-            <strong>Nous attirons tout particulièrement votre attention sur le fait qu’une partie
-            des données de l’utilisateur est transférée vers la République populaire de
-            Chine.</strong> Est transféré vers la RPC : le texte des messages adressés par
-            l’utilisateur à l’assistant IA, accompagné du contexte de son profil, lors de la
-            génération des messages d’accueil (prestataire DeepSeek). La République populaire de Chine n’est
-            pas partie à la Convention du Conseil de l’Europe pour la protection des personnes à
-            l’égard du traitement automatisé des données à caractère personnel et ne figure pas sur
-            la liste des États étrangers assurant une protection adéquate des droits des personnes
-            concernées. Le niveau de protection juridique des données à caractère personnel en RPC
-            diffère de celui établi par la législation de la Fédération de Russie.
-          </P>
-          <P>
-            Par ailleurs, des données sont transférées vers les États-Unis (OpenAI, Anthropic,
-            Google, ElevenLabs), y compris l’échantillon audio de la voix de l’utilisateur lorsque
-            la fonction de sonorisation des vidéos par sa propre voix est utilisée. La
-            reconnaissance vocale lors de la saisie vocale est effectuée sur le territoire de la
-            Fédération de Russie (Yandex SpeechKit).
+            Des données sont transférées vers les États-Unis (OpenAI, Anthropic, Google,
+            ElevenLabs), y compris l’échantillon audio de la voix de l’utilisateur lorsque la
+            fonction de sonorisation des vidéos par sa propre voix est utilisée. La reconnaissance
+            vocale lors de la saisie vocale et la synthèse vocale de textes en russe sont
+            effectuées sur le territoire de la Fédération de Russie (Yandex SpeechKit).
           </P>
           <P>
             En utilisant les assistants IA, les fonctions de génération d’images et de vidéos ainsi
-            que la saisie vocale, l’utilisateur consent à ce transfert transfrontalier, y compris
-            au transfert de données vers la RPC. Si le transfert transfrontalier lui est
+            que la saisie vocale, l’utilisateur consent à ce transfert transfrontalier. Si le
+            transfert transfrontalier lui est
             inacceptable, il lui appartient de renoncer à l’utilisation des fonctionnalités
             correspondantes de l’Application. Ne communiquez pas aux assistants IA d’informations
             dont le transfert hors de la Fédération de Russie vous serait inacceptable.
@@ -422,7 +411,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">Version du 22 octobre 2026</div>
+          <div className="text-xs text-gray-500">Version du 25 octobre 2026</div>
           <P>
             En s’inscrivant et en utilisant l’Application LINKEON.IO, l’utilisateur consent à ce
             que Dmitry Viktorovich Volkov (INN 463404496646, adresse électronique
@@ -467,7 +456,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Aux fins du traitement des requêtes IA, les données à caractère personnel sont
             transmises à des prestataires tiers : OpenAI (États-Unis), Anthropic (États-Unis),
-            Google (États-Unis), ElevenLabs (États-Unis), DeepSeek (RPC), Yandex SpeechKit (Fédération de Russie), ainsi qu’à d’autres services d’IA mobilisés
+            Google (États-Unis), ElevenLabs (États-Unis), Yandex SpeechKit (Fédération de Russie), ainsi qu’à d’autres services d’IA mobilisés
             pour certaines fonctionnalités de l’Application.
           </P>
           <P>
@@ -487,7 +476,7 @@ export function renderLegal(type: LegalType) {
             Russie.
           </P>
 
-          <H3>4.1. Transfert transfrontalier de données à caractère personnel, y compris vers la RPC</H3>
+          <H3>4.1. Transfert transfrontalier de données à caractère personnel</H3>
           <P>
             Une partie des prestataires énumérés ci-dessus est établie hors de la Fédération de
             Russie ; l’utilisateur consent donc également au transfert transfrontalier de ses
@@ -495,18 +484,7 @@ export function renderLegal(type: LegalType) {
             « Sur les données à caractère personnel »).
           </P>
           <P>
-            <strong>Des données sont transférées, notamment, vers la République populaire de
-            Chine :</strong> le texte des messages de l’utilisateur accompagné du contexte de son
-            profil — lors de la génération des messages d’accueil (prestataire DeepSeek). La République
-            populaire de Chine n’est pas partie à la Convention du Conseil de l’Europe pour la
-            protection des personnes à l’égard du traitement automatisé des données à caractère
-            personnel et ne figure pas sur la liste des États étrangers assurant une protection
-            adéquate des droits des personnes concernées ; le niveau de protection juridique des
-            données à caractère personnel en RPC diffère de celui établi par la législation de la
-            Fédération de Russie.
-          </P>
-          <P>
-            Des données sont également transférées vers les États-Unis (OpenAI, Anthropic, Google,
+            Des données sont transférées vers les États-Unis (OpenAI, Anthropic, Google,
             ElevenLabs). Le transfert transfrontalier est décrit en détail à la section 3.1 de la
             Politique de confidentialité.
           </P>

@@ -145,7 +145,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">Fassung vom 22. Oktober 2026</div>
+          <div className="text-xs text-gray-500">Fassung vom 25. Oktober 2026</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">
               Verantwortlicher für die Verarbeitung personenbezogener Daten
@@ -224,29 +224,28 @@ export function renderLegal(type: LegalType) {
           </P>
           <UL>
             <li>
-              <strong>OpenAI</strong> (ChatGPT, GPT-4, GPT-5) — Verarbeitung von Textanfragen.
-              Sitzland: USA
+              <strong>Anthropic</strong> (Claude) — Erstellung der Antworten der KI-Assistenten
+              und des KI-Supports, Personensuche und Kompatibilitätsanalyse. Sitzland: USA
             </li>
             <li>
-              <strong>Anthropic</strong> (Claude) — Verarbeitung von Textanfragen.
-              Sitzland: USA
+              <strong>OpenAI</strong> — Sprachanrufe und Meetings mit den KI-Assistenten
+              (Echtzeit-Sprachmodell), Sprachausgabe von Texten in anderen Sprachen als Russisch,
+              Erkennung und Vertonung von Sprachnachrichten in Telegram, semantische Suche sowie
+              unterstützende Textverarbeitung (Verbesserung diktierter Texte, Auswertung von
+              Kalenderterminen, Vorschläge im Widget). Sitzland: USA
             </li>
             <li>
               <strong>Google</strong> (Gemini — Verarbeitung von Anfragen und Analyse der
-              hochgeladenen Stimmprobe; Imagen 4.0 Ultra und Nano Banana — Erzeugung von Bildern;
-              Veo — Erzeugung von Videos). Sitzland: USA
+              hochgeladenen Stimmprobe; Nano Banana — Erzeugung und Bearbeitung von Bildern;
+              Gemini Omni — Erzeugung von Videos). Sitzland: USA
             </li>
             <li>
               <strong>ElevenLabs</strong> — Erstellung eines Stimmmodells anhand der hochgeladenen
               Stimmprobe und Vertonung von Videos mit dieser Stimme. Sitzland: USA
             </li>
             <li>
-              <strong>DeepSeek</strong> — Erstellung der Begrüßungsnachrichten im Chat mit den
-              KI-Assistenten. <strong>Sitzland: Volksrepublik China</strong>
-            </li>
-            <li>
-              <strong>Yandex SpeechKit</strong> — Spracherkennung bei der Spracheingabe.
-              Sitzland: Russische Föderation
+              <strong>Yandex SpeechKit</strong> — Spracherkennung bei der Spracheingabe und
+              Sprachausgabe von Texten auf Russisch. Sitzland: Russische Föderation
             </li>
             <li>sonstige KI-Dienste, die für einzelne Funktionen der Anwendung herangezogen werden</li>
           </UL>
@@ -289,27 +288,16 @@ export function renderLegal(type: LegalType) {
             Föderalen Gesetzes vom 27.07.2006 Nr. 152-FZ „Über personenbezogene Daten“ zur Folge.
           </P>
           <P>
-            <strong>Wir weisen ausdrücklich darauf hin: Ein Teil der Daten des Nutzers wird in die
-            Volksrepublik China übermittelt.</strong> In die VR China übermittelt wird: der Text
-            der Nachrichten des Nutzers an den KI-Assistenten zusammen mit dem Kontext seines
-            Profils bei der Erstellung der Begrüßungsnachrichten (Anbieter DeepSeek). Die Volksrepublik
-            China ist nicht Vertragspartei des Übereinkommens des Europarats zum Schutz des
-            Menschen bei der automatischen Verarbeitung personenbezogener Daten und ist nicht in
-            der Liste der ausländischen Staaten enthalten, die einen angemessenen Schutz der Rechte
-            der betroffenen Personen gewährleisten. Das Niveau des rechtlichen Schutzes
-            personenbezogener Daten in der VR China weicht von dem durch die Gesetzgebung der
-            Russischen Föderation festgelegten Niveau ab.
-          </P>
-          <P>
-            Darüber hinaus werden Daten in die USA übermittelt (OpenAI, Anthropic, Google,
-            ElevenLabs) — unter anderem die Stimmprobe des Nutzers bei Nutzung der Funktion zur
-            Vertonung von Videos mit der eigenen Stimme. Die Spracherkennung bei der Spracheingabe
-            erfolgt auf dem Gebiet der Russischen Föderation (Yandex SpeechKit).
+            Daten werden in die USA übermittelt (OpenAI, Anthropic, Google, ElevenLabs) — unter
+            anderem die Stimmprobe des Nutzers bei Nutzung der Funktion zur Vertonung von Videos
+            mit der eigenen Stimme. Die Spracherkennung bei der Spracheingabe und die
+            Sprachausgabe von Texten auf Russisch erfolgen auf dem Gebiet der Russischen
+            Föderation (Yandex SpeechKit).
           </P>
           <P>
             Mit der Nutzung der KI-Assistenten, der Funktionen zur Erzeugung von Bildern und Videos
             sowie der Spracheingabe willigt der Nutzer in eine solche grenzüberschreitende
-            Übermittlung ein, einschließlich der Übermittlung von Daten in die VR China. Ist die
+            Übermittlung ein. Ist die
             grenzüberschreitende Übermittlung für den Nutzer nicht hinnehmbar, so sollte er von der
             Nutzung der entsprechenden Funktionen der Anwendung absehen. Teilen Sie den
             KI-Assistenten keine Angaben mit, deren Übermittlung außerhalb der Russischen
@@ -422,7 +410,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">Fassung vom 22. Oktober 2026</div>
+          <div className="text-xs text-gray-500">Fassung vom 25. Oktober 2026</div>
           <P>
             Mit der Registrierung und der Nutzung der Anwendung LINKEON.IO willigt der Nutzer
             gegenüber Dmitry Viktorovich Volkov (INN 463404496646, E-Mail support@linkeon.io),
@@ -465,7 +453,7 @@ export function renderLegal(type: LegalType) {
           <P>
             Zur Verarbeitung der KI-Anfragen werden personenbezogene Daten an Anbieter aus
             Drittunternehmen übermittelt: OpenAI (USA), Anthropic (USA), Google (USA),
-            ElevenLabs (USA), DeepSeek (VR China), Yandex SpeechKit (Russische Föderation) sowie an sonstige KI-Dienste, die für einzelne
+            ElevenLabs (USA), Yandex SpeechKit (Russische Föderation) sowie an sonstige KI-Dienste, die für einzelne
             Funktionen der Anwendung herangezogen werden.
           </P>
           <P>
@@ -484,7 +472,7 @@ export function renderLegal(type: LegalType) {
             vorgesehenen Fälle.
           </P>
 
-          <H3>4.1. Übermittlung personenbezogener Daten in Drittländer, insbesondere in die VR China</H3>
+          <H3>4.1. Übermittlung personenbezogener Daten in Drittländer</H3>
           <P>
             Ein Teil der aufgeführten Anbieter befindet sich außerhalb der Russischen Föderation;
             deshalb willigt der Nutzer auch in die grenzüberschreitende Übermittlung seiner
@@ -492,17 +480,7 @@ export function renderLegal(type: LegalType) {
             Nr. 152-FZ „Über personenbezogene Daten“).
           </P>
           <P>
-            <strong>Daten werden unter anderem in die Volksrepublik China übermittelt:</strong> der
-            Text der Nachrichten des Nutzers zusammen mit dem Kontext seines Profils — bei der
-            Erstellung der Begrüßungsnachrichten (Anbieter DeepSeek). Die Volksrepublik China ist nicht Vertragspartei des Übereinkommens
-            des Europarats zum Schutz des Menschen bei der automatischen Verarbeitung
-            personenbezogener Daten und ist nicht in der Liste der ausländischen Staaten enthalten,
-            die einen angemessenen Schutz der Rechte der betroffenen Personen gewährleisten; das
-            Niveau des rechtlichen Schutzes personenbezogener Daten in der VR China weicht von dem
-            durch die Gesetzgebung der Russischen Föderation festgelegten Niveau ab.
-          </P>
-          <P>
-            Daten werden zudem in die USA übermittelt (OpenAI, Anthropic, Google, ElevenLabs). Eine
+            Daten werden in die USA übermittelt (OpenAI, Anthropic, Google, ElevenLabs). Eine
             ausführliche Beschreibung der grenzüberschreitenden Übermittlung findet sich in
             Abschnitt 3.1 der Datenschutzerklärung.
           </P>

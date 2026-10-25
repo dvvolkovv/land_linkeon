@@ -92,7 +92,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'privacy' && (
         <>
-          <div className="text-xs text-gray-500">2026年10月22日修订版</div>
+          <div className="text-xs text-gray-500">2026年10月25日修订版</div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-1">
             <div className="font-semibold text-gray-900">个人信息处理者</div>
             <div><strong>名称：</strong>Dmitry Viktorovich Volkov</div>
@@ -140,22 +140,19 @@ export function renderLegal(type: LegalType) {
           <P>为处理用户的请求，本应用使用下列第三方供应商的人工智能技术：</P>
           <UL>
             <li>
-              <strong>OpenAI</strong>（ChatGPT、GPT-4、GPT-5）——处理文本请求。所在国家：美国
+              <strong>Anthropic</strong>（Claude）——生成 AI 助手与 AI 客服的回复、找人与契合度分析。所在国家：美国
             </li>
             <li>
-              <strong>Anthropic</strong>（Claude）——处理文本请求。所在国家：美国
+              <strong>OpenAI</strong>——与 AI 助手的语音通话和语音会议（实时语音模型）、非俄语文本的语音合成、Telegram 中语音消息的识别与语音合成、语义搜索，以及辅助性文本处理（润色口述文本、解析日历事件、小组件中的提示）。所在国家：美国
             </li>
             <li>
-              <strong>Google</strong>（Gemini——处理请求并分析上传的声音样本；Imagen 4.0 Ultra 与 Nano Banana——生成图像；Veo——生成视频）。所在国家：美国
+              <strong>Google</strong>（Gemini——处理请求并分析上传的声音样本；Nano Banana——生成与编辑图像；Gemini Omni——生成视频）。所在国家：美国
             </li>
             <li>
               <strong>ElevenLabs</strong>——根据上传的声音样本创建声音模型，并以该声音为视频配音。所在国家：美国
             </li>
             <li>
-              <strong>DeepSeek</strong>——生成与 AI 助手对话中的欢迎消息。<strong>所在国家：中华人民共和国</strong>
-            </li>
-            <li>
-              <strong>Yandex SpeechKit</strong>——语音输入时的语音识别。所在国家：俄罗斯联邦
+              <strong>Yandex SpeechKit</strong>——语音输入时的语音识别以及俄语文本的语音合成。所在国家：俄罗斯联邦
             </li>
             <li>为本应用个别功能而引入的其他 AI 服务</li>
           </UL>
@@ -169,11 +166,8 @@ export function renderLegal(type: LegalType) {
 
           <H3>3.1. 个人信息的跨境传输</H3>
           <P>第 3 条所列的部分供应商位于俄罗斯联邦境外。处理用户请求将导致 2006 年 7 月 27 日第 152-FZ 号联邦法律《个人数据法》第 12 条意义上的个人信息跨境传输。</P>
-          <P>
-            <strong>特别提请注意：用户的部分数据会传输至中华人民共和国。</strong>传输至中华人民共和国的数据包括：生成欢迎消息时用户发送给 AI 助手的消息文本及其档案上下文（供应商 DeepSeek）。中华人民共和国不是《欧洲委员会关于个人数据自动化处理的个人保护公约》的缔约方，亦未列入被认定为对个人信息主体权利提供充分保护的外国名单。中华人民共和国的个人信息法律保护水平与俄罗斯联邦法律所确立的水平存在差异。
-          </P>
-          <P>此外，数据还会传输至美国（OpenAI、Anthropic、Google、ElevenLabs），其中包括用户在使用以本人声音为视频配音功能时的声音样本。语音输入的语音识别在俄罗斯联邦境内完成（Yandex SpeechKit）。</P>
-          <P>使用 AI 助手、图像与视频生成功能以及语音输入，即表示用户同意上述跨境传输，包括向中华人民共和国传输数据。若用户无法接受跨境传输，则应避免使用本应用的相应功能。请勿向 AI 助手提供您认为不得传输至俄罗斯联邦境外的信息。</P>
+          <P>数据会传输至美国（OpenAI、Anthropic、Google、ElevenLabs），其中包括用户在使用以本人声音为视频配音功能时的声音样本。语音输入的语音识别以及俄语文本的语音合成在俄罗斯联邦境内完成（Yandex SpeechKit）。</P>
+          <P>使用 AI 助手、图像与视频生成功能以及语音输入，即表示用户同意上述跨境传输。若用户无法接受跨境传输，则应避免使用本应用的相应功能。请勿向 AI 助手提供您认为不得传输至俄罗斯联邦境外的信息。</P>
 
           <H3>4. 向第三方提供数据</H3>
           <P>我们不会出售或向第三方提供您的个人信息，下列情形除外：</P>
@@ -240,7 +234,7 @@ export function renderLegal(type: LegalType) {
 
       {type === 'pdn' && (
         <>
-          <div className="text-xs text-gray-500">2026年10月22日修订版</div>
+          <div className="text-xs text-gray-500">2026年10月25日修订版</div>
           <P>用户注册并使用 LINKEON.IO 应用，即表示同意 Dmitry Viktorovich Volkov（纳税人识别号 INN 463404496646，邮箱 support@linkeon.io，以下简称“个人信息处理者”）按照下列条件处理其个人信息。</P>
 
           <H3>1. 个人信息的范围</H3>
@@ -268,16 +262,13 @@ export function renderLegal(type: LegalType) {
           <P>收集、记录、系统化、累积、存储、更正（更新、修改）、提取、使用、传输（提供、开放访问）、去标识化、封锁、删除、销毁个人信息——既包括使用自动化手段的方式，也包括不使用自动化手段的方式。</P>
 
           <H3>4. 向第三方提供数据</H3>
-          <P>为处理 AI 请求，个人信息会传输给下列第三方供应商：OpenAI（美国）、Anthropic（美国）、Google（美国）、ElevenLabs（美国）、DeepSeek（中华人民共和国）、Yandex SpeechKit（俄罗斯联邦），以及为本应用个别功能而引入的其他 AI 服务。</P>
+          <P>为处理 AI 请求，个人信息会传输给下列第三方供应商：OpenAI（美国）、Anthropic（美国）、Google（美国）、ElevenLabs（美国）、Yandex SpeechKit（俄罗斯联邦），以及为本应用个别功能而引入的其他 AI 服务。</P>
           <P>所传输的内容包括：用户的消息与请求文本、与助手的对话历史、档案上下文（名字、姓氏、兴趣、价值观、技能、意向）、上传的图像与音频、语音输入时的音频流，以及使用以本人声音为视频配音功能时的声音样本。对话与档案的内容按原样传输，不作去标识化处理。用户标识符与手机号码不会传输给 AI 供应商。</P>
           <P>支付数据传输给经认证的支付聚合机构（YooKassa 等）。除俄罗斯联邦法律明确规定的情形外，个人信息不会传输给其他第三方。</P>
 
-          <H3>4.1. 个人信息的跨境传输，包括向中华人民共和国的传输</H3>
+          <H3>4.1. 个人信息的跨境传输</H3>
           <P>上列部分供应商位于俄罗斯联邦境外，因此用户亦同意其个人信息的跨境传输（2006 年 7 月 27 日第 152-FZ 号联邦法律《个人数据法》第 12 条）。</P>
-          <P>
-            <strong>数据亦会传输至中华人民共和国：</strong>生成欢迎消息时用户的消息文本及其档案上下文（供应商 DeepSeek）。中华人民共和国不是《欧洲委员会关于个人数据自动化处理的个人保护公约》的缔约方，亦未列入被认定为对个人信息主体权利提供充分保护的外国名单；中华人民共和国的个人信息法律保护水平与俄罗斯联邦法律所确立的水平存在差异。
-          </P>
-          <P>此外，数据还会传输至美国（OpenAI、Anthropic、Google、ElevenLabs）。跨境传输的详细说明载于《隐私政策》第 3.1 条。</P>
+          <P>数据会传输至美国（OpenAI、Anthropic、Google、ElevenLabs）。跨境传输的详细说明载于《隐私政策》第 3.1 条。</P>
 
           <H3>5. 同意的有效期</H3>
           <P>本同意自注册之时起生效，至用户撤回同意或账户被删除时终止。用户有权随时向 support@linkeon.io 发送请求以撤回同意。撤回将导致按照《隐私政策》规定的期限（最长 30 个日历日）删除账户与数据。</P>
