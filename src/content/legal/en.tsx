@@ -240,7 +240,8 @@ export function renderLegal(type: LegalType) {
             <strong>Data transmitted:</strong> the text of the user's requests and messages, the
             history of the conversation with the assistant and the profile context; for generation
             features — text prompts together with images and audio uploaded by the user; for voice
-            input — the audio stream from the microphone. The profile context transmitted to AI
+            input — the audio stream from the microphone; the audio of voice calls and meetings
+            with AI assistants; voice messages in Linkeon's Telegram bots. The profile context transmitted to AI
             vendors includes the user's first and last name, together with their interests, values,
             skills and intentions. The content of the conversation and of the profile is
             transmitted as-is and is not anonymized. The user identifier, the phone number and
@@ -274,7 +275,8 @@ export function renderLegal(type: LegalType) {
           <P>
             Data is transferred to the USA (OpenAI, Anthropic, Google, ElevenLabs), including the
             user's voice sample where the feature narrating videos in the user's own voice is
-            used. Speech recognition for voice input and text-to-speech in Russian are performed
+            used. The audio of voice calls and meetings and voice messages in Telegram are
+            processed outside the Russian Federation (OpenAI). Speech recognition for voice input and text-to-speech in Russian are performed
             within the Russian Federation (Yandex SpeechKit).
           </P>
           <P>
@@ -396,6 +398,8 @@ export function renderLegal(type: LegalType) {
               input is used</li>
             <li>A sample of the user's own voice — only where the feature narrating videos in the
               user's own voice is used and only upon a separate confirmation of consent</li>
+            <li>Audio of voice calls and meetings with AI assistants, and voice messages in
+              Linkeon's Telegram bots</li>
             <li>Technical information about the device and payment records</li>
           </UL>
 
@@ -427,8 +431,9 @@ export function renderLegal(type: LegalType) {
             The following is transferred: the text of the user's messages and requests, the history
             of the conversation with the assistant, the profile context (first and last name,
             interests, values, skills, intentions), uploaded images and audio, the audio stream
-            from voice input, and a voice sample where the feature narrating videos in the user's
-            own voice is used. The content of the conversation and of the profile is transferred
+            from voice input, a voice sample where the feature narrating videos in the user's
+            own voice is used, the audio of voice calls and meetings with AI assistants, and voice
+            messages in Linkeon's Telegram bots. The content of the conversation and of the profile is transferred
             as-is and is not anonymized. The user identifier and the phone number are not
             transferred to AI vendors.
           </P>
@@ -444,7 +449,9 @@ export function renderLegal(type: LegalType) {
             (Article 12 of Federal Law No. 152-FZ of 27 July 2006 "On Personal Data").
           </P>
           <P>
-            Data is transferred to the USA (OpenAI, Anthropic, Google, ElevenLabs). A detailed
+            Data is transferred to the USA (OpenAI, Anthropic, Google, ElevenLabs). The audio of
+            voice calls and meetings and voice messages in Telegram are processed outside the
+            Russian Federation (OpenAI). A detailed
             description of cross-border transfers is set out in Section 3.1 of the Privacy Policy.
           </P>
 

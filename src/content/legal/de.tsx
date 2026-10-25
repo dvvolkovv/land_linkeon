@@ -253,7 +253,9 @@ export function renderLegal(type: LegalType) {
             <strong>Übermittelte Daten:</strong> der Text der Anfragen und Nachrichten des Nutzers,
             der Verlauf des Dialogs mit dem Assistenten und der Kontext des Profils; für die
             Funktionen der Erzeugung — Textbeschreibungen sowie vom Nutzer hochgeladene Bilder und
-            Audioaufnahmen; bei der Spracheingabe — der Audiostream vom Mikrofon. Im Rahmen des
+            Audioaufnahmen; bei der Spracheingabe — der Audiostream vom Mikrofon; das Audio von
+            Sprachanrufen und Meetings mit den KI-Assistenten; Sprachnachrichten in den
+            Telegram-Bots von Linkeon. Im Rahmen des
             Kontexts des Profils werden den KI-Anbietern Vorname und Nachname des Nutzers sowie
             seine Interessen, Werte, Fähigkeiten und Absichten übermittelt. Der Inhalt des
             Schriftverkehrs und des Profils wird in ursprünglicher Form übermittelt und nicht
@@ -290,7 +292,9 @@ export function renderLegal(type: LegalType) {
           <P>
             Daten werden in die USA übermittelt (OpenAI, Anthropic, Google, ElevenLabs) — unter
             anderem die Stimmprobe des Nutzers bei Nutzung der Funktion zur Vertonung von Videos
-            mit der eigenen Stimme. Die Spracherkennung bei der Spracheingabe und die
+            mit der eigenen Stimme. Das Audio von Sprachanrufen und Meetings sowie
+            Sprachnachrichten in Telegram werden außerhalb der Russischen Föderation verarbeitet
+            (OpenAI). Die Spracherkennung bei der Spracheingabe und die
             Sprachausgabe von Texten auf Russisch erfolgen auf dem Gebiet der Russischen
             Föderation (Yandex SpeechKit).
           </P>
@@ -428,6 +432,8 @@ export function renderLegal(type: LegalType) {
               Mikrofon bei Nutzung der Spracheingabe</li>
             <li>Stimmprobe der eigenen Stimme — nur bei Nutzung der Funktion zur Vertonung von
               Videos mit der eigenen Stimme und nur bei gesonderter Bestätigung der Einwilligung</li>
+            <li>Audio von Sprachanrufen und Meetings mit den KI-Assistenten sowie
+              Sprachnachrichten in den Telegram-Bots von Linkeon</li>
             <li>technische Informationen über das Gerät und Angaben zu Zahlungen</li>
           </UL>
 
@@ -460,8 +466,9 @@ export function renderLegal(type: LegalType) {
             Übermittelt werden: der Text der Nachrichten und Anfragen des Nutzers, der Verlauf des
             Dialogs mit dem Assistenten, der Kontext des Profils (Vorname, Nachname, Interessen,
             Werte, Fähigkeiten, Absichten), hochgeladene Bilder und Audioaufnahmen, der Audiostream
-            bei der Spracheingabe sowie die Stimmprobe bei Nutzung der Funktion zur Vertonung von
-            Videos mit der eigenen Stimme. Der Inhalt des Schriftverkehrs und des Profils wird in
+            bei der Spracheingabe, die Stimmprobe bei Nutzung der Funktion zur Vertonung von
+            Videos mit der eigenen Stimme, das Audio von Sprachanrufen und Meetings mit den
+            KI-Assistenten sowie Sprachnachrichten in den Telegram-Bots von Linkeon. Der Inhalt des Schriftverkehrs und des Profils wird in
             ursprünglicher Form übermittelt und nicht anonymisiert. Die Nutzerkennung und die
             Telefonnummer werden den KI-Anbietern nicht übermittelt.
           </P>
@@ -480,7 +487,9 @@ export function renderLegal(type: LegalType) {
             Nr. 152-FZ „Über personenbezogene Daten“).
           </P>
           <P>
-            Daten werden in die USA übermittelt (OpenAI, Anthropic, Google, ElevenLabs). Eine
+            Daten werden in die USA übermittelt (OpenAI, Anthropic, Google, ElevenLabs). Das
+            Audio von Sprachanrufen und Meetings sowie Sprachnachrichten in Telegram werden
+            außerhalb der Russischen Föderation verarbeitet (OpenAI). Eine
             ausführliche Beschreibung der grenzüberschreitenden Übermittlung findet sich in
             Abschnitt 3.1 der Datenschutzerklärung.
           </P>

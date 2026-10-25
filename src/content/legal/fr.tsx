@@ -255,7 +255,9 @@ export function renderLegal(type: LegalType) {
             l’utilisateur, l’historique de la conversation avec l’assistant et le contexte du
             profil ; pour les fonctions de génération — les descriptions textuelles ainsi que les
             images et les enregistrements audio téléversés par l’utilisateur ; lors de la saisie
-            vocale — le flux audio provenant du microphone. Le contexte du profil transmis aux
+            vocale — le flux audio provenant du microphone ; l’audio des appels et réunions
+            vocaux avec les assistants IA ; les messages vocaux dans les bots Telegram de Linkeon.
+            Le contexte du profil transmis aux
             prestataires d’IA comprend le prénom et le nom de l’utilisateur, ainsi que ses centres
             d’intérêt, ses valeurs, ses compétences et ses intentions. Le contenu des échanges et
             du profil est transmis en l’état et ne fait l’objet d’aucune anonymisation.
@@ -292,7 +294,9 @@ export function renderLegal(type: LegalType) {
           <P>
             Des données sont transférées vers les États-Unis (OpenAI, Anthropic, Google,
             ElevenLabs), y compris l’échantillon audio de la voix de l’utilisateur lorsque la
-            fonction de sonorisation des vidéos par sa propre voix est utilisée. La reconnaissance
+            fonction de sonorisation des vidéos par sa propre voix est utilisée. L’audio des
+            appels et réunions vocaux ainsi que les messages vocaux dans Telegram sont traités
+            hors du territoire de la Fédération de Russie (OpenAI). La reconnaissance
             vocale lors de la saisie vocale et la synthèse vocale de textes en russe sont
             effectuées sur le territoire de la Fédération de Russie (Yandex SpeechKit).
           </P>
@@ -430,6 +434,8 @@ export function renderLegal(type: LegalType) {
             <li>Échantillon audio de sa propre voix — uniquement en cas d’utilisation de la
               fonction de sonorisation des vidéos par sa propre voix et uniquement après
               confirmation d’un consentement distinct</li>
+            <li>Audio des appels et réunions vocaux avec les assistants IA, ainsi que les
+              messages vocaux dans les bots Telegram de Linkeon</li>
             <li>Informations techniques relatives à l’appareil et données relatives aux paiements</li>
           </UL>
 
@@ -463,8 +469,10 @@ export function renderLegal(type: LegalType) {
             Sont transmis : le texte des messages et des requêtes de l’utilisateur, l’historique de
             la conversation avec l’assistant, le contexte du profil (prénom, nom, centres
             d’intérêt, valeurs, compétences, intentions), les images et les enregistrements audio
-            téléversés, le flux audio lors de la saisie vocale, ainsi que l’échantillon vocal en
-            cas d’utilisation de la fonction de sonorisation des vidéos par sa propre voix. Le
+            téléversés, le flux audio lors de la saisie vocale, l’échantillon vocal en
+            cas d’utilisation de la fonction de sonorisation des vidéos par sa propre voix, l’audio
+            des appels et réunions vocaux avec les assistants IA, ainsi que les messages vocaux
+            dans les bots Telegram de Linkeon. Le
             contenu des échanges et du profil est transmis en l’état et ne fait l’objet d’aucune
             anonymisation. L’identifiant de l’utilisateur et le numéro de téléphone ne sont pas
             transmis aux prestataires d’IA.
@@ -485,7 +493,9 @@ export function renderLegal(type: LegalType) {
           </P>
           <P>
             Des données sont transférées vers les États-Unis (OpenAI, Anthropic, Google,
-            ElevenLabs). Le transfert transfrontalier est décrit en détail à la section 3.1 de la
+            ElevenLabs). L’audio des appels et réunions vocaux ainsi que les messages vocaux dans
+            Telegram sont traités hors du territoire de la Fédération de Russie (OpenAI). Le
+            transfert transfrontalier est décrit en détail à la section 3.1 de la
             Politique de confidentialité.
           </P>
 

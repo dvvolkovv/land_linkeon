@@ -254,7 +254,9 @@ export function renderLegal(type: LegalType) {
             <strong>Dados transmitidos:</strong> o texto dos pedidos e das mensagens do utilizador,
             o histórico do diálogo com o assistente e o contexto do perfil; para as funcionalidades
             de geração, as descrições textuais, bem como as imagens e as gravações áudio carregadas
-            pelo utilizador; na introdução por voz, o fluxo áudio do microfone. No âmbito do
+            pelo utilizador; na introdução por voz, o fluxo áudio do microfone; o áudio das
+            chamadas e reuniões de voz com os assistentes de IA; as mensagens de voz nos bots de
+            Telegram da Linkeon. No âmbito do
             contexto do perfil são transmitidos aos fornecedores de IA o nome próprio e o apelido do
             utilizador, bem como os seus interesses, valores, competências e intenções. O conteúdo
             das conversas e do perfil é transmitido na forma original e não é sujeito a
@@ -290,7 +292,9 @@ export function renderLegal(type: LegalType) {
           <P>
             Os dados são transferidos para os EUA (OpenAI, Anthropic, Google, ElevenLabs),
             incluindo a amostra áudio da voz do utilizador quando este recorre à funcionalidade de
-            narração do vídeo com a própria voz. O reconhecimento de fala na introdução por voz e a
+            narração do vídeo com a própria voz. O áudio das chamadas e reuniões de voz e as
+            mensagens de voz no Telegram são tratados fora do território da Federação da Rússia
+            (OpenAI). O reconhecimento de fala na introdução por voz e a
             locução de textos em russo são efetuados no território da Federação da Rússia (Yandex
             SpeechKit).
           </P>
@@ -424,6 +428,8 @@ export function renderLegal(type: LegalType) {
               microfone quando é utilizada a introdução por voz</li>
             <li>Amostra áudio da própria voz — apenas quando é utilizada a funcionalidade de
               narração do vídeo com a própria voz e somente mediante confirmação específica do consentimento</li>
+            <li>Áudio das chamadas e reuniões de voz com os assistentes de IA, bem como as
+              mensagens de voz nos bots de Telegram da Linkeon</li>
             <li>Informação técnica sobre o dispositivo e dados dos pagamentos</li>
           </UL>
 
@@ -456,8 +462,10 @@ export function renderLegal(type: LegalType) {
             São transmitidos: o texto das mensagens e dos pedidos do utilizador, o histórico do
             diálogo com o assistente, o contexto do perfil (nome próprio, apelido, interesses,
             valores, competências, intenções), as imagens e as gravações áudio carregadas, o fluxo
-            áudio na introdução por voz, bem como a amostra áudio da voz quando é utilizada a
-            funcionalidade de narração do vídeo com a própria voz. O conteúdo das conversas e do
+            áudio na introdução por voz, a amostra áudio da voz quando é utilizada a
+            funcionalidade de narração do vídeo com a própria voz, o áudio das chamadas e
+            reuniões de voz com os assistentes de IA, bem como as mensagens de voz nos bots de
+            Telegram da Linkeon. O conteúdo das conversas e do
             perfil é transmitido na forma original e não é sujeito a anonimização. O identificador
             do utilizador e o número de telemóvel não são transmitidos aos fornecedores de IA.
           </P>
@@ -476,7 +484,8 @@ export function renderLegal(type: LegalType) {
           </P>
           <P>
             Os dados são transferidos para os EUA (OpenAI, Anthropic, Google,
-            ElevenLabs). A descrição pormenorizada da transferência internacional consta do
+            ElevenLabs). O áudio das chamadas e reuniões de voz e as mensagens de voz no Telegram
+            são tratados fora do território da Federação da Rússia (OpenAI). A descrição pormenorizada da transferência internacional consta do
             ponto 3.1 da Política de Privacidade.
           </P>
 
