@@ -45,6 +45,7 @@ export default function AskBox({ assistantId, cta, utmContent, placeholder, clas
           maxLength={DRAFT_MAX_LENGTH}
           value={text}
           placeholder={placeholder}
+          enterKeyHint="send"
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
             if (submitsOnEnter({ key: e.key, shiftKey: e.shiftKey, isComposing: e.nativeEvent.isComposing, keyCode: e.keyCode })) {
