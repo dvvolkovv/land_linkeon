@@ -2,6 +2,7 @@ import { useId, useRef, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { DRAFT_MAX_LENGTH, askTarget } from '../../lib/chatDraft';
+import { submitsOnEnter } from './askKeys';
 
 interface Props {
   assistantId: number;
@@ -46,7 +47,7 @@ export default function AskBox({ assistantId, cta, utmContent, placeholder, clas
           placeholder={placeholder}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (submitsOnEnter({ key: e.key, shiftKey: e.shiftKey, isComposing: e.nativeEvent.isComposing, keyCode: e.keyCode })) {
               e.preventDefault();
               button.current?.click();
             }
