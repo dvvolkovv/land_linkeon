@@ -340,7 +340,7 @@ export function renderLegal(type: LegalType) {
             <li><strong>Comptes supprimés :</strong> 30 jours calendaires, puis suppression définitive</li>
             <li><strong>Historique des paiements :</strong> 5 ans (exigence de la législation fiscale de la Fédération de Russie)</li>
             <li><strong>Journaux de sécurité :</strong> 6 mois</li>
-            <li><strong>Conversation d'essai avant la connexion :</strong> 7 jours après le dernier message, sauf si elle est transférée vers un compte ; après le transfert, comme les autres conversations du compte</li>
+            <li><strong>Conversation d’essai avant la connexion :</strong> 7 jours après le dernier message, sauf si elle est transférée vers un compte ; après le transfert, comme les autres conversations du compte</li>
             <li><strong>Sauvegardes :</strong> écrasées tous les 30 jours</li>
           </UL>
 
@@ -430,7 +430,7 @@ export function renderLegal(type: LegalType) {
             <li>Prénom, nom, adresse électronique (au choix de l’utilisateur)</li>
             <li>Contenu des messages, des requêtes et des paramètres du profil professionnel saisis dans l’Application</li>
             <li>Historique des interactions avec les assistants IA, journaux de session</li>
-            <li>Messages d'une conversation d'essai avec un assistant IA avant la connexion à l'Application</li>
+            <li>Messages d’une conversation d’essai avec un assistant IA avant la connexion à l’Application</li>
             <li>Images et enregistrements audio téléversés par l’utilisateur, ainsi que le flux
               audio provenant du microphone lors de l’utilisation de la saisie vocale</li>
             <li>Échantillon audio de sa propre voix — uniquement en cas d’utilisation de la
