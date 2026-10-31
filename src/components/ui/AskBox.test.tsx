@@ -25,6 +25,11 @@ describe('поле вопроса', () => {
     expect(tag).toContain('maxLength="600"');
   });
 
+  it('enterKeyHint=send — мобильная клавиатура показывает подсказку «отправить»', () => {
+    const tag = render().match(/<textarea[^>]*>/)?.[0] ?? '';
+    expect(tag).toContain('enterkeyhint="send"');
+  });
+
   it('кнопка — цель воронки; в разметке нет ни адреса с вопросом, ни ссылок', () => {
     const html = render();
     expect(html).toContain('data-cta="hero-ask"');
