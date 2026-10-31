@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { Sparkles } from 'lucide-react';
 import Eyebrow from '../ui/Eyebrow';
-import Button from '../ui/Button';
 import ScreenshotFrame from '../ui/ScreenshotFrame';
 import FadeIn from '../ui/FadeIn';
-import { appUrl } from '../../lib/appUrl';
+import AskBox from '../ui/AskBox';
+
+/** Роман — универсальный ассистент (roster.data.js, slug 'roman'). */
+const ROMAN_ID = 12;
 
 export default function Hero() {
   const { t, i18n } = useTranslation();
@@ -70,8 +72,10 @@ export default function Hero() {
             {/* Один основной CTA для холодного трафика: вторая кнопка «Войти»
                 размывала действие — вход остаётся в шапке. Risk-reversal стоит
                 прямо под кнопкой, в точке принятия решения. */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-3">
-              <Button variant="primary" size="lg" href={appUrl()} dataCta="hero-start">{heroT('ctaStart')}</Button>
+            {/* Поле вопроса вместо кнопки «Начать» (проба без входа, spec
+                2026-10-30-guest-trial): первые ответы — без регистрации. */}
+            <div className="mb-3">
+              <AskBox assistantId={ROMAN_ID} cta="hero-ask" utmContent="hero-ask" placeholder={heroT('askPlaceholder')} />
             </div>
             <p className="text-sm text-paper-600 mb-6">{heroT('trust')}</p>
           </FadeIn>
