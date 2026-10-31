@@ -10,11 +10,20 @@ test.describe('landing smoke', () => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
-    const heroStart = page.locator('[data-cta="hero-start"]');
-    await expect(heroStart).toBeVisible();
+    // Поле вопроса (проба без входа, spec 2026-10-30-guest-trial) заменило
+    // кнопку «Начать» в первом экране — теперь это главное действие там.
+    // Полный переход (Enter → кабинет с #ask=) проверяет ask-box.spec.ts.
+    await expect(page.locator('[data-ask-box]')).toBeVisible();
+    await expect(page.locator('[data-cta="hero-ask"]')).toBeVisible();
+
+    // Остальные главные действия — кнопки шапки — по-прежнему обычные ссылки.
     // appUrl() нормализует адрес и может дописать метки привлечения —
     // проверяем происхождение, а не точное совпадение строки.
-    await expect(heroStart).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
+    for (const cta of ['header-login', 'header-start']) {
+      const button = page.locator(`[data-cta="${cta}"]`);
+      await expect(button).toBeVisible();
+      await expect(button).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
+    }
   });
 
   // Рублёвая витрина существует только на русской странице, поэтому локаль
