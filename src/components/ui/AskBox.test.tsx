@@ -27,7 +27,10 @@ describe('поле вопроса', () => {
 
   it('enterKeyHint=send — мобильная клавиатура показывает подсказку «отправить»', () => {
     const tag = render().match(/<textarea[^>]*>/)?.[0] ?? '';
-    expect(tag).toContain('enterkeyhint="send"');
+    // React 18 в renderToStaticMarkup пишет этот атрибут camelCase, не
+    // lowercase, как обычные HTML-атрибуты (проверено прогоном: enterKeyHint,
+    // не enterkeyhint). Для браузера не важно — HTML-атрибуты регистронезависимы.
+    expect(tag).toContain('enterKeyHint="send"');
   });
 
   it('кнопка — цель воронки; в разметке нет ни адреса с вопросом, ни ссылок', () => {
