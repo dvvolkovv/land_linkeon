@@ -84,7 +84,13 @@ test.describe('языковые версии', () => {
     // 2026-10-30-guest-trial) — проверяем его и подпись кнопки на языке
     // страницы; href больше нет (адрес строится по нажатию), поэтому
     // «CTA ведёт в приложение» теперь проверяет оставшуюся ссылку шапки.
-    test(`${code}: страница живая, поле вопроса на своём языке, CTA шапки ведёт в приложение`, async ({ page }) => {
+    // locale: code, как в header.spec.ts: без него инлайн-редирект в <head>
+    // увёл бы ru с `/` на `/en/`, если локаль браузера по умолчанию не
+    // русская, — тогда и подпись кнопки, и вообще вся страница были бы
+    // английскими (ровно так и обнаружилось: «Ask» вместо «Спросить»).
+    test(`${code}: страница живая, поле вопроса на своём языке, CTA шапки ведёт в приложение`, async ({ browser }) => {
+      const context = await browser.newContext({ locale: code });
+      const page = await context.newPage();
       await page.goto(path);
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
@@ -94,6 +100,7 @@ test.describe('языковые версии', () => {
       const headerStart = page.locator('[data-cta="header-start"]');
       await expect(headerStart).toBeVisible();
       await expect(headerStart).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
+      await context.close();
     });
   }
 
