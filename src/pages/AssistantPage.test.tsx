@@ -37,14 +37,18 @@ describe('страница ассистента', () => {
     expect(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)![1]).toContain('Райя');
   });
 
-  // Обе кнопки — главное действие страницы. Ведут в чат именно с этим
-  // ассистентом, с меткой страницы для signup_campaign.
-  it('обе кнопки ведут в чат с этим ассистентом', () => {
+  // Главное действие наверху — поле вопроса (проба без входа, spec
+  // 2026-10-30-guest-trial); внизу осталась кнопка в чат. Обе — к этому ассистенту.
+  it('наверху поле вопроса к этому ассистенту, внизу кнопка в чат', () => {
+    const situationsAt = html.indexOf('id="situations-heading"');
+    const hero = html.slice(0, situationsAt);
+    expect(hero).toContain('data-ask-box');
+    expect(hero).toContain('data-cta="assistant-ask"');
+    expect(hero).toContain('Опишите ситуацию своими словами — Райя ответит сразу');
+    expect(hero).not.toContain('data-cta="assistant-start"');
     const ctas = [...html.matchAll(/<a[^>]*data-cta="assistant-start"[^>]*>/g)].map((m) => m[0]);
-    expect(ctas).toHaveLength(2);
-    for (const tag of ctas) {
-      expect(tag).toContain('href="https://my.linkeon.io/chat?assistant=14&amp;utm_content=assistant-raya');
-    }
+    expect(ctas).toHaveLength(1);
+    expect(ctas[0]).toContain('href="https://my.linkeon.io/chat?assistant=14&amp;utm_content=assistant-raya');
   });
 
   it('вопросов столько же, сколько в текстах, и они же в FAQPage', () => {

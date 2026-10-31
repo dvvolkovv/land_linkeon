@@ -1,4 +1,5 @@
-import { test, expect, request } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+import { test, expect, request, type Page } from '@playwright/test';
 import { SUPPORTED_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.data.js';
 import { translatedCodes } from '../scripts/translated-languages.js';
 import { sitemapUrls } from '../scripts/site-urls.mjs';
@@ -6,6 +7,30 @@ import { assistantPageCodes } from '../scripts/assistant-page-languages.js';
 import { hdCalcCodes } from '../scripts/hd-calc-languages.js';
 import { valuesTestCodes } from '../scripts/values-test-languages.js';
 import { ASSISTANT_SLUGS } from '../src/content/assistants/roster.data.js';
+
+// Подпись кнопки поля вопроса — из той же локали, что и страница. Через
+// readFileSync, а не import ".json": в tests/ так ещё не делали (ни
+// tsconfig.app.json, ни tsconfig.node.json эту папку не включают), а приём
+// уже проверен в scripts/check-locales.mjs и .superpowers/add-ask-keys.mjs.
+const askButton = (code: string): string => JSON.parse(readFileSync(`src/i18n/locales/${code}.json`, 'utf8')).ask.button;
+
+/**
+ * Пререндер не гидратируется: main.tsx перерисовывает страницу через
+ * createRoot после загрузки чанка текстов (см. тот же приём в соседних
+ * *.spec.ts). До этого момента поле вопроса — мёртвая разметка пререндера.
+ */
+async function clientRendered(page: Page) {
+  await expect
+    .poll(
+      () =>
+        page.evaluate(() => {
+          const h1 = document.querySelector('h1');
+          return h1 !== null && Object.keys(h1).some((key) => key.startsWith('__reactFiber$'));
+        }),
+      { message: 'React не перерисовал пререндер — чанк текстов не загрузился или рендер упал' },
+    )
+    .toBe(true);
+}
 
 // Список берётся из того же источника, что и сборка: выпускаются только языки
 // с непустой локалью. Захардкоженный массив здесь означал бы тесты страниц,
@@ -55,14 +80,50 @@ test.describe('языковые версии', () => {
       await ctx.dispose();
     });
 
-    test(`${code}: страница живая и CTA ведёт в приложение`, async ({ page }) => {
+    // Поле вопроса заменило кнопку «Начать» (проба без входа, spec
+    // 2026-10-30-guest-trial) — проверяем его и подпись кнопки на языке
+    // страницы; href больше нет (адрес строится по нажатию), поэтому
+    // «CTA ведёт в приложение» теперь проверяет оставшуюся ссылку шапки.
+    // locale: code, как в header.spec.ts: без него инлайн-редирект в <head>
+    // увёл бы ru с `/` на `/en/`, если локаль браузера по умолчанию не
+    // русская, — тогда и подпись кнопки, и вообще вся страница были бы
+    // английскими (ровно так и обнаружилось: «Ask» вместо «Спросить»).
+    test(`${code}: страница живая, поле вопроса на своём языке, CTA шапки ведёт в приложение`, async ({ browser }) => {
+      const context = await browser.newContext({ locale: code });
+      const page = await context.newPage();
       await page.goto(path);
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-      const cta = page.locator('[data-cta="hero-start"]');
-      await expect(cta).toBeVisible();
-      await expect(cta).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
+
+      await expect(page.locator('[data-ask-box]')).toBeVisible();
+      await expect(page.locator('[data-cta="hero-ask"]')).toContainText(askButton(code));
+
+      const headerStart = page.locator('[data-cta="header-start"]');
+      await expect(headerStart).toBeVisible();
+      await expect(headerStart).toHaveAttribute('href', /^https:\/\/my\.linkeon\.io/);
+      await context.close();
     });
   }
+
+  // Полный переход (Enter → кабинет с вопросом во фрагменте #ask=) — как в
+  // ask-box.spec.ts, но на языковой странице. Настоящая навигация — дорогая
+  // проверка, одного языка (не ru, он уже покрыт ask-box.spec.ts) достаточно,
+  // чтобы поймать разметку/проводку отдельно от переводов (их покрывает цикл выше).
+  test('en: поле вопроса в первом экране ведёт в кабинет с вопросом во фрагменте #ask=', async ({ page }) => {
+    await page.route('https://my.linkeon.io/**', (route) => route.fulfill({ status: 200, body: 'ok' }));
+    await page.goto('/en/');
+    await clientRendered(page);
+
+    const field = page.locator('[data-ask-box] textarea');
+    await field.fill('Test question');
+    await field.press('Enter');
+
+    await page.waitForURL(/my\.linkeon\.io\/chat/);
+    const url = new URL(page.url());
+    expect(url.searchParams.get('assistant')).toBe('12');
+    expect(url.searchParams.get('utm_content')).toBe('hero-ask');
+    expect(url.hash.startsWith('#ask=')).toBe(true);
+    expect(decodeURIComponent(url.hash.slice('#ask='.length))).toBe('Test question');
+  });
 
   // C2/I1: пререндер подменяет <title> и meta description на каждом языке.
   // Не завязываемся на точный текст (он может меняться) — только на факт

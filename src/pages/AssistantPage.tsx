@@ -3,6 +3,7 @@ import { ArrowRight, Check, ChevronDown, Minus } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Button from '../components/ui/Button';
+import AskBox from '../components/ui/AskBox';
 import AssistantAvatar from '../components/assistants/AssistantAvatar';
 import AssistantCard from '../components/assistants/AssistantCard';
 import Breadcrumbs from '../components/assistants/Breadcrumbs';
@@ -82,8 +83,14 @@ export default function AssistantPage({ entry, pack, language }: Props) {
               {page.h1}
             </h1>
             <p className="mt-5 text-lg text-paper-800 max-w-2xl leading-relaxed">{page.lead}</p>
-            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3">
-              {cta}
+            <AskBox
+              className="mt-8"
+              assistantId={entry.id}
+              cta="assistant-ask"
+              utmContent={`assistant-${entry.slug}`}
+              placeholder={t('ask.placeholderAssistant', { name })}
+            />
+            <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3">
               {/* Вторая кнопка наверху — например, калькулятор у Райи. Это переход
                   внутри сайта, а не в приложение, поэтому без data-cta: воронку
                   landing_cta_click считают только переходы в чат. Показывается

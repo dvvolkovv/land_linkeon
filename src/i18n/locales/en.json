@@ -60,21 +60,24 @@
       "h1": "A contract, taxes, promotion —",
       "h1Accent": "there's someone to go through it with",
       "sub": "A lawyer goes through the contract clause by clause and shows you what it could cost you. An accountant reconciles the numbers and gives you the figure. A marketer writes the thing you never get round to. Come with whatever you have.",
-      "ctaStart": "Bring your task"
+      "ctaStart": "Bring your task",
+      "askPlaceholder": "A contract, taxes, copy for clients — describe the task"
     },
     "creator": {
       "eyebrow": "For content",
       "h1": "You already have the idea —",
       "h1Accent": "we'll put the rest together",
       "sub": "Copy, an image, a clip, a plan for the week ahead. Roman asks what it's about and who it's for, then brings it back finished. Redo it as many times as you like.",
-      "ctaStart": "Show your idea"
+      "ctaStart": "Show your idea",
+      "askPlaceholder": "An idea for a post or a video — tell us what you have in mind"
     },
     "assistant": {
       "eyebrow": "Personal assistant",
       "h1": "An email, a document, a plan —",
       "h1Accent": "you don't have to write it yourself",
       "sub": "Roman takes on anything: business letters, documents, posts, copy, ideas. Say what you need in your own words — he'll ask about the rest himself.",
-      "ctaStart": "Start — it's free"
+      "ctaStart": "Start — it's free",
+      "askPlaceholder": "A letter, a document, a post — describe what you need"
     },
     "video": {
       "eyebrow": "Short videos",
@@ -82,7 +85,8 @@
       "h1Accent": "no filming, no editing",
       "sub": "Roman makes a short vertical clip for Reels, Shorts or TikTok — from a description or from an image you already have.",
       "ctaStart": "Make a clip"
-    }
+    },
+    "askPlaceholder": "Say in your own words what you need — the assistant answers right away"
   },
   "cartoon": {
     "eyebrow": "Cartoon · 1:42",
@@ -642,5 +646,11 @@
       "finalTitle": "Try it with a task of your own",
       "trust": "Your first conversations are on us. No bank card required."
     }
+  },
+  "ask": {
+    "label": "Your question to the assistant",
+    "button": "Ask",
+    "note": "Answer right away — no sign-up, no card",
+    "placeholderAssistant": "Describe your situation in your own words — {{name}} will answer right away"
   }
 }

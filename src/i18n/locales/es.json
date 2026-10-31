@@ -60,21 +60,24 @@
       "h1": "Contratos, impuestos, marketing —",
       "h1Accent": "hay con quién revisarlo",
       "sub": "El abogado repasa el contrato cláusula a cláusula y le enseña lo que puede costarle. La contable cuadra las cuentas y le da la cifra. El de marketing escribe eso a lo que usted nunca llega. Venga con lo que tenga.",
-      "ctaStart": "Traer una tarea"
+      "ctaStart": "Traer una tarea",
+      "askPlaceholder": "Un contrato, impuestos, un texto para clientes: describa la tarea"
     },
     "creator": {
       "eyebrow": "Para contenido",
       "h1": "La idea ya la tiene —",
       "h1Accent": "el resto lo montamos",
       "sub": "Un texto, una imagen, un vídeo, un plan para la semana. Román pregunta de qué va y para quién, y lo trae terminado. Puede pedir cambios las veces que quiera.",
-      "ctaStart": "Mostrar la idea"
+      "ctaStart": "Mostrar la idea",
+      "askPlaceholder": "La idea de un post o un vídeo: cuente qué tiene en mente"
     },
     "assistant": {
       "eyebrow": "Asistente personal",
       "h1": "Una carta, un texto, un plan —",
       "h1Accent": "no tiene que escribirlo usted",
       "sub": "Román se ocupa de todo: correos de trabajo, documentos, posts, textos, ideas. Diga con sus palabras qué necesita y el resto lo pregunta él.",
-      "ctaStart": "Empezar es gratis"
+      "ctaStart": "Empezar es gratis",
+      "askPlaceholder": "Una carta, un documento, un post: describa lo que necesita"
     },
     "video": {
       "eyebrow": "Vídeos cortos",
@@ -82,7 +85,8 @@
       "h1Accent": "sin rodar ni editar",
       "sub": "Román hace un vídeo corto y vertical para Reels, Shorts o TikTok — a partir de una descripción o de una imagen que ya tenga.",
       "ctaStart": "Hacer un vídeo"
-    }
+    },
+    "askPlaceholder": "Cuente con sus palabras qué necesita: el asistente responde al instante"
   },
   "cartoon": {
     "eyebrow": "Corto animado · 1:42",
@@ -642,5 +646,11 @@
       "finalTitle": "Pruébelo con su propia tarea",
       "trust": "Las primeras conversaciones corren de nuestra cuenta. No pedimos tarjeta bancaria."
     }
+  },
+  "ask": {
+    "label": "Pregunta al asistente",
+    "button": "Preguntar",
+    "note": "Respuesta al instante, sin registro ni tarjeta",
+    "placeholderAssistant": "Describa su situación con sus propias palabras: {{name}} responde al instante"
   }
 }

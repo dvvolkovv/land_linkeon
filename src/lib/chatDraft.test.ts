@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DRAFT_MAX_LENGTH, chatHref, chatUrlWithDraft, fillTemplate } from './chatDraft';
+import { DRAFT_MAX_LENGTH, askTarget, chatHref, chatUrlWithAsk, chatUrlWithDraft, fillTemplate } from './chatDraft';
 
 const draftOf = (url: string) => decodeURIComponent(new URL(url).hash.slice('#draft='.length));
 
@@ -35,5 +35,26 @@ describe('ссылка в чат с черновиком', () => {
 
   it('шаблон: ключи берутся только из своих свойств, не из прототипа', () => {
     expect(fillTemplate('{constructor} {__proto__}', {})).toBe('{constructor} {__proto__}');
+  });
+});
+
+describe('ссылка с вопросом (#ask=)', () => {
+  const askOf = (url: string) => decodeURIComponent(new URL(url).hash.slice('#ask='.length));
+
+  it('вопрос — во фрагменте #ask=, ассистент и метка — в адресе', () => {
+    const url = chatUrlWithAsk(12, 'hero-ask', 'Как поднять цены? 100%');
+    expect(new URL(url).searchParams.get('assistant')).toBe('12');
+    expect(new URL(url).searchParams.get('utm_content')).toBe('hero-ask');
+    expect(askOf(url)).toBe('Как поднять цены? 100%');
+  });
+
+  it('длиннее лимита — обрезка по границе символа', () => {
+    const text = 'я'.repeat(DRAFT_MAX_LENGTH - 1) + String.fromCodePoint(0x1f600);
+    expect(askOf(chatUrlWithAsk(12, 'hero-ask', text))).toBe('я'.repeat(DRAFT_MAX_LENGTH - 1));
+  });
+
+  it('пустое поле — обычный переход в чат, без фрагмента', () => {
+    expect(askTarget(12, 'hero-ask', '   ')).toBe(chatHref(12, 'hero-ask'));
+    expect(askTarget(12, 'hero-ask', ' Вопрос ')).toBe(chatUrlWithAsk(12, 'hero-ask', 'Вопрос'));
   });
 });

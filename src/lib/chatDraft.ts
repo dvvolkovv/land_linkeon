@@ -39,3 +39,18 @@ export function chatHref(assistantId: number, utmContent: string): string {
 export function chatUrlWithDraft(assistantId: number, utmContent: string, message: string): string {
   return `${chatHref(assistantId, utmContent)}#draft=${encodeURIComponent(cut(message, DRAFT_MAX_LENGTH))}`;
 }
+
+/**
+ * Ссылка с вопросом во фрагменте (#ask=…): кабинет отправит его сам, как только
+ * человек отметит согласие (проба без входа, spec 2026-10-30-guest-trial).
+ * Строится, как и chatUrlWithDraft, только в момент нажатия.
+ */
+export function chatUrlWithAsk(assistantId: number, utmContent: string, message: string): string {
+  return `${chatHref(assistantId, utmContent)}#ask=${encodeURIComponent(cut(message, DRAFT_MAX_LENGTH))}`;
+}
+
+/** Куда вести по кнопке «Спросить»: с вопросом — во фрагменте, без него — просто в чат. */
+export function askTarget(assistantId: number, utmContent: string, message: string): string {
+  const text = message.trim();
+  return text ? chatUrlWithAsk(assistantId, utmContent, text) : chatHref(assistantId, utmContent);
+}
