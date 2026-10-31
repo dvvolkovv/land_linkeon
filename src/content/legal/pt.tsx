@@ -337,6 +337,7 @@ export function renderLegal(type: LegalType) {
             <li><strong>Contas eliminadas:</strong> 30 dias de calendário e, em seguida, eliminação total</li>
             <li><strong>Histórico de pagamentos:</strong> 5 anos (exigência da legislação fiscal da Federação da Rússia)</li>
             <li><strong>Registos de segurança:</strong> 6 meses</li>
+            <li><strong>Conversa de experiência antes de iniciar sessão:</strong> 7 dias após a última mensagem, salvo se for transferida para uma conta; após a transferência, como as restantes conversas da conta</li>
             <li><strong>Cópias de segurança:</strong> substituídas a cada 30 dias</li>
           </UL>
 
@@ -424,6 +425,7 @@ export function renderLegal(type: LegalType) {
             <li>Nome próprio, apelido e correio eletrónico (a título facultativo do utilizador)</li>
             <li>Conteúdo das mensagens, dos pedidos e dos parâmetros do perfil profissional introduzidos na Aplicação</li>
             <li>Histórico de interações com os assistentes de IA e registos de sessão</li>
+            <li>Mensagens de uma conversa de experiência com um assistente de IA antes de iniciar sessão na Aplicação</li>
             <li>Imagens e gravações áudio carregadas pelo utilizador, bem como o fluxo áudio do
               microfone quando é utilizada a introdução por voz</li>
             <li>Amostra áudio da própria voz — apenas quando é utilizada a funcionalidade de

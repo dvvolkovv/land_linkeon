@@ -317,6 +317,7 @@ export function renderLegal(type: LegalType) {
             <li><strong>Deleted accounts:</strong> 30 calendar days, then fully removed</li>
             <li><strong>Payment history:</strong> 5 years (tax-legislation requirement)</li>
             <li><strong>Security logs:</strong> 6 months</li>
+            <li><strong>Trial conversation before sign-in:</strong> 7 days after the last message unless it is moved to an account; once moved, like the rest of the account's conversations</li>
             <li><strong>Backups:</strong> overwritten every 30 days</li>
           </UL>
 
@@ -394,6 +395,7 @@ export function renderLegal(type: LegalType) {
             <li>First name, last name, email (optional)</li>
             <li>Content of messages, requests and business-profile parameters entered in the Application</li>
             <li>History of interactions with AI assistants, session logs</li>
+            <li>Messages of a trial conversation with an AI assistant before signing in to the Application</li>
             <li>Images and audio uploaded by the user, and the microphone audio stream where voice
               input is used</li>
             <li>A sample of the user's own voice — only where the feature narrating videos in the

@@ -196,6 +196,7 @@ export function renderLegal(type: LegalType) {
             <li><strong>已删除账户：</strong>30 个日历日，其后彻底删除</li>
             <li><strong>支付记录：</strong>5 年（俄罗斯联邦税收法律的要求）</li>
             <li><strong>安全日志：</strong>6 个月</li>
+            <li><strong>登录前的试用对话：</strong>最后一条消息后保留 7 天，除非已转入账户；转入后与账户中的其他对话相同</li>
             <li><strong>备份副本：</strong>每 30 天覆盖一次</li>
           </UL>
 
@@ -243,6 +244,7 @@ export function renderLegal(type: LegalType) {
             <li>名字、姓氏、电子邮箱（由用户自愿提供）</li>
             <li>在本应用中输入的消息、请求与商务档案参数的内容</li>
             <li>与 AI 助手的交互记录、会话日志</li>
+            <li>登录本应用前与 AI 助手试用对话中的消息</li>
             <li>用户上传的图像与音频，以及使用语音输入时来自麦克风的音频流</li>
             <li>本人声音的音频样本——仅限使用以本人声音为视频配音功能，且经单独确认同意的情形</li>
             <li>与 AI 助手的语音通话和语音会议的音频，以及 Linkeon Telegram 机器人中的语音消息</li>

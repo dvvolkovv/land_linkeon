@@ -339,6 +339,7 @@ export function renderLegal(type: LegalType) {
             <li><strong>Gelöschte Konten:</strong> 30 Kalendertage, danach vollständige Löschung</li>
             <li><strong>Zahlungshistorie:</strong> 5 Jahre (Vorgabe des Steuerrechts der Russischen Föderation)</li>
             <li><strong>Sicherheitsprotokolle:</strong> 6 Monate</li>
+            <li><strong>Probegespräch vor der Anmeldung:</strong> 7 Tage nach der letzten Nachricht, sofern es nicht in ein Konto übernommen wird; nach der Übernahme wie die übrigen Gespräche des Kontos</li>
             <li><strong>Sicherungskopien:</strong> werden alle 30 Tage überschrieben</li>
           </UL>
 
@@ -428,6 +429,7 @@ export function renderLegal(type: LegalType) {
             <li>Vorname, Nachname, E-Mail-Adresse (nach Wunsch des Nutzers)</li>
             <li>Inhalt der in die Anwendung eingegebenen Nachrichten, Anfragen und Parameter des Geschäftsprofils</li>
             <li>Verlauf der Interaktionen mit den KI-Assistenten, Protokolle der Sitzungen</li>
+            <li>Nachrichten eines Probegesprächs mit einem KI-Assistenten vor der Anmeldung in der Anwendung</li>
             <li>vom Nutzer hochgeladene Bilder und Audioaufnahmen sowie der Audiostream vom
               Mikrofon bei Nutzung der Spracheingabe</li>
             <li>Stimmprobe der eigenen Stimme — nur bei Nutzung der Funktion zur Vertonung von

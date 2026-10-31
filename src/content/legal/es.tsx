@@ -336,6 +336,7 @@ export function renderLegal(type: LegalType) {
             <li><strong>Cuentas suprimidas:</strong> 30 días naturales y, a continuación, supresión completa</li>
             <li><strong>Historial de pagos:</strong> 5 años (exigencia de la legislación tributaria de la Federación de Rusia)</li>
             <li><strong>Registros de seguridad:</strong> 6 meses</li>
+            <li><strong>Conversación de prueba antes de iniciar sesión:</strong> 7 días después del último mensaje, salvo que se traslade a una cuenta; tras el traslado, como el resto de las conversaciones de la cuenta</li>
             <li><strong>Copias de seguridad:</strong> se sobrescriben cada 30 días</li>
           </UL>
 
@@ -425,6 +426,7 @@ export function renderLegal(type: LegalType) {
             <li>Nombre, apellidos y correo electrónico (a voluntad del usuario)</li>
             <li>Contenido de los mensajes, las solicitudes y los parámetros del perfil de negocio introducidos en la Aplicación</li>
             <li>Historial de interacciones con los asistentes de IA y registros de sesión</li>
+            <li>Mensajes de una conversación de prueba con un asistente de IA antes de iniciar sesión en la Aplicación</li>
             <li>Imágenes y grabaciones de audio cargadas por el usuario, así como el flujo de audio
               del micrófono cuando se utiliza la entrada por voz</li>
             <li>Muestra de audio de la propia voz: únicamente cuando se utiliza la función de
