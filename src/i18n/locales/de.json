@@ -60,21 +60,24 @@
       "h1": "Vertrag, Steuern, Werbung —",
       "h1Accent": "jemand geht das mit Ihnen durch",
       "sub": "Der Anwalt geht den Vertrag Klausel für Klausel durch und zeigt Ihnen, was Sie das kosten kann. Die Buchhalterin bringt die Zahlen zusammen und nennt Ihnen die Summe. Der Marketer schreibt das, wozu Sie nie kommen. Kommen Sie mit dem, was Sie haben.",
-      "ctaStart": "Aufgabe mitbringen"
+      "ctaStart": "Aufgabe mitbringen",
+      "askPlaceholder": "Vertrag, Steuern, Text für Kunden — Aufgabe beschreiben"
     },
     "creator": {
       "eyebrow": "Für Content",
       "h1": "Die Idee haben Sie schon —",
       "h1Accent": "den Rest bauen wir",
       "sub": "Text, Bild, Clip, ein Plan für die kommende Woche. Roman fragt, worum es geht und für wen, und bringt es fertig zurück. Ändern können Sie es, so oft Sie wollen.",
-      "ctaStart": "Idee zeigen"
+      "ctaStart": "Idee zeigen",
+      "askPlaceholder": "Idee für einen Post oder ein Video — erzählen, was geplant ist"
     },
     "assistant": {
       "eyebrow": "Persönlicher Helfer",
       "h1": "Brief, Text, Plan —",
       "h1Accent": "Sie müssen nicht selbst schreiben",
       "sub": "Roman übernimmt alles: Geschäftsbriefe, Dokumente, Posts, Texte, Ideen. Sagen Sie mit Ihren Worten, was Sie brauchen — was noch fehlt, fragt er von selbst nach.",
-      "ctaStart": "Anfangen kostet nichts"
+      "ctaStart": "Anfangen kostet nichts",
+      "askPlaceholder": "Brief, Dokument, Post — beschreiben, was gebraucht wird"
     },
     "video": {
       "eyebrow": "Kurze Videos",
@@ -82,7 +85,8 @@
       "h1Accent": "ohne Dreh und Schnitt",
       "sub": "Roman macht einen kurzen, vertikalen Clip für Reels, Shorts oder TikTok — aus einer Beschreibung oder aus einem Bild, das Sie schon haben.",
       "ctaStart": "Clip machen"
-    }
+    },
+    "askPlaceholder": "In eigenen Worten erzählen, worum es geht — der Assistent antwortet sofort"
   },
   "cartoon": {
     "eyebrow": "Animationsfilm · 1:42",
@@ -642,5 +646,11 @@
       "finalTitle": "Probieren Sie es an Ihrer eigenen Aufgabe aus",
       "trust": "Die ersten Gespräche gehen auf uns. Keine Bankkarte nötig."
     }
+  },
+  "ask": {
+    "label": "Frage an den Assistenten",
+    "button": "Fragen",
+    "note": "Antwort sofort — ohne Registrierung und ohne Karte",
+    "placeholderAssistant": "Situation in eigenen Worten beschreiben — {{name}} antwortet sofort"
   }
 }

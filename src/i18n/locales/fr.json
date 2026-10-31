@@ -60,21 +60,24 @@
       "h1": "Contrat, impôts, publicité —",
       "h1Accent": "quelqu'un regarde ça avec vous",
       "sub": "Le juriste reprend le contrat clause par clause et vous montre ce que ça peut vous coûter. Le comptable met les chiffres au clair et vous donne le montant. Le marketeur écrit ce à quoi vous n'arrivez jamais. Venez avec ce que vous avez.",
-      "ctaStart": "Apporter une tâche"
+      "ctaStart": "Apporter une tâche",
+      "askPlaceholder": "Contrat, impôts, texte pour les clients — décrire la tâche"
     },
     "creator": {
       "eyebrow": "Pour le contenu",
       "h1": "L'idée, vous l'avez déjà —",
       "h1Accent": "le reste, on l'assemble",
       "sub": "Un texte, une image, une vidéo, un plan pour la semaine. Roman demande de quoi il s'agit et pour qui, puis rapporte le résultat. On refait autant de fois qu'il le faut.",
-      "ctaStart": "Montrer l'idée"
+      "ctaStart": "Montrer l'idée",
+      "askPlaceholder": "L'idée d'un post ou d'une vidéo — dire ce qu'on a en tête"
     },
     "assistant": {
       "eyebrow": "Assistant personnel",
       "h1": "Un mail, un texte, un plan —",
       "h1Accent": "pas besoin de l'écrire vous-même",
       "sub": "Roman prend tout en charge : mails professionnels, documents, posts, textes, idées. Dites avec vos mots ce qu'il vous faut — il demandera le reste lui-même.",
-      "ctaStart": "Commencer, c'est gratuit"
+      "ctaStart": "Commencer, c'est gratuit",
+      "askPlaceholder": "Une lettre, un document, un post — décrire ce qu’il faut"
     },
     "video": {
       "eyebrow": "Vidéos courtes",
@@ -82,7 +85,8 @@
       "h1Accent": "sans tournage ni montage",
       "sub": "Roman fait une courte vidéo verticale pour Reels, Shorts ou TikTok — à partir d'une description ou d'une image que vous avez déjà.",
       "ctaStart": "Faire une vidéo"
-    }
+    },
+    "askPlaceholder": "Dire avec ses mots ce dont on a besoin — l'assistant répond tout de suite"
   },
   "cartoon": {
     "eyebrow": "Dessin animé · 1:42",
@@ -642,5 +646,11 @@
       "finalTitle": "Essayez avec votre propre tâche",
       "trust": "Les premières conversations sont offertes. Aucune carte bancaire demandée."
     }
+  },
+  "ask": {
+    "label": "Question à l'assistant",
+    "button": "Demander",
+    "note": "Réponse immédiate, sans inscription ni carte",
+    "placeholderAssistant": "Décrire la situation avec ses propres mots — {{name}} répond tout de suite"
   }
 }
